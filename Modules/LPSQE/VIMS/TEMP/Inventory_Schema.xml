@@ -1,0 +1,33 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="MP_VSL_InventoryMaster">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="InventoryId" type="xs:long" minOccurs="0" />
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="InventoryDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="UpdatedBy" type="xs:string" minOccurs="0" />
+              <xs:element name="UpdatedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Updated" type="xs:boolean" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="MP_VSL_InventoryDetails">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="InventoryId" type="xs:long" minOccurs="0" />
+              <xs:element name="ProductId" type="xs:long" minOccurs="0" />
+              <xs:element name="Quantity" type="xs:double" minOccurs="0" />
+              <xs:element name="Spoilage" type="xs:double" minOccurs="0" />
+              <xs:element name="Consumption" type="xs:double" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

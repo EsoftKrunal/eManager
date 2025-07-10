@@ -1,0 +1,389 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title></title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+    <link href="css/base.css" rel="stylesheet" type="text/css" />
+   
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css" />
+    <link rel="stylesheet" href="bower_components/select2/dist/css/select2.min.css" />
+    <%--<link rel="stylesheet" href="dist/css/skins/_all-skins.min.css" />--%>
+    <link rel="stylesheet" href="dist/css/skins/skin-green.min.css" />
+    <%-- <link href="./css/StyleSheet.css" rel="stylesheet" type="text/css" />--%>
+    <link href="css/sddm.css" rel="stylesheet" type="text/css" />
+
+    
+
+
+
+    <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
+
+    <script type="text/javascript">
+        function SignOut() {
+            if (confirm('Are you sure to leave the Application.')) { window.location = "<%#  Page.ResolveUrl("~/Logout.aspx")%>"; }
+        }
+        function detectmob() {
+            if (navigator.userAgent.match(/Android/i)
+            || navigator.userAgent.match(/webOS/i)
+            || navigator.userAgent.match(/iPhone/i)
+            || navigator.userAgent.match(/iPad/i)
+            || navigator.userAgent.match(/iPod/i)
+            || navigator.userAgent.match(/BlackBerry/i)
+            || navigator.userAgent.match(/Windows Phone/i)
+            ) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    </script>
+    <style type="text/css">
+        #mask {
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 9000;
+            background-color: #000;
+            display: none;
+        }
+
+        #boxes .window {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 440px;
+            height: 200px;
+            display: none;
+            z-index: 9999;
+            padding: 20px;
+        }
+
+        #boxes #dialog {
+            width: 375px;
+            height: 203px;
+            padding: 10px;
+            background-color: #ffffff;
+        }
+
+        #boxes #dialog1 {
+            width: 375px;
+            height: 203px;
+        }
+
+        #dialog1 .d-header {
+            background: url(images/login-header.png) no-repeat 0 0 transparent;
+            width: 375px;
+            height: 150px;
+        }
+
+            #dialog1 .d-header input {
+                position: relative;
+                top: 60px;
+                left: 100px;
+                border: 3px solid #cccccc;
+                height: 22px;
+                width: 200px;
+                font-size: 15px;
+                padding: 5px;
+                margin-top: 4px;
+            }
+
+        #dialog1 .d-blank {
+            float: left;
+            background: url(images/login-blank.png) no-repeat 0 0 transparent;
+            width: 267px;
+            height: 53px;
+        }
+
+        #dialog1 .d-login {
+            float: left;
+            width: 108px;
+            height: 53px;
+        }
+
+        #boxes #dialog2 {
+            background: url(../Images/notice.png) no-repeat 0 0 transparent;
+            width: 326px;
+            height: 229px;
+            padding: 50px 0 20px 25px;
+        }
+    </style>
+    <style type="text/css">
+        .dropdown-menu {
+            width: 100% !important;
+            padding: 15px !important;
+        }
+
+        .modal {
+            zoom: 1;
+            position: absolute;
+            z-index: 2147483647 !important;
+            filter: alpha(opacity=90);
+            opacity: 0.90;
+            background-color: #808080;
+            overflow: hidden;
+            text-align: center;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            font-weight: bold;
+            FONT-SIZE: 18pt;
+            COLOR: black;
+            FONT-FAMILY: Verdana;
+            TEXT-ALIGN: center;
+            padding: 60px;
+        }
+
+        .loading {
+            font-family: Arial;
+            font-size: 10pt;
+            border: 5px solid #67CFF5;
+            width: 200px;
+            height: 100px;
+            display: none;
+            position: fixed;
+            background-color: White;
+            z-index: 999;
+        }
+    </style>
+
+</head>
+
+<body class="hold-transition skin-green sidebar-collapse   sidebar-mini" >
+    <%--sidebar-collapse--%>
+    <form id="form1" runat="server" autocomplete="off">
+        <div class="wrapper">
+            <!-- Main Header -->
+            <header class="main-header">
+                <!-- Logo -->
+                <a href="<%# Page.ResolveUrl("~/Dashboard.aspx")%>" class="logo">
+                    <!-- mini logo for sidebar mini 50x50 pixels -->
+
+                   <%-- <span class="logo-mini"><i class='fa fa-home'></i></span>--%>
+                    <span class="logo-mini"><img src="~/images/energios-logo-Mini.png" runat="server" style="width:40px;height:46px;" /></span>
+                    <!-- logo for regular state and mobile devices -->
+                   <%-- <span class="logo-lg">
+                        <i class='fa fa-home'></i>
+                        <b>
+                        <asp:Label ID="CompanyNameHeader" runat="server"></asp:Label>
+                                                                   </b>
+
+                    </span>--%>
+                    <span>
+                        
+                    </span>
+                    <span> 
+                          <img src="images/Newlogo_energios.png" runat="server" style="width:175px;height:50px;"/>
+                    </span>
+                </a>
+
+                <!-- Header Navbar -->
+                <nav class="navbar navbar-static-top" role="navigation">
+                    <!-- Sidebar toggle button-->
+                    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button"></a>
+
+                    <ul class="nav navbar-nav">
+                        <!-- Messages: style can be found in dropdown.less-->
+                        <li class="dropdown messages-menu">
+                            <!-- Menu toggle button -->
+
+                            <%--<a href="#" runat="server" id="labelTop" class="dropdown-toggle " data-toggle="dropdown">--%>
+                            <%-- <span class="label label-warning">+</span>--%>
+
+                            <span style="color: #476f66; height: 50px; font-size: 20px; line-height: 50px; text-align: center; font-family: Arial; padding: 0 15px; font-weight: 300;">
+                                <asp:Label ID="lblPageTitle" runat="server"></asp:Label>
+                            </span>
+
+                            <%-- </a>--%>
+                            <ul class="dropdown-menu">
+                                <li class="header">
+                                    <p>
+                                        <asp:Label ID="lblPageDescription" runat="server"></asp:Label>
+                                    </p>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- /.messages-menu -->
+                    </ul>
+
+                    <!-- Navbar Right Menu -->
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">
+                            <!-- User Account Menu -->
+                            <li class="dropdown user user-menu">
+                                <!-- Menu Toggle Button -->
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <!-- The user image in the navbar-->
+
+                                    <i class="fa fa-user-circle " style="font-size: 18px;"></i>
+                                    <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                                    <span class="hidden-xs">
+                                        <asp:Label ID="lblUserName" runat="server">
+
+                                        </asp:Label>
+                                    </span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                </ul>
+                                <ul class="dropdown-menu user-body">
+
+                                    <!-- Menu Body -->
+                                    <li>
+                                        <span class="icon is-small">
+                                            <i class="fa fa-github"></i>
+                                        </span>
+                                        <span>
+                                            <asp:LinkButton runat="server" ID="btnChangePassword" CausesValidation="false" OnClick="btnChangePassword_Click">Change Password</asp:LinkButton>
+                                        </span></li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <span class="icon is-small"><i class="fa fa-sign-out"></i></span>
+                                        <span>
+                                            <asp:LinkButton runat="server" ID="btnSignOut" CausesValidation="false" OnClick="btnSignOut_Click">Logout</asp:LinkButton>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+            <!-- Left side column. contains the logo and sidebar -->
+            <aside class="main-sidebar">
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+                    <asp:Literal runat="server" ID="MenuLiteral"></asp:Literal>
+                </section>
+                <!-- /.sidebar -->
+            </aside>
+
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <!-- Content Wrapper. Contains page content -->
+                <!-- Main content -->
+                <%--  <section class="content">--%>
+                <asp:ContentPlaceHolder ID="ContentMainMaster" runat="server">
+                </asp:ContentPlaceHolder>
+                <asp:ContentPlaceHolder ID="MainFoot" runat="server"></asp:ContentPlaceHolder>
+                <%--   </section>--%>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
+
+            <!-- Main Footer -->
+            <footer class="main-footer" style="text-align:center;">
+                <!-- To the right -->
+                <%--<div class="pull-right hidden-xs">
+                    Designed and Developed by :<strong><a target="_blank" href="https://www.esoftech.com/"> e.Soft Technologies Pvt Ltd.</a></strong>
+                </div>--%>
+                <!-- Default to the left -->
+                
+                <strong>Copyright &copy; &nbsp;2023. Power By : Energios Pte Ltd. 
+                    <asp:HyperLink Visible="false" ID="ComanyLinkFooter" NavigateUrl="https://www.esoftech.com/" runat="server"></asp:HyperLink></strong> All rights reserved.
+            </footer>
+        </div>
+
+
+
+
+
+
+
+
+    </form>
+
+    <script type="text/javascript">
+        // HideWait();
+    </script>
+
+</body>
+</html>
+<script type="text/javascript" src="<%= Page.ResolveUrl("~/bower_components/jquery/dist/jquery.min.js")%>"></script>
+
+<script type="text/javascript" src="<%= Page.ResolveUrl("~/bower_components/bootstrap/dist/js/bootstrap.min.js")%>"></script>
+<script type="text/javascript" src="<%= Page.ResolveUrl("~/dist/js/adminlte.min.js")%>"></script>
+<script type="text/javascript" src="<%= Page.ResolveUrl("~/bower_components/select2/dist/js/select2.full.min.js")%>"></script>
+<script type="text/javascript" src="<%= Page.ResolveUrl("~/JS/Common.js")%>"></script>
+<script type="text/javascript" src="<%= Page.ResolveUrl("~/JS/ScrollableTablePlugin_1.0_min.js")%>"></script>
+
+<script type="text/javascript" src="<%= Page.ResolveUrl("~/bower_components/datatables.net/js/jquery.dataTables.min.js")%>"></script>
+
+<script type="text/javascript" src="<%= Page.ResolveUrl("~/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js")%>"></script>
+
+ <script type="text/javascript">
+     function SetClickedMenuID(mid) {
+         
+         
+         sessionStorage.setItem("ClickedMenuID", mid);
+}
+</script>
+<%--<script>
+    
+   
+
+     function pageLoad(sender, args) {
+         $(".select2").select2();
+         $('#TablerptSearch').Scrollable({
+             ScrollHeight: 350
+         });
+         $('#ctl00_ContentMainMaster_gvMenuList').DataTable({
+             'paging': true,
+             'lengthChange': false,
+             'searching': false,
+             'ordering': true,
+             'info': true,
+             'autoWidth': false
+         });
+
+     }
+
+</script>--%>
+<script>
+    $.AdminLTESidebarTweak = {};
+
+    $.AdminLTESidebarTweak.options = {
+        EnableRemember: true,
+        NoTransitionAfterReload: false
+        //Removes the transition after page reload.
+    };
+
+    $(function () {
+        "use strict";
+
+        $("body").on("collapsed.pushMenu", function () {
+            if ($.AdminLTESidebarTweak.options.EnableRemember) {
+                document.cookie = "toggleState=closed";
+            }
+        });
+        $("body").on("expanded.pushMenu", function () {
+            if ($.AdminLTESidebarTweak.options.EnableRemember) {
+                document.cookie = "toggleState=opened";
+            }
+        });
+
+        if ($.AdminLTESidebarTweak.options.EnableRemember) {
+            var re = new RegExp('toggleState' + "=([^;]+)");
+            var value = re.exec(document.cookie);
+            var toggleState = (value != null) ? unescape(value[1]) : null;
+            if (toggleState == 'closed') {
+                if ($.AdminLTESidebarTweak.options.NoTransitionAfterReload) {
+                    $("body").addClass('sidebar-collapse hold-transition').delay(100).queue(function () {
+                        $(this).removeClass('hold-transition');
+                    });
+                } else {
+                    $("body").addClass('sidebar-collapse');
+                }
+            }
+        }
+    });
+</script>

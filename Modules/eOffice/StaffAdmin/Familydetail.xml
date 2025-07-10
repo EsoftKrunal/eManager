@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Familydetail>
+  <Family>
+    <srno>1</srno>
+    <name>Bob Dylan</name>
+    <dob>01-Mar-1980</dob>
+    <pob>Columbia</pob>
+    <gender>Male</gender>
+    <relation>Brother</relation>
+  </Family>
+  <Family>
+    <srno>2</srno>
+    <name>Bob</name>
+    <dob>01-Jan-1982</dob>
+    <pob>England</pob>
+    <gender>Male</gender>
+    <relation>Uncle</relation>
+  </Family>
+  <Family>
+    <srno>3</srno>
+    <name>George</name>
+    <dob>01-Oct-1984</dob>
+    <pob>Lucknow</pob>
+    <gender>Female</gender>
+    <relation>Aunty</relation>
+  </Family>
+</Familydetail>

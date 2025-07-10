@@ -1,0 +1,76 @@
+D:\Projects_VS2010\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.DataAccessLayer.dll
+D:\Projects_VS2010\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.DataAccessLayer.pdb
+D:\Projects_VS2010\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.BusinessObjects.dll
+D:\Projects_VS2010\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.BusinessObjects.pdb
+D:\Projects_VS2010\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ResolveAssemblyReference.cache
+D:\Projects_VS2010\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ShipSoft.CrewManager.DataAccessLayer.dll
+D:\Projects_VS2010\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ShipSoft.CrewManager.DataAccessLayer.pdb
+D:\GIT\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.DataAccessLayer.dll
+D:\GIT\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.DataAccessLayer.pdb
+D:\GIT\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.BusinessObjects.dll
+D:\GIT\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.BusinessObjects.pdb
+D:\GIT\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ResolveAssemblyReference.cache
+D:\GIT\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ShipSoft.CrewManager.DataAccessLayer.dll
+D:\GIT\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ShipSoft.CrewManager.DataAccessLayer.pdb
+D:\MTM_GIT\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.DataAccessLayer.dll
+D:\MTM_GIT\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.DataAccessLayer.pdb
+D:\MTM_GIT\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.BusinessObjects.dll
+D:\MTM_GIT\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.BusinessObjects.pdb
+D:\MTM_GIT\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ResolveAssemblyReference.cache
+D:\MTM_GIT\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ShipSoft.CrewManager.DataAccessLayer.dll
+D:\MTM_GIT\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ShipSoft.CrewManager.DataAccessLayer.pdb
+D:\Project Repositry\GIT@192_168_2_6\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.DataAccessLayer.dll
+D:\Project Repositry\GIT@192_168_2_6\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.DataAccessLayer.pdb
+D:\Project Repositry\GIT@192_168_2_6\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.BusinessObjects.dll
+D:\Project Repositry\GIT@192_168_2_6\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.BusinessObjects.pdb
+D:\Project Repositry\GIT@192_168_2_6\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ResolveAssemblyReference.cache
+D:\Project Repositry\GIT@192_168_2_6\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ShipSoft.CrewManager.DataAccessLayer.dll
+D:\Project Repositry\GIT@192_168_2_6\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ShipSoft.CrewManager.DataAccessLayer.pdb
+F:\GIT\Projects@10.10.8.6\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.DataAccessLayer.dll
+F:\GIT\Projects@10.10.8.6\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.DataAccessLayer.pdb
+F:\GIT\Projects@10.10.8.6\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.BusinessObjects.dll
+F:\GIT\Projects@10.10.8.6\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.BusinessObjects.pdb
+F:\GIT\Projects@10.10.8.6\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ShipSoft.CrewManager.DataAccessLayer.dll
+F:\GIT\Projects@10.10.8.6\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ShipSoft.CrewManager.DataAccessLayer.pdb
+F:\GIT\Projects@10.10.8.6\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ShipSoft.CrewManager.DataAccessLayer.csprojResolveAssemblyReference.cache
+V:\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.DataAccessLayer.dll
+V:\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.DataAccessLayer.pdb
+V:\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.BusinessObjects.dll
+V:\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.BusinessObjects.pdb
+V:\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ShipSoft.CrewManager.DataAccessLayer.csprojResolveAssemblyReference.cache
+V:\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ShipSoft.CrewManager.DataAccessLayer.dll
+V:\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ShipSoft.CrewManager.DataAccessLayer.pdb
+C:\Projects\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.DataAccessLayer.dll
+C:\Projects\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.DataAccessLayer.pdb
+C:\Projects\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.BusinessObjects.dll
+C:\Projects\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.BusinessObjects.pdb
+C:\Projects\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ShipSoft.CrewManager.DataAccessLayer.csprojResolveAssemblyReference.cache
+C:\Projects\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ShipSoft.CrewManager.DataAccessLayer.dll
+C:\Projects\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ShipSoft.CrewManager.DataAccessLayer.pdb
+C:\MyDATA\energiosOS\Sourcecode\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.DataAccessLayer.dll
+C:\MyDATA\energiosOS\Sourcecode\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.DataAccessLayer.pdb
+C:\MyDATA\energiosOS\Sourcecode\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.BusinessObjects.dll
+C:\MyDATA\energiosOS\Sourcecode\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.BusinessObjects.pdb
+C:\MyDATA\energiosOS\Sourcecode\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ShipSoft.CrewManager.DataAccessLayer.csproj.AssemblyReference.cache
+C:\MyDATA\energiosOS\Sourcecode\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ShipSoft.CrewManager.DataAccessLayer.csproj.CoreCompileInputs.cache
+C:\MyDATA\energiosOS\Sourcecode\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ShipSoft.CrewManager.DataAccessLayer.csproj.CopyComplete
+C:\MyDATA\energiosOS\Sourcecode\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ShipSoft.CrewManager.DataAccessLayer.dll
+C:\MyDATA\energiosOS\Sourcecode\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ShipSoft.CrewManager.DataAccessLayer.pdb
+C:\Sourcecode\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.DataAccessLayer.dll
+C:\Sourcecode\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.DataAccessLayer.pdb
+C:\Sourcecode\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.BusinessObjects.dll
+C:\Sourcecode\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.BusinessObjects.pdb
+C:\Sourcecode\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ShipSoft.CrewManager.DataAccessLayer.csproj.AssemblyReference.cache
+C:\Sourcecode\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ShipSoft.CrewManager.DataAccessLayer.csproj.CoreCompileInputs.cache
+C:\Sourcecode\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ShipSoft.CrewManager.DataAccessLayer.csproj.CopyComplete
+C:\Sourcecode\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ShipSoft.CrewManager.DataAccessLayer.dll
+C:\Sourcecode\CMS\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ShipSoft.CrewManager.DataAccessLayer.pdb
+C:\Sourcecode\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ShipSoft.CrewManager.DataAccessLayer.csproj.AssemblyReference.cache
+C:\Sourcecode\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ShipSoft.CrewManager.DataAccessLayer.csproj.CoreCompileInputs.cache
+C:\Sourcecode\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.DataAccessLayer.dll
+C:\Sourcecode\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.DataAccessLayer.pdb
+C:\Sourcecode\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.BusinessObjects.dll
+C:\Sourcecode\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.BusinessObjects.pdb
+C:\Sourcecode\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ShipSoft.CrewManager.DataAccessLayer.csproj.CopyComplete
+C:\Sourcecode\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ShipSoft.CrewManager.DataAccessLayer.dll
+C:\Sourcecode\Class Libraries\ShipSoft.CrewManager.DataAccessLayer\obj\Debug\ShipSoft.CrewManager.DataAccessLayer.pdb

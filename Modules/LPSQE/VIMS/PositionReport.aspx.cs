@@ -1,0 +1,750 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Configuration;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using System.Data.SqlClient;
+using System.Text;
+using Ionic.Zip;
+using System.IO;
+
+public partial class PositionReport : System.Web.UI.Page
+{
+    public int UserId
+    {
+        get { return Common.CastAsInt32(ViewState["UserId"]); }
+        set { ViewState["UserId"] = value; }
+    }
+    public int Mail_CId 
+    {
+        get { return Common.CastAsInt32(ViewState["Mail_CId"]); }
+        set { ViewState["Mail_CId"] = value; }
+    }
+    public string UserName
+    {
+        get { return ViewState["UserName"].ToString(); }
+        set { ViewState["UserName"] = value; }
+    }
+    public string CurrentVessel
+    {
+        get { return ViewState["CurrentVessel"].ToString(); }
+        set { ViewState["CurrentVessel"] = value; }
+    }
+    
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            CurrentVessel = Session["CurrentShip"].ToString();
+            UserId = Common.CastAsInt32(Session["loginid"]);
+            UserName = Session["UserName"].ToString();
+
+            txtFDate.Text = "01-Jan-" + DateTime.Today.Year;
+            txtTDate.Text = "31-Dec-" + DateTime.Today.Year;
+            
+            Bindgrid();
+        }
+    }
+    //protected void btnDownloadFile_Click(object sender, EventArgs e)
+    //{
+    //    int CId = Common.CastAsInt32(((ImageButton)sender).CommandArgument);
+    //    DataTable dt = Common.Execute_Procedures_Select_ByQuery("SELECT * FROM DBO.Cir_Circular WHERE CId=" + CId.ToString());
+        
+    //    if (dt.Rows.Count > 0)
+    //    {
+    //        string FileName = dt.Rows[0]["AttachmentFileName"].ToString();
+    //        //string Path = Server.MapPath("~/Attachments/" + FileName);
+    //        if (FileName.Trim() != "")
+    //        {
+    //            byte[] buff = (byte[])dt.Rows[0]["Attachment"];
+    //            Response.AppendHeader("Content-Disposition", "attachment; filename=" + FileName);
+    //            Response.BinaryWrite(buff);
+    //            Response.Flush();
+    //            Response.End();
+    //        }
+    //    }
+    //}
+    //protected void btnShowClosure_Click(object sender, EventArgs e)
+    //{
+    //    Mail_CId = Common.CastAsInt32(((ImageButton)sender).CommandArgument);
+    //    dv_Closure.Visible = true;
+    //}
+    //protected void btnExport_Click(object sender, EventArgs e)
+    //{
+    //    int CId= Common.CastAsInt32(((ImageButton)sender).CommandArgument);
+    //    string CircularNumber = ((ImageButton)sender).CssClass;
+    //    string SQL = "SELECT * FROM DBO.Cir_Vessel_Notifications WHERE CId = " + CId + " AND VesselCode='" + CurrentVessel + "'";
+    //    DataTable dt = Common.Execute_Procedures_Select_ByQuery(SQL);
+    //    dt.TableName = "Cir_Vessel_Notifications";
+    //    string SchemaFile = Server.MapPath("~/VIMS/TEMP/CircularNotificationSchema.xml");
+    //    string DataFile = Server.MapPath("~/VIMS/TEMP/CircularNotificationData.xml");
+    //    string ZipFile = Server.MapPath("~/VIMS/TEMP/" + CircularNumber.Replace("/", "-") + ".zip");
+    //    List<string> BCCMails = new List<string>();
+    //    dt.DataSet.WriteXmlSchema(SchemaFile);
+    //    dt.DataSet.WriteXml(DataFile);
+    //    using (ZipFile zip = new ZipFile())
+    //    {
+    //        zip.AddFile(SchemaFile);
+    //        zip.AddFile(DataFile);
+    //        zip.Save(ZipFile);
+    //    }
+
+    //    byte[] buff = System.IO.File.ReadAllBytes(ZipFile);
+    //    Response.AppendHeader("Content-Disposition", "attachment; filename=CircularACK_" + CurrentVessel + "_" + Path.GetFileName(ZipFile));
+    //    Response.BinaryWrite(buff);
+    //    Response.Flush();
+    //    Response.End();
+    //}
+    
+    //protected void btnClosureSave_Click(object sender, EventArgs e)
+    //{
+
+    //    int discussed=Common.CastAsInt32(rbtn1.SelectedValue);
+    //    int noticed=Common.CastAsInt32(rbtn2.SelectedValue);
+    //    if (discussed == 0 || noticed == 0)
+    //    {
+    //        lblmess.Visible = true;
+    //        return;
+    //    }
+
+    //    Common.Execute_Procedures_Select_ByQuery("exec CIR_InsertUpdateCircular_Vessel_Notifications_VSL " + Mail_CId.ToString() + ",'" + CurrentVessel + "','" + DateTime.Today.ToString("dd-MMM-yyyy hh:ss tt") + "',''," + discussed + "," + noticed + "");
+    //    Bindgrid();
+    //    dv_Closure.Visible = false;
+    //}
+    //protected void btnClosureCancel_Click(object sender, EventArgs e)
+    //{
+    //    dv_Closure.Visible = false;
+    //}
+
+    //protected void btnSaveImport_Click(object sender, EventArgs e)
+    //{
+    //    if (flp_Upload.HasFile)
+    //    {
+    //        string TargetDir = Server.MapPath("~/VIMS/TEMP/");
+    //        string SchemaFile = TargetDir + "CircularSchema.XML";
+    //        string DataFile = TargetDir + "CircularData.XML";
+
+
+    //        if (File.Exists(SchemaFile))
+    //            File.Delete(SchemaFile);
+    //        if (File.Exists(DataFile))
+    //            File.Delete(DataFile);
+
+    //        if (flp_Upload.HasFile)
+    //        {
+    //            using (ZipFile zip = ZipFile.Read(flp_Upload.PostedFile.InputStream))
+    //            {
+
+    //                foreach (ZipEntry ex in zip.EntriesSorted)
+    //                {
+    //                    try
+    //                    {
+    //                        ex.FileName = Path.GetFileName(ex.FileName);
+    //                        ex.Extract(TargetDir, ExtractExistingFileAction.OverwriteSilently);
+    //                    }
+    //                    catch { continue; }
+    //                }
+    //            }
+    //            ImportData(SchemaFile, DataFile);
+    //            dv_Import.Visible = false;
+    //        }
+    //    }
+    //    else
+    //    {
+    //        ProjectCommon.ShowMessage("Please select a file to import.");
+    //    }
+        
+    //}
+    //protected void btnCancelImport_Click(object sender, EventArgs e)
+    //{
+    //    dv_Import.Visible = false;
+    //}
+    //protected void btnShowImport_Click(object sender, EventArgs e)
+    //{
+    //    dv_Import.Visible = true;
+    //}
+
+    protected void Filter_Cir(object sender, EventArgs e)
+    {
+        Bindgrid();
+    }
+    protected void btnView_Click(object sender, EventArgs e)
+    {
+        int ReportId = Common.CastAsInt32(((ImageButton)sender).CommandArgument.Split('~').GetValue(0));
+        string VesselId = ((ImageButton)sender).CommandArgument.Split('~').GetValue(1).ToString();
+        string ReportType = ((ImageButton)sender).CommandArgument.Split('~').GetValue(2).ToString();
+        string ReportPage = "";
+       
+        switch(ReportType.Trim())
+        {
+            case "A": 
+                ReportPage = "ArrivalReport.aspx";
+                break;
+            case "D":
+                ReportPage = "DepartureReport.aspx";
+                break;
+            case "N":
+                ReportPage = "NoonReport.aspx";
+                break;
+            case "PA":
+                ReportPage = "PortAnchoringReport.aspx";
+                break;
+            case "PB":
+                ReportPage = "PortBerthingReport.aspx";
+                break;
+            case "PD":
+                ReportPage = "PortDriftReport.aspx";
+                break;
+            default : 
+                ReportPage = "";
+                break;
+
+        }
+
+        ScriptManager.RegisterStartupScript(Page, this.GetType(), "Show Report", "window.open('" + ReportPage + "?Key=" + ReportId + "', '_blank', '');", true);
+
+    }
+    //protected void ImportData(string SchemaFile,string DataFile)
+    //{
+    //    string sqlConnectionString = ConfigurationManager.ConnectionStrings["eMANAGER"].ToString().Replace("Master", "eMANAGER");
+    //    SqlTransaction trans;
+    //    SqlConnection Con = new SqlConnection(sqlConnectionString);
+    //    Con.Open();
+    //    trans = Con.BeginTransaction();
+    //    DataSet ds=new DataSet();
+    //    ds.ReadXmlSchema(SchemaFile);
+    //    ds.ReadXml(DataFile);
+    //    ResetNULLDates(ref ds);
+
+    //    int CId = Convert.ToInt32(ds.Tables["Cir_Circular"].Rows[0]["CId"]);
+
+    //    try
+    //    {
+
+    //    SqlCommand cmd = new SqlCommand("", Con);
+    //    cmd.CommandType = CommandType.StoredProcedure;
+    //    cmd.Transaction = trans;
+    //    //------------------------------------------------      
+    //    cmd.CommandType = CommandType.StoredProcedure;
+    //    //------------------------------------------------      
+    //    if (ds.Tables["Cir_Circular"].Rows.Count > 0)
+    //    {
+    //        foreach (DataRow dr in ds.Tables["Cir_Circular"].Rows)
+    //        {
+    //            //-------------------------------
+    //            string[] CommandParameters = getCommandParameters(cmd, "CIR_InsertUpdateCircular_VSL");
+    //            cmd.Parameters.Clear();
+    //            cmd.CommandText = "CIR_InsertUpdateCircular_VSL";
+    //            cmd.CommandType = CommandType.StoredProcedure;
+    //            for (int i = 0; i <= CommandParameters.Length - 1; i++)
+    //            {
+    //                object data = DBNull.Value;
+    //                try
+    //                { data = dr[CommandParameters[i]]; }
+    //                catch { data = DBNull.Value; }
+    //                cmd.Parameters.Add(new SqlParameter(CommandParameters[i], data));
+    //            }
+    //            //------------------------------
+    //            int result = cmd.ExecuteNonQuery();
+    //        }
+    //    }
+
+    //    trans.Commit();
+    //    ProjectCommon.ShowMessage("Circular imported successfully.");
+    //    Bindgrid();
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        trans.Rollback();
+    //        ProjectCommon.ShowMessage("Unable to import circular.");
+    //    }
+    //    finally
+    //    {
+    //        if (Con.State == ConnectionState.Open) { Con.Close(); }
+    //    }
+    //}
+    //protected string[] getCommandParameters(SqlCommand cmd, string ProcName)
+    //{
+    //    string[] result;
+    //    cmd.Parameters.Clear();
+    //    cmd.CommandType = CommandType.Text;
+    //    //---------------- CHECKING PACKET RECEIVED NO. IS GREATER THAN DB PACKET RECEIVED
+    //    cmd.CommandText = "select replace(parameter_name,'@','') as parameter_name from information_schema.parameters where specific_name='" + ProcName + "' and ltrim(rtrim(parameter_name))<>''";
+    //    DataTable dt = new DataTable();
+    //    SqlDataAdapter adp = new SqlDataAdapter();
+    //    adp.SelectCommand = cmd;
+    //    adp.Fill(dt);
+    //    result = new string[dt.Rows.Count];
+    //    for (int i = 0; i <= dt.Rows.Count - 1; i++)
+    //    {
+    //        result[i] = dt.Rows[i][0].ToString();
+    //    }
+    //    return result;
+    //}
+    //private void ResetNULLDates(ref DataSet ds_IN)
+    //{
+    //    DateTime dt_ref = new DateTime(1900, 1, 1);
+    //    foreach (DataTable dt in ds_IN.Tables)
+    //    {
+    //        List<String> DateTimeCols = new List<String>();
+    //        foreach (DataColumn dc in dt.Columns)
+    //        {
+    //            if (dc.DataType == System.Type.GetType("System.DateTime"))
+    //            {
+    //                DateTimeCols.Add(dc.ColumnName);
+    //            }
+    //        }
+    //        if (DateTimeCols.Count > 0 && dt.Rows.Count > 0)
+    //        {
+    //            foreach (DataRow dr in dt.Rows)
+    //            {
+    //                foreach (string cName in DateTimeCols)
+    //                {
+    //                    if (!Convert.IsDBNull(dr[cName]))
+    //                    {
+    //                        DateTime dt_test = Convert.ToDateTime(dr[cName]);
+    //                        if (dt_test <= dt_ref)
+    //                        {
+    //                            dr[cName] = DBNull.Value;
+    //                        }
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
+
+    protected void btnNewReport_Click(object sender, EventArgs e)
+    {
+        ddlAddReportType.Items.Clear();
+        ListItem Select = new ListItem("< Select >", "");
+        ListItem Departure=new ListItem("Departure","D");
+        ListItem Noon=new ListItem("Noon","N");
+        ListItem Arrival=new ListItem("Arrival","A");
+        ListItem PA=new ListItem("Port-Anchorage","PA");
+        ListItem PB=new ListItem("Port-Berthing","PB");
+        ListItem PD=new ListItem("Port-Drift","PD");
+        ddlAddReportType.Items.Add(Select);
+        dv_AddNew.Visible = true;
+        DataTable dt = Common.Execute_Procedures_Select_ByQuery("SELECT TOP 1 ReportTypeCode, ReportDate FROM [dbo].[VW_VSL_VPR_ALLREPORTS] WHERE VESSELID='" + CurrentVessel + "' ORDER BY ReportsPK DESC");
+
+        if (dt.Rows.Count > 0)
+        {
+            string ReportTypeCode = dt.Rows[0]["ReportTypeCode"].ToString().Trim();
+            switch (ReportTypeCode)
+            {
+                case "D":
+                    ddlAddReportType.Items.Add(Noon);
+                    ddlAddReportType.Items.Add(Arrival);
+                    break;
+                case "A":
+                    ddlAddReportType.Items.Add(PA);
+                    ddlAddReportType.Items.Add(PB);
+                    ddlAddReportType.Items.Add(PD);
+                    break;
+                case "N":
+                    ddlAddReportType.Items.Add(Noon);
+                    ddlAddReportType.Items.Add(Arrival);
+                    break;
+                case "PA":
+                    ddlAddReportType.Items.Add(PA);
+                    ddlAddReportType.Items.Add(PB);
+                    ddlAddReportType.Items.Add(PD);
+                    ddlAddReportType.Items.Add(Departure);
+                    break;
+                case "PB":
+                    ddlAddReportType.Items.Add(PA);
+                    ddlAddReportType.Items.Add(PB);
+                    ddlAddReportType.Items.Add(PD);
+                    ddlAddReportType.Items.Add(Departure);
+                    break;
+                case "PD":
+                    ddlAddReportType.Items.Add(PA);
+                    ddlAddReportType.Items.Add(PB);
+                    ddlAddReportType.Items.Add(PD);
+                    ddlAddReportType.Items.Add(Departure);
+                    break;
+                default:
+
+                    break;
+            }
+        }
+        else
+        {
+            ddlAddReportType.Items.Add(Departure);
+        }
+
+    }
+
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+        if (ddlAddReportType.SelectedIndex == 0)
+        {
+            ScriptManager.RegisterStartupScript(Page, this.GetType(), "false", "alert('Please select Report Type.');", true);
+            ddlAddReportType.Focus();
+            return;
+        }
+
+        string ReportPage = "";
+
+        switch (ddlAddReportType.SelectedValue.Trim())
+        {
+            case "A":
+                ReportPage = "ArrivalReport.aspx";
+                break;
+            case "D":
+                ReportPage = "DepartureReport.aspx";
+                break;
+            case "N":
+                ReportPage = "NoonReport.aspx";
+                break;
+            case "PA":
+                ReportPage = "PortAnchoringReport.aspx";
+                break;
+            case "PB":
+                ReportPage = "PortBerthingReport.aspx";
+                break;
+            case "PD":
+                ReportPage = "PortDriftReport.aspx";
+                break;
+            default:
+                ReportPage = "";
+                break;
+
+        }
+
+        ScriptManager.RegisterStartupScript(Page, this.GetType(), "Show Report", "window.open('" + ReportPage + "', '_blank', '');", true);
+
+        dv_AddNew.Visible = false;
+    }
+    protected void btnClose_Click(object sender, EventArgs e)
+    {
+        dv_AddNew.Visible = false;
+    }
+
+    protected void btnSearch_Click(object sender, EventArgs e)
+    {
+        Bindgrid();
+    }
+    
+    protected void Bindgrid()
+    {
+        string Filter = " ";
+
+        //if (txtFDate.Text.Trim() != "")
+        //{
+        //    Filter += " AND ReportDate >='" + txtFDate.Text + "'";
+        //}
+        //if (txtTDate.Text.Trim() != "")
+        //{
+        //    Filter += " AND ReportDate <='" + txtTDate.Text + "'";
+        //}
+        if (ddlReportType.SelectedIndex != 0)
+        {
+            Filter += " AND ReportTypeCode='" + ddlReportType.SelectedValue + "'";
+        }
+        if (txtVoyageNo.Text.Trim() != "")
+        {
+            Filter += " AND VoyageNo LIKE '%" + txtVoyageNo.Text.Trim() + "%'";
+        }
+
+        if (ddlLocation.SelectedIndex != 0)
+        {
+            if (ddlLocation.SelectedValue == "A")
+            {
+                Filter += " AND ReportTypeCode='N'";
+            }
+
+            if (ddlLocation.SelectedValue == "I")
+            {
+                Filter += " AND ReportTypeCode <> 'N'";
+            }
+        }
+
+        string SQL = "SELECT * FROM VW_VSL_VPR_ALLREPORTS WHERE VesselId = '" + CurrentVessel + "' AND ReportDate >='" + txtFDate.Text + "' AND ReportDate <='" + txtTDate.Text + "' " + Filter;
+        DataTable dt = Common.Execute_Procedures_Select_ByQuery(SQL + " ORDER BY ReportsPK Desc ");
+
+        if (dt != null && dt.Rows.Count > 0)
+        {
+            rptPR.DataSource = dt;
+            rptPR.DataBind();
+            
+            rptFuel.DataSource = dt;
+            rptFuel.DataBind();
+
+            lblSumIFORecd.Text = dt.Compute("SUM(ROBIFO45Recv)", "").ToString();
+            lblSumIFOME.Text = dt.Compute("SUM(MEIFO45)", "").ToString();
+            lblSumIFOAE.Text = dt.Compute("SUM(AEIFO45)", "").ToString();
+            lblSumIFOBoiler.Text = dt.Compute("SUM(CargoHeatingIFO45)", "").ToString();
+
+            lblSumMGORecd.Text = dt.Compute("SUM(ROBMGO1Recv)", "").ToString();
+            lblSumMGOME.Text = dt.Compute("SUM(MEMGO1)", "").ToString();
+            lblSumMGOAE.Text = dt.Compute("SUM(AEMGO1)", "").ToString();
+            lblSumMGOBoiler.Text = dt.Compute("SUM(CargoHeatingMGO1)", "").ToString();
+
+            lblSumMDORecd.Text = dt.Compute("SUM(RobMDORecv)", "").ToString();
+            lblSumMDOME.Text = dt.Compute("SUM(MEMDO)", "").ToString();
+            lblSumMDOAE.Text = dt.Compute("SUM(AEMDO)", "").ToString();
+            lblSumMDOBoiler.Text = dt.Compute("SUM(CargoHeatingMDO)", "").ToString();
+
+
+            rptLube.DataSource = dt;
+            rptLube.DataBind();
+
+            lblSumMECCRecd.Text = dt.Compute("SUM(ROBMECCRecv)", "").ToString();
+            lblSumMECCCons.Text = dt.Compute("SUM(MECCLube)", "").ToString();
+
+            lblSumMECYLRecd.Text = dt.Compute("SUM(ROBMECYLRecv)", "").ToString();
+            lblSumMECYLCons.Text = dt.Compute("SUM(MECYLLube)", "").ToString();
+
+            lblSumAECCRecd.Text = dt.Compute("SUM(ROBAECCRecv)", "").ToString();
+            lblSumAECCCons.Text = dt.Compute("SUM(AECCLube)", "").ToString();
+
+            lblSumHYDRecd.Text = dt.Compute("SUM(ROBHYDRecv)", "").ToString();
+            lblSumHYDCons.Text = dt.Compute("SUM(HYDLube)", "").ToString();
+
+            rptFW.DataSource = dt;
+            rptFW.DataBind();
+
+            lblSumFWGenerated.Text = dt.Compute("SUM(GeneratedFreshWater)", "").ToString();
+            lblSumFWReceived.Text = dt.Compute("SUM(RobFesshWaterRecv)", "").ToString();
+            lblSumFWConsumed.Text = dt.Compute("SUM(ConsumedFreshWater)", "").ToString();
+
+            DataView dv = dt.DefaultView;
+            dv.RowFilter = " ReportTypeCode='N'";
+
+            rptPerformance.DataSource = dv.ToTable();
+            rptPerformance.DataBind();
+            
+        }
+        else
+        {
+            rptPR.DataSource = null;
+            rptPR.DataBind();
+
+            rptFuel.DataSource = null;
+            rptFuel.DataBind();
+
+            rptLube.DataSource = null;
+            rptLube.DataBind();
+
+            rptFW.DataSource = null;
+            rptFW.DataBind();
+
+            rptPerformance.DataSource = null;
+            rptPerformance.DataBind();
+
+            lblSumIFORecd.Text = "";
+            lblSumIFOME.Text = "";
+            lblSumIFOAE.Text = "";
+            lblSumIFOBoiler.Text = "";
+
+            lblSumMGORecd.Text = "";
+            lblSumMGOME.Text = "";
+            lblSumMGOAE.Text = "";
+            lblSumMGOBoiler.Text = "";
+
+            lblSumMDORecd.Text = "";
+            lblSumMDOME.Text = "";
+            lblSumMDOAE.Text = "";
+            lblSumMDOBoiler.Text = "";
+
+            lblSumMECCRecd.Text = "";
+            lblSumMECCCons.Text = "";
+
+            lblSumMECYLRecd.Text = "";
+            lblSumMECYLCons.Text = "";
+
+            lblSumAECCRecd.Text = "";
+            lblSumAECCCons.Text = "";
+
+            lblSumHYDRecd.Text = "";
+            lblSumHYDCons.Text = "";
+
+            lblSumFWGenerated.Text = "";
+            lblSumFWReceived.Text = "";
+            lblSumFWConsumed.Text = "";
+        }
+    }
+
+   
+    public string GetLongitude(object i)
+    {
+        try
+        {
+            int Lat = Convert.ToInt32(i);
+            if (Lat == 1)
+            {
+                return "E";
+            }
+            else if (Lat == 2)
+            {
+                return "W";
+            }
+            else
+            {
+                return "";
+            }
+        }
+        catch
+        {
+            return "";
+        }
+    }
+    public string GetLattitude(object i)
+    {
+        try
+        {
+            int Lon = Convert.ToInt32(i);
+            if (Lon == 1)
+            {
+                return "N";
+            }
+            else if (Lon == 2)
+            {
+                return "S";
+            }
+            else
+            {
+                return "";
+            }
+        }
+        catch
+        {
+            return "";
+        }
+    }
+
+    protected void btnExport_Click(object sender, EventArgs e)
+    {
+        int ReportsPK = Common.CastAsInt32(((ImageButton)sender).CommandArgument.Split('~').GetValue(0));
+        string VesselId = ((ImageButton)sender).CommandArgument.Split('~').GetValue(1).ToString();
+        string ReportType = ((ImageButton)sender).CommandArgument.Split('~').GetValue(2).ToString();
+
+        string voyNo = ((ImageButton)sender).Attributes["voyNo"].ToString();
+
+        //string TableName = "";
+
+        string Type = "";
+
+        switch (ReportType.Trim())
+        {
+            //case "A":
+            //    TableName = "VSL_VPRArrivalReport";
+            //    break;
+            //case "D":
+            //    TableName = "VSL_VPRDepartureReport";
+            //    break;
+            //case "N":
+            //    TableName = "VSL_VPRNoonReport";
+            //    break;
+            //case "PA":
+            //    TableName = "VSL_VPRPortAnchorageReport";
+            //    break;
+            //case "PB":
+            //    TableName = "VSL_VPRPortBerthingReport";
+            //    break;
+            //case "PD":
+            //    TableName = "VSL_VPRPortDriftReport";
+            //    break;
+            //default:
+            //    TableName = "";
+            //    break;
+
+            case "A":
+                Type = "Arrival";
+                break;
+            case "D":
+                Type = "Departure";
+                break;
+            case "N":
+                Type = "Noon";
+                break;
+            case "PA":
+                Type = "Port-Anchorage";
+                break;
+            case "PB":
+                Type = "Port-Berthing";
+                break;
+            case "PD":
+                Type = "Port-Drift";
+                break;
+            default:
+                Type = "";
+                break;
+
+        }
+
+        try
+        {
+            Common.Set_Procedures("[DBO].[sp_Insert_Communication_Export]");
+            Common.Set_ParameterLength(5);
+            Common.Set_Parameters(
+                new MyParameter("@VesselCode", CurrentVessel),
+                new MyParameter("@RecordType", Type),
+                new MyParameter("@RecordId", ReportsPK),
+                new MyParameter("@RecordNo", voyNo),
+                new MyParameter("@CreatedBy", Session["FullName"].ToString().Trim())
+            );
+
+            DataSet ds = new DataSet();
+            ds.Clear();
+            Boolean res;
+            res = Common.Execute_Procedures_IUD(ds);
+            if (res)
+            {
+                if (ds != null && ds.Tables[0].Rows.Count > 0)
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "asdf", "alert('" + ds.Tables[0].Rows[0][0].ToString() + "');", true);
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "asdf", "alert('Sent for export successfully.');", true);
+                }
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "asdf", "alert('Unable to send for export.Error : " + Common.getLastError() + "');", true);
+
+            }
+        }
+        catch (Exception ex)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "asdf", "alert('Unable to send for export.Error : " + ex.Message + "');", true);
+        }
+
+        
+        //DataSet ds = new DataSet();
+        //string SQL = "SELECT * FROM " + TableName + " WHERE ReportsPK=" + ReportsPK + " AND VesselID='" + VesselId + "' ";
+        //DataTable dt = Common.Execute_Procedures_Select_ByQuery(SQL);
+        //dt.TableName = TableName;
+        //ds.Tables.Add(dt.Copy());
+
+        //string SchemaFile = Server.MapPath("TEMP/PREP_Schema.xml"); 
+        //string DataFile = Server.MapPath("TEMP/PREP_Data.xml");
+        //string ZipFile = Server.MapPath("TEMP/PREP_" + VesselId + "_" + ReportType + "_" + ReportsPK.ToString() + "_" + DateTime.Now.ToString("dd-MMM-yyyy").Replace(":", "") + ".zip");
+        
+        //ds.WriteXmlSchema(SchemaFile);
+        //ds.WriteXml(DataFile);
+
+        ////btnSearch.Text = ZipFile;
+
+        //using (ZipFile zip = new ZipFile())
+        //{
+        //    zip.AddFile(SchemaFile);
+        //    zip.AddFile(DataFile);
+        //    zip.Save(ZipFile);
+        //}
+
+        //byte[] buff = System.IO.File.ReadAllBytes(ZipFile);
+        //Response.AppendHeader("Content-Disposition", "attachment; filename=" + Path.GetFileName(ZipFile));
+        //Response.BinaryWrite(buff);
+        //Response.Flush();
+        //Response.End();
+
+    }
+
+}

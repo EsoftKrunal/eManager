@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Employeedetail>
+  <Detail>
+    <srno>1</srno>
+    <employeeno>E0001</employeeno>
+    <name>Demo Data</name>
+    <familyname>DemoFamily</familyname>
+    <position>Manager</position>
+    <nationality>Singapore</nationality>
+    <passport>PST001</passport>
+    <djc>01-Jan-2000</djc>
+    <daterelieved>30-Jan-2000</daterelieved>
+    <nric>0001</nric>
+    <status>Working</status>
+    <recroff>Singapore</recroff>
+  </Detail>
+  <Detail>
+    <srno>2</srno>
+    <employeeno>E0002</employeeno>
+    <name>Demo Data2</name>
+    <familyname>DemoFamily2</familyname>
+    <position>Quality Engineer</position>
+    <nationality>India</nationality>
+    <passport>PST002</passport>
+    <djc>01-Jan-2000</djc>
+    <daterelieved>30-Jan-2000</daterelieved>
+    <nric>0002</nric>
+    <status>Working</status>
+    <recroff>Mumbai</recroff>
+  </Detail>
+  <Detail>
+    <srno>3</srno>
+    <employeeno>E0003</employeeno>
+    <name>Demo Data3</name>
+    <familyname>DemoFamily3</familyname>
+    <position>Assistant</position>
+    <nationality>Japan</nationality>
+    <passport>PST003</passport>
+    <djc>01-Jan-2000</djc>
+    <daterelieved>30-Jan-2000</daterelieved>
+    <nric>0003</nric>
+    <status>Working</status>
+    <recroff>Yangoon</recroff>
+  </Detail>
+</Employeedetail>

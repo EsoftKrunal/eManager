@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<FlowerDetail>
+  <Flower>
+    <srno>1</srno>
+    <name>Flower-1</name>
+    <flowertype>Flower-type-1</flowertype>
+    <occassion>F-occassion-1</occassion>
+    <date>10-Sep-2011</date>
+  </Flower>
+  <Flower>
+    <srno>2</srno>
+    <name>Flower-2</name>
+    <flowertype>Flower-type-2</flowertype>
+    <occassion>F-occassion-2</occassion>
+    <date>11-Sep-2011</date>
+
+  
+</Flower>
+  <Flower>
+    <srno>3</srno>
+    <name>Flower-3</name>
+    <flowertype>Flower-type-3</flowertype>
+    <occassion>F-occassion-3</occassion>
+    <date>12-Sep-2011</date>
+  </Flower>
+</FlowerDetail>

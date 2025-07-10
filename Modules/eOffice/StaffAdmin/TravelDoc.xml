@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<TravelDoc>
+  <doc>
+    <srno>1</srno>
+    <documentname>Passport</documentname>
+    <documentno>BVXPK2545K</documentno>
+    <issuedate>09-Sep-2011</issuedate>
+    <expirydate>30-Oct-2011</expirydate>
+    <placeofissue>India</placeofissue>
+  </doc>
+  <doc>
+    <srno>2</srno>
+    <documentname>Working Card</documentname>
+    <documentno>PP0963659</documentno>
+    <issuedate>12-Sep-2011</issuedate>
+    <expirydate>25-Nov-2011</expirydate>
+    <placeofissue>Mumbai</placeofissue>
+  </doc>
+  <doc>
+    <srno>3</srno>
+    <documentname>SHIP CARD</documentname>
+    <documentno>123-789</documentno>
+    <issuedate>05-Sep-2011</issuedate>
+    <expirydate>20-Dec-2011</expirydate>
+    <placeofissue>Lucknow</placeofissue>
+  </doc>
+</TravelDoc>

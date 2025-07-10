@@ -1,0 +1,167 @@
+using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class UserControls_GraphicalPlanningTool : System.Web.UI.UserControl
+{
+    public int TotalMonths, totalDays;
+    public int[] Month;    // 2,4,6
+    public int[] MonthDays; // 30,28,31
+    public string[] MonthName; // Jan,Feb,Mar
+    public int CrewCount;
+    public string CellColor;
+    public DataSet ds = new DataSet();
+    public int[] Year;
+    public String relnames;
+    private string _fromyear, _toyear, _frommonth, _tomonth;
+
+    public string fromyear
+    {
+        get { return _fromyear; }
+        set { _fromyear = value; }
+    }
+    public string toyear
+    {
+        get { return _toyear; }
+        set { _toyear = value; }
+    }
+    public string frommonth
+    {
+        get { return _frommonth; }
+        set { _frommonth = value; }
+    }
+    public string tomonth
+    {
+        get { return _tomonth; }
+        set { _tomonth = value; }
+    }
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        relnames = "";
+        DateTime datefrom, datetimeto;
+        datefrom = Convert.ToDateTime(frommonth + "/01" + "/" + fromyear);
+        datetimeto = Convert.ToDateTime(tomonth + "/" + DateTime.DaysInMonth(Convert.ToInt16(toyear), Convert.ToInt16(tomonth)).ToString() + "/" + toyear);
+        TimeSpan t1 = (datetimeto.Subtract(datefrom));
+        TotalMonths = Convert.ToInt16(t1.TotalDays / 30);
+
+        CellColor = "White";
+
+        Month = new int[TotalMonths];
+        MonthDays = new int[TotalMonths];
+        MonthName = new string[TotalMonths];
+        Year = new int[TotalMonths];
+        int k = Convert.ToInt16(frommonth);
+        int year = Convert.ToInt16(fromyear);
+        for (int i = 0; i < TotalMonths; i++)
+        {
+
+            Month[i] = k;
+            MonthDays[i] = DateTime.DaysInMonth(year, k);
+            MonthName[i] = GetMonthName(k);
+            Year[i] = year;
+            k = k + 1;
+            if (k > 12)
+            {
+                k = 1;
+                year = year + 1;
+            }
+
+        }
+
+        ds = CrewPlanner.getData("SelectCrewmatrixData", 0, "", "");
+        CrewCount = ds.Tables[0].Rows.Count; 
+    }
+    public int getTotalDays()
+    {
+        int Count;
+        Count = 0;
+        for (int i = 0; i < TotalMonths; i++)
+        {
+            Count = Count + MonthDays[i];
+        }
+        return Count;
+    }
+    public string getCellColor(int CrewId, int days, int month, int curyear, int crewindex)
+    {
+        int year, res;
+        string color = "";
+        year = Convert.ToInt16(fromyear);
+
+        DateTime dt = Convert.ToDateTime(month + "/" + days + "/" + curyear);
+        res = CrewPlanner.getCrewData("SelectCrewSigndate", CrewId, dt,ref relnames);
+        if (res == 0)
+        {
+            color = "White";
+            return color;
+        }
+        else if (res == 1)
+        {
+            color = "Red";
+            return color;
+        }
+        else if (res == 2)
+        {
+            color = "Black";
+            return color;
+        }
+        else
+        {
+            color = "Green";
+            return color;
+        }
+
+    }
+    public string GetMonthName(int i)
+    {
+        string str = "";
+        switch (i)
+        {
+            case 1:
+                str = "January";
+                break;
+            case 2:
+                str = "Feburary";
+                break;
+            case 3:
+                str = "March";
+                break;
+            case 4:
+                str = "April";
+                break;
+            case 5:
+                str = "May";
+                break;
+            case 6:
+                str = "June";
+                break;
+            case 7:
+                str = "July";
+                break;
+            case 8:
+                str = "August";
+                break;
+            case 9:
+                str = "September";
+                break;
+            case 10:
+                str = "October";
+                break;
+            case 11:
+                str = "November";
+                break;
+            case 12:
+                str = "December";
+                break;
+
+        }
+        return str;
+    }
+}

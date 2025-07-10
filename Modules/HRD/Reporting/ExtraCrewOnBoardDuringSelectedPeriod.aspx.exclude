@@ -1,0 +1,143 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ExtraCrewOnBoardDuringSelectedPeriod.aspx.cs" Inherits="Reporting_ExtraCrewOnBoardDuringSelectedPeriod" %>
+
+<%@ Register Assembly="CrystalDecisions.Web, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304"
+    Namespace="CrystalDecisions.Web" TagPrefix="CR" %>
+    
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>Untitled Page</title>
+    <link href="../Styles/style.css" rel="stylesheet" type="text/css" />
+    <link href="../Styles/sddm.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../Styles/StyleSheet.css" />
+    <link href="/aspnet_client/System_Web/2_0_50727/CrystalReportWebFormViewer3/css/default.css"
+        rel="stylesheet" type="text/css" />
+    <link href="/aspnet_client/System_Web/2_0_50727/CrystalReportWebFormViewer3/css/default.css"
+        rel="stylesheet" type="text/css" />
+    <link href="/aspnet_client/System_Web/2_0_50727/CrystalReportWebFormViewer3/css/default.css"
+        rel="stylesheet" type="text/css" />
+    <link href="/aspnet_client/System_Web/2_0_50727/CrystalReportWebFormViewer3/css/default.css"
+        rel="stylesheet" type="text/css" />
+    <link href="/aspnet_client/System_Web/2_0_50727/CrystalReportWebFormViewer3/css/default.css"
+        rel="stylesheet" type="text/css" />
+    <link href="/aspnet_client/System_Web/2_0_50727/CrystalReportWebFormViewer3/css/default.css"
+        rel="stylesheet" type="text/css" />
+    <link href="/aspnet_client/System_Web/2_0_50727/CrystalReportWebFormViewer3/css/default.css"
+        rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <form id="form1" runat="server" defaultbutton="btn_show">
+    <div>
+      <ajaxToolkit:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></ajaxToolkit:ToolkitScriptManager>
+      <table align="center" border="0" cellpadding="0" cellspacing="0" width="825">
+       <tr>
+        <td align="center" valign="top" style="height: 235px">
+         <table border="0" cellpadding="0" cellspacing="0" style="border-right: #4371a5 1px solid;
+            border-top: #4371a5 1px solid; border-left: #4371a5 1px solid; border-bottom: #4371a5 1px solid;
+            text-align: center" width="100%">
+          <tr>
+           <td align="center" class="text" style="width: 100%; height: 23px; background-color: #4371a5">
+            Crew On Board During Selected Period
+           </td>
+          </tr>
+          <tr>
+           <td>
+               &nbsp;
+           </td>
+          </tr>
+             <tr>
+                 <td style="text-align: center">
+                     <asp:Label ID="lblmessage" runat="server" ForeColor="Red"></asp:Label></td>
+             </tr>
+             <tr>
+                 <td>
+                 </td>
+             </tr>
+             <tr>
+                 <td style="height: 48px">
+                   <table cellpadding="0" cellspacing="0" style="width: 632px; height: 19px;">
+                         <tr>
+                             <td style="padding-right: 10px; height: 13px; text-align: right">
+                                 From:</td>
+                             <td style="padding-right: 10px; width: 135px; height: 13px; text-align: left">
+                                 <asp:TextBox ID="txt_from" runat="server" CssClass="required_box" Width="102px" TabIndex="1"></asp:TextBox>&nbsp;<asp:ImageButton
+                                     ID="img_from" runat="server" ImageUrl="~/Modules/HRD/Images/Calendar.gif" TabIndex="2" /></td>
+                             <td style="padding-right: 10px; height: 13px; text-align: right">
+                                 To:</td>
+                             <td style="width: 143px; height: 13px; text-align: left">
+                                 <asp:TextBox ID="txt_to" runat="server" CssClass="required_box" Width="102px" TabIndex="3"></asp:TextBox>&nbsp;<asp:ImageButton
+                                     ID="img_to" runat="server" ImageUrl="~/Modules/HRD/Images/Calendar.gif" TabIndex="4" /></td>
+                             <td style="width: 100px; height: 13px">
+            </td>
+                             <td style="width: 100px; height: 13px">
+            <asp:Button ID="btn_show" runat="server" CssClass="btn" Text="Show Report" OnClick="btn_show_Click" TabIndex="5" /></td>
+                         </tr>
+                         <tr>
+                             <td style="width: 100px; height: 16px">
+                             </td>
+                             <td style="width: 135px; height: 16px; text-align: left">
+                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txt_from"
+                                     Display="Dynamic" ErrorMessage="Required."></asp:RequiredFieldValidator><asp:CompareValidator
+                                         ID="CompareValidator1" runat="server" ControlToValidate="txt_from" Display="Dynamic"
+                                         ErrorMessage="Invalid Date" Operator="DataTypeCheck" Type="Date" ValueToCompare="0"></asp:CompareValidator></td>
+                             <td style="width: 100px; height: 16px">
+                             </td>
+                             <td style="width: 143px; height: 16px; text-align: left">
+                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txt_to"
+                                     Display="Dynamic" ErrorMessage="Required."></asp:RequiredFieldValidator><asp:CompareValidator
+                                         ID="CompareValidator2" runat="server" ControlToValidate="txt_to"
+                                         ErrorMessage="Invalid Date" Operator="DataTypeCheck" Type="Date" ValueToCompare="0"></asp:CompareValidator></td>
+                             <td style="width: 100px; height: 16px">
+                             </td>
+                             <td style="width: 100px; height: 16px">
+                             </td>
+                         </tr>
+                         <tr>
+                             <td style="width: 100px; height: 16px">
+                             </td>
+                             <td style="width: 135px; height: 16px; text-align: left">
+                             </td>
+                             <td style="width: 100px; height: 16px">
+                             </td>
+                             <td colspan="3" style="height: 16px; text-align: left">
+                                 <asp:CompareValidator ID="ddvessel11" runat="server" ControlToCompare="txt_from"
+                                     ControlToValidate="txt_to" ErrorMessage="To Date Must be Greater Than or Equal To From Date"
+                                     Operator="GreaterThanEqual" Type="Date"></asp:CompareValidator></td>
+                         </tr>
+                         <tr>
+                             <td colspan="5" style="height: 120px">
+                                 &nbsp;</td>
+                             <td colspan="1" style="height: 120px">
+                             </td>
+                         </tr>
+                     </table>
+                     <ajaxToolkit:CalendarExtender ID="CalendarExtender1" runat="server" Format="MM/dd/yyyy"
+                         PopupButtonID="img_from" PopupPosition="TopRight" TargetControlID="txt_from">
+                     </ajaxToolkit:CalendarExtender>
+                     <ajaxToolkit:MaskedEditExtender ID="MaskedEditExtender1" runat="server" AutoComplete="false"
+                         ClearMaskOnLostFocus="true" ClearTextOnInvalid="true" Mask="99/99/9999" MaskType="Date"
+                         TargetControlID="txt_from">
+                     </ajaxToolkit:MaskedEditExtender>
+                     <ajaxToolkit:CalendarExtender ID="CalendarExtender2" runat="server" Format="MM/dd/yyyy"
+                         PopupButtonID="img_to" PopupPosition="TopRight" TargetControlID="txt_to">
+                     </ajaxToolkit:CalendarExtender>
+                     <ajaxToolkit:MaskedEditExtender ID="MaskedEditExtender2" runat="server" AutoComplete="false"
+                         ClearMaskOnLostFocus="true" ClearTextOnInvalid="true" Mask="99/99/9999" MaskType="Date"
+                         TargetControlID="txt_to">
+                     </ajaxToolkit:MaskedEditExtender>
+                 </td>
+             </tr>
+          <tr>
+           <td>
+            <CR:CrystalReportViewer ID="CrystalReportViewer1" runat="server"  />
+           </td>
+          </tr>
+         </table>
+        </td>
+       </tr>
+      </table>
+    </div>
+    </form>
+</body>
+</html>

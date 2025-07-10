@@ -1,0 +1,687 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using DocumentFormat.OpenXml.Bibliography;
+
+
+public partial class Purchase_InventoryConsumptionDetails : System.Web.UI.Page
+{
+    public string VesselCode
+    {
+        set { ViewState["VesselCode"] = value; }
+        get { return ViewState["VesselCode"].ToString(); }
+    }
+
+    public int itemCount
+    {
+        get { return Convert.ToInt32(ViewState["itemCount"]); }
+        set { ViewState["itemCount"] = value; }
+    }
+
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        try
+        {
+            lblMessage.Text = "";
+            if (!Page.IsPostBack)
+            {
+               // VesselCode = Session["CurrentShip"].ToString().Trim();
+                BindVessel();
+                BindYear();
+               
+
+                
+            }
+        }
+       catch(Exception ex)
+        {
+            lblMessage.Text = ex.Message.ToString();
+        }
+    }
+    public void BindVessel()
+    {
+        string WhereClause = "";
+        string sql = "SELECT VesselId,VesselCode,Vesselname FROM Vessel v Where 1=1 ";
+        sql = sql + WhereClause + " and v.VesselId in (Select VesselId from UserVesselRelation with(nolock) where Loginid = " + Convert.ToInt32(Session["loginid"].ToString()) + ") ORDER BY VESSELNAME";
+        ddlVessel.DataSource = VesselReporting.getTable(sql);
+
+        ddlVessel.DataTextField = "Vesselname";
+        ddlVessel.DataValueField = "VesselCode";
+        ddlVessel.DataBind();
+        ddlVessel.Items.Insert(0, new ListItem("< Select >", "0"));
+    }
+    private void BindYear()
+    {
+        ddlYear.Items.Add(new ListItem("< Year >", "0"));
+        for (int i = DateTime.Today.Year; i >= 2023; i--)
+        {
+            ddlYear.Items.Add(new ListItem(i.ToString(), i.ToString()));
+        }
+        int CurrentMonth = DateTime.Today.Month;
+        int CurrentYear = DateTime.Today.Year;
+        if (CurrentMonth == 1)
+        {
+            ddlYear.SelectedValue = (CurrentYear - 1).ToString();
+            ddlMonth.SelectedValue = "12";
+        }
+        else
+        {
+            ddlYear.SelectedValue = DateTime.Today.Year.ToString();
+            ddlMonth.SelectedValue = (CurrentMonth - 1).ToString(); ;
+        }
+        int previousmonth = CurrentMonth - 1;
+        string PreviousMonthName = ProjectCommon.GetMonthName(previousmonth.ToString());
+        lblPreviousMonthROB.Text = PreviousMonthName.ToUpper() + " - ROB ";
+        string CurrentMonthName = ProjectCommon.GetMonthName(CurrentMonth.ToString());
+        lblCurrMonthConsumption.Text = CurrentMonthName.ToUpper() + " - Consumption ";
+        lblCurrMonthROB.Text = CurrentMonthName.ToUpper() + " - ROB ";
+    }
+
+    private void GetVesselDetails(string code)
+    {
+        DataTable dt = Common.Execute_Procedures_Select_ByQuery("SELECT * FROM [dbo].[Vessel] WHERE VESSELCODE='" + code + "' ");
+        if (dt.Rows.Count > 0)
+        {
+            lblOpenBalVessel.Text = dt.Rows[0]["VesselName"].ToString();
+        }
+    }
+
+    private void GetOrderConsumptionDetails(int month, int year)
+    {
+        itemCount = 0;
+         DataTable dt = Common.Execute_Procedures_Select_ByQuery("EXEC GetPOSOrderDetails_Consumption '"+ ddlVessel.SelectedValue + "',"+month+ ","+year+" ");
+        if (dt.Rows.Count > 0)
+        {
+            RptPOConsumption.DataSource = dt;
+            RptPOConsumption.DataBind();
+            txtConsumptionDescription.Text = dt.Rows[0]["Remarks"].ToString();
+            txtMasterName.Text = dt.Rows[0]["Master_Name"].ToString();
+            txtCEName.Text = dt.Rows[0]["CE_Name"].ToString();
+            txtAddedBy.Text = dt.Rows[0]["AddedBy"].ToString();
+            lblAddedon.Text = Common.ToDateString(dt.Rows[0]["AddedOn"].ToString());
+            txtOfficeRemark.Text = dt.Rows[0]["OfficeRemark"].ToString();  
+            itemCount = dt.Rows.Count;
+            int TotalConsumptionCount = 0;
+            TotalConsumptionCount = Convert.ToInt32(dt.Rows[0]["UtilCount"]);
+            if (TotalConsumptionCount > 0)
+            {
+                btnExport.Visible = true;
+            }
+            else
+            {
+                btnExport.Visible = false;
+            }
+            if (Convert.ToBoolean(dt.Rows[0]["Status"]))
+            {
+                btn_Save.Visible = false;
+                btnExport.Visible = false;
+              //  chkMonthClosed.Checked = true;
+            }
+            else
+            {
+                btn_Save.Visible = true;
+            }
+
+            if (!string.IsNullOrEmpty(dt.Rows[0]["OfficeVerifiedBy"].ToString()))
+            {
+               
+                lblVerifiedBy.Text = dt.Rows[0]["OfficeVerifiedBy"].ToString();
+                lblVerifiedOn.Text = Common.ToDateString(dt.Rows[0]["OfficedVerifiedOn"].ToString());
+            }
+            else
+            {
+               
+                lblVerifiedBy.Text = "";
+                lblVerifiedOn.Text = "";
+            }
+        }
+        else
+        {
+            RptPOConsumption.DataSource = null;
+            RptPOConsumption.DataBind();
+            txtConsumptionDescription.Text = "";
+            txtMasterName.Text = "";
+            txtCEName.Text = "";
+            txtAddedBy.Text = "";
+            lblAddedon.Text = "";
+            itemCount = 0;
+            txtOfficeRemark.Text = "";
+            btnExport.Visible = false;
+        }
+    }
+
+    private int GetConsumptionCount()
+    {
+        int ConsumptionCount = 0;
+        DataTable dt = Common.Execute_Procedures_Select_ByQuery("Select Count(*)  As ConsCount from POS_OrderReceiptDetails_Consumption with(nolock)");
+        if (dt.Rows.Count > 0)
+        {
+            ConsumptionCount = Convert.ToInt32(dt.Rows[0]["ConsCount"]);
+        }
+        return ConsumptionCount;
+    }
+
+    private int GetOpenBalConsumptionCount()
+    {
+        int ConsumptionCount = 0;
+        DataTable dt = Common.Execute_Procedures_Select_ByQuery("Select Count(*)  As ConsCount from POS_LubeConsumptionOpenBal with(nolock)");
+        if (dt.Rows.Count > 0)
+        {
+            ConsumptionCount = Convert.ToInt32(dt.Rows[0]["ConsCount"]);
+        }
+        return ConsumptionCount;
+    }
+
+    protected void ddlMonth_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        int selectedMonth = Convert.ToInt32(ddlMonth.SelectedValue);
+        int curMonth = DateTime.Today.Month;
+        int curYear = DateTime.Today.Year;
+        RptPOConsumption.DataSource = null;
+        RptPOConsumption.DataBind();
+        clearControls();
+        if (curYear == Convert.ToInt32(ddlYear.SelectedValue) && curMonth == Convert.ToInt32(ddlMonth.SelectedValue))
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "asdf", "alert('Consumption for Current Month not allowed.');", true);
+            return;
+        }
+        int previousmonth = selectedMonth - 1;
+        string PreviousMonthName = ProjectCommon.GetMonthName(previousmonth.ToString());
+        lblPreviousMonthROB.Text = PreviousMonthName.ToUpper() + " - ROB ";
+        string CurrentMonthName = ProjectCommon.GetMonthName(selectedMonth.ToString());
+        lblCurrMonthConsumption.Text = CurrentMonthName.ToUpper() + " - Consumption ";
+        lblCurrMonthROB.Text = CurrentMonthName.ToUpper() + " - ROB ";
+        if (ddlYear.SelectedValue == "0")
+        {
+            return;
+        }
+        GetOrderConsumptionDetails(Convert.ToInt32(ddlMonth.SelectedValue), Convert.ToInt32(ddlYear.SelectedValue));
+    }
+
+    protected void ddlYear_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (ddlYear.SelectedValue == "0")
+        {
+            return;
+        }
+        GetOrderConsumptionDetails(Convert.ToInt32(ddlMonth.SelectedValue), Convert.ToInt32(ddlYear.SelectedValue));
+    }
+
+    //protected void txtCurrentMonthConsump_TextChanged(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        TextBox t = (TextBox)sender;
+    //        var item = (RepeaterItem)t.NamingContainer;
+
+
+    //        Decimal PrevMonthROB = 0;
+    //        Decimal CurMonthConsumption = 0;
+    //        if (!string.IsNullOrEmpty(t.Text) && Common.CastAsDecimal(t.Text) > 0)
+    //        {
+    //            CurMonthConsumption = Common.CastAsDecimal(t.Text.Trim());
+    //        }
+    //        Label lblPrevMonthROB = (Label)item.FindControl("lblPrevMonthROB");
+    //        PrevMonthROB = Common.CastAsDecimal(lblPrevMonthROB.Text.Trim());
+
+    //        if (PrevMonthROB == 0)
+    //        {
+    //            ScriptManager.RegisterStartupScript(this, this.GetType(), "asdf", "alert('Please update previous month ROB first.');", true);
+    //            return;
+    //        }
+
+    //        if (CurMonthConsumption > PrevMonthROB)
+    //        {
+    //            ScriptManager.RegisterStartupScript(this, this.GetType(), "asdf", "alert('System should not allow current month consumption greater than previous month ROB.');", true);
+    //            t.Text = "0";
+    //            t.Focus();
+    //            return;
+    //        }
+
+    //        decimal currentmonthROB = 0;
+    //        currentmonthROB = PrevMonthROB - CurMonthConsumption;
+    //        Label lblCurMonthROB = (Label)item.FindControl("lblCurrentMonthROB");
+    //        lblCurMonthROB.Text = currentmonthROB.ToString();
+    //        lblCurMonthROB.Focus();
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        lblMessage.Text = "Unable to save record." + ex.Message + Common.getLastError();
+    //    }
+
+    //}
+
+    protected void btn_Save_Click(object sender, EventArgs e)
+    {
+        try
+        {   
+            int i = 0;
+            foreach (RepeaterItem ri in RptPOConsumption.Items)
+            {
+               // Label lblPrevMonthROB = ((Label)ri.FindControl("lblPrevMonthROB"));
+                //if (txtPreMonthROB.Visible)
+                //{
+                    //if (string.IsNullOrWhiteSpace(lblPrevMonthROB.Text))
+                    //{
+                    //    ScriptManager.RegisterStartupScript(this, this.GetType(), "asdf", "alert('Please update lube consumption up to Previous Month.');", true);
+                    //    //txtPreMonthROB.Focus();
+                    //    return;
+                    //}
+
+                    //if (!string.IsNullOrWhiteSpace(txtPreMonthROB.Text) && Common.CastAsDecimal(txtPreMonthROB.Text) == 0)
+                    //{
+                    //    ScriptManager.RegisterStartupScript(this, this.GetType(), "asdf", "alert('System should not allow Zero as previous month Lube Consumption.');", true);
+                    //    txtPreMonthROB.Focus();
+                    //    return;
+                    //}
+                //}
+                Label lblPrevMonthROB = ((Label)ri.FindControl("lblPrevMonthROB"));
+                if (lblPrevMonthROB.Visible)
+                {
+                    if (string.IsNullOrWhiteSpace(lblPrevMonthROB.Text))
+                    {
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "asdf", "alert('Please update lube consumption up to Previous Month.');", true);
+                        lblPrevMonthROB.Focus();
+                        return;
+                    }
+                    if (!string.IsNullOrWhiteSpace(lblPrevMonthROB.Text) && Common.CastAsDecimal(lblPrevMonthROB.Text) == 0)
+                    {
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "asdf", "alert('System should not allow Zero as previous month Lube Consumption.');", true);
+                        lblPrevMonthROB.Focus();
+                        return;
+                    }
+                }
+            }
+            int Conscount = 0;
+            Conscount = GetConsumptionCount();
+            Decimal previousMonthROB = 0;
+            Decimal CurrentMonthConsumption = 0;
+            Decimal CurrentMonthROB = 0;
+            Decimal RecQty = 0;
+            foreach (RepeaterItem ri in RptPOConsumption.Items)
+            {
+                i = i + 1;
+                int bidId = Common.CastAsInt32(((HiddenField)ri.FindControl("hdnBidId")).Value);
+                int bidItemId = Common.CastAsInt32(((HiddenField)ri.FindControl("hdnBidItemID")).Value);
+                int recid = Common.CastAsInt32(((HiddenField)ri.FindControl("hdnRecid")).Value);
+
+                Label lblQtyRecd = ((Label)ri.FindControl("lblQtyRecd"));
+                Label lblPrevMonthROB = ((Label)ri.FindControl("lblPrevMonthROB"));
+                //TextBox txtPreMonthROB = ((TextBox)ri.FindControl("txtPreMonthROB"));
+                TextBox txtCurrentMonthConsump = ((TextBox)ri.FindControl("txtCurrentMonthConsump"));
+                Label lblCurrentMonthROB = ((Label)ri.FindControl("lblCurrentMonthROB"));
+                previousMonthROB = 0;
+                CurrentMonthConsumption = 0;
+                CurrentMonthROB = 0;
+                //if (Conscount == 0 && txtPreMonthROB.Visible)
+                //{
+                //    if (!string.IsNullOrEmpty(txtPreMonthROB.Text) && Common.CastAsDecimal(txtPreMonthROB.Text) > 0)
+                //    {
+                //        previousMonthROB = Common.CastAsDecimal(txtPreMonthROB.Text);
+                //    }
+                //}
+                //else
+                //{
+                    if (!string.IsNullOrEmpty(lblPrevMonthROB.Text) && Common.CastAsDecimal(lblPrevMonthROB.Text) > 0)
+                    {
+                        previousMonthROB = Common.CastAsDecimal(lblPrevMonthROB.Text);
+                    }
+                    if (!string.IsNullOrEmpty(txtCurrentMonthConsump.Text) && Common.CastAsDecimal(txtCurrentMonthConsump.Text) > 0)
+                    {
+                        CurrentMonthConsumption = Common.CastAsDecimal(txtCurrentMonthConsump.Text);
+                    }
+                    if (!string.IsNullOrEmpty(lblCurrentMonthROB.Text) && Common.CastAsDecimal(lblCurrentMonthROB.Text) > 0)
+                    {
+                        CurrentMonthROB = Common.CastAsDecimal(lblCurrentMonthROB.Text);
+                    }
+                //}
+
+                if (!string.IsNullOrEmpty(lblQtyRecd.Text) && Common.CastAsDecimal(lblQtyRecd.Text.Trim()) > 0)
+                {
+                    RecQty = Common.CastAsDecimal(lblQtyRecd.Text.Trim());
+                }
+                try
+                {
+                    Common.Set_Procedures("Sp_insertLubeConsumption");
+                    Common.Set_ParameterLength(14);
+                    Common.Set_Parameters(
+                        new MyParameter("@vesselcode", ddlVessel.SelectedValue),
+                        new MyParameter("@BidId", bidId),
+                        new MyParameter("@BidItemId", bidItemId),
+                        new MyParameter("@RecId", recid),
+                        new MyParameter("@ConsumpMonth", Convert.ToInt32(ddlMonth.SelectedValue)),
+                        new MyParameter("@ConsumpYear", Convert.ToInt32(ddlYear.SelectedValue)),
+                        new MyParameter("@RecQty", RecQty),
+                        new MyParameter("@PreMonthROB", previousMonthROB),
+                        new MyParameter("@CurrMonthConsump", CurrentMonthConsumption),
+                        new MyParameter("@currMonthROB", CurrentMonthROB),
+                        new MyParameter("@Description", txtConsumptionDescription.Text.Trim()),
+                        new MyParameter("@Addedby", txtAddedBy.Text.Trim()),
+                        new MyParameter("@MasterName", txtMasterName.Text.Trim()),
+                        new MyParameter("@CEName", txtCEName.Text.Trim())
+                        );
+                    DataSet ds = new DataSet();
+                    ds.Clear();
+                    Boolean res;
+                    res = Common.Execute_Procedures_IUD(ds);
+                }
+                catch (Exception ex)
+                {
+                    lblMessage.Text = "Unable to save record. Error : " + Common.ErrMsg;
+                }
+
+            }
+            if (itemCount == i)
+            {
+                if (Conscount == 0)
+                {
+                    lblMessage.Text = "Previous Month ROB updated Successfully.";
+                }
+                else
+                {
+                    lblMessage.Text = "Lube Consumption Saved Successfully.";
+                }
+                // btn_Save.Visible = false;
+                
+                GetOrderConsumptionDetails(Convert.ToInt32(ddlMonth.SelectedValue), Convert.ToInt32(ddlYear.SelectedValue));
+            }
+            else
+            {
+                lblMessage.Text = "Unable to save record. Error : " + Common.ErrMsg;
+            }
+        }
+        catch (Exception ex)
+        {
+            lblMessage.Text = "Unable to save record." + ex.Message + Common.getLastError();
+        }
+    }
+
+
+
+    protected void btnExport_Click(object sender, EventArgs e)
+    {
+            try
+            {
+            string lubeMonth = ddlMonth.SelectedValue.ToString().PadLeft(2, '0') + ddlYear.SelectedValue;
+            string lubeMonthYear = VesselCode + "-" + ddlMonth.SelectedItem.Text + "-" + ddlYear.SelectedValue;
+            Common.Set_Procedures("[DBO].[sp_Insert_Communication_Export]");
+                Common.Set_ParameterLength(5);
+                Common.Set_Parameters(
+                    new MyParameter("@VesselCode", Session["CurrentShip"].ToString()),
+                    new MyParameter("@RecordType", "LUBE-CONSUMPTION"),
+                    new MyParameter("@RecordId", lubeMonth),
+                    new MyParameter("@RecordNo", lubeMonthYear),
+                    new MyParameter("@CreatedBy", Session["FullUserName"].ToString().Trim())
+                );
+
+                DataSet ds1 = new DataSet();
+                ds1.Clear();
+                Boolean res;
+                res = Common.Execute_Procedures_IUD(ds1);
+                if (res)
+                {
+                    if (ds1 != null && ds1.Tables[0].Rows.Count > 0)
+                    {
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "asdf", "alert('" + ds1.Tables[0].Rows[0][0].ToString() + "');", true);
+                    }
+                    else
+                    {
+                        Common.Execute_Procedures_Select_ByQuery("UPDATE DBO.POS_OrderReceiptDetails_Consumption SET ExportedBy='" + Session["UserName"].ToString() + "',ExportedOn=GETDATE() Where ConsumpMonth=" + ddlMonth.SelectedValue + " AND ConsumpYear = " + ddlYear.SelectedValue);
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "asdf", "alert('Sent for export successfully.');", true);
+                    }
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "asdf", "alert('Unable to send for export.Error : " + Common.getLastError() + "');", true);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "asdf", "alert('Unable to send for export.Error : " + ex.Message + "');", true);
+            }
+    }
+
+    protected void lblOpenBalance_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            dv_AddOpenBal.Visible = true;
+            lblOpenBalVessel.Text = ddlVessel.SelectedValue;
+            BindOpenBalYear();
+            GetLubeConsOrderDetails();
+        }
+        catch (Exception ex)
+        {
+            lblMsgPOP.Text = ex.Message.ToString();
+        }
+    }
+
+    protected void btnOpenBalSave_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            int i = 0;
+            if (ddlOpenBalMonth.SelectedIndex == 0)
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "asdf", "alert('Please select Month.');", true);
+                ddlOpenBalMonth.Focus();
+                return;
+            }
+            if (ddlOpenBalYear.SelectedIndex == 0)
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "asdf", "alert('Please select Year.');", true);
+                ddlOpenBalYear.Focus();
+                return;
+            }
+            Decimal OpenBalConsumption = 0;
+            Decimal OpenBalROB = 0;
+            Decimal RecQty = 0;
+            foreach (RepeaterItem ri in rptOpenBalLubeConsump.Items)
+            {
+                i = i + 1;
+                int bidId = Common.CastAsInt32(((HiddenField)ri.FindControl("hdnOpenBalBidId")).Value);
+                int bidItemId = Common.CastAsInt32(((HiddenField)ri.FindControl("hdnOpenBalBidItemID")).Value);
+                int recid = Common.CastAsInt32(((HiddenField)ri.FindControl("hdnOpenBalRecid")).Value);
+
+                Label lblQtyRecd = ((Label)ri.FindControl("lblQtyRecd"));
+                TextBox txtCurrentMonthConsump = ((TextBox)ri.FindControl("txtOpenBalConsump"));
+                Label lblCurrentMonthROB = ((Label)ri.FindControl("lblOpenBalROB"));
+                
+                OpenBalConsumption = 0;
+                OpenBalROB = 0;
+                if (!string.IsNullOrEmpty(txtCurrentMonthConsump.Text) && Common.CastAsDecimal(txtCurrentMonthConsump.Text) > 0)
+                {
+                    OpenBalConsumption = Common.CastAsDecimal(txtCurrentMonthConsump.Text);
+                }
+                if (!string.IsNullOrEmpty(lblCurrentMonthROB.Text) && Common.CastAsDecimal(lblCurrentMonthROB.Text) > 0)
+                {
+                    OpenBalROB = Common.CastAsDecimal(lblCurrentMonthROB.Text);
+                }
+                if (!string.IsNullOrEmpty(lblQtyRecd.Text) && Common.CastAsDecimal(lblQtyRecd.Text.Trim()) > 0)
+                {
+                    RecQty = Common.CastAsDecimal(lblQtyRecd.Text.Trim());
+                }
+                try
+                {
+                    Common.Set_Procedures("Sp_InsertLubeConsumptionOpenBal");
+                    Common.Set_ParameterLength(10);
+                    Common.Set_Parameters(
+                        new MyParameter("@vesselcode", VesselCode),
+                        new MyParameter("@BidId", bidId),
+                        new MyParameter("@BidItemId", bidItemId),
+                        new MyParameter("@RecId", recid),
+                        new MyParameter("@ConsumpMonth", Convert.ToInt32(ddlOpenBalMonth.SelectedValue)),
+                        new MyParameter("@ConsumpYear", Convert.ToInt32(ddlOpenBalYear.SelectedValue)),
+                        new MyParameter("@RecQty", RecQty),
+                        new MyParameter("@CurrMonthConsump", OpenBalConsumption),
+                        new MyParameter("@currMonthROB", OpenBalROB),
+                        new MyParameter("@Addedby", Session["UserName"].ToString())
+                        );
+                    DataSet ds = new DataSet();
+                    ds.Clear();
+                    Boolean res;
+                    res = Common.Execute_Procedures_IUD(ds);
+                   if (res)
+                    {
+                        DataTable dt = Common.Execute_Procedures_Select_ByQuery("Select Count(*)  As ConsCount from POS_LubeConsumptionOpenBal with(nolock)");
+                        if (dt.Rows.Count > 0)
+                        {
+                            itemCount = Convert.ToInt32(dt.Rows[0][0]);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    lblMsgPOP.Text = "Unable to save record. Error : " + Common.ErrMsg;
+                }
+
+            }
+            if (itemCount == i)
+            {
+                lblMsgPOP.Text = "Lube Consumption Open Balance Saved Successfully.";
+                GetOrderConsumptionDetails(Convert.ToInt32(ddlMonth.SelectedValue), Convert.ToInt32(ddlYear.SelectedValue));
+            }
+            else
+            {
+                lblMsgPOP.Text = "Unable to Lube Consumption Opening Balance save record. Error : " + Common.ErrMsg;
+            }
+        }
+        catch (Exception ex)
+        {
+            lblMsgPOP.Text = "Unable to Lube Consumption Opening Balance save record." + ex.Message + Common.getLastError();
+        }
+        int ConsCount = 0;
+        ConsCount = GetOpenBalConsumptionCount();
+        if (ConsCount > 0)
+        {
+            lbOpenBalance.Visible = false;
+            GetOrderConsumptionDetails(Convert.ToInt32(ddlMonth.SelectedValue), Convert.ToInt32(ddlYear.SelectedValue));
+        }
+        else
+        {
+            lbOpenBalance.Visible = true;
+        }
+    }
+
+    private void BindOpenBalYear()
+    {
+        ddlOpenBalYear.Items.Add(new ListItem("< Year >", "0"));
+        for (int i = DateTime.Today.Year; i >= 2023; i--)
+        {
+            ddlOpenBalYear.Items.Add(new ListItem(i.ToString(), i.ToString()));
+        }
+    }
+
+    protected void btnClose1_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            dv_AddOpenBal.Visible = false;
+            int ConsCount = 0;
+            ConsCount = GetOpenBalConsumptionCount();
+            if (ConsCount > 0)
+            {
+                lbOpenBalance.Visible = false;
+                GetOrderConsumptionDetails(Convert.ToInt32(ddlMonth.SelectedValue), Convert.ToInt32(ddlYear.SelectedValue));
+            }
+            else
+            {
+                lbOpenBalance.Visible = true;
+            }
+        }
+        catch (Exception ex)
+        {
+            lblMsgPOP.Text = ex.Message.ToString();
+        }
+    }
+    protected void txtOpenBalConsump_TextChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            TextBox t = (TextBox)sender;
+            var item = (RepeaterItem)t.NamingContainer;
+            Decimal qtyRecd = 0;
+            Decimal CurMonthConsumption = 0;
+            if (!string.IsNullOrEmpty(t.Text) && Common.CastAsDecimal(t.Text) > 0)
+            {
+                CurMonthConsumption = Common.CastAsDecimal(t.Text.Trim());
+            }
+            Label lblQtyRecd = (Label)item.FindControl("lblQtyRecd");
+            qtyRecd = Common.CastAsDecimal(lblQtyRecd.Text);
+            if (CurMonthConsumption > qtyRecd)
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "asdf", "alert('Lube Counsumption quantity should less or equal Received quantity.');", true);
+                t.Text = "";
+                t.Focus();
+                return;
+            }
+            decimal currentmonthROB = 0;
+            currentmonthROB = qtyRecd - CurMonthConsumption;
+            Label lblCurMonthROB = (Label)item.FindControl("lblOpenBalROB");
+            lblCurMonthROB.Text = currentmonthROB.ToString();
+        }
+        catch (Exception ex)
+        {
+            lblMsgPOP.Text = "Unable to Add Lube Consumption." + ex.Message + Common.getLastError();
+        }
+
+    }
+
+    private void GetLubeConsOrderDetails()
+    {
+        itemCount = 0;
+        DataTable dt = Common.Execute_Procedures_Select_ByQuery("EXEC GetLubeConsumptionOpeningBal '" + VesselCode + "'");
+        if (dt.Rows.Count > 0)
+        {
+            rptOpenBalLubeConsump.DataSource = dt;
+            rptOpenBalLubeConsump.DataBind();
+        }
+        else
+        {
+            rptOpenBalLubeConsump.DataSource = null;
+            rptOpenBalLubeConsump.DataBind();
+        }
+    }
+
+    protected void clearControls()
+    {
+        txtConsumptionDescription.Text = "";
+        txtMasterName.Text = "";
+        txtCEName.Text = "";
+        txtAddedBy.Text = "";
+        lblAddedon.Text = "";
+        itemCount = 0;
+        txtOfficeRemark.Text = "";
+        btnExport.Visible = false;
+    }
+
+    protected void ddlVessel_SelectedIndexChanged(object sender, EventArgs e)
+    {
+       // GetVesselDetails(ddlVessel.SelectedValue);
+        int CurrentMonth = Convert.ToInt32(ddlMonth.SelectedValue);
+        int previousmonth = CurrentMonth - 1;
+        string PreviousMonthName = ProjectCommon.GetMonthName(previousmonth.ToString());
+        lblPreviousMonthROB.Text = PreviousMonthName.ToUpper() + " - ROB ";
+        string CurrentMonthName = ProjectCommon.GetMonthName(CurrentMonth.ToString());
+        lblCurrMonthConsumption.Text = CurrentMonthName.ToUpper() + " - Consumption ";
+        lblCurrMonthROB.Text = CurrentMonthName.ToUpper() + " - ROB ";
+        GetVesselDetails(ddlVessel.SelectedValue);
+        GetOrderConsumptionDetails(Convert.ToInt32(ddlMonth.SelectedValue), Convert.ToInt32(ddlYear.SelectedValue));
+        int ConsCount = 0;
+        ConsCount = GetOpenBalConsumptionCount();
+        if (ConsCount > 0)
+        {
+            lbOpenBalance.Visible = false;
+        }
+        else
+        {
+            lbOpenBalance.Visible = true;
+        }
+    }
+}

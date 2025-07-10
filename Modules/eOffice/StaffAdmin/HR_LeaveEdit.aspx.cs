@@ -1,0 +1,993 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using System.Text;
+using System.Net.Mail;
+using System.Net;
+using System.IO;
+
+public partial class emtm_StaffAdmin_Emtm_HR_LeaveEdit : System.Web.UI.Page
+{
+    public AuthenticationManager auth;
+    protected DataTable dsHolidays;
+    protected DataTable DtLeave;
+
+    //User Defined Properties
+    public int LeaveRequestId
+    {
+        get
+        {
+            return Common.CastAsInt32(ViewState["LeaveRequestId"]);
+        }
+        set
+        {
+            ViewState["LeaveRequestId"] = value;
+        }
+    }
+    public int EmpId
+    {
+        get
+        {
+            return Common.CastAsInt32(ViewState["EmpId"]);
+        }
+        set
+        {
+            ViewState["EmpId"] = value;
+        }
+    }
+    public int OfficeId
+    {
+        get
+        {
+            return Common.CastAsInt32(ViewState["OfficeId"]);
+        }
+        set
+        {
+            ViewState["OfficeId"] = value;
+        }
+    }
+    public int DepartmentId
+    {
+        get
+        {
+            return Common.CastAsInt32(ViewState["DepartmentId"]);
+        }
+        set
+        {
+            ViewState["DepartmentId"] = value;
+        }
+    }
+    public int SelectedYear
+    {
+        get
+        {
+            return Common.CastAsInt32(ViewState["SelectedYear"]);
+        }
+        set
+        {
+            ViewState["SelectedYear"] = value;
+        }
+    }
+    public int SelectedMonth
+    {
+        get
+        {
+            return Common.CastAsInt32(ViewState["SelectedMonth"]);
+        }
+        set
+        {
+            ViewState["SelectedMonth"] = value;
+
+        }
+    }
+
+    protected string LeaveColor
+    {
+        get
+        {
+            return ViewState["LeaveColor"].ToString();
+        }
+        set
+        {
+            ViewState["LeaveColor"] = value;
+        }
+    }
+    //-----------------------
+
+    protected void BindLeaveType_ByOffice(int __OfficeId)
+    {
+        DataTable dt = Common.Execute_Procedures_Select_ByQueryCMS("SELECT * FROM dbo.HR_LeaveTypeMaster A WHERE A.LeaveTypeId <>-1 AND A.LEAVETYPEID IN (SELECT B.LEAVETYPEID FROM dbo.HR_OfficeLeaveMapping B WHERE B.OFFICEID=" + __OfficeId.ToString() + ") ORDER BY LeaveTypeName");
+        ddlLeaveType.Items.Clear();
+        ddlLeaveType.DataSource = dt;
+        ddlLeaveType.DataTextField = "LeaveTypeName";
+        ddlLeaveType.DataValueField = "LeaveTypeId";
+        ddlLeaveType.DataBind();
+    }
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        //-----------------------------
+        SessionManager.SessionCheck_New();
+        //-----------------------------
+        if (!Page.IsPostBack)
+        {
+            EmpId = Common.CastAsInt32(Session["ProfileId"]);
+            if (EmpId > 0)
+            {
+                //---------------------------
+                lblLeaveDays.Text = "0";
+                //ddlYear.Items.Add(new ListItem(DateTime.Today.Year.ToString()));
+                //ddlYear.Items.Add(new ListItem((DateTime.Today.Year + 1).ToString()));
+
+                //SelectedYear = Common.CastAsInt32(ddlYear.SelectedValue);
+                //SelectedMonth = DateTime.Today.Month;
+                //txtMonthId.Text = SelectedMonth.ToString();
+                DisableHalfdayRadio();
+                //---------------------------
+                //ControlLoader.LoadControl(ddlLocation, DataName.Office, "NONE", "");
+                DataTable dt = Common.Execute_Procedures_Select_ByQueryCMS("SELECT OFFICE,DEPARTMENT FROM Hr_PersonalDetails WHERE EMPID=" + EmpId.ToString());
+                if (dt.Rows.Count > 0)
+                {
+                    OfficeId = Common.CastAsInt32(dt.Rows[0]["OFFICE"].ToString());
+                    //ddlLocation.SelectedValue = dt.Rows[0]["OFFICE"].ToString();
+                    //ddlLocation_SelectedIndexChanged(new object(), new EventArgs());
+
+                    DepartmentId = Common.CastAsInt32(dt.Rows[0]["DEPARTMENT"].ToString());
+                    //ddlDepartment.SelectedValue = dt.Rows[0]["DEPARTMENT"].ToString();
+                }
+                //hdnShowMonth_Click(sender, e);
+
+                //ControlLoader.LoadControl(ddlLeaveType, DataName.HR_LeaveTypeMaster, "Select", "", "LeaveTypeId <>-1");
+                BindLeaveType_ByOffice(OfficeId);
+
+                //ControlLoader.LoadControl(ddlOffice, DataName.Office, "Select", "");
+                //ddlOffice.SelectedValue = dt.Rows[0]["OFFICE"].ToString();
+
+                ////ControlLoader.LoadControl(ddlUsers, DataName.ForwardedUsers, "Select", "");
+                //ddlOffice_SelectedIndexChanged(sender, e);
+
+                if (Common.CastAsInt32(Request.QueryString["LeaveRequestId"]) > 0)
+                {
+                    LeaveRequestId = Common.CastAsInt32(Request.QueryString["LeaveRequestId"]);
+                    ShowRecord(LeaveRequestId);
+                }
+            }
+            //setButtons("");
+        }
+    }
+
+    # region --- User Defined Functions ---
+    //-- COMMON FUNCTIONS
+    //protected void setButtons(string Action)
+    //{
+    //    switch (Action)
+    //    {
+    //        case "View":
+    //            tblview.Visible = true;
+    //            btnsave.Visible = false;
+    //            break;
+    //        case "Add":
+    //            tblview.Visible = true;
+    //            btnsave.Visible = true && auth.IsUpdate;
+    //            break;
+    //        case "Show":
+    //            break;
+    //        default:
+    //            //divLeaveDetail.Visible = true;
+    //            break;
+    //    }
+    //}
+    protected void ClearControls()
+    {
+        ddlLeaveType.SelectedIndex = 0;
+        txtLeaveFrom.Text = "";
+        txtLeaveTo.Enabled = true;
+        imgLeaveTo.Enabled = true;
+        txtLeaveTo.Text = "";
+        txtReason.Text = "";
+        chkHalfDay.Checked = false;
+        DisableHalfdayRadio();
+    }
+    protected void EnableHalfdayRadio()
+    {
+        rdoFirstHalf.Enabled = true;
+        rdoSecondHalf.Enabled = true;
+    }
+    protected void DisableHalfdayRadio()
+    {
+        rdoFirstHalf.Enabled = false;
+        rdoSecondHalf.Enabled = false;
+    }
+    public void ShowRecord(int Id)
+    {
+        ////---------------------------
+        //DataTable dt = Common.Execute_Procedures_Select_ByQueryCMS("SELECT OFFICE,DEPARTMENT FROM Hr_PersonalDetails WHERE EMPID=" + EmpId.ToString());
+        //if (dt.Rows.Count > 0)
+        //{
+        //    ddlLocation.SelectedValue = dt.Rows[0]["OFFICE"].ToString();
+        //    ddlLocation_SelectedIndexChanged(new object(), new EventArgs());
+        //    ddlDepartment.SelectedValue = dt.Rows[0]["DEPARTMENT"].ToString();
+        //}
+        ////---------------------------
+        string sql = "select *,(case when HalfDay>0 then 0.5 else dbo.HR_Get_LeaveCount(" + ViewState["OfficeId"].ToString() + ",leavefrom,leaveto) end) as Duration, dbo.getAbsentDays(empid,LeaveFrom,LeaveTo) as AbsentDays from HR_LeaveRequest WHERE LeaveRequestId=" + Id.ToString() + " ";
+        DataTable dtdata = Common.Execute_Procedures_Select_ByQueryCMS(sql);
+
+        if (dtdata != null)
+            if (dtdata.Rows.Count > 0)
+            {
+                int halfdayleave;
+                DataRow dr = dtdata.Rows[0];
+                ddlLeaveType.SelectedValue = dr["LeaveTypeId"].ToString().Trim();
+                txtLeaveFrom.Text = Convert.ToDateTime(dr["LeaveFrom"]).ToString("dd-MMM-yyyy").Trim();
+                txtLeaveTo.Text = Convert.ToDateTime(dr["LeaveTo"]).ToString("dd-MMM-yyyy").Trim();
+                txtReason.Text = (dr["Reason"].ToString() == string.Empty) ? "" : dr["Reason"].ToString().Trim();
+                halfdayleave = Common.CastAsInt32(dr["HalfDay"].ToString());
+                lblAbsentDays.Text = dr["AbsentDays"].ToString().Trim();
+                if (Convert.IsDBNull(dr["RequestDate"]))
+                {
+                    ViewState["RequestDate"] = DateTime.Today.ToString("dd-MMM-yyyy");
+                }
+                else
+                {
+                    ViewState["RequestDate"] = Convert.ToDateTime(dr["RequestDate"]).ToString("dd-MMM-yyyy").Trim();
+                }
+                if (halfdayleave == 1)
+                {
+                    chkHalfDay.Checked = true;
+                    rdoFirstHalf.Checked = true;
+                    EnableHalfdayRadio();
+
+                    txtLeaveTo.Text = txtLeaveFrom.Text.Trim();
+                    txtLeaveTo.Enabled = false;
+                    imgLeaveTo.Enabled = false;
+                }
+                else if (halfdayleave == 2)
+                {
+                    chkHalfDay.Checked = true;
+                    rdoSecondHalf.Checked = true;
+                    EnableHalfdayRadio();
+
+                    txtLeaveTo.Text = txtLeaveFrom.Text.Trim();
+                    txtLeaveTo.Enabled = false;
+                    imgLeaveTo.Enabled = false;
+                }
+                else
+                {
+                    chkHalfDay.Checked = false;
+                    DisableHalfdayRadio();
+                }
+
+                if (Common.CastAsInt32(dr["duration"]) > Common.CastAsInt32(0) && chkHalfDay.Checked == true)
+                {
+                    lblLeaveDays.Text = ".5 (Days)";
+                    lblAbsentDays.Text = "0 (Days)";
+                }
+                else
+                {
+                    lblLeaveDays.Text = dr["duration"].ToString() + " (Days)";
+                    lblAbsentDays.Text = dr["AbsentDays"].ToString() + " (Days)";
+                }
+
+                //string sql1 = "select office from Hr_PersonalDetails where empid=" + Common.CastAsInt32(dr["ForwardedTo"]).ToString();
+                //DataTable dtdata1 = Common.Execute_Procedures_Select_ByQueryCMS(sql1);
+                //if (dtdata1 != null)
+                //    if (dtdata1.Rows.Count > 0)
+                //    {
+                //        DataRow dr1 = dtdata1.Rows[0];
+                //        ddlOffice.SelectedValue = dr1["office"].ToString().Trim();
+                //    }
+
+                //ControlLoader.LoadControl(ddlUsers, DataName.ForwardedUsers, "Select", "", "office=" + Common.CastAsInt32(ddlOffice.SelectedValue) +" "+ "order by [Name]");
+
+                //ddlUsers.SelectedValue = dr["ForwardedTo"].ToString();
+
+                //if (dr["status"].ToString() == "W")
+                //{
+                //    divLeavePlan.Visible = false;
+                //}
+                //divLeavePlan.Visible = true;
+
+                if (halfdayleave > 0)
+                {
+                    lblAbsentDays.Text = "0 (Days)";
+                }
+            }
+            else
+            {
+                //divLeavePlan.Visible = false;
+            }
+        //litNotes.Text = "";
+
+        ShowHalfDayNote();
+        ShowNoAllotmentNote();
+        ShowintimationPeriodNote();
+        ShowDateConflictMessage();
+    }
+
+    public void ShowHalfDayNote()
+    {
+        if (chkHalfDay.Checked)
+        {
+            litNotes.Text += "<br/> ■ Half Day leave  might be rejected. Please discuss this with your HOD and approver.";
+        }
+    }
+    public void ShowNoAllotmentNote()
+    {
+        string year = DateTime.Today.Year.ToString();
+        if (txtLeaveFrom.Text.Trim() != "")
+        { year = Convert.ToDateTime(txtLeaveFrom.Text).Year.ToString(); }
+        string LeaveTypeId = ddlLeaveType.SelectedValue;
+        DataTable dtCnt = Common.Execute_Procedures_Select_ByQueryCMS("SELECT LeaveCount FROM HR_LeaveAssignment WHERE empid=" + EmpId.ToString() + " and year=" + year + " and leavetypeid=" + LeaveTypeId);
+        if (dtCnt.Rows.Count <= 0)
+        {
+            litNotes.Text += "<br/> ■ You have no entitlement for requested leave type in year [ " + year + " ].";
+        }
+        else if (Common.CastAsInt32(dtCnt.Rows[0][0]) <= 0)
+        {
+            litNotes.Text += "<br/> ■ You have no entitlement for requested leave type in year [ " + year + " ].";
+        }
+    }
+    public void ShowintimationPeriodNote()
+    {
+        string year = DateTime.Today.Year.ToString();
+        if (txtLeaveFrom.Text.Trim() != "")
+        { year = Convert.ToDateTime(txtLeaveFrom.Text).Year.ToString(); }
+        if (ddlLeaveType.SelectedValue == "1")
+        {
+            DataTable dtCnt = Common.Execute_Procedures_Select_ByQueryCMS("SELECT LeaveCount FROM HR_LeaveAssignment WHERE empid=" + EmpId.ToString() + " and year=" + year + " and leavetypeid=1");
+            if (dtCnt.Rows.Count > 0)
+            {
+                int Allotment = Common.CastAsInt32(dtCnt.Rows[0][0]);
+                if (Allotment > 0)
+                {
+                    DateTime StDt = Convert.ToDateTime(txtLeaveFrom.Text);
+                    DateTime ReqDt = Convert.ToDateTime(ViewState["RequestDate"]);
+                    if (StDt.Subtract(ReqDt).Days < Allotment)
+                    {
+                        litNotes.Text += "<br/> ■ You must apply for leave at least (" + Allotment.ToString() + ") days in adavance.";
+                    }
+                }
+            }
+        }
+    }
+    public void ShowDateConflictMessage()
+    {
+        if (txtLeaveFrom.Text.Trim() != "" && txtLeaveTo.Text.Trim() != "")
+        {
+            DataTable dtCnt = Common.Execute_Procedures_Select_ByQueryCMS("select * from HR_OfficeAbsence where ( '" + txtLeaveFrom.Text.Trim() + "' between leavefrom and leaveto OR '" + txtLeaveTo.Text.Trim() + "' between leavefrom and leaveto OR ( '" + txtLeaveFrom.Text.Trim() + "' < leavefrom AND '" + txtLeaveTo.Text.Trim() + "' > leaveto ) ) and empid=" + EmpId.ToString());
+            if (dtCnt.Rows.Count > 0)
+            {
+                litNotes.Text += "<br/> ■ Theare is Date Conflict between Leave & Business travel period.";
+            }
+            DataTable dTuser = Common.Execute_Procedures_Select_ByQueryCMS("SELECT uSERID FROM DBO.Hr_PersonalDetails WHERE EMPID=" + EmpId.ToString());
+
+            if (dTuser.Rows.Count > 0)
+            {
+                DataTable dtCnt1 = Common.Execute_Procedures_Select_ByQueryCMS("SELECT * FROM dbo.t_InspSupt WHERE ATTENDING=1 AND SUPERINTENDENTID=" + dTuser.Rows[0][0].ToString() + " AND DEPARTUREDATE BETWEEN '" + txtLeaveFrom.Text.Trim() + "' and '" + txtLeaveTo.Text.Trim() + "'");
+                if (dtCnt1.Rows.Count > 0)
+                {
+                    litNotes.Text += "<br/> ■ Theare is Date Conflict between Leave & Vetting Plan.";
+                }
+            }
+        }
+    }
+
+
+    public string ShowLeaveDays()
+    {
+        object d1 = (txtLeaveFrom.Text.Trim() == "") ? DBNull.Value : (object)txtLeaveFrom.Text;
+        object d2 = (txtLeaveTo.Text.Trim() == "") ? DBNull.Value : (object)txtLeaveTo.Text;
+
+        string sql = "select dbo.HR_Get_LeaveCount(" + ViewState["OfficeId"].ToString() + ",'" + d1 + "','" + d2 + "' )as Duration";
+        DataTable dt = Common.Execute_Procedures_Select_ByQueryCMS(sql);
+        return dt.Rows[0][0].ToString();
+    }
+    public string ShowAbsentDays()
+    {
+        object d1 = (txtLeaveFrom.Text.Trim() == "") ? DBNull.Value : (object)txtLeaveFrom.Text;
+        object d2 = (txtLeaveTo.Text.Trim() == "") ? DBNull.Value : (object)txtLeaveTo.Text;
+
+        if (txtLeaveFrom.Text.Trim() != "" && txtLeaveTo.Text.Trim() != "")
+        {
+            string sql = "select dbo.getAbsentDays(" + EmpId.ToString() + ",'" + d1 + "','" + d2 + "') as AbsentDays";
+            DataTable dt = Common.Execute_Procedures_Select_ByQueryCMS(sql);
+            return dt.Rows[0][0].ToString();
+        }
+        else
+        {
+            return "0";
+        }
+    }
+    public void Disable_Controls_For_AwaitingApproval()
+    {
+        ddlLeaveType.Enabled = false;
+        txtLeaveFrom.Enabled = false;
+        imgLeaveFrom.Enabled = false;
+        txtLeaveTo.Enabled = false;
+        imgLeaveTo.Enabled = false;
+        chkHalfDay.Enabled = false;
+        rdoFirstHalf.Enabled = false;
+        rdoSecondHalf.Enabled = false;
+        txtReason.Enabled = false;
+        btnsave.Enabled = false;
+    }
+    //protected void RenderMonthView()
+    //{
+    //    int _Year = SelectedYear;
+    //    int _Month = SelectedMonth;
+    //    //----------------
+    //    if (_Month == 0)
+    //    {
+    //        _Month = DateTime.Today.Month;
+    //    }
+
+    //    int Month = _Month;
+    //    int Year = _Year;
+
+    //    StringBuilder sb = new StringBuilder();
+    //    sb.Append(@"<table cellpadding='3' cellspacing='0' border='0' style='border-collapse :collapse; text-align :center;' >");
+    //    //--------- FIRST ROW
+    //    sb.Append(@"<tr>");
+    //    sb.Append(@"<td class='monthtd' style='border-right:none;' width='200px'>&nbsp;</td>");
+    //    for (int i = 1; i <= DateTime.DaysInMonth(Year, Month); i++)
+    //    {
+    //        sb.Append("<td style='background-color:#E5A0FC; width:17px;border :solid 1px #E5A0FC;'>" + i.ToString() + "</td>");
+    //    }
+    //    sb.Append(@"</tr>");
+    //    //--------- IIND ROW
+    //    sb.Append(@"<tr>");
+    //    sb.Append(@"<td style='border-right:none; text-align:left' width='200px'><b>Employee Name</b></td>");
+    //    for (int i = 1; i <= DateTime.DaysInMonth(Year, Month); i++)
+    //    {
+    //        DateTime dt = new DateTime(Year, Month, i);
+    //        sb.Append("<td style='background-color:#E5A0FC;border :solid 1px #E5A0FC;'>" + dt.DayOfWeek.ToString().Substring(0, 1) + "</td>");
+    //    }
+    //    sb.Append(@"</table>");
+    //    //---------------------
+    //    sb.Append(@"<div style='width:99%;height:200px;overflow-y:scroll;overflow-x:hidden;border:dotted 1px gray;'>");
+    //    sb.Append(@"<table cellpadding='3' cellspacing='0' border='0' style='border-collapse :collapse; text-align :center;'>");
+    //    //--------- DATA ROWS
+    //    string WhereClause = "where a.Status <>'R' and ofice.officeid=" + Common.CastAsInt32(ddlLocation.SelectedValue.Trim());
+
+    //    if (ddlDepartment.SelectedIndex > 0)
+    //        WhereClause += " And dept.deptid=" + Common.CastAsInt32(ddlDepartment.SelectedValue.Trim());
+
+    //    string SqlEmpName = "select a.empid,pd.FirstName +' ' + pd.MiddleName +' ' + pd.FamilyName as [Name] " +
+    //                      "from HR_LeaveRequest a " +
+    //                      "left outer join Hr_PersonalDetails pd on a.EmpId=pd.EmpId " +
+    //                      "left outer join office ofice on pd.Office=ofice.OfficeId " +
+    //                      "left outer join HR_Department dept on pd.Department=dept.DeptId " + WhereClause +
+    //                      "group by a.empid,pd.firstName,pd.MiddleName,pd.FamilyName";
+
+
+    //    DataTable dt_Emp = Common.Execute_Procedures_Select_ByQueryCMS(SqlEmpName);
+    //    int EmpId_Row = 0;
+    //    for (int i = 0; i <= dt_Emp.Rows.Count - 1; i++)
+    //    {
+    //        sb.Append(@"<tr>");
+    //        EmpId_Row = Common.CastAsInt32(dt_Emp.Rows[i][0]);
+    //        sb.Append(@"<td style='border-right:none; text-align:left; border-top:dotted 1px gray;border-bottom:dotted 1px gray;text-transform:capitalize;' width='200px'>" + dt_Emp.Rows[i]["Name"].ToString() + "</td>");
+    //        for (int j = 1; j <= DateTime.DaysInMonth(Year, Month); j++)
+    //        {
+    //            DateTime date = new DateTime(Year, Month, j);
+    //            string BgColor = "";
+    //            int LeaveTypeId = 0;
+    //            int LeaveRequestId = 0;
+    //            string status = "";
+
+    //            string SqlChekLeave = "select dbo.getLeaveStatus(" + EmpId_Row + ",'" + date.ToString("dd-MMM-yyyy") + "')";
+    //            DataTable dtChekLeave = Common.Execute_Procedures_Select_ByQueryCMS(SqlChekLeave);
+
+    //            if (dtChekLeave.Rows.Count > 0)
+    //            {
+    //                char[] sep = { '|' };
+    //                string[] parts = dtChekLeave.Rows[0][0].ToString().Split(sep);
+    //                if (parts[0] != "N")
+    //                {
+    //                    LeaveTypeId = Common.CastAsInt32(parts[1]);
+    //                    LeaveRequestId = Common.CastAsInt32(parts[1]);
+    //                    status = parts[0];
+    //                }
+    //            }
+    //            string Title = "";
+    //            switch (status)
+    //            {
+    //                case "B":
+    //                    DataTable dtBT = Common.Execute_Procedures_Select_ByQueryCMS("SELECT REPLACE(CONVERT(VARCHAR,LEAVEFROM,106),' ','-') + ' : ' + REPLACE(CONVERT(VARCHAR,LEAVETO,106),' ','-') + ' ' + +'\n' + REASON FROM dbo.HR_OfficeAbsence WHERE EMPID=" + EmpId_Row.ToString() + " AND '" + date.ToString("dd-MMM-yyyy") + "' BETWEEN LEAVEFROM AND LEAVETO");
+    //                    if (dtBT.Rows.Count > 0)
+    //                    {
+    //                        Title = "Business Trip - " + dtBT.Rows[0][0].ToString();
+    //                    }
+    //                    break;
+    //                case "W":
+    //                    Title = "Weekly Off";
+    //                    break;
+    //                case "H":
+    //                    DataTable dtHolyday = Common.Execute_Procedures_Select_ByQueryCMS("SELECT REPLACE(CONVERT(VARCHAR,HOLIDAYFROM,106),' ','-') + ' : ' + REPLACE(CONVERT(VARCHAR,HOLIDAYTO,106),' ','-') + '\n' + HOLIDAYREASON FROM dbo.HR_HolidayMaster WHERE OFFICEID=" + OfficeId.ToString() + " AND YEAR=" + SelectedYear.ToString() + " AND '" + date.ToString("dd-MMM-yyyy") + "' BETWEEN HOLIDAYFROM AND HOLIDAYTO");
+    //                    if (dtHolyday.Rows.Count > 0)
+    //                    {
+    //                        Title = "Holiday - " + dtHolyday.Rows[0][0].ToString();
+    //                    }
+    //                    break;
+    //                case "L":
+    //                case "P":
+    //                    DataTable dtLeave = Common.Execute_Procedures_Select_ByQueryCMS("SELECT REPLACE(CONVERT(VARCHAR,LEAVEFROM,106),' ','-') + ' : ' + REPLACE(CONVERT(VARCHAR,LEAVETO,106),' ','-') + ' ' + +'\n' + REASON FROM dbo.HR_LeaveRequest WHERE EMPID=" + EmpId_Row.ToString() + " AND '" + date.ToString("dd-MMM-yyyy") + "' BETWEEN LEAVEFROM AND LEAVETO");
+    //                    if (dtLeave.Rows.Count > 0)
+    //                    {
+    //                        Title = "Leave - " + dtLeave.Rows[0][0].ToString();
+    //                    }
+    //                    break;
+    //                default:
+    //                    Title = "";
+    //                    break;
+    //            }
+    //            if (LeaveTypeId > 0)
+    //            {
+    //                //sb.Append("<td title='" + Title + "' width='17px' class='box_" + status + "'>" + status + "</td>");
+    //                if (status != "W")
+    //                {
+    //                    sb.Append("<td title='" + Title + "' width='17px' class='box_" + status + "'>" + status + "</td>");
+    //                }
+    //                else
+    //                {
+    //                    sb.Append("<td title='" + Title + "' width='17px' class='box_" + status + "'></td>");
+    //                }
+    //            }
+    //            else
+    //            {
+    //                //sb.Append("<td title='" + Title + "' width='17px' class='box_" + status + "'>" + status + "</td>");
+    //                if (status != "W")
+    //                {
+    //                    sb.Append("<td title='" + Title + "' width='17px' class='box_" + status + "'>" + status + "</td>");
+    //                }
+    //                else
+    //                {
+    //                    sb.Append("<td title='" + Title + "' width='17px' class='box_" + status + "'></td>");
+    //                }
+    //            }
+    //        }
+    //        sb.Append(@"</tr>");
+    //    }
+    //    sb.Append(@"</table>");
+    //    sb.Append(@"</div>");
+    //    //---------------------
+    //    MonthView.Text = sb.ToString();
+    //}
+    //public string SendMail()
+    //{
+    //    string ReplyMess = "";
+    //    string MailFrom = "", MailTo = "";
+    //    //Mail From
+    //    string sqlGetMailFrom = "SELECT pd.EmpID,C.Email FROM Hr_PersonalDetails pd LEFT OUTER JOIN USERLOGIN C ON pd.userid=C.LoginId " +
+    //                            "WHERE pd.EmpID=" + EmpId;
+    //    DataTable dtGetMailFrom = Common.Execute_Procedures_Select_ByQueryCMS(sqlGetMailFrom);
+    //    if (dtGetMailFrom != null)
+    //        if (dtGetMailFrom.Rows.Count > 0)
+    //        {
+    //            DataRow drGetMailFrom = dtGetMailFrom.Rows[0];
+    //            MailFrom = drGetMailFrom["Email"].ToString();
+    //        }
+
+    //    String EmpFullName = "", EmpPosition = "";
+    //    string sqlFullNameNPosition = "SELECT (select PositionName from Position P where P.PositionID=pd.Position)Position,(pd.FirstName+' '+pd.FamilyName )as UserName FROM Hr_PersonalDetails pd LEFT OUTER JOIN USERLOGIN C ON pd.userid=C.LoginId where pd.EmpID=" + EmpId + "";
+    //    DataTable dtNamePos = Common.Execute_Procedures_Select_ByQueryCMS(sqlFullNameNPosition);
+    //    if (dtNamePos != null)
+    //        if (dtNamePos.Rows.Count > 0)
+    //        {
+    //            EmpPosition = dtNamePos.Rows[0][0].ToString();
+    //            EmpFullName = dtNamePos.Rows[0][1].ToString();
+    //        }
+
+    //    //Mail To
+    //    if (Common.CastAsInt32(ddlUsers.SelectedValue) > Common.CastAsInt32(0))
+    //    {
+    //        string sqlGetMailTo = "SELECT A.EMPID,C.Email FROM HR_LeaveRequest A " +
+    //                              "LEFT OUTER JOIN Hr_PersonalDetails B ON A.ForwardedTo=B.EMPID " +
+    //                              "LEFT OUTER JOIN USERLOGIN C ON B.USERID=C.LoginId " +
+    //                              "WHERE A.LeaveRequestId=" + LeaveRequestId + " AND ForwardedTo=" + Common.CastAsInt32(ddlUsers.SelectedValue.Trim());
+
+    //        DataTable dtGetMailTo = Common.Execute_Procedures_Select_ByQueryCMS(sqlGetMailTo);
+    //        if (dtGetMailTo != null)
+    //            if (dtGetMailTo.Rows.Count > 0)
+    //            {
+    //                DataRow drGetMailTo = dtGetMailTo.Rows[0];
+    //                MailTo = drGetMailTo["Email"].ToString();
+
+    //            }
+
+    //        string sqlGetEmployeeInfo = "select a.LeaveRequestId,pd.EmpCode,pd.FirstName +' ' + pd.MiddleName +' ' + pd.FamilyName as [Name], " +
+    //             "pd.Office,pd.Department,c.OfficeName,pd.Position,dept.DeptName,p.PositionName, " +
+    //             "a.LeaveTypeId,b.LeaveTypeName, " +
+    //             "replace(convert(varchar,a.LeaveFrom,106),' ','-') as LeaveFrom,replace(convert(varchar,a.LeaveTo,106),' ','-') as LeaveTo," +
+    //             "case a.Status when 'A'  then case when convert(datetime,a.LeaveTo) < convert(datetime,convert(varchar,getdate(),106))  then 'Taken' else 'Approved' end " +
+    //             "when 'P' then 'Plan' when 'V' then 'Awaiting Approval' when 'R' then 'Rejected' when 'C' then 'Cancelled' else a.Status end as Status, " +
+    //             "(case when a.HalfDay>0 then 0.5 else dbo.HR_Get_LeaveCount(pd.Office,leavefrom,leaveto) end) as Duration," +
+    //             "a.Reason,a.AppRejRemark, dbo.getAbsentDays(a.empid,a.LeaveFrom,a.LeaveTo) as AbsentDays from HR_LeaveRequest a left outer join HR_LeaveTypeMaster b on a.LeaveTypeId=b.LeaveTypeId " +
+    //             "left outer join Hr_PersonalDetails pd on a.empid=pd.empid " +
+    //             "left outer join Position p on pd.Position=p.PositionId " +
+    //             "Left Outer Join Office c on pd.Office= c.OfficeId " +
+    //             "Left Outer Join HR_Department dept on pd.Department=dept.DeptId " +
+    //             "where a.LeaveRequestId =" + LeaveRequestId;
+    //        DataTable dtGetEmployeeInfo = Common.Execute_Procedures_Select_ByQueryCMS(sqlGetEmployeeInfo);
+    //        if (dtGetEmployeeInfo != null)
+    //            if (dtGetEmployeeInfo.Rows.Count > 0)
+    //            {
+    //                DataRow drGetEmployeeInfo = dtGetEmployeeInfo.Rows[0];
+    //                //Sending mails
+    //                char[] Sep = { ';' };
+
+    //                string[] ToAdds = MailTo.ToString().Split(Sep);
+    //                string[] CCAdds = { "noreply@energiosmaritime.com" };// MailTo.ToString().Split(Sep);
+    //                string[] BCCAdds = "".Split(Sep);
+    //                String Subject = "Request for Leave";
+
+
+    //                //MailFrom = "pankaj.k@esoftech.com";
+    //                //string[] ToAdds = "asingh@energiossolutions.com".ToString().Split(Sep);
+    //                //string[] CCAdds = { "asingh@energiossolutions.com" };// MailTo.ToString().Split(Sep);
+    //                //string[] BCCAdds = "".Split(Sep);
+    //                //String Subject = "Request for Leave [ ACTUAL ADDRESS = " + MailTo;
+
+    //                String MailBody;
+    //                MailBody = "EmployeeName: " + drGetEmployeeInfo["Name"].ToString() + " || Position:" + drGetEmployeeInfo["PositionName"].ToString() + " || Department: " + drGetEmployeeInfo["DeptName"].ToString() + "";
+    //                MailBody = MailBody + "<br><br>Leave Type: " + drGetEmployeeInfo["LeaveTypeName"].ToString() + " || Leave Period: ( " + drGetEmployeeInfo["LeaveFrom"].ToString() + " : " + drGetEmployeeInfo["LeaveTo"].ToString() + ") || Duration: " + drGetEmployeeInfo["Duration"].ToString() + " (days) || Total Office Absence: " + drGetEmployeeInfo["AbsentDays"].ToString() + " (days)";
+    //                //MailBody = MailBody + "<br><br>Absent Days: " + drGetEmployeeInfo["AbsentDays"].ToString() + "";
+    //                MailBody = MailBody + "<br><br>Remark: " + drGetEmployeeInfo["Reason"].ToString() + "";
+    //                string param1 = "sh5785" + LeaveRequestId.ToString().PadLeft(6, '_') + "42535jkgbkju";
+    //                string param2 = "5hjhkl25557" + ddlUsers.SelectedValue.Trim().PadLeft(6, '_') + "vhjk2525jll";
+
+
+    //                MailBody = MailBody + "<br><br>" + "<a  href='" + System.Configuration.ConfigurationManager.AppSettings["PublicAction"].ToString() + "?_ltpinfo=" + param1 + "&_aprifon=" + param2 + "' target='blank' >Click here to Approve/Reject leave.</a>";
+
+
+    //                MailBody = MailBody + "<br><br>Thanks & Best Regards";
+    //                //MailBody = MailBody + "<br>" + drGetEmployeeInfo["Name"].ToString() + "<br><font color=000080 size=2 face=Century Gothic><strong>" + MailFrom.ToString() + "</strong></font>";
+    //                MailBody = MailBody + "<br>" + UppercaseWords(EmpFullName);
+    //                MailBody = MailBody + "<br>" + EmpPosition + "<br><font color=000080 size=2 face=Century Gothic><strong>" + MailFrom.ToString() + "</strong></font>";
+
+    //                //------------------
+    //                string AttachmentFilePath = "";
+    //                SendEmail.SendeMail(EmpId, MailFrom.ToString(), MailFrom.ToString(), ToAdds, CCAdds, BCCAdds, Subject, MailBody, out ReplyMess, AttachmentFilePath);
+    //            }
+    //    }
+    //    return ReplyMess;
+    //}
+    static string UppercaseWords(string value)
+    {
+        char[] array = value.ToCharArray();
+        // Handle the first letter in the string.
+        if (array.Length >= 1)
+        {
+            if (char.IsLower(array[0]))
+            {
+                array[0] = char.ToUpper(array[0]);
+            }
+        }
+        // Scan through the letters, checking for spaces.
+        // ... Uppercase the lowercase letters following spaces.
+        for (int i = 1; i < array.Length; i++)
+        {
+            if (array[i - 1] == ' ')
+            {
+                if (char.IsLower(array[i]))
+                {
+                    array[i] = char.ToUpper(array[i]);
+                }
+            }
+        }
+        return new string(array);
+    }
+    //protected DataTable GetCurrentMonthData(DateTime firstDate, DateTime lastDate)
+    //{
+    //    int EmpId = Common.CastAsInt32(Session["ProfileId"]);
+    //    string sql = "select * from HR_HolidayMaster where Holidayfrom >= '" + firstDate.ToString("dd-MMM-yyyy") + "' AND HolidayTo <= '" + lastDate.ToString("dd-MMM-yyyy") + "'";
+    //    DataTable dtdata = Common.Execute_Procedures_Select_ByQueryCMS(sql);
+    //    return dtdata;
+    //}
+    //protected DataTable GetCurrentMonthLeave(DateTime firstDate, DateTime lastDate)
+    //{
+    //    int EmpId = Common.CastAsInt32(Session["ProfileId"]);
+    //    string sql = "select main.firstname +' '+ main.MiddleName +' ' + main.FamilyName as EmpName ,b.LeaveTypeName, " +
+    //                 "a.LeaveFrom,a.LeaveTo,a.Reason," +
+    //                "case a.Status when 'A' then 'Approved' when 'P' then 'Plan' when 'W' then 'Awaiting Approval'  when 'v' then 'Verified' when 'R' then 'Rejected' else a.Status end as Status from HR_LeaveRequest a " +
+    //                "left outer join HR_LeaveTypeMaster b on a.LeaveTypeId=b.LeaveTypeId " +
+    //                "left outer join Hr_PersonalDetails main on a.empid=main.empid " +
+    //                "left outer join office c on main.office=c.officeid " +
+    //                "left outer join emtm_department d on d.DeptId=main.Department " +
+    //                "where c.officeid=" + ViewState["OfficeId"] + " and	main.Department=" + ViewState["DepartmentId"] + " and " +
+    //                "a.leavefrom >= '" + firstDate.ToString("dd-MMM-yyyy") + "' AND a.leaveto <='" + lastDate.ToString("dd-MMM-yyyy") + "' and a.status <>'P' and a.status <>'R'";
+
+    //    DataTable dtdata = Common.Execute_Procedures_Select_ByQueryCMS(sql);
+    //    return dtdata;
+    //}
+    #endregion
+    #region --- Control Events ---
+    protected void btnsave_Click(object sender, EventArgs e)
+    {
+        int HalfDay;
+        if (chkHalfDay.Checked)
+        {
+            if (rdoFirstHalf.Checked)
+            {
+                HalfDay = 1;
+            }
+            else
+            {
+                HalfDay = 2;
+            }
+        }
+        else
+        {
+            HalfDay = 0;
+        }
+
+        DateTime date_From, date_To;
+        if (!(DateTime.TryParse(txtLeaveFrom.Text, out date_From)))
+        {
+            ScriptManager.RegisterStartupScript(Page, this.GetType(), "error", "alert('From Date is Incorrect.');", true);
+            return;
+        }
+
+        if (txtLeaveTo.Text != "")
+        {
+            if (!(DateTime.TryParse(txtLeaveTo.Text, out date_To)))
+            {
+                ScriptManager.RegisterStartupScript(Page, this.GetType(), "error", "alert('To Date is Incorrect.');", true);
+                return;
+            }
+
+            if (date_From > date_To)
+            {
+                ScriptManager.RegisterStartupScript(Page, this.GetType(), "success", "alert('To Date should be greater than From Date.');", true);
+                return;
+            }
+        }
+
+        object d1 = (txtLeaveFrom.Text.Trim() == "") ? DBNull.Value : (object)txtLeaveFrom.Text;
+        object d2 = (txtLeaveTo.Text.Trim() == "") ? DBNull.Value : (object)txtLeaveTo.Text;
+
+        int EmpId = Common.CastAsInt32(Session["ProfileId"]);
+        Common.Set_Procedures("HR_Update_HR_LeaveRequest");
+        Common.Set_ParameterLength(7);
+        Common.Set_Parameters(new MyParameter("@LeaveRequestId", Common.CastAsInt32(ViewState["LeaveRequestId"])),
+            new MyParameter("@EmpId", EmpId),
+            new MyParameter("@LeaveTypeId", Common.CastAsInt32(ddlLeaveType.SelectedValue.Trim())),
+            new MyParameter("@LeaveFrom", d1),
+            new MyParameter("@LeaveTo", d2),
+            new MyParameter("@HalfDay", HalfDay),
+            new MyParameter("@Reason", txtReason.Text.Trim())
+            );
+
+
+        DataSet ds = new DataSet();
+        if (Common.Execute_Procedures_IUD_CMS(ds))
+        {
+            ScriptManager.RegisterStartupScript(Page, this.GetType(), "success", "RefreshParent()", true);
+            //LeaveRequestId = Common.CastAsInt32(ds.Tables[0].Rows[0][0]);
+            ScriptManager.RegisterStartupScript(Page, this.GetType(), "success", "alert('Record saved successfully.');", true);
+            //ddlUsers.SelectedIndex = 0;
+            //divLeavePlan.Visible = true;
+
+            ViewState["RequestDate"] = DateTime.Today.ToString("dd-MMM-yyyy");
+
+            litNotes.Text = "";
+
+            ShowHalfDayNote();
+            ShowNoAllotmentNote();
+            ShowintimationPeriodNote();
+            ShowDateConflictMessage();            
+
+        }
+        else
+        {
+            ScriptManager.RegisterStartupScript(Page, this.GetType(), "error", "alert('Unable To Save Record. Error : " + Common.getLastError() + "');", true);
+        }
+    }
+    protected void btnLeaveView_Click(object sender, EventArgs e)
+    {
+        LeaveRequestId = 0;
+        ClearControls();
+    }
+    protected void btncancel_Click(object sender, EventArgs e)
+    {
+        LeaveRequestId = 0;
+    }
+    protected void chkHalfDay_CheckedChanged(object sender, EventArgs e)
+    {
+        if (chkHalfDay.Checked)
+        {
+            EnableHalfdayRadio();
+            rdoFirstHalf.Checked = true;
+
+            txtLeaveTo.Text = txtLeaveFrom.Text.Trim();
+            txtLeaveTo.Enabled = false;
+            imgLeaveTo.Enabled = false;
+        }
+        else
+        {
+            DisableHalfdayRadio();
+            rdoFirstHalf.Checked = false;
+
+            txtLeaveTo.Enabled = true;
+            imgLeaveTo.Enabled = true;
+        }
+
+        string LeaveDays = ShowLeaveDays();
+        string AbsentDays = ShowAbsentDays();
+
+        if (Common.CastAsInt32(LeaveDays) > Common.CastAsInt32(0) && chkHalfDay.Checked == true)
+        {
+            lblLeaveDays.Text = ".5 (Days)";
+            lblAbsentDays.Text = "0 (Days)";
+        }
+        else
+        {
+            lblLeaveDays.Text = LeaveDays + " (Days)";
+            lblAbsentDays.Text = AbsentDays + " (Days)";
+        }
+        ShowHalfDayNote();
+    }
+    protected void btnhdn_Click(object sender, EventArgs e)
+    {
+        if (chkHalfDay.Checked)
+        {
+            txtLeaveTo.Text = txtLeaveFrom.Text.Trim();
+            txtLeaveTo.Enabled = false;
+            imgLeaveTo.Enabled = false;
+        }
+        else
+        {
+            txtLeaveTo.Enabled = true;
+            imgLeaveTo.Enabled = true;
+        }
+
+        string LeaveDays = ShowLeaveDays();
+        string AbsentDays = ShowAbsentDays();
+
+        if (Common.CastAsInt32(LeaveDays) > Common.CastAsInt32(0) && chkHalfDay.Checked == true)
+        {
+            lblLeaveDays.Text = ".5 (Days)";
+            lblAbsentDays.Text = "0 (Days)";
+        }
+        else
+        {
+            lblLeaveDays.Text = LeaveDays + " (Days)";
+            lblAbsentDays.Text = AbsentDays + " (Days)";
+        }
+
+    }
+    //protected void ddlOffice_SelectedIndexChanged(object sender, EventArgs e)
+    //{
+    //    string Position = "";
+
+    //    if (ddlOffice.SelectedValue.Trim() != "")
+    //    {
+    //        if (ddlOffice.SelectedValue.Trim() == "1")
+    //        {
+    //            Position = "29 ";
+    //        }
+    //        if (ddlOffice.SelectedValue.Trim() == "2")
+    //        {
+    //            Position = "41";
+    //        }
+    //        if (ddlOffice.SelectedValue.Trim() == "3")
+    //        {
+    //            Position = "1";
+    //        }
+
+    //    }
+
+    //    string Query = "SELECT FU.* FROM ForwardedUsers FU " +
+    //                   "INNER JOIN Hr_PersonalDetails PD ON PD.EmpId = FU.EmpId " +
+    //                   "WHERE FU.office=" + Common.CastAsInt32(ddlOffice.SelectedValue) + " AND PD.position in (" + Position + ") order by [Name] ";
+    //    DataTable dtForwaredeUsers = Common.Execute_Procedures_Select_ByQueryCMS(Query);
+
+    //    ddlUsers.DataSource = dtForwaredeUsers;
+    //    ddlUsers.DataTextField = "Name";
+    //    ddlUsers.DataValueField = "EmpId";
+    //    ddlUsers.DataBind();
+
+    //    ddlUsers.Items.Insert(0, new ListItem("Select", ""));
+
+
+    //    //ControlLoader.LoadControl(ddlUsers, DataName.ForwardedUsers, "Select", "", "office=" + Common.CastAsInt32(ddlOffice.SelectedValue) + " " + WHERE + "order by [Name]");
+    //}
+    //protected void btnAwaitingApproval_Click(object sender, EventArgs e)
+    //{
+    //    Common.Set_Procedures("HR_UpdateRequestLeave");
+    //    Common.Set_ParameterLength(4);
+    //    Common.Set_Parameters(new MyParameter("@LeaveRequestId", LeaveRequestId),
+    //        new MyParameter("@Status", "V"),
+    //        new MyParameter("@ActionById", ddlUsers.SelectedValue),
+    //        new MyParameter("@ActionRemark", ""));
+    //    DataSet ds = new DataSet();
+    //    if (Common.Execute_Procedures_IUD_CMS(ds))
+    //    {
+    //        string Mess = SendMail();
+    //        ScriptManager.RegisterStartupScript(Page, this.GetType(), "success", "alert('Your leave request has been sent for Approval.');window.close()", true);
+    //    }
+    //    else
+    //    {
+    //        ScriptManager.RegisterStartupScript(Page, this.GetType(), "success", "alert('Unable To sent request. Error : " + Common.getLastError() + "');", true);
+    //    }
+    //}
+    //protected void hdnShowMonth_Click(object sender, EventArgs e)
+    //{
+    //    SelectedMonth = Common.CastAsInt32(txtMonthId.Text);
+    //    int Month = SelectedMonth;
+    //    tdJan.Attributes.Add("Class", "monthtd");
+    //    tdFeb.Attributes.Add("Class", "monthtd");
+    //    tdMar.Attributes.Add("Class", "monthtd");
+    //    tdApr.Attributes.Add("Class", "monthtd");
+    //    tdMay.Attributes.Add("Class", "monthtd");
+    //    tdJun.Attributes.Add("Class", "monthtd");
+    //    tdJul.Attributes.Add("Class", "monthtd");
+    //    tdAug.Attributes.Add("Class", "monthtd");
+    //    tdSep.Attributes.Add("Class", "monthtd");
+    //    tdOct.Attributes.Add("Class", "monthtd");
+    //    tdNov.Attributes.Add("Class", "monthtd");
+    //    tdDec.Attributes.Add("Class", "monthtd");
+
+    //    switch (Month)
+    //    {
+    //        case 1:
+    //            tdJan.Attributes.Add("Class", "monthtdselected");
+    //            break;
+    //        case 2:
+    //            tdFeb.Attributes.Add("Class", "monthtdselected");
+    //            break;
+    //        case 3:
+    //            tdMar.Attributes.Add("Class", "monthtdselected");
+    //            break;
+    //        case 4:
+    //            tdApr.Attributes.Add("Class", "monthtdselected");
+    //            break;
+    //        case 5:
+    //            tdMay.Attributes.Add("Class", "monthtdselected");
+    //            break;
+    //        case 6:
+    //            tdJun.Attributes.Add("Class", "monthtdselected");
+    //            break;
+    //        case 7:
+    //            tdJul.Attributes.Add("Class", "monthtdselected");
+    //            break;
+    //        case 8:
+    //            tdAug.Attributes.Add("Class", "monthtdselected");
+    //            break;
+    //        case 9:
+    //            tdSep.Attributes.Add("Class", "monthtdselected");
+    //            break;
+    //        case 10:
+    //            tdOct.Attributes.Add("Class", "monthtdselected");
+    //            break;
+    //        case 11:
+    //            tdNov.Attributes.Add("Class", "monthtdselected");
+    //            break;
+    //        case 12:
+    //            tdDec.Attributes.Add("Class", "monthtdselected");
+    //            break;
+    //        default:
+    //            tdJan.Attributes.Add("Class", "monthtdselected");
+    //            break;
+    //    }
+    //    RenderMonthView();
+    //}
+    #endregion
+    //protected void ddlLocation_SelectedIndexChanged(object sender, EventArgs e)
+    //{
+    //    ControlLoader.LoadControl(ddlDepartment, DataName.HR_Department, "All", "", "officeid=" + Common.CastAsInt32(ddlLocation.SelectedValue));
+    //    RenderMonthView();
+    //}
+    //protected void ddlYear_SelectedIndexChanged(object sender, EventArgs e)
+    //{
+    //    SelectedYear = Common.CastAsInt32(ddlYear.SelectedValue);
+    //    RenderMonthView();
+    //}
+    //protected void ddlDepartment_SelectedIndexChanged(object sender, EventArgs e)
+    //{
+    //    RenderMonthView();
+    //}
+}

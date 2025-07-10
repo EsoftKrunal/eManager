@@ -1,0 +1,14 @@
+#imgbox 
+{
+    vertical-align : middle;
+    position : absolute;
+    border: 1px solid #999;
+    background : #FFFFFF; 
+    filter: Alpha(Opacity=100);
+    visibility : hidden;
+    height : 300px;
+    width : 300px;
+    z-index : 50;
+    overflow : hidden;
+    text-align : center;
+}

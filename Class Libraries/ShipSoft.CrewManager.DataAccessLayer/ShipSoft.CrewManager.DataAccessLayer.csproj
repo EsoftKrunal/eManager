@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1813A0F2-5182-4A70-8B7A-C96E736F204D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ShipSoft.CrewManager.DataAccessLayer</RootNamespace>
+    <AssemblyName>ShipSoft.CrewManager.DataAccessLayer</AssemblyName>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ShipSoft.CrewManager.BusinessObjects, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ShipSoft.CrewManager.BusinessObjects\bin\Debug\ShipSoft.CrewManager.BusinessObjects.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppConfiguration.cs" />
+    <Compile Include="DataAccessBase.cs" />
+    <Compile Include="DataBaseHelper.cs" />
+    <Compile Include="Delete\CrewApprasialDetailsDeleteData.cs" />
+    <Compile Include="Delete\CrewCourseCertificateDetailsDeleteData.cs" />
+    <Compile Include="Delete\CrewLicenseDetailsDeleteData.cs" />
+    <Compile Include="Delete\CrewMemberAcademicDetailsDeleteData.cs" />
+    <Compile Include="Delete\CrewMemberDangerousCargoDetailsDeleteData.cs" />
+    <Compile Include="Delete\CrewMemberExperienceDetailsDeleteData.cs" />
+    <Compile Include="Delete\CrewMemberMedicalDetailsDeleteData.cs" />
+    <Compile Include="Delete\CrewMemberMedicalHistoryDetailsDeleteData.cs" />
+    <Compile Include="Delete\CrewMemberOtherDocumentDeleteData.cs" />
+    <Compile Include="Delete\CrewMemberTravelDetailsDeleteData.cs" />
+    <Compile Include="Delete\CrewTrainingRequirementDeleteData.cs" />
+    <Compile Include="Delete\CRMDetailsDeleteData.cs" />
+    <Compile Include="Delete\FamilyDetailsDeleteData.cs" />
+    <Compile Include="Delete\VisaDetailsDeleteData.cs" />
+    <Compile Include="Insert\CrewCourseCetificateDetailsInsetData.cs" />
+    <Compile Include="Insert\CrewLicenseInsertData.cs" />
+    <Compile Include="Insert\CrewMemberAcademicDetailsInsertData.cs" />
+    <Compile Include="Insert\CrewMemberApprasialInsertData.cs" />
+    <Compile Include="Insert\CrewMemberDangerousCargoDetailsInsertData.cs" />
+    <Compile Include="Insert\CrewMemberFamilyVisaDetailsInsertData.cs" />
+    <Compile Include="Insert\CrewMemberMedicalDocumentDetailsInsertData.cs" />
+    <Compile Include="Insert\CrewMemberMedicalHistoryInsertData.cs" />
+    <Compile Include="Insert\CrewMemberOtherDocumentDetailsInsertData.cs" />
+    <Compile Include="Insert\CrewMemberProfessionalDetailsInsertData.cs" />
+    <Compile Include="Insert\CrewMemberDocumentDetailsInsertData.cs" />
+    <Compile Include="Insert\CrewMemberExperienceDetailsInsertData.cs" />
+    <Compile Include="Insert\CrewMemberContactDetailsInsertData.cs" />
+    <Compile Include="Insert\CrewMemberFamilyDetailsInsertData.cs" />
+    <Compile Include="Insert\CrewMemberPersonalDetailsInsertData.cs" />
+    <Compile Include="Insert\CrewMemberQualificationDetailsInsertData.cs" />
+    <Compile Include="Insert\CrewMemberTravelDocumentDetailsInsertData.cs" />
+    <Compile Include="Insert\CrewTrainingRequirementInsertData.cs" />
+    <Compile Include="Insert\CRMDetailsInsertData.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Select\ApprasialSelectData.cs" />
+    <Compile Include="Select\CargoNameSelectData.cs" />
+    <Compile Include="Select\CDCDetailsSelectData.cs" />
+    <Compile Include="Select\CDCDetailsSelectDataByFamilyDocumentId.cs" />
+    <Compile Include="Select\CheckAuthority.cs" />
+    <Compile Include="Select\CheckLogin.cs" />
+    <Compile Include="Select\CrewMemberApprasialSelectDetailsIyCrewId.cs" />
+    <Compile Include="Select\CrmCatgorySelectData.cs" />
+    <Compile Include="Select\DocumentSubTypeSelectData.cs" />
+    <Compile Include="Select\FlagStateSelectData.cs" />
+    <Compile Include="Select\CrewLicenceDetailsSelectData.cs" />
+    <Compile Include="Select\CrewLicenseSelectData.cs" />
+    <Compile Include="Select\CrewMemberAcademicDetailsSelectData.cs" />
+    <Compile Include="Select\CrewMemberCourseDetailsSelectData.cs" />
+    <Compile Include="Select\CrewMemberCouseSelctData.cs" />
+    <Compile Include="Select\CrewMemberDangerousCargoDetailsSelectData.cs" />
+    <Compile Include="Select\CrewMemberDocumentsSelectData.cs" />
+    <Compile Include="Select\CrewMemberMedicalcaseHistorySelectData.cs" />
+    <Compile Include="Select\CrewMemberOtherDocumentSelectData.cs" />
+    <Compile Include="Select\CrewMemberSelectData.cs" />
+    <Compile Include="Select\CrewMemberSelectDataById.cs" />
+    <Compile Include="Select\CrewTrainingRequirementSelectData.cs" />
+    <Compile Include="Select\CRMDetailsSelectData.cs" />
+    <Compile Include="Select\MedicalDocumentDetailsSelectData.cs" />
+    <Compile Include="Select\MedicalDocumentTypeSelectData.cs" />
+    <Compile Include="Select\PortSelectData.cs" />
+    <Compile Include="Select\SelectBloodGroup.cs" />
+    <Compile Include="Select\SelecttCountryCode.cs" />
+    <Compile Include="Select\NearestAirportSelectDataById.cs" />
+    <Compile Include="Select\CrewMemberProfessionalDetailsSelectDataById.cs" />
+    <Compile Include="Select\CrewMemberProfessionalDetailsSelectData.cs" />
+    <Compile Include="Select\CrewMemberExperienceDetailsSelectDataById.cs" />
+    <Compile Include="Select\CrewMemberExperienceDetailsSelectData_MTMSM.cs" />
+    <Compile Include="Select\CrewMemberQualificationDetailsSelectDataById.cs" />
+    <Compile Include="Select\CrewMemberExperienceDetailsSelectData.cs" />
+    <Compile Include="Select\CrewMemberQualificationDetailsSelectData.cs" />
+    <Compile Include="Select\CountrySelectData.cs" />
+    <Compile Include="Select\CourseNameSelectData.cs" />
+    <Compile Include="Select\CrewMemberContactDetailsSelectDataById.cs" />
+    <Compile Include="Select\CrewMemberPersonalDetailsSelectDataById.cs" />
+    <Compile Include="Select\CrewMemberPrimaryDetailsSelectData_Search.cs" />
+    <Compile Include="Select\CrewStatusSelectData.cs" />
+    <Compile Include="Select\DocumentDetailsSelectDataById.cs" />
+    <Compile Include="Select\DocumentDetailsSelectDataInGrid.cs" />
+    <Compile Include="Select\DocumentTypeSelectData.cs" />
+    <Compile Include="Select\FamilyDetailsSelectData.cs" />
+    <Compile Include="Select\FamilyDetailsSelectDataByFamilyId.cs" />
+    <Compile Include="Select\ManningPoolSelectData.cs" />
+    <Compile Include="Select\NationalitySelectData.cs" />
+    <Compile Include="Select\OwnerPoolSelectData.cs" />
+    <Compile Include="Select\QualificationSelectData.cs" />
+    <Compile Include="Select\RankAppliedSelectData.cs" />
+    <Compile Include="Select\RankSelectData.cs" />
+    <Compile Include="Select\RecruitingOfficeSelectData.cs" />
+    <Compile Include="Select\SignOffReasonSelectData.cs" />
+    <Compile Include="Select\TrainingSelectData.cs" />
+    <Compile Include="Select\TravelDocumentDetailsSelectDataById.cs" />
+    <Compile Include="Select\TravelDocumentDetailsSelectDataInGrid.cs" />
+    <Compile Include="Select\TravelDocumentSubTypeSelectData.cs" />
+    <Compile Include="Select\TravelDocumentTypeSelectData.cs" />
+    <Compile Include="Select\VesselSelectData.cs" />
+    <Compile Include="Select\VesselTypeSelectData.cs" />
+    <Compile Include="Select\VisaDetailsSelectDataByFamilyDocumentId.cs" />
+    <Compile Include="Select\VisaSelectData.cs" />
+    <Compile Include="SQLHelper.cs" />
+    <Compile Include="StoredProcedure.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Update\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

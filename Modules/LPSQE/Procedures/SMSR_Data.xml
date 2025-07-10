@@ -1,0 +1,25 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <SMS_ShipComments>
+    <VesselCode>MTW</VesselCode>
+    <CommentId>1</CommentId>
+    <ManualId>8</ManualId>
+    <SectionId>4</SectionId>
+    <MVersion>0.0</MVersion>
+    <SVersion>1.0</SVersion>
+    <CommentText>Test123</CommentText>
+    <CommentBy>Ajay</CommentBy>
+    <CommentOn>2014-10-15T16:01:00+08:00</CommentOn>
+    <ReceivedInOffice>N</ReceivedInOffice>
+    <ComentByRank>IT</ComentByRank>
+    <ChangeRequested>N</ChangeRequested>
+    <Status>C</Status>
+    <Stage xml:space="preserve"> </Stage>
+    <ReqDate>2014-10-15T16:01:00+08:00</ReqDate>
+    <Updated>true</Updated>
+    <UpdatedOn>2014-10-15T16:01:00+08:00</UpdatedOn>
+    <ClosedBy>1</ClosedBy>
+    <ClosedOn>2014-10-15T16:04:00+08:00</ClosedOn>
+    <ClosureRemarks>test closed.</ClosureRemarks>
+  </SMS_ShipComments>
+</NewDataSet>

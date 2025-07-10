@@ -1,0 +1,302 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="UserManagement.aspx.cs" Inherits="UserManagement" %>
+
+<%@ Register src="~/UserControls/MessageBox.ascx" tagname="MessageBox" tagprefix="uc1" %>
+
+<%--<%@ Register Src="~/UserControls/MessageBox.ascx" TagName="Message" TagPrefix="mtm" %>--%>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>User Management</title>
+    <link type="text/css" href="StyleSheet.css" rel="Stylesheet" />
+    <style type="text/css">
+        /* AutoComplete item */
+        .AutoCompleteExtender_CompletionList {
+            background-color: lightgray;
+            color: windowtext;
+            padding: 1px;
+            font-size: small;
+            background-color: Gray;
+            list-style-type: none;
+            border: solid 1px gray;
+            height: 100px;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            /*creates border with
+            autocomplete_completionListElement
+            background-color*/
+        }
+
+        /*AutoComplete flyout */
+        .AutoCompleteExtender_CompletionListItem {
+            text-align: left;
+            background-color: White;
+            list-style-type: none;
+            color: black;
+        }
+
+        /* AutoComplete highlighted item */
+        .AutoCompleteExtender_HighlightedItem {
+            background-color: Silver;
+            text-align: left;
+            color: blue;
+            list-style-type: none;
+        }
+    </style>
+    <script type="text/javascript">
+        function move() {
+            var cd = event.keyCode;
+            if (cd == 13) {
+                //document.getElementById('btnShow').focus();
+                //document.getElementById('btnShow').click();
+            }
+        }
+
+    </script>
+    <style type="text/css">
+        input[type='text'], input[type='password'] {
+            padding: 4px;
+        }
+
+        input[type='button'] {
+            padding: 4px;
+            min-width: 100px;
+        }
+
+        select {
+            height: 25px;
+            line-height: 25px;
+        }
+    </style>
+</head>
+<body style="margin: 0px;">
+    <form id="form1" runat="server" defaultbutton="btnShow">
+        <div style="text-align: center">
+            <ajaxToolkit:ToolkitScriptManager ID="ScriptManager1" runat="server"></ajaxToolkit:ToolkitScriptManager>
+            <div class="pagename" style="padding: 5px; background-color: lightgray; font-size: 17px; color: white;">User Management</div>
+            <table cellspacing="0" border="0" cellpadding="0" style="width: 100%;">
+                <tr>
+                    <td style="vertical-align: top; width: 50%;">
+                        <table border="0" width="100%" cellpadding="3" cellspacing="0">
+                            <col width="450px" />
+                            <col />
+                            <col width="200px" />
+                            <tr>
+                                <td style="text-align: left">
+                                    <asp:TextBox runat="server" ID="myTextBox" Width="350px" autocomplete="off" onkeydown="move()" placeholder="Enter Username." Style="padding: 4px;" />
+                                    <ajaxToolkit:AutoCompleteExtender runat="server"
+                                        ID="autoComplete1"
+                                        TargetControlID="myTextBox"
+                                        ServiceMethod="GetCompletionList"
+                                        CompletionInterval="1000"
+                                        EnableCaching="true"
+                                        MinimumPrefixLength="0"
+                                        CompletionSetCount="12"
+                                        CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+                                        CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                                        CompletionListCssClass="AutoCompleteExtender_CompletionList" />
+                                </td>
+                                <td>
+                                    <asp:DropDownList ID="ddlsStatus" runat="server" Style="height: 25px; line-height: 25px; width: 100px;">
+                                        <asp:ListItem Value="" Text="Emp. Status"></asp:ListItem>
+                                        <asp:ListItem Value="1" Text="Active" Selected="True"></asp:ListItem>
+                                        <asp:ListItem Value="2" Text="Inactive"></asp:ListItem>
+                                    </asp:DropDownList>
+                                </td>
+                                <td>
+                                    <span style="">
+                                        <asp:Button runat="server" ID="btnShow" UseSubmitBehavior="false" Text="Show" OnClick="Show_Click"></asp:Button>
+                                    </span>
+                                    <%-- <asp:Button runat="server" id="btnBack" UseSubmitBehavior="false" Text="<< Go Back" OnClientClick="return parent.DoPost(5);"></asp:Button> --%>
+                                </td>
+                            </tr>
+                        </table>
+                        <div style="height: 400px; overflow-y: scroll; overflow-x: hidden;">
+                            <table style="border-collapse: collapse;" cellpadding="2" cellspacing="0" width="100%" border="1">
+                                <tr class="header">
+                                    <td style="width: 50px">Action</td>
+
+                                    <td style="width: 150px">User Name</td>
+                                    <td style="width: 200px">Name</td>
+                                    <%--<td style=" width :320px">Email</td>--%>
+                                    <td style="width: 50px">Code</td>
+                                    <td style="width: 63px">Status</td>
+                                </tr>
+                                <asp:Repeater runat="server" ID="rpt_Data">
+                                    <ItemTemplate>
+                                        <tr class="<%# (int.Parse(Eval("LoginId").ToString())==int.Parse(ViewState["SelId"].ToString()))?"selrowcontent":"rowcontent" %>">
+                                            <td style="width: 50px">
+                                                <asp:ImageButton runat="server" ImageUrl="~/Modules/HRD/images/edit.jpg" ID="imgEdit" OnClick="EditClick" CommandArgument='<%# Eval("LoginId") %>' />
+                                                <asp:ImageButton runat="server" ImageUrl="~/Modules/HRD/images/delete.jpg" ID="imgDelete" OnClick="DeleteClick" CommandArgument='<%# Eval("LoginId") %>' OnClientClick="return confirm('Are you sure to make inactive this User.')" />
+                                            </td>
+                                            <td style="width: 150px; text-align: left">&nbsp;<%# Eval("UserId") %><span style="color: red; font-size: 10px;">(<%# Eval("RoleName") %>)</span>
+                                            </td>
+                                            <td style="width: 200px; text-align: left">&nbsp;<%# Eval("Name") %></td>
+                                            <%--<td style=" width :320px; text-align : left">&nbsp;<%# Eval("Email") %></td>--%>
+                                            <td style="width: 50px">&nbsp;<%# Eval("EmpCode") %></td>
+                                            <td style="width: 63px">&nbsp;<%# Eval("Status") %></td>
+                                        </tr>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </table>
+                        </div>
+                    </td>
+                    <td style="vertical-align: top; width: 50%;">
+                        <table border="0" cellpadding="0" cellspacing="4" style="text-align: center" width="100%">
+                            <tr>
+                                <td align="right"
+                                    style="padding-right: 15px; text-align: right; padding-left: 65px;">Role Name:</td>
+                                <td style="text-align: left">
+                                    <asp:DropDownList ID="ddlRoleName" runat="server" CssClass="required_box"
+                                        Width="95%">
+                                    </asp:DropDownList>
+                                </td>
+                                <td align="right" style="text-align: right; padding-right: 15px">&nbsp;</td>
+                                <td style="text-align: left">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td align="right" style="text-align: right; padding-right: 15px; padding-left: 65px;">User Name:</td>
+                                <td style="text-align: left">
+                                    <asp:TextBox ID="txtUserId" runat="server" CssClass="required_box" MaxLength="25" Width="95%"></asp:TextBox>
+                                </td>
+                                <td align="right" style="text-align: right; padding-right: 15px">
+                                    <span class="required">*</span></td>
+                                <td style="text-align: left;">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td align="right" style="padding-right: 15px; text-align: right">Password:</td>
+                                <td style="text-align: left">
+                                    <asp:TextBox ID="txtPassword" runat="server" CssClass="required_box"
+                                        Width="95%" MaxLength="15" TextMode="Password"></asp:TextBox>
+                                </td>
+                                <td align="right" style="text-align: right; padding-right: 15px;">
+                                    <span style="color: #0000cc"><span class="required">*</span></span></td>
+                                <td style="text-align: left; color: #0e64a0;">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td align="right" style="text-align: right; padding-right: 15px;">Confirm Password:</td>
+                                <td style="text-align: left">
+                                    <asp:TextBox ID="txtConfirmPassword" runat="server" CssClass="required_box" MaxLength="15" TextMode="Password" Width="95%"></asp:TextBox>
+                                </td>
+                                <td align="right" style="text-align: right; padding-right: 15px"><span class="required">*</span></td>
+                                <td style="text-align: left; color: #0e64a0;">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td align="right" style="padding-right: 15px; text-align: right">Name ( First ):</td>
+                                <td style="text-align: left">
+                                    <asp:TextBox ID="txtFirstName" runat="server" CssClass="required_box" Width="95%"
+                                        MaxLength="24"></asp:TextBox>&nbsp;&nbsp; </td>
+                                <td align="right" style="text-align: right; padding-right: 15px">
+                                    <span class="required">*</span></td>
+                                <td style="text-align: left; display: none;">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td align="right" style="padding-right: 15px; text-align: right">Name ( Last ):</td>
+                                <td style="text-align: left">
+                                    <asp:TextBox ID="txtLastName" runat="server" CssClass="required_box" MaxLength="24" Width="95%"></asp:TextBox>
+                                </td>
+                                <td align="right" style="text-align: right; padding-right: 15px;">&nbsp;</td>
+                                <td style="text-align: left; display: none;">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td align="right" style="text-align: right; padding-right: 15px">DOB:</td>
+                                <td style="text-align: left">
+                                    <asp:TextBox ID="txtDOB" runat="server" CssClass="input_box" Width="120px"></asp:TextBox>
+                                    <asp:ImageButton ID="img_dob_user" runat="server" CausesValidation="false" ImageUrl="~/Modules/HRD/Images/Calendar_icon.gif" />
+                                </td>
+                                <td align="right" style="padding-right: 15px; text-align: right">
+                                    <span class="required">&nbsp;</span></td>
+                                <td style="text-align: left">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td align="right" style="text-align: right; padding-right: 15px">Email:</td>
+                                <td style="text-align: left">
+                                    <asp:TextBox ID="txtEmail" runat="server" CssClass="required_box" MaxLength="99" Width="95%"></asp:TextBox>
+                                </td>
+                                <td align="right" style="padding-right: 15px; text-align: right">
+                                    <span class="required">*</span></td>
+                                <td style="text-align: left">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td align="right" style="text-align: right; padding-right: 15px">Status:</td>
+                                <td style="text-align: left">
+                                    <asp:DropDownList ID="ddlStatus" runat="server" CssClass="input_box" Width="185px">
+                                    </asp:DropDownList>
+                                </td>
+                                <td align="right" style="padding-right: 15px; text-align: right">&nbsp;</td>
+                                <td style="text-align: left">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td align="right" style="text-align: right; padding-right: 15px">Crew Web Portal Access :</td>
+                                <td style="text-align: left">
+                                    <asp:CheckBox runat="server" ID="chkCrewPortalAccess" />
+                                </td>
+                                <td align="right" style="padding-right: 15px; text-align: right">&nbsp;</td>
+                                <td style="text-align: left">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td align="right" style="padding-right: 15px; text-align: right">Recruiting Office:</td>
+                                <td style="text-align: left">
+                                    <asp:CheckBoxList ID="chklstRecruitingOffice" runat="server" CssClass="input_box" RepeatDirection="Horizontal">
+                                    </asp:CheckBoxList>
+                                </td>
+                                <td align="right" style="text-align: right; padding-right: 15px;"></td>
+                                <td style="text-align: left">
+                                    <%--<asp:CheckBox ID="chkNWC" runat="server"></asp:CheckBox>--%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" style="padding-right: 15px; text-align: right">Employee Code :</td>
+                                <td style="text-align: left">
+                                    <asp:TextBox ID="txtEmployeeCode" runat="server" CssClass="readonly" Width="100px"></asp:TextBox>
+                                </td>
+                                <td align="right" style="text-align: right; padding-right: 15px;"></td>
+                                <td style="text-align: left">
+                                    <%--<asp:CheckBox ID="chkNWC" runat="server"></asp:CheckBox>--%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" style="text-align: right; padding-right: 15px">Created By / On:</td>
+                                <td style="text-align: left">
+                                    <asp:Label ID="txtCreatedBy" runat="server"></asp:Label>/
+                                    <asp:Label ID="txtCreatedOn" runat="server"></asp:Label>
+                                </td>
+                                <td align="right" style="text-align: right; padding-right: 15px">&nbsp;</td>
+                                <td style="text-align: left">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td align="right" style="text-align: right; padding-right: 15px">Modified By / On:</td>
+                                <td style="text-align: left">
+                                    <asp:Label ID="txtModifiedBy" runat="server"></asp:Label>
+                                    /<asp:Label ID="txtModifiedOn" runat="server" Width="180px"></asp:Label>
+                                </td>
+                                <td align="right" style="text-align: right; padding-right: 15px"></td>
+                                <td style="text-align: left">&nbsp;</td>
+                            </tr>
+                        </table>
+
+                        <table style="width: 100%">
+                            <tr>
+                                <td>
+                                    <uc1:MessageBox ID="Msgbox" runat="server" />
+                                    <%--<mtm:message runat="server" ID="Msgbox" />--%>
+                                </td>
+                                <td style="text-align: right">
+                                    <asp:HiddenField ID="HiddenUserLogin" runat="server" />
+                                    <asp:Button ID="btn_Add" runat="server" CssClass="btn"
+                                        Text="Add" Width="59px" OnClick="btn_Add_Click" CausesValidation="False" />
+                                    <asp:Button ID="btn_Save" runat="server" CssClass="btn"
+                                        Text="Save" Width="59px" OnClick="btn_Save_Click" />
+                                    <asp:Button ID="btn_Cancel" runat="server" CssClass="btn"
+                                        Text="Cancel" Width="59px" OnClick="btn_Cancel_Click" CausesValidation="False" />
+                                </td>
+                            </tr>
+                        </table>
+                        <ajaxToolkit:CalendarExtender runat="server" ID="CalendarExtender1" Format="dd-MMM-yyyy" PopupButtonID="img_dob_user" TargetControlID="txtDOB"></ajaxToolkit:CalendarExtender>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</body>
+</html>

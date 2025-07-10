@@ -1,0 +1,41 @@
+﻿/* GridView Skin settings */
+
+.FooterStyle
+{
+  background-color: #507CD1;
+  color: #fff;
+  font-weight: bold;
+}
+
+.RowStyle 
+{
+  background-color: #EFF3FB;
+}    
+  
+.AlternatingRowStyle 
+{
+  background-color: #fff;
+}
+  
+.SelectedRowStyle 
+{
+  background-color: #D1DDF1;
+  color: #333333;
+  font-weight: bold;
+}
+
+.PagerStyle 
+{
+  background-color: #2461BF;
+  color: #fff;
+  text-align: center;
+}
+
+.HeaderStyle 
+{
+  background-color: #507CD1;
+  color: #fff;
+  font-weight: bold;
+  
+}
+

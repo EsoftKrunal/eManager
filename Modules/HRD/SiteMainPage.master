@@ -1,0 +1,247 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="SiteMainPage.master.cs" Inherits="SiteMainPage" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="Head1" runat="server">
+    <title></title>
+    <link href="Styles/style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+     function CallChildPage(url)
+     {  
+        document.getElementById('iHomePage').src=url + "?update=" + Math.random();  
+     }
+     function post()
+     {
+        document.getElementById("aspnetForm").action='<%Response.Write(ConfigurationManager.AppSettings["OtherLink"].ToString());%>';
+        document.getElementById("aspnetForm").method="post";
+        document.getElementById("aspnetForm").innerHTML=document.getElementById("div_Post").innerHTML + "<span style='color:red; font-size:15px;font-weight:bold'>Loading ......... </span>";   
+        document.getElementById("aspnetForm").submit();
+     }
+     function postVIMS()
+     {
+     var Loc='<%=Alerts.getLocation()%>';
+         if (Loc=="S")
+         {
+            document.getElementById("aspnetForm").action='<%Response.Write(ConfigurationManager.AppSettings["VIMSLink"].ToString());%>';
+            document.getElementById("aspnetForm").method="post";
+            document.getElementById("aspnetForm").innerHTML=document.getElementById("div_Post").innerHTML + "<span style='color:red; font-size:15px;font-weight:bold'>Loading ......... </span>";   
+            document.getElementById("aspnetForm").submit();
+         } 
+         else
+         {
+            CallChildPage('CrewRecord/CrewSearch.aspx');
+         }
+     }
+    </script>
+</head>
+
+<body >
+    <form id="Master" runat="server">
+        <div>
+            <table align="center" border="0" cellpadding="0" cellspacing="0" style="width: 100%; height: 100%;">
+                <tr runat="server" visible ="false">
+                    <td colspan="2" style="background-image:url(images/index_03.jpg); background-repeat:repeat-x">
+	                    <table width="100%" border="0" cellspacing="0" cellpadding="0"  >
+                            <tr>
+                                <td style="width:17%" align="right">
+		                            <img alt="" src="Images/Logo/CompanyLogo.jpg" width="145px" height="121px" />
+	                            </td>
+                                <td style="width:83%" align="right" valign="top">
+                                    <div style="padding-right:50px; padding-top:20px;">
+                                    <asp:LinkButton ID="lbl_CRM" Font-Underline="false" runat="server" OnClientClick="CallChildPage('AlertCRM.aspx');return false;" Text="Crm Alert&nbsp;" ForeColor="White" Visible="False" Font-Bold="True"></asp:LinkButton>
+                                    <br />
+                                    <asp:LinkButton ID="lbl_Other" Font-Underline="false" runat="server" OnClientClick="CallChildPage('AlertOther.aspx');return false;" Text="Document Alert&nbsp;" ForeColor="White" Visible="False" Font-Bold="True"></asp:LinkButton><br />
+                                        <asp:LinkButton ID="lbl_SignOffCrew" runat="server" Font-Bold="True" Font-Underline="false"
+                                            ForeColor="White" OnClientClick="CallChildPage('AlertSignOffCrew.aspx');return false;"
+                                            Text="SignOff Crew Alert&nbsp;" Visible="False"></asp:LinkButton>
+                                        <br />
+                                        <asp:LinkButton ID="lbl_VesselManning" runat="server" Font-Bold="True" Font-Underline="false"
+                                            ForeColor="White" OnClientClick="CallChildPage('AlertVesselManning.aspx');return false;"
+                                            Text="Vessel Manning Alert&nbsp;" Visible="False"></asp:LinkButton>
+                                            <br />
+                                        <asp:LinkButton ID="lbl_SignOffAlert" runat="server" Font-Bold="True" Font-Underline="false"
+                                            ForeColor="White" OnClientClick="CallChildPage('AlertSignOffAppraisal.aspx');return false;"
+                                            Text="EOC Appraisal Alert&nbsp;" Visible="False"></asp:LinkButton>
+                                            
+                                            </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                
+                <tr runat="server" visible ="false" >
+                    <td colspan="2" align="right" style="vertical-align:top; background-image:url(images/index_06.jpg); background-repeat:repeat-x; padding-right:10px;height:20px">
+                        <div style="float:left;padding-top:3px; padding-left :2px" id="div_Post">
+                            <input type ="button" class="btn" runat="server" id="a" style="font-weight:bold" value="CREWDB" onclick="post();return false;" title="Click Here For Shipsoft Live Appplication." />
+                            <input id="hfd_loginid" type="hidden" name="hfd_loginid" value="<%Response.Write(Session["loginid"]);%>"/>
+                        </div>
+                        <div style=" padding-bottom : 2px; float:right;">
+                        <div style="float :left; padding-top: 4px; ">
+                        Welcome &nbsp;<asp:Label ID="UserName" runat="server" Height="20px" Font-Bold="True" ForeColor="Black"></asp:Label>
+                        <asp:Label ID="Label1" runat="server" Height="20px" Text="|"></asp:Label>
+                        </div>
+                        <asp:ImageButton ID="ImageButtonMappedRefNo" Visible="false" runat="server" ImageUrl="~/Modules/HRD/Images/img_map.png" ToolTip="Click To Get Mapped Reference Number" OnClientClick="CallChildPage('RecordReferences.aspx');return false;" />&nbsp;
+                        <a href="#" onclick="postVIMS();"><asp:Image ImageUrl="~/Modules/HRD/Images/btnHome.gif" runat="Server" ID="t1" ToolTip="Click To Goto HomePage" /></a>
+                        &nbsp;
+                        <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/Modules/HRD/Images/changepassword.gif" ToolTip="Click To Change Password"  OnClientClick="CallChildPage('changepassword.aspx');return false;" />&nbsp;
+                        <asp:ImageButton ID="ImageButtonLogout" runat="server" ImageUrl="~/Modules/HRD/Images/btnLogout.gif" OnClick="ImageButtonLogout_Click" ToolTip="Click To Logout" />
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td valign="top">
+                    
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color:#ffffff; display :none">
+                            <tr>
+                                <td style="width:50px;height:400px; background-image : url(images/leftbar_bg.png)" valign="top">
+                                <img src="images/logo_2.png" alt="logo"/> 
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td style="padding-left:5px;width:50px; overflow :hidden ">
+                                            <%if (isAuthorized(1) >= 1)
+                                              {%>
+                                                    <div align="center" hidefocus="hideFocus">
+                                                        <a href="#" onclick="CallChildPage('CrewRecord/CrewSearch.aspx');">
+                                                            <asp:Image ID="Image1" runat="server" ImageUrl="~/Modules/HRD/Images/CrewParticulars.gif" />
+                                                        </a>
+                                                     </div>
+                                                     <div style="height:10px"></div>
+                                            <%}%>
+                                            <% 
+                                            if (Alerts.getLocation() == "S")
+                                            {
+                                              if (isAuthorized(2) >= 1)
+                                              {%>
+                                            <div align="center">
+                                                          <a href="#" onclick="CallChildPage('CrewOperation/CrewPlanning_Menu.aspx');">
+                                                          <asp:Image ID="Image2" runat="server" ImageUrl="~/Modules/HRD/Images/CrewOperation.gif" />
+                                                          </a>
+		                                            </div>
+		                                    <div style="height:10px"></div>
+		                                    <%}%>
+		                                    <%if (isAuthorized(8) >= 1)
+                                              {%>
+                                                    <div align="center">
+                                                          <a href="#" onclick="CallChildPage('Invoice/Default.aspx');">
+                                                          <asp:Image ID="Image8" runat="server" ImageUrl="~/Modules/HRD/Images/invoices.gif" />
+                                                          </a>
+		                                            </div>
+		                                            <div style="height:10px"></div>
+		                                    <%}%>
+		                                     <% if (isAuthorized(3) >= 1)
+                                              {%>
+                                                    <div align="center">
+                                                         <a href="#" onclick="CallChildPage('CrewAccounting/NewAccounts.aspx');">
+                                                        <asp:Image ID="Image3" runat="server" ImageUrl="~/Modules/HRD/Images/CrewAccounts.gif" />
+                                                        </a>
+                                                    </div>
+                                                    <div style="height:10px"></div>
+                                            <%}%>
+                                            <%if (isAuthorized(4) >= 1)
+                                              {%>
+                                                    <div align="center">
+                                                        <a href="#" onclick="CallChildPage('VesselRecord/VesselSearch.aspx');">
+                                                        <asp:Image ID="Image4" runat="server" ImageUrl="~/Modules/HRD/Images/VesselMaster.gif" />
+                                                        </a>
+                                                    </div>
+                                                    <div style="height:10px"></div>
+                                            <%}%>
+                                            <%if (isAuthorized(9) >= 1)
+                                              {%>
+                                                    <div align="center">
+                                                        <a href='CrewApproval/CrewApprovalScreen.aspx' style="cursor: hand">
+                                                        <%--<a href="#" onclick="CallChildPage('CrewApproval/CrewApprovalScreen.aspx');">--%>
+                                                        <asp:Image ID="Image9" runat="server" ImageUrl="~/Modules/HRD/Images/CrewApproval.gif" />
+                                                        </a>
+                                                    </div>
+                                                    <div style="height:10px"></div>
+                                            <%}%>
+                                            <% if (isAuthorized(5) >= 1)
+                                              {%>
+                                                    <div align="center">
+                                                        <a href="#" onclick="CallChildPage('Registers/Blank.aspx');">
+                                                        <asp:Image ID="Image5" runat="server" ImageUrl="~/Modules/HRD/Images/Registers.gif" />
+                                                        </a>
+                                                    </div>
+                                                    <div style="height:10px"></div>
+                                            <%}%>
+                                            <%if (isAuthorized(1) >= 1)
+                                              {%>
+                                                    <div align="center">
+                                                        <a href="#" onclick="CallChildPage('CrewOperation/AssignTraining.aspx');">
+                                                        <asp:Image ID="Image11" runat="server" ImageUrl="~/Modules/HRD/Images/training.gif" />
+                                                        </a>
+                                                    </div>
+                                                    <div style="height:10px"></div>
+                                            <%}%>
+                                            <%if (isAuthorized(6) >= 1)
+                                              {%>
+                                                    <div align="center">
+                                                        <a href="#" onclick="CallChildPage('Reporting/Blank.aspx');">
+                                                        <asp:Image ID="Image6" runat="server" ImageUrl="~/Modules/HRD/Images/Reporting.gif" />
+                                                        </a>
+                                                    </div>
+                                                    <div style="height:10px"></div>
+                                            <%}%>
+                                             <%if (isAdmin())
+                                              {%>
+                                                    <div align="center">
+                                                        <a href="#" onclick="CallChildPage('SiteAdministration/AdminDashBoard.aspx');">
+                                                        <asp:Image ID="Image7" runat="server" ImageUrl="~/Modules/HRD/Images/Administration.gif" />
+                                                        </a>
+                                                    </div>
+                                                    <div style="height:10px"></div>
+                                            <%}%>
+                                            <%}
+                                            else
+                                            {%>
+                                            <%if (isAuthorized(1) >= 1)
+                                              {%>
+                                                    <div align="center">
+                                                        <a href="#" onclick="CallChildPage('CrewOperation/AssignTraining.aspx');">
+                                                        <asp:Image ID="Image12" runat="server" ImageUrl="~/Modules/HRD/Images/training.gif" />
+                                                        </a>
+                                                    </div>
+                                                    <div style="height:10px"></div>
+                                            <%}%>
+                                            <div style="height:10px"></div>
+                                            <div align="center">
+                                                <a href="#" onclick="CallChildPage('Reporting/Blank.aspx');">
+                                                <asp:Image ID="Image10" runat="server" ImageUrl="~/Modules/HRD/Images/Reporting.gif" />
+                                                </a>
+                                            </div>
+                                            <div style="height:10px"></div>
+                                            <%}%>
+                                            </td>
+                                            <td style="width:90%" valign="top">&nbsp;</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr></tr>
+                        </table>
+                    </td>
+                    <td style="width:100%; background-color:White" valign="top">
+                        <div style="height: auto;">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color:#ffffff">
+                            <tr>
+                                <td>
+                                    <asp:contentplaceholder id="ContentPlaceHolder1" runat="server"></asp:contentplaceholder>                                
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                            </tr>
+                        </table>
+                        </div>
+                    </td>
+                </tr>
+                <tr runat="server" visible ="false" >
+                    <td colspan="2" align="center" class="text_bottom" style="background-color:#4673a7; height: 25px">Copyright &copy;2008 M.T.M. Ship Management Pte. Ltd. All rights reserved.</td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</body>
+</html>

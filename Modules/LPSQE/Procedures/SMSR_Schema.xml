@@ -1,0 +1,35 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="SMS_ShipComments">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="CommentId" type="xs:long" minOccurs="0" />
+              <xs:element name="ManualId" type="xs:long" minOccurs="0" />
+              <xs:element name="SectionId" type="xs:string" minOccurs="0" />
+              <xs:element name="MVersion" type="xs:string" minOccurs="0" />
+              <xs:element name="SVersion" type="xs:string" minOccurs="0" />
+              <xs:element name="CommentText" type="xs:string" minOccurs="0" />
+              <xs:element name="CommentBy" type="xs:string" minOccurs="0" />
+              <xs:element name="CommentOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ReceivedInOffice" type="xs:string" minOccurs="0" />
+              <xs:element name="ComentByRank" type="xs:string" minOccurs="0" />
+              <xs:element name="ChangeRequested" type="xs:string" minOccurs="0" />
+              <xs:element name="Status" type="xs:string" minOccurs="0" />
+              <xs:element name="Stage" type="xs:string" minOccurs="0" />
+              <xs:element name="ReqDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Updated" type="xs:boolean" minOccurs="0" />
+              <xs:element name="UpdatedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ClosedBy" type="xs:string" minOccurs="0" />
+              <xs:element name="ClosedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ClosureRemarks" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

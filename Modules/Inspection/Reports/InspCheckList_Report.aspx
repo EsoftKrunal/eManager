@@ -1,0 +1,85 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="InspCheckList_Report.aspx.cs" Inherits="Reports_InspCheckList_Report" Title="Inspection CheckList Report" %>
+<%@ Register Assembly="CrystalDecisions.Web, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304"
+    Namespace="CrystalDecisions.Web" TagPrefix="CR" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>Untitled Page</title>
+    <link href="../Styles/style.css" rel="stylesheet" type="text/css" />
+    <link href="../Styles/sddm.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../Styles/StyleSheet.css" />
+    <link href="/aspnet_client/System_Web/2_0_50727/CrystalReportWebFormViewer3/css/default.css"
+        rel="stylesheet" type="text/css" />
+    <link href="/aspnet_client/System_Web/2_0_50727/CrystalReportWebFormViewer3/css/default.css"
+        rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        <ajaxToolkit:ToolkitScriptManager ID="ScriptManager1" runat="server"></ajaxToolkit:ToolkitScriptManager>
+        <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+       <tr>
+        <td align="center" valign="top" style="height: 235px">
+         <table border="0" cellpadding="0" cellspacing="0" style="border-right: #4371a5 1px solid;
+            border-top: #4371a5 1px solid; border-left: #4371a5 1px solid; border-bottom: #4371a5 1px solid;
+            text-align: center" width="100%">
+          <%--<tr>
+           <td align="center" class="text" style="width: 100%; height: 23px; background-color: #4371a5">
+               Inspection CheckList</td>
+          </tr>--%>
+          <tr>
+           <td>
+               &nbsp;
+           </td>
+          </tr>
+             <tr>
+                 <td style="text-align: center">
+                     <asp:Label ID="lblmessage" runat="server" ForeColor="Red"></asp:Label></td>
+             </tr>
+             <%--<tr>
+                 <td>
+                     <table cellpadding="0" cellspacing="0" width="100%">
+                         <tr>
+                             <td style="padding-right: 5px; text-align: right">
+                                 Inspection Group :</td>
+                             <td style="text-align: left">
+                                 <asp:DropDownList ID="ddl_InspGroup" runat="server" CssClass="input_box" TabIndex="1" AutoPostBack="True" OnSelectedIndexChanged="ddl_InspGroup_SelectedIndexChanged" Width="280px">
+                                 </asp:DropDownList></td>
+                             <td style="padding-right: 5px; text-align: right">
+                                 Inspection :</td>
+                             <td style="text-align: left">
+                                 <asp:DropDownList ID="ddl_Inspection" runat="server" CssClass="input_box" TabIndex="2" Width="180px">
+                                 </asp:DropDownList></td>
+                             <td style="text-align: right">
+            <asp:Button ID="btn_show" runat="server" CssClass="btn" Text="Show Report" OnClick="btn_show_Click" TabIndex="3" /></td>
+                         </tr>
+                         <tr>
+                             <td style="padding-right: 5px; text-align: right">
+                             </td>
+                             <td style="text-align: left">
+                                 </td>
+                             <td style="text-align: right">
+                             </td>
+                         </tr>
+                     </table>
+                 </td>
+             </tr>
+             <tr>
+                 <td style="height: 48px">
+                     &nbsp; &nbsp;&nbsp;
+                 </td>
+             </tr>--%>
+          <tr>
+           <td style="padding-left: 20px; text-align: left">
+            <CR:CrystalReportViewer ToolbarStyle-CssClass="FixedHeaderPopUp" ID="CrystalReportViewer1" runat="server"  />
+           </td>
+          </tr>
+         </table>
+        </td>
+       </tr>
+      </table>
+    </div>
+    </form>
+</body>
+</html>

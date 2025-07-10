@@ -1,0 +1,85 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="SCM_Master">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SCMId" type="xs:long" minOccurs="0" />
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="SDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ShipPosFrom" type="xs:string" minOccurs="0" />
+              <xs:element name="ShipPosTo" type="xs:string" minOccurs="0" />
+              <xs:element name="CommTime" type="xs:string" minOccurs="0" />
+              <xs:element name="CompTime" type="xs:string" minOccurs="0" />
+              <xs:element name="Ocassion" type="xs:string" minOccurs="0" />
+              <xs:element name="ShipPosition" type="xs:string" minOccurs="0" />
+              <xs:element name="Str_MinOfPrevSaFeCom" type="xs:boolean" minOccurs="0" />
+              <xs:element name="Str_AbsPrevSageCom" type="xs:boolean" minOccurs="0" />
+              <xs:element name="NAME_OTHER" type="xs:string" minOccurs="0" />
+              <xs:element name="Str_OffCommPrevSafeCom" type="xs:boolean" minOccurs="0" />
+              <xs:element name="Sef_AvailableOnBoard" type="xs:string" minOccurs="0" />
+              <xs:element name="Sef_AccidentNarMiss" type="xs:string" minOccurs="0" />
+              <xs:element name="Sef_ReviewOfMooring" type="xs:string" minOccurs="0" />
+              <xs:element name="Sef_CrewNotFamilierWithAll" type="xs:string" minOccurs="0" />
+              <xs:element name="Sef_BestPractice" type="xs:string" minOccurs="0" />
+              <xs:element name="Hel_ReviewHelth" type="xs:string" minOccurs="0" />
+              <xs:element name="Hel_BestPractice" type="xs:string" minOccurs="0" />
+              <xs:element name="Sec_ReviewAnyImmediateSecurity" type="xs:string" minOccurs="0" />
+              <xs:element name="Sec_BestPractices" type="xs:string" minOccurs="0" />
+              <xs:element name="Qul_ReviewOfRegulatory" type="xs:string" minOccurs="0" />
+              <xs:element name="Qul_ReviewOfQuality" type="xs:string" minOccurs="0" />
+              <xs:element name="Qul_KPI" type="xs:string" minOccurs="0" />
+              <xs:element name="Qul_CrewWelfare" type="xs:string" minOccurs="0" />
+              <xs:element name="Qul_BestPractices" type="xs:string" minOccurs="0" />
+              <xs:element name="Env_EnvironmentalKPIs" type="xs:string" minOccurs="0" />
+              <xs:element name="Env_BestPractices" type="xs:string" minOccurs="0" />
+              <xs:element name="AnyOtherIssues" type="xs:string" minOccurs="0" />
+              <xs:element name="RANK_OTHER" type="xs:string" minOccurs="0" />
+              <xs:element name="OUTSTANDINGITEMS" type="xs:string" minOccurs="0" />
+              <xs:element name="ReceviedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OfficeComments" type="xs:string" minOccurs="0" />
+              <xs:element name="SUPTD_CompliancewithRegulations" type="xs:string" minOccurs="0" />
+              <xs:element name="SUPTD_DeviationsfromSafety" type="xs:string" minOccurs="0" />
+              <xs:element name="SUPTD_DetailsofTraining" type="xs:string" minOccurs="0" />
+              <xs:element name="SUPTD_HealthSafetyMeasures" type="xs:string" minOccurs="0" />
+              <xs:element name="SUPTD_Suggestions" type="xs:string" minOccurs="0" />
+              <xs:element name="SUPTD_BPI" type="xs:string" minOccurs="0" />
+              <xs:element name="SUPTD_AnyOtherTopic" type="xs:string" minOccurs="0" />
+              <xs:element name="UpdatedBy" type="xs:string" minOccurs="0" />
+              <xs:element name="UpdatedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ReportsPK" type="xs:long" minOccurs="0" />
+              <xs:element name="BestPractice" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SCM_RANKDETAILS">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SCMId" type="xs:long" minOccurs="0" />
+              <xs:element name="RankName" type="xs:string" minOccurs="0" />
+              <xs:element name="Name" type="xs:string" minOccurs="0" />
+              <xs:element name="Remarks" type="xs:string" minOccurs="0" />
+              <xs:element name="Absent" type="xs:int" minOccurs="0" />
+              <xs:element name="ReportsPK" type="xs:long" minOccurs="0" />
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SCM_NCRDETAILS">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SCMId" type="xs:long" minOccurs="0" />
+              <xs:element name="NUMBER" type="xs:string" minOccurs="0" />
+              <xs:element name="CDATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="REMARKS" type="xs:string" minOccurs="0" />
+              <xs:element name="ReportsPK" type="xs:long" minOccurs="0" />
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

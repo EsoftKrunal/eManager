@@ -1,0 +1,69 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="InvoiceRegister.master.cs" Inherits="InvoiceRegister" %>
+<%@ Register TagName="menu" Src="~/Modules/HRD/UserControls/ModuleMenu.ascx" TagPrefix="mtm"  %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="Head1" runat="server">
+    <title>Untitled Page</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"> 
+    <link href="Styles/style.css" rel="stylesheet" type="text/css" />
+    <link href="Styles/sddm.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="Styles/StyleSheet.css" />
+    <script language="javascript" type="text/javascript">
+    function Show_Image_Large(obj)
+    {
+    window.open(obj.src,"","resizable=1,toolbar=0,scrollbars=1,status=0"); 
+    }
+    function Show_Image_Large1(path)
+    {
+    window.open(path,"","resizable=1,toolbar=0,scrollbars=1,status=0"); 
+    }
+    </script>
+</head>
+
+<body>
+    <form id="form1" runat="server">
+    <div style="text-align: center">
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <table style="width :100%" cellpadding="0" cellspacing="0">
+        <tr>
+        <td style="width:150px; text-align :left; vertical-align : top;">
+            <mtm:menu runat="server" ID="menu2" />  
+        </td>
+        <td style=" text-align :left; vertical-align : top;" >
+        <table style="width:100%; background-color: #f9f9f9; border-collapse:collapse " border="1" bordercolor="#4371a5" >
+            <tr>
+                <td style="background-color:#4371a5; height: 22px; text-align:center" class="text" >
+                <img runat="server" id="imgHelp" moduleid="8" style ="cursor:pointer;float :right; padding-right :5px;" src="images/help.png" alt="Help ?"/> 
+                Invoice Register <%=Session["PageName"] %></td>
+            </tr>
+            <tr>
+                <td style=" background-color: #f9f9f9; height:64px; vertical-align:top; text-align:center;" >
+                    <div style=" text-align:left">
+                        <asp:Menu ID="Menu1" runat="server"  meta:resourcekey="Menu1Resource1" Orientation="Horizontal" StaticEnableDefaultPopOutImage="False" Width="400px">
+                                <Items>
+                                 <asp:MenuItem ImageUrl="~/Modules/HRD/Images/gifs/invoiceentry.jpg" NavigateUrl="~/CrewOperation/InvoiceList1.aspx" meta:resourcekey="MenuItemResource1"
+                                Text=" " Value="0"></asp:MenuItem>
+                                    <asp:MenuItem ImageUrl="~/Modules/HRD/Images/gifs/accverify.jpg" NavigateUrl="~/CrewOperation/InvoiceListforVerification1.aspx" meta:resourcekey="MenuItemResource2"
+                                Text=" " Value="1"></asp:MenuItem>
+                                    <asp:MenuItem ImageUrl="~/Modules/HRD/Images/gifs/invapproval.jpg" NavigateUrl="~/CrewOperation/InvoiceApprovalSearchScreen.aspx" meta:resourcekey="MenuItemResource3" 
+                                Text=" " Value="2"></asp:MenuItem>
+                                    <asp:MenuItem ImageUrl="~/Modules/HRD/Images/gifs/invpayment.jpg" meta:resourcekey="MenuItemResource3" NavigateUrl="~/CrewOperation/ApprovedInvoices.aspx"
+                                Text=" " Value="2"></asp:MenuItem>
+                                   <asp:MenuItem ImageUrl="~/Modules/HRD/Images/gifs/invreports.jpg" meta:resourcekey="MenuItemResource3" NavigateUrl="~/Reporting/InvoiceReport.aspx"
+                                Text=" " Value="3"></asp:MenuItem>
+                                <asp:MenuItem ImageUrl="~/Modules/HRD/Images/gifs/invoiceenquiry.jpg" meta:resourcekey="MenuItemResource3" NavigateUrl="~/CrewOperation/AllInvoiceList.aspx"
+                                Text=" " Value="4"></asp:MenuItem>
+                                    </Items>
+                            </asp:Menu>
+                      </div>
+             <div style="text-align:center">
+                   <asp:ContentPlaceHolder ID="contentPlaceHolder1" runat="Server" ></asp:ContentPlaceHolder>
+            </div></td></tr>
+        </table>
+         </td>
+        </tr>
+      </table>
+    </div>
+    </form>
+</body>
+</html>

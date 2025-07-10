@@ -1,0 +1,69 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="VesselPositionReporting.master.cs" Inherits="VesselPositionReporting" MasterPageFile="~/MasterPage.master" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+    <title>Untitled Page</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
+    <style type="text/css">
+        .headerstylefixedheader th {
+            background-color: #e5e5e5;
+            border: 1px solid #bbbbbb;
+            position: relative;
+            cursor: default;
+            top: expression(this.parentNode.parentNode.parentNode.scrollTop-2);
+            z-index: 0;
+            padding-left: 5px;
+            text-align: left;
+        }
+    </style>
+    <link href="../../HRD/Styles/StyleSheet.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../js/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="../js/jquery-ui-1.8.2.custom.min.js"></script>
+    <link type="text/css" href="../js/jquery-ui-1.8.2.custom.css" rel="stylesheet" />
+    </asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentMainMaster" Runat="Server">
+        <div style="text-align: center">
+            <ajaxToolkit:ToolkitScriptManager ID="ScriptManager2" runat="server"></ajaxToolkit:ToolkitScriptManager>
+            <table style="width: 100%" cellpadding="0" cellspacing="0">
+                <tr>
+                    
+                    <td style="text-align: left; vertical-align: top;">
+                        <table border="0" cellpadding="0" cellspacing="0" style="border: #4371a5 0px solid; text-align: center" width="100%">
+                            <tr id="trHeaderBar" runat="server">
+                                <td align="center" class="text headerband">
+                                  
+                                    Vessel Position Noon Report <%=PageName %> </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <asp:UpdateProgress ID="UpdateProgress1" runat="server">
+                                        <ProgressTemplate>
+                                            <div style="position: absolute; top: 200px; left: 0px; width: 100%; z-index: 100; text-align: center; color: Blue;">
+                                                <center>
+                                                    <div style="border: dotted 1px blue; height: 50px; width: 120px; background-color: White;">
+                                                        <img src="../../HRD/Images/progress_Icon.gif" style="position: relative;" />
+                                                    </div>
+                                                </center>
+                                            </div>
+                                        </ProgressTemplate>
+                                    </asp:UpdateProgress>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table style="background-color: #f9f9f9" border="0" cellpadding="0" cellspacing="0" width="100%">
+                                        <tr>
+                                            <td>
+                                                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" EnableViewState="true"></asp:ContentPlaceHolder>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </asp:Content>

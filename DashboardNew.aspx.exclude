@@ -1,0 +1,71 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="DashboardNew.aspx.cs" Inherits="DashboardNew" %>
+<%@ Register Src="~/UserControls/MessageBox.ascx" TagName="Message" TagPrefix="mtm" %>
+<%@ Register TagName="menu" Src="~/UserControls/ModuleMenu.ascx" TagPrefix="mtm"  %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="StyleSheet.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" language ="javascript" src="JScript.js"></script>   
+<style type="text/css" >
+    li{
+        padding:5px;
+    }
+</style>  
+</head>
+<body>
+<form runat="server" id="frmMain">
+<div style="width :100%;text-align :center; height:600px; ">
+    <div style="padding:8px;color:#194283; background-color:#5791ed; color:white;font-size:13px">Shipsoft Analysis Reports</div>
+    <div style="padding:5px;text-align:right">
+        <asp:Button runat="server" ID="btnAdd" OnClick="btnAdd_click"  Text="+ Add New Report" style="padding:6px 15px;border:none;background-color:#194283;color:white;" />
+    </div>
+  <div style="text-align:left;font-size:14px; float:left; width:200px; position:absolute;left:0px;top:40px;">
+        <ul>
+            <asp:Repeater runat="server" ID="rptreports">
+                <ItemTemplate>
+                    <li>
+                        <asp:ImageButton runat="server" ID="lnkedit" OnClick="lnkedit_click" ImageUrl="~/images/editX12.jpg"  CommandArgument='<%#Eval("pageid")%>'></asp:ImageButton>
+                        <asp:LinkButton  runat="server" ID="lnkreport" OnClick="lnkreport_click" Text='<%#Eval("pagename")%>' CommandArgument='<%#Eval("pageid")%>'></asp:LinkButton>
+                    </li>                    
+                </ItemTemplate>
+            </asp:Repeater>
+        </ul>       
+    </div>
+    <div style="text-align:right;margin-left:200px;">
+        <iframe runat="server" height="530px" width="100%" frameborder="0" id="frmrep" style="float:right; ">
+
+        </iframe>
+        </div>
+   
+    <div runat="server" id="dvrep" visible="false">
+        <div style="position:fixed;top:0px;left:0px;right:0px;bottom:0px;background-color:rgba(0,0,0,0.7)">
+            <center>
+            <div style="padding:10px; background-color:white; width:800px; margin-top:50px;">
+                <div style="font-size:15px;font-weight:bold;padding-bottom:6px"> Add/Modify Report</div>
+                <asp:HiddenField runat="server" ID="hfdreportid"></asp:HiddenField>
+                <table width="100%">
+                    <tr>
+                        <td style="width:100px;">Report Name</td>
+                        <td style="width:15px;">:</td>
+                        <td><asp:TextBox runat="server" ID="txtreportname" Width="100%"></asp:TextBox> </td>
+                    </tr>
+                     <tr>
+                        <td style="width:100px;">Report URL</td>
+                         <td>:</td>
+                        <td><asp:TextBox runat="server" ID="txtreportURl" Width="100%" TextMode="MultiLine" Rows="5"></asp:TextBox> </td>
+                    </tr>
+                </table>
+                <div style="padding:10px;">
+                    <asp:Button runat="server" ID="btncancel" OnClick="btncancel_click" Text="Close" style="padding:6px 15px;border:none;background-color:#194283;color:white;" />
+                    <asp:Button runat="server" ID="btnsave" OnClick="btnsave_click" Text="Save" style="padding:6px 15px;border:none;background-color:#194283;color:white;" />
+                </div>
+            </div>
+                </center>
+        </div>
+    </div>
+
+</div> 
+</form>
+</body>
+</html>

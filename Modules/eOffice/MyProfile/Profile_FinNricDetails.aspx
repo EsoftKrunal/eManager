@@ -1,0 +1,220 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Profile_FinNricDetails.aspx.cs" Inherits="Emtm_Profile_FinNric" EnableEventValidation="false" MasterPageFile="~/Modules/eOffice/MyProfile/MyProfile.master" %>
+
+
+<%@ Register src="Profile_TravelDocumentHeader.ascx" tagname="Profile_TravelDocumentHeader" tagprefix="uc2" %>
+
+<%@ Register src="Profile_TravelDocument.ascx" tagname="Profile_TravelDocument" tagprefix="uc3" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="contentPlaceHolder1" Runat="Server">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+   <link href="../../HRD/Styles/StyleSheet.css" rel="stylesheet" type="text/css" />
+
+    <div style="font-family:Arial;font-size:12px;">
+       
+        <asp:UpdatePanel ID="UpdatePanel1"  runat="server" UpdateMode="Conditional">
+        <Triggers>
+        <asp:PostBackTrigger ControlID ="btnsave" />
+        </Triggers> 
+        <ContentTemplate>
+             <table width="100%">
+                <tr>
+                   
+                    <td valign="top" style="border:solid 1px #4371a5; height:500px;">
+                        <div class="text headerband" style=" text-align :left; font-size :14px; padding :3px; font-weight: bold;">
+                            Documents : <asp:Label id="lbl_EmpName" Font-Italic="true" runat="server" Font-Size="Medium"></asp:Label>
+                           </div>
+                        <div class="dottedscrollbox">
+                            <uc3:Profile_TravelDocument ID="Emtm_Profile_TravelDocument1" runat="server" />
+                        </div>
+                        <div class="dottedscrollbox">
+                            <uc2:Profile_TravelDocumentHeader ID="Emtm_Profile_TravelDocumentHeader1" 
+                                runat="server" />
+                        </div> 
+                        
+                        <div class="scrollbox" style="OVERFLOW-Y: scroll; OVERFLOW-X: hidden; WIDTH: 100%; HEIGHT: 26px ; text-align:center; border-bottom:none;">
+                            <table border="1" cellpadding="2" cellspacing="0" rules="all" style="width:100%;border-collapse:collapse; height:26px;">
+                                <colgroup>
+                                    <col style="width:25px;" />
+                                    <col style="width:25px;" />
+                                    <col style="width:25px;" />
+                                    <col />
+                                    <col style="width:150px;" />
+                                    <col style="width:120px;" />
+                                    <col style="width:120px;" />
+                                    <col style="width:25px;" />
+                                    <tr align="left" class= "headerstylegrid">
+                                        <td>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                            <td>
+                                                FIN/NRIC #</td>
+                                            <td>
+                                                FIN/NRIC Type</td>
+                                            <td>
+                                                Issue Date</td>
+                                            <td>
+                                                Expiry Date</td>
+                                            <td>&nbsp;
+                                            </td>
+                                        </td>
+                                    </tr>
+                               
+                            </table>
+                            </div>      
+                            
+                        <div id="divTraveldoc" runat="server" class="scrollbox" style="OVERFLOW-Y: scroll; OVERFLOW-X: hidden; WIDTH: 100%; HEIGHT: 320px; text-align:center;">
+                        <table border="1" cellpadding="2" cellspacing="0" rules="all" style="width:100%;border-collapse:collapse;">
+                            <colgroup>
+                                <col style="width:25px;" />
+                                <col style="width:25px;" />
+                                <col style="width:25px;" />
+                                <col />
+                               <col style="width:150px;" />
+                               <col style="width:120px;" />
+                               <col style="width:120px;" />
+                               <col style="width:25px;" />
+                            </colgroup>
+                            <asp:Repeater ID="RptTravelDoc" runat="server">
+                                <ItemTemplate>
+                                    <tr class='<%# (Common.CastAsInt32(Eval("FinNricId"))==SelectedId)?"selectedrow":"row"%>'>
+                                        <td align="center">
+                                            <asp:ImageButton ID="btndocView" runat="server" CausesValidation="false" 
+                                                CommandArgument='<%# Eval("FinNricId") %>' ImageUrl="~/Modules/HRD/Images/HourGlass.gif" 
+                                                OnClick="btndocView_Click" ToolTip="View" />
+                                        </td>
+                                        <td align="center">
+                                            <asp:ImageButton ID="btndocedit" runat="server" CausesValidation="false" 
+                                                CommandArgument='<%# Eval("FinNricId") %>' Visible="<%#auth.IsUpdate%>" ImageUrl="~/Modules/HRD/Images/edit.jpg" 
+                                                OnClick="btndocedit_Click" ToolTip="Edit" />
+                                        </td>
+                                        <td align="center">
+                                            <asp:ImageButton ID="btndocDelete" runat="server" CausesValidation="false" 
+                                            CommandArgument='<%# Eval("FinNricId") %>' Visible="<%#auth.IsDelete%>" ImageUrl="~/Modules/HRD/Images/delete.jpg" 
+                                            OnClientClick="javascript:return window.confirm('Are you sure to delete?');"  
+                                            OnClick="btndocDelete_Click" ToolTip="Delete" />
+                                         </td>
+                                        <td align="left">
+                                            <%#Eval("Fin_Nric_No")%></td>
+                                        <td align="left">
+                                            <%#Eval("Fin_Nric_Type")%></td>
+                                        <td align="center">
+                                            <%#Eval("IssueDate")%></td>
+                                        <td align="center">
+                                            <%#Eval("ExpiryDate")%></td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                </ItemTemplate>
+                            </asp:Repeater>
+                            <table>
+                            </table>
+                        </div> 
+                        <br /> 
+                           <table id="tblview" runat="server" width="100%" cellpadding="1" cellspacing ="0" border="0">
+                               <colgroup>
+                                   <col align="left" style="text-align :left" width="120px">
+                                   <col />
+                                   <col align="left" style="text-align :left" width="120px">
+                                   <col />
+                                   <tr>
+                                        <td style="text-align :right">
+                                            FIN/NRIC # :</td>
+                                        <td style="text-align :left">
+                                            <asp:TextBox ID="txtFinNricNo" runat="server" MaxLength="20" required="yes"></asp:TextBox>
+                                            <asp:RequiredFieldValidator ID="RfvDocno0" runat="server" 
+                                               ControlToValidate="txtFinNricNo" ErrorMessage="*"></asp:RequiredFieldValidator>
+                                        </td>
+                                        <td style="text-align :right">
+                                            FIN/NRIC Type :</td>
+                                        <td style="text-align :left">
+                                            <asp:TextBox ID="txtFinNricType" runat="server" MaxLength="100" required="yes"></asp:TextBox>
+                                            <asp:RequiredFieldValidator ID="RfvPlaceofissue0" runat="server" 
+                                               ControlToValidate="txtFinNricType" ErrorMessage="*"></asp:RequiredFieldValidator>
+                                        </td>
+                                    </tr>
+                                   <tr>
+                                       <td style="text-align :right">
+                                           &nbsp;</td>
+                                       <td style="text-align :left">
+                                           
+                                       </td>
+                                       <td style="text-align :right">
+                                           &nbsp;</td>
+                                       <td style="text-align :left">
+                                           
+                                       </td>
+                                   </tr>
+                                   <tr>
+                                        <td style="text-align :right">
+                                            Issue Date :</td>
+                                        <td style="text-align :left">
+                                            <asp:TextBox ID="txtFinIssueDate" runat="server" required="yes"></asp:TextBox>
+                                            
+                                            <asp:RequiredFieldValidator ID="RfvIssuedate" runat="server" 
+                                               ControlToValidate="txtFinIssueDate" ErrorMessage="*"></asp:RequiredFieldValidator>
+                                               
+                                            <asp:ImageButton ID="imgfinissuedate" runat="server" 
+                                                ImageUrl="~/Modules/HRD/Images/Calendar.gif" OnClientClick="return false;" />
+                                        </td>
+                                        <td style="text-align :right">
+                                            Expiry Date :</td>
+                                        <td style="text-align :left">
+                                            <asp:TextBox ID="txtFinExpiryDate" runat="server"></asp:TextBox>
+                                            <asp:ImageButton ID="imgfinexpirydate" runat="server" 
+                                                ImageUrl="~/Modules/HRD/Images/Calendar.gif" OnClientClick="return false;" />
+                                        </td>
+                                    </tr>
+                                   <tr>
+                                       <td style="text-align :right">
+                                           &nbsp;</td>
+                                       <td style="text-align :left">
+                                           
+                                       </td>
+                                       <td style="text-align :right">
+                                           &nbsp;</td>
+                                       <td style="text-align :left">
+                                       </td>
+                                   </tr>
+                                   <tr>
+                                       <td valign="top">
+                                           &nbsp;</td>
+                                       <td valign="top">
+                                           &nbsp;</td>
+                                       <td>
+                                           &nbsp;</td>
+                                       <td>
+                                           <ajaxToolkit:CalendarExtender ID="CalendarExtender1" runat="server" 
+                                               Format="dd-MMM-yyyy" PopupButtonID="imgfinissuedate" PopupPosition="TopLeft" 
+                                               TargetControlID="txtfinissuedate">
+                                           </ajaxToolkit:CalendarExtender>
+                                           <ajaxToolkit:CalendarExtender ID="CalendarExtender2" runat="server" 
+                                               Format="dd-MMM-yyyy" PopupButtonID="imgfinexpirydate" PopupPosition="TopLeft" 
+                                               TargetControlID="txtfinexpirydate">
+                                           </ajaxToolkit:CalendarExtender>
+                                       </td>
+                                   </tr>
+                                   </col>
+                                   </col>
+                               </colgroup>
+                            </table>
+                            <table cellpadding="2" cellspacing ="0" border="0" width ="100%">
+                            <tr>
+                                <td align="right">
+                                    <asp:Button ID="btnaddnew" CssClass="btn" runat="server" Text="Add New" 
+                                        Width="80px" onclick="btnaddnew_Click" CausesValidation="false"></asp:Button>
+                                    <asp:Button ID="btnsave" CssClass="btn"  runat="server" Text="Save" 
+                                        onclick="btnsave_Click"></asp:Button>
+                                    <asp:Button ID="btncancel" CssClass="btn"  runat="server" Text="Cancel" 
+                                        onclick="btncancel_Click" CausesValidation="false"></asp:Button>
+                                </td>
+                            </tr>
+                            </table>
+                        </div> 
+                    </td>
+                </tr>
+         </table> 
+         </ContentTemplate>
+      </asp:UpdatePanel> 
+    </div>
+    </asp:Content>

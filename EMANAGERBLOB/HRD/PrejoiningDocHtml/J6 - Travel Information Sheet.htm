@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- <link href="print_style.css" rel="stylesheet"> -->
+    <meta charset="utf-8">
+    <title>J6 - Travel Information Sheet</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/dashboard.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Load paper.css for happy printing -->
+    <!-- <link rel="stylesheet" href="paper.css"> -->
+    <!-- <link rel="stylesheet" href="normalize.css"> -->
+
+    <!-- Set page size here: A5, A4 or A3 -->
+    <!-- Set also "landscape" if you need -->
+    <style>
+        @page {
+            size: A4 portrait;
+            margin-top: 8px;
+            margin-bottom: 10px;
+            margin-left: 20px;
+        }
+    </style>
+    <style>
+        /* Three image containers (use 25% for four, and 50% for two, etc) */
+        
+        .column {
+            float: left;
+            padding: 5px;
+        }
+        /* Clear floats after image containers */
+        
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+        
+        html {
+            font-family: sans-serif;
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+        }
+        
+        h6
+        {
+            font-size: 17px;
+            font-weight: 400;
+        }
+        
+        li {
+            font-size: 16px;
+        }
+        
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+        
+        table,
+        th,
+        td {
+            font-size: 15px;
+        }
+        
+        table tbody tr td {
+            padding: 10px 25px !important;
+            line-height: 1.35 !important;
+            font-weight: 500;
+        }
+        
+        table tfoot tr td {
+            font-weight: 500;
+        }
+        
+        @media print {
+            .box-body {
+                margin-top: 10px !important;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+
+
+
+    <a href="javascript:void(0);" onclick="printPageArea('printableArea')" class="btn btn-create">Print</a>
+</head>
+<!-- Set "A5", "A4" or "A3" for class name -->
+<!-- Set also "landscape" if you need -->
+
+<body class="A4 portrait">
+
+    <div id="printableArea">
+
+        <!-- Each sheet element should have the class "sheet" -->
+        <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
+        <section class="sheet" id="content-print">
+
+
+            <div class="box-body" id="box_data" style="padding: 40px 0 20px 0px;">
+                <div class="container-fluid" style="width: 85%;margin: 0 auto;">
+                    <div style="margin-bottom: 20px;">
+                        <h3 style="font-weight: 700;color:#2f5497;text-transform: uppercase;text-align: center;margin-bottom: 40px;">CREW CHANGE & TRAVEL INFORMATION SHEET</h3>
+                        <div style="margin: 25px 0;padding-left: 40px;">
+                            <div style="display: flex;">
+                                <h6 style="font-weight: 400;margin-bottom: 15px;width: 25%;">Name of the Seafarer</h6>
+                                <h6 style="font-weight: 400;text-decoration: underline;"> $Seafarer$ </h6>
+                            </div>
+                            <div style="display: flex;">
+                                <h6 style="font-weight: 400;margin-bottom: 15px;width: 25%;">Date of Birth </h6>
+                                <h6 style="font-weight: 400;text-decoration: underline;"> $DOB$ </h6>
+                            </div>
+                            <div style="display: flex;">
+                                <h6 style="font-weight: 400;margin-bottom: 15px;width: 25%;">Nationality </h6>
+                                <h6 style="font-weight: 400;text-decoration: underline;"> $Nationality$ </h6>
+                            </div>
+                            <div style="display: flex;">
+                                <h6 style="font-weight: 400;margin-bottom: 15px;width: 25%;">Travel passport No </h6>
+                                <h6 style="font-weight: 400;text-decoration: underline;"> $PassportNo$ </h6>
+                            </div>
+                            <div style="display: flex;">
+                                <h6 style="font-weight: 400;margin-bottom: 15px;width: 25%;">Seaman’s book No </h6>
+                                <h6 style="font-weight: 400;text-decoration: underline;"> $SeamansID$ </h6>
+                            </div>
+                            <div style="display: flex;">
+                                <h6 style="font-weight: 400;margin-bottom: 15px;width: 25%;">Company name </h6>
+                                <h6 style="font-weight: 400;text-decoration: underline;"> $ShipOwner$ </h6>
+                            </div>
+                            <div style="display: flex;">
+                                <h6 style="font-weight: 400;margin-bottom: 15px;width: 25%;">Vessel </h6>
+                                <h6 style="font-weight: 400;text-decoration: underline;"> $Vessel$ </h6>
+                            </div>
+                            <div style="display: flex;">
+                                <h6 style="font-weight: 400;margin-bottom: 15px;width: 25%;"> IMO </h6>
+                                <h6 style="font-weight: 400;text-decoration: underline;"> $IMO$ </h6>
+                            </div>
+                            <div style="display: flex;">
+                                <h6 style="font-weight: 400;margin-bottom: 15px;width: 25%;">Seaman rank </h6>
+                                <h6 style="font-weight: 400;text-decoration: underline;"> $Rank$ </h6>
+                            </div>
+    
+                        </div>
+                        <div>
+                            <h6 style="font-weight: 500;margin-bottom: 20px;">Crew change type:</h6>
+                            <div style="display: flex;">
+                                <div style="width: 50%;">
+                                    <table>
+                                        <tr>
+                                            <td style="border: 1px solid black;">X</td>
+                                            <td style="font-size: 16px;">Joining vessel</td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <div style="width: 50%;">
+                                    <table>
+                                        <tr>
+                                            <td style="border: 1px solid black;">X</td>
+                                            <td style="font-size: 16px;">Leaving vessel</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div  style="display: flex;">
+                                <div style="display: flex;flex-direction: column;width: 50%;">
+                                    <h6 style="font-weight: 400;margin-top: 60px;"> _____________________________________________ </h6>
+                                    <h6>Starting Point of Travel <span style="font-size: 12px;">(e.g. place of ordinary residence, a port)</span>  </h6>
+                                </div>
+                                <div style="width: 50%;display: flex;margin-top: 30px;">
+                                    <h6 style="margin-right: 10px;">Service Period:</h6>
+                                    <div style="display: flex;flex-direction: column;">
+                                        <h6 style="font-size: 15px;">Sign on date <span>_________________</span></h6>
+                                        <h6 style="font-size: 15px;">Sign off date <span>_________________</span></h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="display: flex;margin: 25px 0px;">
+                                <div style="display: flex;width: 50%;">
+                                    <h6 style="margin-right: 10px;">Location:</h6>
+                                    <h6 style="text-decoration: underline;"> Kishinev, Moldova </h6>
+                                </div>
+                                <div style="display: flex;width: 50%;">
+                                    <h6 style="margin-right: 10px;">Date:</h6>
+                                    <h6 style="text-decoration: underline;"> 22.08.2022</h6>
+                                </div>
+                            </div>
+                            <h6>Final Destination of Travel <span style="font-size: 12px;">(e.g. place of ordinary residence, a port)</span>  </h6>
+                            <div style="display: flex;margin: 25px 0px;">
+                                <div style="display: flex;width: 50%;">
+                                    <h6 style="margin-right: 10px;">Location:</h6>
+                                    <h6 style="text-decoration: underline;">Rijeka, Croatia</h6>
+                                </div>
+                                <div style="display: flex;width: 50%;">
+                                    <h6 style="margin-right: 10px;">Date:</h6>
+                                    <h6 style="text-decoration: underline;"> 23.08.2022</h6>
+                                </div>
+                            </div>
+                            <h6 style="font-weight: 500;">Full Travel Itinerary Details<span style="font-size: 12px;">(e.g. transfers, airports, airlines, flight numbers etc.) </span>  </h6>
+                            <div style="margin-bottom: 30px;">
+                                <div style="display: flex;">
+                                    <h6 style="color:#2f5497;margin-right: 20px;font-size: 16px;">LO 514  22AUG 1 KIVWAW HK1 </h6>  
+                                    <h6 style="color:#2f5497;font-size: 16px;"> 1440 1525 </h6>      
+                                </div>
+                                <div style="display: flex;">
+                                    <h6 style="color:#2f5497;margin-right: 20px;font-size: 16px;">LO 611  23AUG 2 WAWZAG HK1</h6>  
+                                    <h6 style="color:#2f5497;font-size: 16px;">  0725 0905</h6>      
+                                </div>
+                            </div> 
+                        </div>
+                        
+
+                        <div >
+                            
+                            <div>
+                                <h6 style="font-weight: 500;">Agent Details </h6>
+                                <h6 style="font-weight: 500;">Domagoj Klovar </h6>
+                            </div>
+                            
+                            <div>
+                                <h6>Operations</h6>
+                                <div style="display: flex;flex-direction: column;">
+                                    <h6 style="font-style: italic;">Adriatikagent d.o.o. Branch office Rijeka <br>
+                                        as agent of Hapag Lloyd for Croatia and Bosnia and Herzegovina <br>
+                                        Ciottina 17a HR-51000 Rijeka <br>
+                                        T:+385 51 56 409 <br>
+                                        F:+385 51 31 7460 <br>
+                                        M:+385 99 203 5902 <br>
+                                        Skype:domagoj.klovar
+                                    </h6>
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    
+                    
+                    
+                </div>
+
+            </div>
+
+        </section>
+    </div>
+
+    <script>
+        function printPageArea(areaID) {
+            var printContent = document.getElementById(areaID).innerHTML;
+            var originalContent = document.body.innerHTML;
+            document.body.innerHTML = printContent;
+            window.print();
+            document.body.innerHTML = originalContent;
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js "></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js "></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js "></script>
+</body>
+
+</html>

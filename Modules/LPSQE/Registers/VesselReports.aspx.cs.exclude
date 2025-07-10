@@ -1,0 +1,476 @@
+    using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using ShipSoft.CrewManager.BusinessLogicLayer;
+using ShipSoft.CrewManager.BusinessObjects;
+using ShipSoft.CrewManager.Operational;
+using System.IO;
+using System.Text;
+using AjaxControlToolkit;
+
+public partial class FormReporting_VesselReports : System.Web.UI.Page
+{
+    Authority Auth;
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        //------------------------------------
+        ProjectCommon.SessionCheck_New();
+        //------------------------------------
+        //--------------------------------- PAGE ACCESS AUTHORITY ----------------------------------------------------
+        int chpageauth = UserPageRelation.CheckUserPageAuthority(Convert.ToInt32(Session["loginid"].ToString()), 165);
+        if (chpageauth <= 0)
+            Response.Redirect("blank.aspx");
+        //------------------------------------------------------------------------------------------------------------
+        try
+        {
+            if (Session["loginid"] == null)
+            {
+                Page.ClientScript.RegisterStartupScript(Page.GetType(), "logout", "alert('Your Session is Expired. Please Login Again.');window.parent.parent.location='../Default.aspx';", true);
+            }
+            if (Session["loginid"] != null)
+            {
+                ProcessCheckAuthority OBJ = new ProcessCheckAuthority(Convert.ToInt32(Session["loginid"].ToString()), 165);
+                OBJ.Invoke();
+                Session["Authority"] = OBJ.Authority;
+                Auth = OBJ.Authority;
+            }
+            if (!Page.IsPostBack)
+            {
+                for(int i=DateTime.Today.Year;i>=2013;i--)
+                {
+                    ddlYear.Items.Add(new ListItem(i.ToString(),i.ToString()));
+                    ddlYear1.Items.Add(new ListItem(i.ToString(), i.ToString()));
+                }
+                LoadGroup();
+                LoadFrequency();
+                BindFleet();
+                BindVessel();
+                //txtFromDate.Text = DateTime.Parse("01/01/" + DateTime.Today.Year.ToString()).ToString("dd-MMM-yyyy");
+                //txtToDate.Text = DateTime.Today.ToString("dd-MMM-yyyy");   
+            }
+        }
+        catch (Exception ex) { throw ex; }
+    }
+    protected void LoadFrequency()
+    {
+        DataTable dt = Common.Execute_Procedures_Select_ByQuery("select * from SNQ.[dbo].[KPI_Period] WHERE PeriodId<=4");
+        ddlFrequency.DataSource = dt;
+        ddlFrequency.DataTextField = "PeriodName";
+        ddlFrequency.DataValueField = "PeriodId";
+        ddlFrequency.DataBind();
+    }
+    protected void LoadGroup()
+    {
+        DataTable dt = Common.Execute_Procedures_Select_ByQuery("SELECT * FROM SNQ.[dbo].[m_VesselReportGroups]");
+        ddlGroup.DataSource = dt;
+        ddlGroup.DataTextField = "GroupName";
+        ddlGroup.DataValueField = "GroupId";
+        ddlGroup.DataBind();
+        ddlGroup.Items.Insert(0, new ListItem("<-- All -->", "0"));
+    }
+    public void BindFleet()
+    {
+        string Query = "select * from shipsoft.dbo.FleetMaster";
+        ddlFleet.DataSource = Budget.getTable(Query);
+        ddlFleet.DataTextField = "FleetName";
+        ddlFleet.DataValueField = "FleetID";
+        ddlFleet.DataBind();
+        ddlFleet.Items.Insert(0, new ListItem("<-- Select -->", "0"));
+    }
+    public void BindVessel()
+    {
+        string WhereClause = "";
+        string sql = "SELECT VesselID,Vesselname FROM SHIPSOFT.DBO.Vessel v Where 1=1 ";
+        if (!chk_Inactive.Checked)
+        {
+            WhereClause = " and v.VesselStatusid<>2 and v.vesselid not in (41,43,44)";
+        }
+        if (ddlFleet.SelectedIndex != 0)
+        {
+            WhereClause = WhereClause + " and fleetID=" + ddlFleet.SelectedValue + "";
+        }
+        sql = sql + WhereClause + "ORDER BY VESSELNAME";
+
+        ddlVessel.DataSource = VesselReporting.getTable(sql);
+
+        ddlVessel.DataTextField = "Vesselname";
+        ddlVessel.DataValueField = "VesselID";
+        ddlVessel.DataBind();
+        ddlVessel.Items.Insert(0, new ListItem("<-- All -->", "0"));
+
+        ddlVessel1.DataSource = VesselReporting.getTable(sql); ;
+        ddlVessel1.DataTextField = "Vesselname";
+        ddlVessel1.DataValueField = "VesselID";
+        ddlVessel1.DataBind();
+        ddlVessel1.Items.Insert(0, new ListItem("<-- All -->", "0"));
+    }
+    public void BindReports()
+    {
+        ddlReport.DataSource = VesselReporting.getTable("SELECT * FROM M_VESSELREPORTS WHERE REPORTID IN (SELECT D.REPORTID FROM M_VESSELREPORTS_VESSELS D WHERE D.VESSELID=" + ddlVessel1.SelectedValue + ") ORDER BY REPORTNAME");
+        ddlReport.DataTextField = "ReportName";
+        ddlReport.DataValueField = "ReportId";
+        ddlReport.DataBind();
+        ddlReport.Items.Insert(0, new ListItem("<-- Select -->", "0"));
+    }
+    protected void chk_Inactive_OnCheckedChanged(object sender, EventArgs e)
+    {
+        BindVessel();
+    }
+    protected void ddlFleet_OnSelectedIndexChanged(object sender, EventArgs e)
+    {
+        BindVessel();
+    }
+
+    // Added events and function
+    protected void ddlVessel1_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        BindReports();
+    }
+    protected void ddlReport_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        tr_Period.Visible = false;
+        ddlPeriod.Items.Clear();
+        ViewState["ReportFreq"] = 0;
+        DataTable dt = Common.Execute_Procedures_Select_VIMS_ByQuery("select Frequency from [dbo].[m_VesselReports] where ReportId=" + ddlReport.SelectedValue);
+        if (dt.Rows.Count > 0)
+        {
+            switch (Common.CastAsInt32(dt.Rows[0][0]))
+            {
+                case 1:
+                    ViewState["ReportFreq"] = 1;
+                    tr_Period.Visible = true;
+                    ddlPeriod.Items.Add(new ListItem("JAN", "1"));
+                    ddlPeriod.Items.Add(new ListItem("FEB", "2"));
+                    ddlPeriod.Items.Add(new ListItem("MAR", "3"));
+                    ddlPeriod.Items.Add(new ListItem("APR", "4"));
+                    ddlPeriod.Items.Add(new ListItem("MAY", "5"));
+                    ddlPeriod.Items.Add(new ListItem("JUN", "6"));
+                    ddlPeriod.Items.Add(new ListItem("JUL", "7"));
+                    ddlPeriod.Items.Add(new ListItem("AUG", "8"));
+                    ddlPeriod.Items.Add(new ListItem("SEP", "9"));
+                    ddlPeriod.Items.Add(new ListItem("OCT", "10"));
+                    ddlPeriod.Items.Add(new ListItem("NOV", "11"));
+                    ddlPeriod.Items.Add(new ListItem("DEC", "12"));
+                    break;
+                case 2:
+                    ViewState["ReportFreq"] = 2;
+                    tr_Period.Visible = true;
+                    ddlPeriod.Items.Add(new ListItem("Q1", "1"));
+                    ddlPeriod.Items.Add(new ListItem("Q2", "2"));
+                    ddlPeriod.Items.Add(new ListItem("Q3", "3"));
+                    ddlPeriod.Items.Add(new ListItem("Q4", "4"));
+                    break;
+                case 3:
+                    ViewState["ReportFreq"] = 3;
+                    tr_Period.Visible = true;
+                    ddlPeriod.Items.Add(new ListItem(" (JAN - JUN) ", "1"));
+                    ddlPeriod.Items.Add(new ListItem(" (JUL - DEC) ", "2"));
+                    break;
+                default:
+                    ViewState["ReportFreq"] = 4;
+                    tr_Period.Visible = false;
+                    ddlPeriod.Items.Add(new ListItem(" " + ddlYear1.SelectedValue + " ", "1"));
+                    break;
+            }
+            ddlPeriod_SelectedIndexChanged(sender, e);
+            btnSave.Enabled = true;
+        }
+        else
+        {
+            btnSave.Enabled = false;
+        }
+    }
+    protected void ddlPeriod_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        DataTable dt = Common.Execute_Procedures_Select_VIMS_ByQuery("select tableid,AttachmentName from [dbo].[t_VesselReports] WHERE VESSELID=" + ddlVessel1.SelectedValue + " AND REPORTID=" + ddlReport.SelectedValue + " AND YEAR(SUBMITTEDON)=" + ddlYear1.SelectedValue + " AND PERIOD=" + ddlPeriod.SelectedValue);
+        if (dt.Rows.Count > 0)
+        {
+            ViewState["TableId"] = dt.Rows[0]["tableid"];
+            lnkDownloadFile.Text = dt.Rows[0]["AttachmentName"].ToString();
+            lnkDownloadFile.CommandArgument = dt.Rows[0]["tableid"].ToString();
+        }
+        else
+        {
+            ViewState["TableId"] = 0;
+            lnkDownloadFile.Text = "";
+        }
+    }
+    protected void lnkDownloadFile_Click(object sender, EventArgs e)
+    {
+       //DataTable dt=Common.Execute_Procedures_Select_VIMS_ByQuery(
+        txt_key.Text = ((LinkButton)sender).CommandArgument;
+        btnDownloadFile_Click(sender, e);
+    }
+    
+    protected void btn_Reset_Click(object sender, EventArgs e)
+    {
+        BindVessel();
+        ddlFrequency.SelectedIndex = 0;
+        ddlGroup.SelectedIndex = 0;
+        //txtFromDate.Text = "";
+        //txtToDate.Text = "";
+        btn_Show_Click(sender, e);
+    }
+    protected void btn_Show_Click(object sender, EventArgs e)
+    {
+        int ForYear = Common.CastAsInt32(ddlYear.SelectedValue);
+
+        DateTime StartDate=new DateTime(ForYear,1,1);
+        int Cols=0;
+
+        //DateTime[] Period1 = { };
+        //DateTime[] Period2 = { };
+        
+        if (ddlFrequency.SelectedValue == "1") // Monthly
+        {
+            Cols = 12;
+            //Period1 = new DateTime[Cols];
+            //Period2 = new DateTime[Cols];
+            //for (int i = 0; i < Cols; i++)
+            //{
+            //    Period1[i] = StartDate;
+            //    Period2[i] = StartDate.AddMonths(12 / Cols);
+            //    StartDate = Period2[i];
+            //}
+        }
+        else if (ddlFrequency.SelectedValue == "2") // Quarterly
+        {
+            Cols = 4;
+            //Period1 = new DateTime[Cols];
+            //Period2 = new DateTime[Cols];
+            //for (int i = 0; i < Cols; i++)
+            //{
+            //    Period1[i] = StartDate;
+            //    Period2[i] = StartDate.AddMonths(12/Cols);
+            //    StartDate = Period2[i];
+            //}
+        }
+        else if (ddlFrequency.SelectedValue == "3") // Half Yearly
+        {
+            Cols = 2;
+            //Period1 = new DateTime[Cols];
+            //Period2 = new DateTime[Cols];
+            //for (int i = 0; i < Cols; i++)
+            //{
+            //    Period1[i] = StartDate;
+            //    Period2[i] = StartDate.AddMonths(12 / Cols);
+            //    StartDate = Period2[i];
+            //}
+        }
+        else // Yearly & Others
+        {
+            Cols = 1;
+            //Period1 = new DateTime[Cols];
+            //Period2 = new DateTime[Cols];
+            //Period1[0] = StartDate;
+            //Period2[0] = StartDate.AddYears(1);
+        }
+
+        string[] MonthsName = { "Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec" };
+        string[] QuartersName = { "Q-1", "Q-2", "Q-3", "Q-4"};
+        string[] HalfYears = { "JAN-JUN", "JUL-DEC"};
+
+        StringBuilder sb = new StringBuilder();
+        sb.Append("<div style='width:100%; oveflow-x:hidden; overflow-y:scroll; height:25px;' >");
+        sb.Append("<table cellpadding='2' cellspacing='0' width='100%' style='border:solid 1px gray;'>");
+        sb.Append("<tr style='background-color:#3D7A99;'>");
+        sb.Append("<td style='width:40px; text-align:center;color:white'>SR#</td>");
+        sb.Append("<td style='color:white'>Report Name</td>");
+        int ch=0;
+
+        for (ch = 0; ch <= Cols - 1; ch++)
+        {
+            sb.Append("<td style='color:white; width:70px;'>");
+            switch (ddlFrequency.SelectedValue)
+            {
+                case "1":
+                    sb.Append(MonthsName[ch]);
+                    break;
+                case "2":
+                    sb.Append(QuartersName[ch]);
+                    break;
+                case "3":
+                    sb.Append(HalfYears[ch]);
+                    break;
+                default:
+                    sb.Append("Year - " + ForYear);
+                    break;
+            }
+            sb.Append("</td>");
+        }
+        sb.Append("<td style='width:20px'>&nbsp;</td>");
+        sb.Append("</tr>");
+        sb.Append("</table>");
+        sb.Append("</div>");
+        sb.Append("<div style='width:100%; oveflow-x:hidden; overflow-y:scroll; height:375px;'>");
+        sb.Append("<table cellpadding='2' cellspacing='0' width='100%' style='border:solid 1px gray;'>");
+        string WhereClause = "";
+        string sql = "SELECT VesselID,Vesselname FROM SHIPSOFT.DBO.Vessel v Where 1=1 ";
+        if (!chk_Inactive.Checked)
+        {
+            WhereClause = " and v.VesselStatusid<>2 and v.vesselid not in (41,43,44)";
+        }
+        if (ddlVessel.SelectedIndex != 0)
+        {
+            WhereClause = WhereClause + " and VesselID=" + ddlVessel.SelectedValue + "";
+        }
+        else if (ddlFleet.SelectedIndex != 0)
+        {
+            WhereClause = WhereClause + " and fleetID=" + ddlFleet.SelectedValue + "";
+        }
+        sql = sql + WhereClause + "ORDER BY VESSELNAME";
+        DataTable dtVessel = Common.Execute_Procedures_Select_VIMS_ByQuery(sql);
+
+        string GroupCondition = ddlGroup.SelectedValue.Trim() == "0" ? " and 1=1 " : " and m.GroupId = " + ddlGroup.SelectedValue.Trim();
+
+        foreach (DataRow drv in dtVessel.Rows)
+        {
+            int _VesselId=0;
+            sb.Append("<tr>");
+            sb.Append("<td style='text-align:left;' colspan='" + (Cols + 3).ToString() + "'><b>&nbsp;" + drv["VesselName"].ToString() + "</b></td>");
+            sb.Append("</tr>");
+            _VesselId = Common.CastAsInt32(drv["VesselId"]);
+            DataTable dtReports = Common.Execute_Procedures_Select_VIMS_ByQuery("select ReportId,ReportName from m_vesselreports m where m.Frequency=" + ddlFrequency.SelectedValue + " and m.ReportId in (Select vr.ReportId from m_vesselreports_Vessels vr where vr.vesselid=" + _VesselId.ToString() + ") " + GroupCondition + "  order by ReportName");
+
+            int Counter = 1;
+            foreach (DataRow dr in dtReports.Rows)
+            {
+                int ReportId = Common.CastAsInt32(dr["ReportId"]);
+                sb.Append("<tr>");
+                sb.Append("<td style='text-align:center;'>" + (Counter++).ToString() + "</td>");
+                sb.Append("<td>" + dr["ReportName"].ToString() + "</td>");
+                int c = 0;
+                for (c = 0; c <= Cols - 1; c++)
+                {
+                    DataTable dtData = Common.Execute_Procedures_Select_VIMS_ByQuery("select TableId from t_VesselReports t where year(SubmittedOn)=" + ddlYear.SelectedValue + " and vesselid=" + _VesselId.ToString() + " and ReportId=" + ReportId + " and Period=" + (c + 1).ToString());
+                    if (dtData.Rows.Count > 0)
+                    {
+                        sb.Append("<td style='width:70px;'><a href='#' onclick='CallPostBack(" + dtData.Rows[0]["TableId"].ToString() + ");'><img src='../Images/green_circle.gif'/></a></td>");
+                    }
+                    else
+                    {
+                        sb.Append("<td style='width:70px;'><img src='../Images/red_circle.png'/></td>");
+                    }
+                }
+                sb.Append("<td style='width:20px'>&nbsp;</td>");
+                sb.Append("</tr>");
+            }
+        }
+        sb.Append("</table>");
+        sb.Append("</div>");
+        lit_Data.Text=sb.ToString();
+    }
+    protected void btnClear_OnClick(object sender, EventArgs e)
+    {
+        ddlFleet.SelectedIndex = 0;
+        chk_Inactive.Checked = false;
+        //txtFromDate.Text = DateTime.Parse("01/01/" + DateTime.Today.Year.ToString()).ToString("dd-MMM-yyyy");//daysinmonth.ToString("dd-MMM-yyyy");
+        //txtToDate.Text = DateTime.Today.ToString("dd-MMM-yyyy");   //daysinmonth.AddMonths(1).AddDays(-1).ToString("dd-MMM-yyyy");
+        BindVessel();
+        ddlVessel.SelectedIndex = 0;
+        btn_Show_Click(sender, e);
+    }
+    protected void btn_AddNew_Click(object sender, EventArgs e)
+    {
+        ddlVessel1.SelectedValue = ddlVessel.SelectedValue;
+        ddlVessel1_SelectedIndexChanged(sender,e);
+        try
+        {
+            ddlReport.SelectedIndex = 0;
+            ddlReport_SelectedIndexChanged(sender, e);
+        }
+        catch { }
+        dvAddReport.Visible = true;
+
+    }
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+        //------------------------------------
+        if (ddlVessel1.SelectedIndex <= 0) 
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "asd", "alert('Please select vessel.');", true);
+            ddlVessel1.Focus();
+            return; 
+        }
+        //------------------------------------
+        if (ddlReport.SelectedIndex <= 0)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "asd", "alert('Please select report.');", true);
+            ddlReport.Focus();
+            return;
+        }
+        //------------------------------------
+        if (!upl_File.HasFile)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "asd", "alert('Please upload attachment file.');", true);
+            upl_File.Focus();
+            return;
+        }
+        else
+        { 
+             double fileinMB = upl_File.FileBytes.Length / (1024 * 1024.0);
+             if (fileinMB > 10)
+             {
+                 ScriptManager.RegisterStartupScript(this, this.GetType(), "asd", "alert('File size must be less than 10 MB.');", true);
+                 upl_File.Focus();
+                 return;
+             }
+        }
+        //------------------------------------
+        int Period = Common.CastAsInt32(ddlPeriod.SelectedValue);
+        int UserId=Common.CastAsInt32(Session["UserId"]);
+        string FileName = Path.GetFileName(upl_File.FileName); 
+        Byte[] FileData =new Byte[upl_File.FileContent.Length];
+        upl_File.FileContent.Read(FileData,0,FileData.Length);
+
+
+        string SubmitDate="01-JAN-" + ddlYear1.SelectedValue;
+        
+
+        Common.Set_Procedures("SNQ.dbo.CreateVesselReport");
+        Common.Set_ParameterLength(8);
+        Common.Set_Parameters(new MyParameter("@TableId", Common.CastAsInt32(ViewState["TableId"])), new MyParameter("@VesselId", ddlVessel1.SelectedValue),
+                                new MyParameter("@ReportId",ddlReport.SelectedValue),
+                                new MyParameter("@LoginId", UserId),
+                                new MyParameter("@FileName", FileName),
+                                new MyParameter("@FileBytes", FileData),
+                                new MyParameter("@Period", Period),
+                                new MyParameter("@SubmittedOn", SubmitDate));
+        DataSet ds=new DataSet();
+        if (Common.Execute_Procedures_IUD(ds))
+        {
+            btn_Show_Click(sender, e);    
+            dvAddReport.Visible = false;
+        }
+        else
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "asd", "alert('Unable to create Report.');", true);
+            upl_File.Focus();
+            return;
+        }
+    }
+    protected void btnClose_Click(object sender, ImageClickEventArgs e)
+    {
+        dvAddReport.Visible = false; 
+    }
+    protected void btnDownloadFile_Click(object sender, EventArgs e)
+    {
+        int _ReportId = Common.CastAsInt32(txt_key.Text);
+        string strSQL = "SELECT AttachmentName,AttachmentFile FROM snq.dbo.T_VESSELREPORTS WHERE TableId=" + _ReportId;
+        DataTable dtFileDetails = Common.Execute_Procedures_Select_ByQuery(strSQL);
+        
+        string FileName = dtFileDetails.Rows[0]["AttachmentName"].ToString();
+        byte[] buff = (byte[])dtFileDetails.Rows[0]["AttachmentFile"];
+        Response.AppendHeader("Content-Disposition", "attachment; filename=" + FileName );
+        Response.BinaryWrite(buff);
+        Response.Flush();
+        Response.End(); 
+    }
+}

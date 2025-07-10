@@ -1,0 +1,96 @@
+﻿.GridviewScrollHeader TH, .GridviewScrollHeader TD
+{
+    padding: 5px;
+    font-weight: bold;
+    white-space: nowrap;
+    border-right: 1px solid gainsboro;
+    border-bottom: 1px solid gainsboro;
+    
+    color:#ffffff;
+    vertical-align: bottom;
+    text-align: left;
+
+   background-color: #a7cfdf; background-image: -webkit-gradient(linear, left top, left bottom, from(#a7cfdf), to(#23538a));
+ background-image: -webkit-linear-gradient(top, #a7cfdf, #23538a);
+ background-image: -moz-linear-gradient(top, #a7cfdf, #23538a);
+ background-image: -ms-linear-gradient(top, #a7cfdf, #23538a);
+ background-image: -o-linear-gradient(top, #a7cfdf, #23538a);
+ background-image: linear-gradient(to bottom, #a7cfdf, #23538a);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#a7cfdf, endColorstr=#23538a);
+
+}
+.GridviewScrollItem TD
+{
+    padding: 5px;
+    white-space: nowrap;
+    border-right: 1px solid gainsboro;
+    border-bottom: 1px solid gainsboro;
+    background-color: #FFFFFF;
+}
+.GridviewScrollAlternateItem TD
+{
+    padding: 5px;
+    white-space: nowrap;
+    border-right: 1px solid gainsboro;
+    border-bottom: 1px solid gainsboro;
+    background-color: #EFEFEF;
+}
+.GridviewScrollFooter TD
+{
+    padding: 5px;
+    white-space: nowrap;
+    border-right: 1px solid gainsboro;
+    border-bottom: 1px solid gainsboro;
+    background-color: #FFFFFF;
+}
+.GridviewScrollItem .Freeze
+{
+    background-color: #EFEFEF;
+}
+.GridviewScrollItemHover TD
+{
+    padding: 5px;
+    white-space: nowrap;
+    border-right: 1px solid gainsboro;
+    border-bottom: 1px solid gainsboro;
+    background-color: #CCCCCC;
+    cursor: pointer;
+}
+.GridviewScrollItemHover .Freeze
+{
+    background-color: #CCCCCC;
+}
+.GridviewScrollItemSelected TD
+{
+    padding: 5px;
+    white-space: nowrap;
+    border-right: 1px solid gainsboro;
+    border-bottom: 1px solid gainsboro;
+    background-color: #999999;
+    color: #FFFFFF;
+}
+.GridviewScrollItemSelected .Freeze
+{
+    background-color: #999999;
+}
+.GridviewScrollPager 
+{
+    border-top: 1px solid gainsboro;
+    background-color: #FFFFFF;
+}
+.GridviewScrollPager TD
+{
+    padding-top: 3px;
+    font-size: 14px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.GridviewScrollPager A
+{
+    color: #666666;
+}
+
+.GridviewScrollPager SPAN
+{
+    font-size: 16px;
+    font-weight: bold;
+}

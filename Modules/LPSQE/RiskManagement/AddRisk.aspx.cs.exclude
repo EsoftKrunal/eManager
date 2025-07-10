@@ -1,0 +1,757 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using System.Data;
+using System.Data.SqlClient;
+using System.Text;
+using Ionic.Zip;
+using System.IO;
+
+public partial class RiskManagement_AddRisk : System.Web.UI.Page
+{
+    #region -------- PROPERTIES ------------------
+
+    public string RiskStatus
+    {
+        set { ViewState["RiskStatus"] = value; }
+        get { return Convert.ToString(ViewState["RiskStatus"]); }
+    }
+    public int RiskId
+    {
+        set { ViewState["RiskId"] = value; }
+        get { return Common.CastAsInt32(ViewState["RiskId"]); }
+    }
+    public int EventId
+    {
+        set { ViewState["EventId"] = value; }
+        get { return Common.CastAsInt32(ViewState["EventId"]); }
+    }
+    public int OfficeId
+    {
+        set { ViewState["OfficeId"] = value; }
+        get { return Common.CastAsInt32(ViewState["OfficeId"]); }
+    }
+    public int SRKey
+    {
+        set { ViewState["SRKey"] = value; }
+        get { return Common.CastAsInt32(ViewState["SRKey"]); }
+    }
+    public int HazardId
+    {
+        set { ViewState["HazardId"] = value; }
+        get { return Common.CastAsInt32(ViewState["HazardId"]); }
+    }
+    public DataTable HazardsList
+    {
+        set { ViewState["AditionalHazard"] = value; }
+        get { return (DataTable)ViewState["AditionalHazard"]; }
+    }
+
+    #endregion -----------------------------------
+    int LoginId = 0;
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        //------------------------------------
+        ProjectCommon.SessionCheck_New();
+        //------------------------------------
+        if (Session["loginid"] == null)
+        {
+           // Page.ClientScript.RegisterStartupScript(Page.GetType(), "logout", "alert('Your Session is Expired. Please Login Again.');window.close();", true);
+        }
+        else
+        {
+            LoginId = Convert.ToInt32(Session["loginid"].ToString());
+        }
+        lblM1.Text = "";
+        lblMsg.Text = "";
+        lblMsg_MP.Text = "";
+        lblMsg_Closure.Text = "";
+        lblMsg_Fwd.Text = "";
+
+        if (!IsPostBack)
+        {
+            RiskId = Common.CastAsInt32(Request.QueryString["RiskId"]);
+            EventId = Common.CastAsInt32(Request.QueryString["EventId"]);
+            BindOffice();
+            if (RiskId > 0) // EDIT DATA
+            {
+                ShowRecord();
+            }
+            else // NEW RECORD
+            {
+                BindHazards();
+                RiskStatus = "O";
+            }
+            ShowEventDetails();
+        }
+        spnAdd.Visible = RiskStatus == "O";
+    }
+    public void GenerateRefNo()
+    {
+        DataTable dt = Common.Execute_Procedures_Select_ByQuery("select REPLACE(STR(ISNULL(MAX(CAST( RIGHT(REFNO,3) AS INT)),0) + 1,3),' ','0') from dbo.EV_Off_RISKMGMT_MASTER WHERE YEAR(EVENTDATE)=" + DateTime.Today.Year.ToString() + " AND OfficeId=" + ddlOffice.SelectedValue.Trim());
+        if (dt.Rows.Count > 0)
+        {
+            lblRefNo.Text = ddlOffice.SelectedItem.Text.Trim() + "-RA-" + DateTime.Today.Year.ToString() + "-" + dt.Rows[0][0].ToString();
+        }
+    }
+    public void ShowEventDetails()
+    {
+        DataTable dt = Common.Execute_Procedures_Select_ByQuery("SELECT * FROM dbo.EV_EventMaster WHERE EventId=" + EventId.ToString());
+        if (dt.Rows.Count > 0)
+        {
+            lblEventName.Text = dt.Rows[0]["EventName"].ToString();
+        }
+    }
+    public void ShowRecord()
+    {
+        DataTable dt = Common.Execute_Procedures_Select_ByQuery("SELECT * FROM dbo.EV_Off_RISKMGMT_MASTER WHERE RISKID=" + RiskId.ToString());
+        if (dt.Rows.Count > 0)
+        {
+            ddlOffice.SelectedValue = dt.Rows[0]["OfficeId"].ToString();
+            OfficeId = Common.CastAsInt32(dt.Rows[0]["OfficeId"]);
+
+            ddlOffice.Enabled = false;
+            EventId = Common.CastAsInt32(dt.Rows[0]["EventId"]);
+            txtEventDate.Text = Common.ToDateString(dt.Rows[0]["EVENTDATE"]);
+            lblRefNo.Text = dt.Rows[0]["REFNO"].ToString();
+            txtRiskDescr.Text = dt.Rows[0]["RiskDescr"].ToString();
+            ddlAlt.SelectedValue = dt.Rows[0]["ALTERNATEMETHODS"].ToString();
+            txtDetails.Visible = (ddlAlt.SelectedValue == "Y");
+            txtDetails.Text = dt.Rows[0]["Details"].ToString();
+            txtHOD.Text = dt.Rows[0]["HOD_NAME"].ToString();
+            txtSO.Text = dt.Rows[0]["SAF_OFF_NAME"].ToString();
+            txtMaster.Text = dt.Rows[0]["MASTER_NAME"].ToString();
+            lblCommentsByOn.Text = "<b>" + dt.Rows[0]["OFFICECOMMENTBY"].ToString() + " </b> ( <i style='color:blue'>" + dt.Rows[0]["DESIGNATION"].ToString() + " </i> ) / " + Common.ToDateString(dt.Rows[0]["COMMENTDATE"]);
+            lblOfficeComments.Text = dt.Rows[0]["OFFICE_COMMENTS"].ToString();
+            txtCreatedBy.Text = dt.Rows[0]["CREATED_BY"].ToString();
+            txtPosition.Text = dt.Rows[0]["POSITION"].ToString();
+
+            RiskStatus = dt.Rows[0]["Status"].ToString();
+
+            trClosure.Visible = (dt.Rows[0]["Status"].ToString() == "C");
+            btnSave.Visible = (dt.Rows[0]["Status"].ToString() == "O" && dt.Rows[0]["ApprovalStatus"].ToString() == "");
+            //btnClosure.Visible = (dt.Rows[0]["Status"].ToString() == "O");
+
+            btnFwdForApproval.Visible = (dt.Rows[0]["ApprovalStatus"].ToString() == "");
+            btnClosure.Visible = (dt.Rows[0]["ApprovalStatus"].ToString() == "P" && Common.CastAsInt32(dt.Rows[0]["ApprovalFwdTo"]) == LoginId);
+
+            HazardsList = Common.Execute_Procedures_Select_ByQuery("SELECT ROW_NUMBER() OVER (ORDER BY TABLID) AS SRKey,* FROM dbo.EV_Off_RISKMGMT_DETAILS D WHERE RISKID=" + RiskId.ToString());
+            BindGrid();
+        }
+    }
+    protected void chkAlt_OnCheckedChanged(object sender, EventArgs e)
+    {
+        txtDetails.Visible = (ddlAlt.SelectedValue.Trim() == "Y");
+        if (!txtDetails.Visible)
+            txtDetails.Text = "";
+    }
+    protected void ddlOffice_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (ddlOffice.SelectedIndex > 0)
+        {
+            GenerateRefNo();
+        }
+        else
+        {
+            lblRefNo.Text = "";
+        }
+    }
+  
+    protected void BindGrid()
+    {
+        rptRisk.DataSource = HazardsList;
+        rptRisk.DataBind();
+
+        ShowFinalRatings();
+    }
+    public void BindOffice()
+    {
+        DataTable dt = Common.Execute_Procedures_Select_ByQuery("SELECT * FROM dbo.Office");
+
+        if (dt.Rows.Count > 0)
+        {
+            ddlOffice.DataSource = dt;
+            ddlOffice.DataTextField = "OfficeName";
+            ddlOffice.DataValueField = "OfficeId";
+            ddlOffice.DataBind();
+
+            ddlOffice.Items.Insert(0, new ListItem("< Select >", "0"));
+        }
+    }
+    public void BindHazards()
+    {
+        HazardsList = Common.Execute_Procedures_Select_ByQuery("SELECT  ROW_NUMBER() OVER (ORDER BY HAZARDID) AS SRKey,0 AS TABLID,0 AS RISKID,0 AS OFFICEID,'N' AS ROUTINE,HAZARDID,HAZARDNAME,0 AS LIKELIHOOD,0 AS CONSEQUENCES,'' AS RISKRANK,0 AS Re_LIKELIHOOD,0 AS Re_CONSEQUENCES,'' AS Re_RISKRANK,'' AS STD_CONTROL_MESASRUES,'' AS ADD_CONTROL_MEASURES, '' AS AGREED_TIME,'' AS PIC_NAME FROM dbo.EV_HazardMaster WHERE EventId=" + EventId);
+        BindGrid();
+    }
+
+    //protected void btnRiskAssessment_Click(object sender, EventArgs e)
+    //{
+    //    SRKey = Common.CastAsInt32(((LinkButton)sender).CommandArgument);
+    //    dv_RiskAssessment.Visible = true;
+    //}
+    //protected void btnCloseRA_Click(object sender, EventArgs e)
+    //{
+    //    SRKey = 0;
+    //    dv_RiskAssessment.Visible = false;
+    //}
+    protected void btnFillRA_Click(object sender, EventArgs e)
+    {
+        string[] values = ((Button)sender).CommandArgument.Trim().Split(',');
+
+        string Liklihood = values[0];
+        string Consequence = values[1];
+        string RiskRank = values[2];
+
+        hfHazards.Value = Liklihood.Trim() + "," + Consequence.Trim() + "," + RiskRank.Trim();
+
+        lblIR1.Text = getFullText(Liklihood, "L");
+        lblIR2.Text = getFullText(Consequence, "C");
+        lblIR3.Text = ((Button)sender).Text;
+    }
+    protected void btnFillResidual_Click(object sender, EventArgs e)
+    {
+        string[] values = ((Button)sender).CommandArgument.Trim().Split(',');
+
+        string Liklihood = values[0];
+        string Consequence = values[1];
+        string RiskRank = values[2];
+
+        hfResidual.Value = Liklihood.Trim() + "," + Consequence.Trim() + "," + RiskRank.Trim();
+        
+        lblRR1.Text = getFullText(Liklihood, "L");
+        lblRR2.Text = getFullText(Consequence, "C");
+        lblRR3.Text = ((Button)sender).Text;
+    }
+    protected void ShowMangementPlan(object sender, EventArgs e)
+    {
+        SRKey = Common.CastAsInt32(((LinkButton)sender).CommandArgument);
+        HazardId = Common.CastAsInt32(((LinkButton)sender).Attributes["HazardId"]);
+
+        DataRow[] drs = HazardsList.Select("SRKey=" + SRKey);
+        if (drs.Length > 0)
+        {
+            hfHazards.Value = drs[0]["LIKELIHOOD"].ToString().Trim() + "," + drs[0]["CONSEQUENCES"].ToString().Trim() + "," + drs[0]["RISKRANK"].ToString().Trim();
+            hfResidual.Value = drs[0]["Re_LIKELIHOOD"].ToString().Trim() + "," + drs[0]["Re_CONSEQUENCES"].ToString().Trim() + "," + drs[0]["Re_RISKRANK"].ToString().Trim();
+
+            lblIR1.Text = getFullText(drs[0]["LIKELIHOOD"].ToString().Trim(), "L");
+            lblIR2.Text = getFullText(drs[0]["CONSEQUENCES"].ToString().Trim(), "C");
+            lblIR3.Text = (drs[0]["RISKRANK"].ToString().Trim() == "L") ? "Low Risk" : ((drs[0]["RISKRANK"].ToString().Trim() == "M") ? "Medium Risk" : (drs[0]["RISKRANK"].ToString().Trim() == "H") ? "High Risk" : "");
+
+            lblRR1.Text = getFullText(drs[0]["Re_LIKELIHOOD"].ToString().Trim(), "L");
+            lblRR2.Text = getFullText(drs[0]["Re_CONSEQUENCES"].ToString().Trim(), "C");
+            lblRR3.Text = (drs[0]["Re_RISKRANK"].ToString().Trim() == "L") ? "Low Risk" : ((drs[0]["Re_RISKRANK"].ToString().Trim() == "M") ? "Medium Risk" : (drs[0]["Re_RISKRANK"].ToString().Trim() == "H") ? "High Risk" : "");
+            
+            rad_R_yes.Checked = (drs[0]["ROUTINE"].ToString().Trim() == "Y");
+            rad_R_no.Checked = !rad_R_yes.Checked;
+
+            txtSCM.Text = drs[0]["STD_CONTROL_MESASRUES"].ToString();
+            txtACM.Text = drs[0]["ADD_CONTROL_MEASURES"].ToString();
+            txtAgreedTime.Text = drs[0]["AGREED_TIME"].ToString();
+            //try
+            //{
+            //    ddlRAC.SelectedValue = drs[0]["RISK_AFTER_CONTROL"].ToString();
+            //}
+            //catch { }
+            txtPN.Text = drs[0]["PIC_NAME"].ToString();
+        }
+        DataTable dt = Common.Execute_Procedures_Select_ByQuery("SELECT * FROM DBO.EV_HazardMaster WHERE HAZARDID=" + HazardId);
+        if (dt.Rows.Count > 0)
+        {
+            dv_SCM.InnerHtml = dt.Rows[0]["STD_CONTROL_MEASURES"].ToString();
+            dvACM.InnerHtml = dt.Rows[0]["ADD_CONTROL_MEASURES"].ToString();
+        }
+        dv_MgmtPlan.Visible = true;
+
+        ScriptManager.RegisterStartupScript(this, this.GetType(), "aa", "MoveFirst();", true);
+    }
+    protected void btnCloseMP_Click(object sender, EventArgs e)
+    {
+        hfd_MP.Value = "";
+        txtSCM.Text = "";
+        txtACM.Text = "";
+        txtAgreedTime.Text = "";
+        //ddlRAC.SelectedIndex = 0;
+        txtPN.Text = "";
+
+        dv_MgmtPlan.Visible = false;
+    }
+    protected void btnSaveMP_Click(object sender, EventArgs e)
+    {
+        if (hfHazards.Value.Trim() == "" || hfHazards.Value.Trim() == ",," || hfHazards.Value.Contains("0"))
+        {
+            lblMsg_MP.Text = "Please select Inherent Risk.";
+            return;
+        }
+
+        if (txtSCM.Text.Trim()=="")
+        {
+            lblMsg_MP.Text = "Please fill 'Standerd Control Measures'.";
+            return;
+        }
+        if (txtACM.Text.Trim() == "")
+        {
+            lblMsg_MP.Text = "Please fill 'Additional Control Measures'.";
+            return;
+        }
+        if (txtAgreedTime.Text.Trim() == "")
+        {
+            lblMsg_MP.Text = "Please fill 'Agreed Time'.";
+            return;
+        }
+
+        if (txtPN.Text.Trim() == "")
+        {
+            lblMsg_MP.Text = "Please fill 'PIC Name'.";
+            return;
+        }
+
+        if (hfResidual.Value.Trim() == "" || hfResidual.Value.Trim() == ",," || hfResidual.Value.Contains("0"))
+        {
+            lblMsg_MP.Text = "Please select Residual Risk.";
+            return;
+        }
+
+        string[] values = hfHazards.Value.Trim().Split(',');
+
+        string Liklihood = values[0];
+        string Consequence = values[1];
+        string RiskRank = values[2];
+
+        string[] values1 = hfResidual.Value.Trim().Split(',');
+
+        string Liklihood1 = values1[0];
+        string Consequence1 = values1[1];
+        string RiskRank1 = values1[2];
+
+        foreach (DataRow dr in HazardsList.Rows)
+        {
+            if (SRKey == Common.CastAsInt32(dr["SRKey"]))
+            {
+                dr["LIKELIHOOD"] = Liklihood;
+                dr["CONSEQUENCES"] = Consequence;
+                dr["RISKRANK"] = RiskRank;
+
+                dr["Re_LIKELIHOOD"] = Liklihood1;
+                dr["Re_CONSEQUENCES"] = Consequence1;
+                dr["Re_RISKRANK"] = RiskRank1;
+            }
+        }
+
+
+        foreach (DataRow dr in HazardsList.Rows)
+        {
+            if (SRKey == Common.CastAsInt32(dr["SRKey"]))
+            {
+                dr["ROUTINE"] = (rad_R_yes.Checked)?"Y":"N";
+                dr["STD_CONTROL_MESASRUES"] = txtSCM.Text.Trim();
+                dr["ADD_CONTROL_MEASURES"] = txtACM.Text.Trim();
+                dr["AGREED_TIME"] = txtAgreedTime.Text.Trim();
+
+                //dr["RISK_AFTER_CONTROL"] = ddlRAC.SelectedValue.Trim();
+                dr["PIC_NAME"] = txtPN.Text.Trim();
+            }
+        }
+        
+        BindGrid();
+        lblMsg_MP.Text = "Record saved successfully.";
+    }
+
+    protected void lnkAddHazard_Click(object sender, EventArgs e)
+    {
+        dv_NewHazard.Visible = true;
+        txtHazardName.Text = "";
+    }
+    protected void btnAddHazard_Click(object sender, EventArgs e)
+    {
+        DataRow dr = HazardsList.NewRow();
+        HazardsList.Rows.Add(dr);
+        int Max =Common.CastAsInt32(HazardsList.Compute("Max(SRKey)",""));
+        dr["SRKey"] = Max + 1;
+        dr["HAZARDNAME"] = txtHazardName.Text;
+        lblM1.Text = "Added Successfully";
+        BindGrid();
+    }
+    protected void btnCloseAddHazard_Click(object sender, EventArgs e)
+    {
+        dv_NewHazard.Visible = false;
+    }
+   
+    protected void btnClosure_Click(object sender, EventArgs e)
+    {
+        dv_Closure.Visible = true;
+    }
+    protected void btnSaveClosure_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            DataTable dtPos = Common.Execute_Procedures_Select_ByQuery("SELECT POSITIONNAME FROM DBO.POSITION WHERE POSITIONID IN (SELECT POSITION FROM DBO.Hr_PersonalDetails WHERE USERID=" + LoginId + ")");
+            string PositionName = "";
+            if (dtPos.Rows.Count > 0)
+                PositionName = dtPos.Rows[0]["POSITIONNAME"].ToString();
+
+            Common.Execute_Procedures_Select_ByQuery("UPDATE DBO.EV_Off_RISKMGMT_MASTER SET STATUS='C', ApprovalStatus='A',OFFICECOMMENTBY='" + Session["UserName"].ToString() + "',DESIGNATION='" + PositionName + "',COMMENTDATE=GETDATE(),OFFICE_COMMENTS='" + txtClosureComments.Text.Trim().Replace("'", "`") + "' WHERE OfficeId='" + ddlOffice.SelectedValue + "' AND RISKID=" + RiskId.ToString());
+
+            RiskStatus = "C";
+            BindGrid();
+
+            lblMsg_Closure.Text = "Approved successfully.";
+
+            btnSave.Visible = false;
+            btnClosure.Visible = false;
+        }
+        catch (Exception ex)
+        {
+            lblMsg_Closure.Text = "Unable to approve .Error :" + Common.ErrMsg;
+        }
+    }
+    protected void btnCloseClosure_Click(object sender, EventArgs e)
+    {
+        if (RiskId > 0)
+            ShowRecord();
+
+        dv_Closure.Visible = false;
+    }
+
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+        int _RiskId = 0;
+        if (ddlOffice.SelectedIndex == 0)
+        {
+            ddlOffice.Focus();
+            lblMsg.Text = "Please select office.";
+            return;
+        }
+        if (txtCreatedBy.Text.Trim() == "")
+        {
+            txtCreatedBy.Focus();
+            lblMsg.Text = "Please enter Created By.";
+            return;
+        }
+        if (txtHOD.Text.Trim() == "")
+        {
+            txtHOD.Focus();
+            lblMsg.Text = "Please enter HOD Name.";
+            return;
+        }
+        if (txtPosition.Text.Trim() == "")
+        {
+            txtPosition.Focus();
+            lblMsg.Text = "Please enter Position.";
+            return;
+        }
+        if (txtEventDate.Text.Trim() == "")
+        {
+            txtEventDate.Focus();
+            lblMsg.Text = "Please enter event date.";
+            return;
+        }
+        if (txtSO.Text.Trim() == "")
+        {
+            txtSO.Focus();
+            lblMsg.Text = "Please enter Safety Officer Name.";
+            return;
+        }
+        if (ddlAlt.SelectedValue.Trim() == "Y" && txtDetails.Text.Trim() == "")
+        {
+            txtDetails.Focus();
+            lblMsg.Text = "Please enter Details.";
+            return;
+        }
+
+
+        _RiskId = RiskId;
+        try
+        {
+            Common.Set_Procedures("[dbo].[EV_Off_InsertUpdateRiskMaster]");
+            Common.Set_ParameterLength(14);
+            Common.Set_Parameters(
+
+               //new MyParameter("@RISKID", _RiskId),
+               //new MyParameter("@OfficeId", ddlOffice.SelectedValue.ToString().Trim()),
+               //new MyParameter("@EventId", EventId),
+               //new MyParameter("@EVENTDATE", txtEventDate.Text.Trim()),
+               //new MyParameter("@REFNO", lblRefNo.Text.Trim()),
+               //new MyParameter("@ALTERNATEMETHODS", chkAlt.Checked ? "Y" : "N"),
+               //new MyParameter("@HOD_NAME", txtHOD.Text.Trim()),
+               //new MyParameter("@SAF_OFF_NAME", txtSO.Text.Trim()),
+               //new MyParameter("@MASTER_NAME", txtMaster.Text.Trim()),
+               //new MyParameter("@CREATED_BY", txtCreatedBy.Text.Trim()),
+               //new MyParameter("@CREATED_ON", txtEventDate.Text.Trim())
+
+               new MyParameter("@RISKID", _RiskId),
+               new MyParameter("@OfficeId", ddlOffice.SelectedValue.ToString().Trim()),
+               new MyParameter("@EventId", EventId),
+               new MyParameter("@EVENTDATE", txtEventDate.Text.Trim()),
+               new MyParameter("@REFNO", lblRefNo.Text.Trim()),
+               new MyParameter("@RiskDescr", txtRiskDescr.Text.Trim()),
+               new MyParameter("@ALTERNATEMETHODS", ddlAlt.SelectedValue.Trim()),
+               new MyParameter("@Details", txtDetails.Text.Trim()),
+               new MyParameter("@HOD_NAME", txtHOD.Text.Trim()),
+               new MyParameter("@SAF_OFF_NAME", txtSO.Text.Trim()),
+               new MyParameter("@MASTER_NAME", txtMaster.Text.Trim()),
+               new MyParameter("@CREATED_BY", txtCreatedBy.Text.Trim()),
+               new MyParameter("@CREATED_ON", txtEventDate.Text.Trim()),
+               new MyParameter("@POSITION", txtPosition.Text.Trim())
+
+               );
+            DataSet ds = new DataSet();
+            ds.Clear();
+            Boolean res;
+            res = Common.Execute_Procedures_IUD(ds);
+
+
+            if (res)
+            {
+
+
+                _RiskId = Common.CastAsInt32(ds.Tables[0].Rows[0][0]);
+
+                foreach (DataRow dr in HazardsList.Rows)
+                {
+                    Common.Set_Procedures("[MTMPMS].[dbo].[EV_Off_InsertRiskDetails]");
+                    Common.Set_ParameterLength(15);
+                    Common.Set_Parameters(
+                       new MyParameter("@RISKID", _RiskId),
+                       new MyParameter("@OfficeId", ddlOffice.SelectedValue.ToString().Trim()),
+                       new MyParameter("@ROUTINE", dr["ROUTINE"]),
+                       new MyParameter("@HAZARDID", 0),
+                       new MyParameter("@HAZARDNAME", dr["HAZARDNAME"]),
+                       new MyParameter("@LIKELIHOOD", dr["LIKELIHOOD"]),
+                       new MyParameter("@CONSEQUENCES", dr["CONSEQUENCES"]),
+                       new MyParameter("@RISKRANK", dr["RISKRANK"]),
+                       new MyParameter("@Re_LIKELIHOOD", dr["Re_LIKELIHOOD"]),
+                       new MyParameter("@Re_CONSEQUENCES", dr["Re_CONSEQUENCES"]),
+                       new MyParameter("@Re_RISKRANK", dr["Re_RISKRANK"]),
+                       new MyParameter("@STD_CONTROL_MESASRUES", dr["STD_CONTROL_MESASRUES"]),
+                       new MyParameter("@ADD_CONTROL_MEASURES", dr["ADD_CONTROL_MEASURES"]),
+                       new MyParameter("@AGREED_TIME", dr["AGREED_TIME"]),
+                       new MyParameter("@PIC_NAME", dr["PIC_NAME"])
+                       );
+                    DataSet ds1 = new DataSet();
+                    Boolean res1;
+                    res1 = Common.Execute_Procedures_IUD(ds1);
+
+                }
+
+                RiskId = _RiskId;
+                ShowRecord();
+                lblMsg.Text = "Risk added successfully.";
+            }
+            else
+            {
+                lblMsg.Text = "Unable to add Risk.Error : " + Common.getLastError();
+            }
+
+        }
+        catch (Exception ex)
+        {
+
+            lblMsg.Text = "Unable to add Risk.Error :" + ex.Message.ToString();
+        }
+
+    }
+    protected void btnExport_Click(object sender, EventArgs e)
+    {
+        if (RiskId > 0)
+        {
+
+
+            DataSet ds = new DataSet();
+            string SQLEvt = "SELECT * FROM dbo.EV_VSL_RISKMGMT_MASTER WHERE VESSELCODE='" + Session["CurrentShip"].ToString() + "' AND RISKID=" + RiskId.ToString();
+            DataTable dt = Common.Execute_Procedures_Select_ByQuery(SQLEvt);
+            dt.TableName = "EV_VSL_RISKMGMT_MASTER";
+            ds.Tables.Add(dt.Copy());
+
+            SQLEvt = "SELECT * FROM dbo.EV_VSL_RISKMGMT_DETAILS WHERE VESSELCODE='" + Session["CurrentShip"].ToString() + "' AND RISKID=" + RiskId.ToString();
+            dt = Common.Execute_Procedures_Select_ByQuery(SQLEvt);
+            dt.TableName = "EV_VSL_RISKMGMT_DETAILS";
+            ds.Tables.Add(dt.Copy());
+
+            string SchemaFile = Server.MapPath("~/TEMP/RiskManagementSchema.xml");
+            string DataFile = Server.MapPath("~/TEMP/RiskManagementData.xml");
+            string ZipFile = Server.MapPath("~/TEMP/RiskManagement_S_" + Session["CurrentShip"].ToString() + ".zip");
+            ds.WriteXmlSchema(SchemaFile);
+            ds.WriteXml(DataFile);
+
+            using (ZipFile zip = new ZipFile())
+            {
+                zip.AddFile(SchemaFile);
+                zip.AddFile(DataFile);
+                zip.Save(ZipFile);
+            }
+
+            byte[] buff = System.IO.File.ReadAllBytes(ZipFile);
+            Response.AppendHeader("Content-Disposition", "attachment; filename=" + Path.GetFileName(ZipFile));
+            Response.BinaryWrite(buff);
+            Response.Flush();
+            Response.End();
+        }
+    }
+
+    public string getFullText(string Code, string Type)
+    {
+        string res = "";
+        if (Type == "L")
+        {
+            switch (Code)
+            {
+                case "1": res = "Unlikely";
+                    break;
+                case "2": res = "Possible";
+                    break;
+                case "3": res = "Quite Possible";
+                    break;
+                case "4": res = "Likely";
+                    break;
+                case "5": res = "Very Likely";
+                    break;
+                default: res = "";
+                    break;
+            }
+        }
+        if (Type == "C")
+        {
+            switch (Code)
+            {
+                case "1": res = "Negligible";
+                    break;
+                case "2": res = "Slight";
+                    break;
+                case "3": res = "Moderate";
+                    break;
+                case "4": res = "High";
+                    break;
+                case "5": res = "Very High";
+                    break;
+                default: res = "";
+                    break;
+            }
+        }
+        if (Type == "R")
+        {
+            switch (Code)
+            {
+                case "L": res = "Low Risk";
+                    break;
+                case "M": res = "Medium Risk";
+                    break;
+                case "H": res = "High Risk";
+                    break;
+                default: res = "";
+                    break;
+            }
+        }
+        return res;
+    }
+
+    public string getColor(string R)
+    {
+        string res = "";
+        if (R == "L")
+        {
+            res = "#80E6B2"; 
+        }
+        else if (R == "M")
+        {
+            res = "#FFFFAD"; 
+        }
+        else if (R == "H")
+        {
+            res = "#FF7373";
+        }
+        else
+        {
+            res = "#ffffff";
+        }
+        return res;
+    }
+
+    public void ShowFinalRatings()
+    {
+        if (HazardsList.Rows.Count > 0)
+        {
+            //string In_Probability, In_Impact, In_Rating, Re_Probability, Re_Impact, Re_Rating = "";
+
+            lbl_In_Probability.Text = getFullText(HazardsList.Compute("MAX(LIKELIHOOD)","").ToString(), "L");
+            lbl_In_Impact.Text = getFullText(HazardsList.Compute("MAX(CONSEQUENCES)", "").ToString(), "C");
+            string MaxRank = "";
+            MaxRank = (Common.CastAsInt32(HazardsList.Compute("Count(RISKRANK)", "RISKRANK='H'")) > 0) ? "H" : "";
+            if(MaxRank == "")
+                MaxRank = (Common.CastAsInt32(HazardsList.Compute("Count(RISKRANK)", "RISKRANK='M'")) > 0) ? "M" : "";
+            if (MaxRank == "")
+            MaxRank = (Common.CastAsInt32(HazardsList.Compute("Count(RISKRANK)", "RISKRANK='L'")) > 0) ? "L" : "";
+
+            lbl_In_Rating.Text = getFullText(MaxRank, "R");
+            tdInRating.Style.Add("background-color", getColor(MaxRank));
+
+            MaxRank = "";
+            lbl_Re_Probability.Text = getFullText(HazardsList.Compute("MAX(Re_LIKELIHOOD)", "").ToString(), "L");
+            lbl_Re_Impact.Text = getFullText(HazardsList.Compute("MAX(Re_CONSEQUENCES)", "").ToString(), "C");
+
+            MaxRank = (Common.CastAsInt32(HazardsList.Compute("Count(Re_RISKRANK)", "Re_RISKRANK='H'")) > 0) ? "H" : "";
+            if (MaxRank == "")
+                MaxRank = (Common.CastAsInt32(HazardsList.Compute("Count(Re_RISKRANK)", "Re_RISKRANK='M'")) > 0) ? "M" : "";
+            if (MaxRank == "")
+                MaxRank = (Common.CastAsInt32(HazardsList.Compute("Count(Re_RISKRANK)", "Re_RISKRANK='L'")) > 0) ? "L" : "";
+            
+            lbl_Re_Rating.Text = getFullText(MaxRank, "R");
+            tdReRating.Style.Add("background-color", getColor(MaxRank));
+        }
+    }
+
+    public void BindEmployees()
+    {
+        DataTable dt = Common.Execute_Procedures_Select_ByQuery("SELECT UserId,(FirstName + ' ' + MiddleName + ' ' + FamilyName) As Name FROM dbo.Hr_PersonalDetails Order By Name");
+
+        ddlFwdTo.DataSource = dt;
+        ddlFwdTo.DataTextField = "Name";
+        ddlFwdTo.DataValueField = "UserId";
+        ddlFwdTo.DataBind();
+
+        ddlFwdTo.Items.Insert(0, new ListItem("< Select >", "0"));
+    }
+    protected void btnFwdForApproval_Click(object sender, EventArgs e)
+    {
+        
+        string strchk = "SELECT * FROM dbo.EV_Off_RISKMGMT_DETAILS WHERE OfficeId=" + ddlOffice.SelectedValue + " AND RISKID=" + RiskId.ToString() + " AND ( LIKELIHOOD IS NULL OR CONSEQUENCES IS NULL OR RISKRANK IS NULL OR Re_LIKELIHOOD IS NULL OR Re_CONSEQUENCES IS NULL OR Re_RISKRANK IS NULL OR ISNULL(STD_CONTROL_MESASRUES,'')='' OR ISNULL(ADD_CONTROL_MEASURES,'')='' OR ISNULL(AGREED_TIME,'')='' OR ISNULL(PIC_NAME,'')='' )";
+        DataTable dt1 = Common.Execute_Procedures_Select_ByQuery(strchk);
+        if (dt1.Rows.Count > 0)
+        {
+            lblMsg.Text = "Please fill all data before fowarding for approval.";
+            return;
+        }
+        
+        BindEmployees();
+        dv_FwdForApproval.Visible = true;
+    }
+    protected void btnSaveFwd_Click(object sender, EventArgs e)
+    {
+        if (ddlFwdTo.SelectedIndex == 0)
+        {
+            lblMsg_Fwd.Text = "Please select employee to forward.";
+            ddlFwdTo.Focus();
+            return;
+        }
+        try
+        {
+            Common.Execute_Procedures_Select_ByQuery("UPDATE [MTMPMS].[dbo].[EV_Off_RISKMGMT_MASTER] SET ApprovalFwdTo = " + ddlFwdTo.SelectedValue.Trim() + ", ApprovalStatus = 'P' WHERE RISKID= " + RiskId + " AND OfficeId=" + OfficeId);
+            lblMsg_Fwd.Text = "Fowarded to " + ddlFwdTo.SelectedItem.Text.Trim() + " successfully.";
+        }
+        catch (Exception ex)
+        {
+            lblMsg_Fwd.Text = "Unable to forward. Error : " + ex.Message;
+        }
+    }
+    protected void btnCloseFwd_Click(object sender, EventArgs e)
+    {
+        ShowRecord();
+        dv_FwdForApproval.Visible = false;
+    }
+}

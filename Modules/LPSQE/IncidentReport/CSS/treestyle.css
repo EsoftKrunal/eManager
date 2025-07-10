@@ -1,0 +1,308 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'PT Sans', sans-serif;
+    margin-bottom: 100px;
+}
+
+a {
+    text-decoration: none;
+    color: #ferewr;
+}
+
+ul {
+    padding: 0em;
+    margin-top: 30px;
+}
+
+    ul li, ul li ul li {
+        position: relative;
+        top: 0;
+        bottom: 0;
+        padding-bottom: 7px;
+    }
+
+        ul li ul {
+            margin-left: 4em;
+        }
+
+li {
+    list-style-type: none;
+}
+
+    li a {
+        position: relative;
+        top: 1em;
+    }
+
+        li a:hover {
+            text-decoration: none;
+        }
+
+a.addBorderBefore:before {
+    content: "";
+    display: inline-block;
+    width: 2px;
+    height: 130px;
+    position: absolute;
+    left: -26px;
+    top: -16px;
+    border-left: 5px solid #2b9de0;
+}
+
+li:before {
+    content: "";
+    display: inline-block;
+    width: 25px;
+    height: 0;
+    position: relative;
+    left: 0em;
+    top: 1em;
+    border-top: 5px solid #2b9de0;
+}
+
+ul li ul li:last-child:after, ul li:last-child:after {
+    content: '';
+    display: block;
+    width: 1em;
+    height: 1em;
+    position: relative;
+    background: #fff;
+    top: 9px;
+    left: 1px;
+}
+
+.container a {
+    border: solid 1px #2b9de0;
+    border-radius: 5px;
+    padding: 5px 15px;
+    display: inline-block;
+    top: 30px;
+    width: 300px;
+}
+
+.boxed {
+    border: solid 1px #daf3f7;
+    border-radius: 5px;
+    padding: 5px 15px;
+}
+
+.action i {
+    color: #1bc2da;
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    border: solid 1px #daf3f7;
+    text-align: center;
+    line-height: 28px;
+    margin-top: -4px;
+    border-radius: 16px;
+margin-left:10px;
+}
+
+.action {
+    display: inline-block;
+    cursor: pointer;
+}
+
+    .action i:hover {
+        background-color: #f76bb1;
+        color: White;
+    }
+
+.actionpanel {
+    padding: 10px;
+    position: absolute;
+    display: none;
+    border: solid 1px #e8e8e8;
+    width: 300px;
+    border-radius: 5px;
+    box-shadow: 5px 5px #f7f7f7;
+    background-color: #fff;
+}
+
+    .actionpanel .actionrow {
+        padding: 5px;
+        border-bottom: dotted 1px #acecf5;
+        padding-left: 15px;
+    }
+
+    .actionpanel i {
+        margin-right: 10px !important;
+        display: inline-block;
+    }
+
+    .actionpanel .actionrow:hover {
+        padding: 5px;
+        padding-left: 15px;
+        border-bottom: dotted 1px #acecf5;
+        background-color: #b0f1fb;
+        color: #333;
+        cursor: pointer;
+    }
+
+.causeheading {
+    font-size: 16px;
+    color: #ea7f0b;
+    border-bottom: solid 1px #f5f5f5;
+    padding-bottom: 4px;
+    display: inline-block;
+    display: block;
+    position: relative;
+}
+
+.causesummary {
+    font-size: 12px;
+    font-style: italic;
+    color: #0aa3b9;
+}
+
+.causestatus {
+    display: none !important;
+}
+
+.terminated, .rootcause {
+    float: right;
+}
+
+    .terminated:before {
+        content: "\f00d";
+        color: white;
+        background-color: #ff9393;
+        width: 20px;
+        height: 20px;
+        display: block;
+        font-size: 12px;
+        border: solid 1px #ff9393;
+        text-align: center;
+        line-height: 20px;
+        border-radius: 13px;
+        padding-top: -2px;
+    }
+
+    .rootcause:before {
+        content: "\f00c";
+        color: white;
+        background-color: #83da0b;
+        width: 20px;
+        height: 20px;
+        display: block;
+        font-size: 12px;
+        border: solid 1px #83da0b;
+        text-align: center;
+        line-height: 20px;
+        border-radius: 13px;
+        padding-top: -2px;
+    }
+
+#editsection, #addsection {
+    padding: 5px 0px;
+    padding-right: 5px;
+    display: none;
+}
+
+textarea {
+    border: solid 1px #eaeaea;
+    height: 80px;
+    width: 100%;
+    padding: 5px;
+}
+
+.btn {
+    border: none;
+    padding: 8px 15px;
+    background-color: #2b9de0;
+    color: White;
+    min-width: 70px;
+}
+
+.btncancel {
+    border: none;
+    padding: 8px 15px;
+    background-color: #106975;
+    color: White;
+    min-width: 70px;
+}
+
+#actiontarget {
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    width: 600px;
+    background-color: white;
+    right: -610px;
+    border-left: solid 1px #c2c2c2;
+    box-shadow: 0px 0px 10px -1px #a0a0a0;
+}
+
+    #actiontarget h1 {
+        margin: 0px;
+        padding: 10px;
+        background-color: #2b9de0;
+        color: White;
+        padding-left: 20px;
+    }
+
+    #actiontarget h3 {
+        margin: 0px;
+        padding: 5px;
+        color: #d84646;
+        text-align: center;
+    }
+
+    #actiontarget .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: white;
+    }
+
+        #actiontarget .close:hover {
+            color: red;
+            cursor: pointer;
+        }
+
+#causeitemfilter {
+    border: solid 1px #efefef;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 20px;
+    width: 100%;
+    color: #9c9c9c;
+}
+
+.inputafter:after {
+    content: "\f002";
+    font-family: FontAwesome;
+    color: #ef6382;
+    width: 29px;
+    height: 20px;
+    display: inline-block;
+    margin-left: -43px;
+    font-size: 23px;
+    position: absolute;
+    text-align: center;
+    top: 20px;
+    right: 16px;
+}
+
+.causeitem {
+    border: solid 1px #fbfbfb;
+    padding: 7px;
+    color: #06c5e0;
+    margin: 10px;
+    font-size: 14px;
+    color: #929292;
+}
+
+    .causeitem:hover {
+        border: dotted 1px orange;
+        padding: 7px;
+        color: #06c5e0;
+        margin: 10px;
+        font-size: 14px;
+        cursor: pointer;
+        color: Orange;
+    }

@@ -1,0 +1,53 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="VSL_VesselComponentJobOfficePlanning">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="Office_Ship" type="xs:string" minOccurs="0" />
+              <xs:element name="PlanningId" type="xs:long" minOccurs="0" />
+              <xs:element name="CompJobId" type="xs:long" minOccurs="0" />
+              <xs:element name="LastHistoryId" type="xs:long" minOccurs="0" />
+              <xs:element name="HistoryId" type="xs:long" minOccurs="0" />
+              <xs:element name="Updated" type="xs:boolean" minOccurs="0" />
+              <xs:element name="UpdatedOn" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VSL_VesselComponentJobOfficePlanning_Comments">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="Office_Ship" type="xs:string" minOccurs="0" />
+              <xs:element name="PlanningId" type="xs:long" minOccurs="0" />
+              <xs:element name="CommentId" type="xs:long" minOccurs="0" />
+              <xs:element name="ReplyCommentId" type="xs:long" minOccurs="0" />
+              <xs:element name="Comment" type="xs:string" minOccurs="0" />
+              <xs:element name="CommentBy" type="xs:string" minOccurs="0" />
+              <xs:element name="CommentOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Updated" type="xs:boolean" minOccurs="0" />
+              <xs:element name="UpdatedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ReceivedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="AttachmentName" type="xs:string" minOccurs="0" />
+              <xs:element name="Attachment" type="xs:base64Binary" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VSL_VesselComponentJobOfficePlanning_Comments_Log">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="Office_Ship" type="xs:string" minOccurs="0" />
+              <xs:element name="PlanningId" type="xs:long" minOccurs="0" />
+              <xs:element name="CommentId" type="xs:long" minOccurs="0" />
+              <xs:element name="ReceivedOn" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

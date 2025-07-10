@@ -1,0 +1,220 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="RegistersMasterPage.master.cs" MasterPageFile="~/MasterPage.master" Inherits="RegistersMasterPage" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"> 
+    <%--<link href="Styles/style.css" rel="stylesheet" type="text/css" />--%>
+    <link href="Styles/sddm.css" rel="stylesheet" type="text/css" />
+     <link rel="stylesheet" href="../../../css/app_style.css" />
+    <link rel="stylesheet" type="text/css" href="Styles/StyleSheet.css" />
+
+          <script language="javascript" type="text/javascript">
+              function CallPrint(strid) {
+                  var prtContent = document.getElementById(strid);
+                  var WinPrint = window.open('', '', 'letf=0,top=0,width=1,height=1,toolbar=0,scrollbars=0,status=0');
+                  WinPrint.document.write(prtContent.innerHTML);
+                  WinPrint.document.close();
+                  WinPrint.focus();
+                  WinPrint.print();
+                  WinPrint.close();
+                  // prtContent.innerHTML=strOldOne;
+              }
+          </script>  
+<style type="text/css">
+a
+{
+font-size :12px;
+}
+    .auto-style1 {
+        width: 25%;
+        height: 36px;
+    }
+</style>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentMainMaster" runat="Server">
+    <div style="text-align: left">
+        <ajaxToolkit:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></ajaxToolkit:ToolkitScriptManager>
+       <%-- <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>--%>
+          <table style="width :100%" cellpadding="0" cellspacing="0">
+        <tr>
+        <td style=" text-align :left; vertical-align : top;" >
+        <table border="0" cellpadding="0" cellspacing="0" style="border-right: #4371a5 1px solid;border-top: #4371a5 1px solid; border-left: #4371a5 1px solid; border-bottom: #4371a5 1px solid; text-align:center" width="100%">
+            <tr>
+                <td  style="text-align:center;background-color:#4c7a6f;color:#fff;font-size: 14px;" class="text headerband" >
+                    <img runat="server" id="imgHelp" moduleid="5" style ="cursor:pointer;float :right; padding-right :5px;" src="images/help.png" alt="Help ?"/> 
+                    HRD
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <td height="18" style="padding-right: 10px; padding-left: 10px; padding-bottom: 10px;
+                                padding-top: 10px">
+                                <fieldset style="border-right: #8fafdb 1px solid; border-top: #8fafdb 1px solid; border-left: #8fafdb 1px solid; border-bottom: #8fafdb 1px solid">
+                                    <%--<legend><strong>Registers</strong> </legend>--%>
+                                    <table style="background-color:#f9f9f9" border="0" cellpadding="5" cellspacing="0" width="100%">
+                                        <tr>
+                                            <td style="width: 825px" colspan="4" height="5px"></td></tr>
+                                        <tr>
+                                            <td style="width:25%;" align="left">
+                                               <%-- <a href="AccountHead.aspx">Account Head</a>--%>
+                                                <a href="AssessmentRegister.aspx">Assessment Master</a>
+                                            </td>
+                                            <td style="width:25%" align="left">
+                                                <a href="Department.aspx">Department</a>
+                                            </td>
+                                            <td style="width:25%" align="left">
+                                                <a href="NTBRReasons.aspx">NTBR Reasons</a>
+                                            </td>
+                                            <td style="width:25%" align="left">
+                                                <a href="Rank.aspx">Rank</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:25%" align="left">
+                                                <a href="Charterer.aspx">Charterer</a>
+                                            </td>
+                                            <td style="width:25%" align="left">
+                                                <a href="EngineMaker.aspx">Engine Maker</a>
+                                            </td>
+                                            <td style="width:25%" align="left">
+                                                <a href="OtherDocuments.aspx">Other Documents</a>                                                
+                                            </td>
+                                            <td style="width:25%" align="left">
+                                                <a href="RankGroup.aspx">Rank Group</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:25%" align="left">
+                                                <a href="Company.aspx">Company</a>                                                
+                                            </td>
+                                            <td style="width:25%" align="left">
+                                                <a href="FlagState.aspx">Flag State</a>
+                                            </td>
+                                            <td style="width:25%" align="left">
+                                                <a href="Owner.aspx">Owner</a>
+                                            </td>
+                                            <td style="width:25%" align="left">
+                                                <a href="RecruitingOffice.aspx">Recruiting Office</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:25%" align="left">
+                                                <a href="CountryDetails.aspx">Country</a>
+                                            </td>
+                                            <td style="width:25%" align="left">
+                                                <a href="License.aspx">License</a> 
+                                            </td>
+                                            <td style="width:25%" align="left">
+                                                <a href="OwnerPool.aspx">Owner Pool</a>
+                                            </td>
+                                            <td style="width:25%" align="left">
+                                               <a href="SignOffReason.aspx">Sign Off Reason</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:25%" align="left">
+                                                <a href="CourseCertificate.aspx">Course & Certificate</a>
+                                            </td>
+                                            <td style="width:25%" align="left">
+                                                 <a href="Matrix.aspx">Matrix</a>                                               
+                                            </td>
+                                            <td style="width:25%" align="left">
+                                                <a href="PNIClub.aspx">PNI Club</a>
+                                            </td>
+                                            <td style="width:25%" align="left">
+                                                <a href="Supplier.aspx">Supplier Master</a>                                                
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:25%" align="left">
+                                                <a href="Currency.aspx">Currency</a>
+                                            </td>
+                                            <td style="width:25%" align="left">
+                                                <a href="MedicalDocuments.aspx">Medical Documents</a>
+                                            </td>
+                                            <td style="width:25%" align="left">
+                                                <a href="Port.aspx">Port</a>
+                                            </td>
+                                            <td style="width:25%" align="left">
+                                               <%-- <a href="CertMaster.aspx">Vessel Certificates</a>--%>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="left" style="width: 25%">
+                                                <a href="CurrentClass.aspx">Current Class</a>
+                                            </td>
+                                            <td align="left" style="width: 25%">
+                                                <a href="NationalityGroup.aspx">Nationality Group</a>
+                                            </td>
+                                            <td align="left" style="width: 25%">
+                                                 <a href="PortAgent.aspx">Port Agents</a>                                                                                                 
+                                            </td>
+                                            <td align="left" style="width: 25%">
+                                                <a href="TravelAgent.aspx">Travel Agents</a>                                                                                                
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="left" style="width: 25%">
+                                                <a href="DangerousCargoEndorsement.aspx">Dangerous Cargo Endorsement</a>                                                
+                                            </td>
+                                            <td align="left" style="width: 25%">
+                                                <a href="NearestAirport.aspx">Nearest Airport</a>                                                                                        
+                                            </td>
+                                            <td align="left" style="width: 25%">
+                                                 <a href="Qualification.aspx">Qualification</a>                                               
+                                            </td>
+                                            <td align="left" style="width: 25%">
+                                                <a href="VesselType.aspx">Vessel Type</a>                                                                                            
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="left" style="width: 25%"><a href="SupplierPortAgentMapping.aspx">Supplier Port Agent Group</a></td>
+                                            <td align="left" style="width: 25%"><a href="ManningGrade.aspx">Manning Grade</a></td>
+                                            <td align="left" style="width: 25%"><a href="CertCategory.aspx">Certificate Category</a></td>
+                                            <td align="left" style="width: 25%"><a href="CertSubCategory.aspx">Certificate Sub Category</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="left" style="width: 25%"><a href="WageScaleComponentMaster.aspx">Wage Scale</a></td>
+                                            <td align="left" style="width: 25%"><a href="WageScaleComponent.aspx">Wage Scale Components</a></td>
+                                            <td align="left" style="width: 25%"><a href="../RestHour/RestHourSetup.aspx" target="_blank" >Rest Hour Setup</a></td>
+                                            <td align="left" style="width: 25%"><a href="PerfBonus.aspx">Performance Bonus</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="left" style="width: 25%"> <a href="ContractCompanyMaster.aspx">Contract Company Master</a></td>
+                                            <td align="left" style="width: 25%"><a href="ManningAgent.aspx">Manning Agent</a></td>
+                                            <td align="left" style="width: 25%"><a href="ContractTemplate.aspx">Contract Template</a></td>
+                                            <td align="left" style="width: 25%">
+                                                <%--<a href="SendMailConfiguartion.aspx">Send Mail Configuartion</a>--%>
+                                                <a href="WageScale.aspx">Wage Scale Component Mapping</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="left" style="width: 25%"><a href="PrejoiningDocumentList.aspx">Prejoining Documents</a></td>
+                                            <td align="left" style="width: 25%"><a href="PrejoiningDocsMapping.aspx">Prejoining Documents Mapping</a></td>
+                                            <td align="left" style="width: 25%"> <a href="SeminarCategory.aspx">Seminar Category</a> </td>
+                                            <td align="left" style="width: 25%">
+                                               <a href="RankResponsibility.aspx">Rank Responsibility Master</a>
+                                               
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </fieldset>
+                            </td>
+                        </tr>
+                                        <tr>
+                                            <td style="padding-right: 10px; padding-left: 10px;">
+                                                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" EnableViewState="true">
+                                                </asp:ContentPlaceHolder>
+                                            </td>
+                                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table> 
+        </td>
+        </tr>
+        </table>
+     </div>
+    </asp:Content>
+    

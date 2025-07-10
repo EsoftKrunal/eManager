@@ -1,0 +1,25 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <VSL_VesselComponentJobOfficePlanning>
+    <VesselCode>DMV</VesselCode>
+    <Office_Ship>O</Office_Ship>
+    <PlanningId>1</PlanningId>
+    <CompJobId>955</CompJobId>
+    <LastHistoryId>53342</LastHistoryId>
+    <Updated>true</Updated>
+    <UpdatedOn>2023-05-08T19:18:00+05:30</UpdatedOn>
+  </VSL_VesselComponentJobOfficePlanning>
+  <VSL_VesselComponentJobOfficePlanning_Comments>
+    <VesselCode>DMV</VesselCode>
+    <Office_Ship>O</Office_Ship>
+    <PlanningId>1</PlanningId>
+    <CommentId>1</CommentId>
+    <ReplyCommentId>0</ReplyCommentId>
+    <Comment>Test</Comment>
+    <CommentBy>Demo</CommentBy>
+    <CommentOn>2023-05-08T19:18:00+05:30</CommentOn>
+    <Updated>true</Updated>
+    <UpdatedOn>2023-05-08T19:18:00+05:30</UpdatedOn>
+    <Attachment />
+  </VSL_VesselComponentJobOfficePlanning_Comments>
+</NewDataSet>

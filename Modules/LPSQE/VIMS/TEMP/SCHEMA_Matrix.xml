@@ -1,0 +1,68 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DT_DrillMaster">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="DrillId" type="xs:long" minOccurs="0" />
+              <xs:element name="DrillName" type="xs:string" minOccurs="0" />
+              <xs:element name="RecordType" type="xs:string" minOccurs="0" />
+              <xs:element name="DrillGroupId" type="xs:long" minOccurs="0" />
+              <xs:element name="OfficeGuideLines" type="xs:string" minOccurs="0" />
+              <xs:element name="AttachmentFileName" type="xs:string" minOccurs="0" />
+              <xs:element name="Attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="Status" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DT_TrainingMaster">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="TrainingId" type="xs:long" minOccurs="0" />
+              <xs:element name="TraininingName" type="xs:string" minOccurs="0" />
+              <xs:element name="RecordType" type="xs:string" minOccurs="0" />
+              <xs:element name="TrainingGroupId" type="xs:long" minOccurs="0" />
+              <xs:element name="OfficeGuideLines" type="xs:string" minOccurs="0" />
+              <xs:element name="AttachmentFileName" type="xs:string" minOccurs="0" />
+              <xs:element name="Attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="Status" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DT_MatrixMaster">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="MatrixId" type="xs:long" minOccurs="0" />
+              <xs:element name="ApplicableDate" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DT_MatrixDetails">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="MatrixId" type="xs:long" minOccurs="0" />
+              <xs:element name="DTId" type="xs:long" minOccurs="0" />
+              <xs:element name="RecordType" type="xs:string" minOccurs="0" />
+              <xs:element name="ValidityType" type="xs:string" minOccurs="0" />
+              <xs:element name="ValidityValue" type="xs:int" minOccurs="0" />
+              <xs:element name="Status" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DT_MatrixDetailsAttachments">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="TableId" type="xs:long" minOccurs="0" />
+              <xs:element name="MatrixId" type="xs:long" minOccurs="0" />
+              <xs:element name="DTId" type="xs:long" minOccurs="0" />
+              <xs:element name="RecordType" type="xs:string" minOccurs="0" />
+              <xs:element name="ImageText" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

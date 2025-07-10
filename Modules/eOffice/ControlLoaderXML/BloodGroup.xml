@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<BloodGroupData>
+  <BloodGroup>
+    <BloodGroupID>A-</BloodGroupID>
+    <BloodGroupName>A-</BloodGroupName>
+  </BloodGroup>
+  <BloodGroup>
+    <BloodGroupID>A+</BloodGroupID>
+    <BloodGroupName>A+</BloodGroupName>
+  </BloodGroup>
+  <BloodGroup>
+    <BloodGroupID>AB-</BloodGroupID>
+    <BloodGroupName>AB-</BloodGroupName>
+  </BloodGroup>
+  <BloodGroup>
+    <BloodGroupID>AB+</BloodGroupID>
+    <BloodGroupName>AB+</BloodGroupName>
+  </BloodGroup>
+  <BloodGroup>
+    <BloodGroupID>B-</BloodGroupID>
+    <BloodGroupName>B-</BloodGroupName>
+  </BloodGroup>
+  <BloodGroup>
+    <BloodGroupID>B+</BloodGroupID>
+    <BloodGroupName>B+</BloodGroupName>
+  </BloodGroup>
+  <BloodGroup>
+    <BloodGroupID>O-</BloodGroupID>
+    <BloodGroupName>O-</BloodGroupName>
+  </BloodGroup>
+  <BloodGroup>
+    <BloodGroupID>O+</BloodGroupID>
+    <BloodGroupName>O+</BloodGroupName>
+  </BloodGroup>
+</BloodGroupData>

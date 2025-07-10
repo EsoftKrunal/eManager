@@ -1,0 +1,105 @@
+﻿using System;
+using System.Collections;
+using System.Configuration;
+using System.Data;
+using System.Net;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.IO;
+
+public partial class DashboardNew : System.Web.UI.Page
+{
+    public int UserId = 0;
+    public int ReportId
+    {
+        get { return Common.CastAsInt32(ViewState["ReportId"]); }
+        set { ViewState["ReportId"] = value; }
+    }
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (Session["UserName"] == null)
+        {
+            Response.Redirect("Login.aspx");
+        }
+        if(!IsPostBack)
+        {
+            bindgrid();
+        }
+    }
+    public void bindgrid()
+    {
+        rptreports.DataSource = Common.Execute_Procedures_Select_ByQuery("SELECT p.* FROM Shipsoft_Admin.DBO.PAGEMASTER p inner join tbl_reports r on p.pageid=r.ReportId  where ModuleId in (SELECT ModuleId FROM Shipsoft_Admin.DBO.ModuleMaster M where m.ApplicationId=8)");
+        rptreports.DataBind();
+    }
+    protected void btncancel_click(object sender,EventArgs e)
+    {
+        ReportId = 0;
+        dvrep.Visible = false;
+    }
+    protected void btnAdd_click(object sender, EventArgs e)
+    {
+        ReportId = 0;
+        txtreportname.Text = "";
+        txtreportURl.Text = "";
+        dvrep.Visible = true;
+        txtreportname.Focus();
+    }
+    protected void btnsave_click(object sender, EventArgs e)
+    {
+        if(txtreportname.Text.Trim()=="")
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "fasfsa", "alert('Please enter reportname.');", true);
+            txtreportname.Focus();
+            return;
+        }
+        if (txtreportURl.Text.Trim() == "")
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "fasfsa", "alert('Please enter report url.');", true);
+            txtreportURl.Focus();
+            return;
+        }
+        dvrep.Visible = false;        
+        if(ReportId <= 0)
+        {
+            DataTable dtrid = Common.Execute_Procedures_Select_ByQuery("SELECT isnull(max(pageid),0)+1 FROM Shipsoft_Admin.DBO.PAGEMASTER");
+            int _ReportId = Common.CastAsInt32(dtrid.Rows[0][0]);
+            Common.Execute_Procedures_Select_ByQuery("insert into Shipsoft_Admin.DBO.PAGEMASTER(PageId,ModuleId,PageName) values("  + _ReportId + ",55,'" + txtreportname.Text.Trim().Replace("'","`") + "')");
+            Common.Execute_Procedures_Select_ByQuery("insert into Shipsoft_Admin.DBO.tbl_reports(ReportId,ReportUrl) values(" + _ReportId + ",'" + txtreportURl.Text.Trim().Replace("'", "`") + "')");
+        }
+        else
+        {
+            Common.Execute_Procedures_Select_ByQuery("update Shipsoft_Admin.DBO.PAGEMASTER set PageName='" + txtreportname.Text.Trim().Replace("'", "`") + "' where PageId=" + ReportId);
+            Common.Execute_Procedures_Select_ByQuery("update Shipsoft_Admin.DBO.tbl_reports set ReportUrl='" + txtreportURl.Text.Trim().Replace("'", "`") + "' where ReportId=" + ReportId);
+        }
+        bindgrid();
+    }
+    
+        protected void lnkedit_click(object sender, EventArgs e)
+    {
+        int _ReportId = Common.CastAsInt32(((ImageButton)sender).CommandArgument);
+        DataTable dt = Common.Execute_Procedures_Select_ByQuery("SELECT ReportId,ReportUrl,PageName FROM Shipsoft_Admin.DBO.tbl_reports r inner join shipsoft_admin.dbo.pagemaster p on r.reportid=p.pageid WHERE ReportId=" + _ReportId);
+        if (dt.Rows.Count > 0)
+        { 
+            ReportId = _ReportId;
+            txtreportname.Text = dt.Rows[0]["PageName"].ToString();
+            txtreportURl.Text = dt.Rows[0]["ReportUrl"].ToString();
+            dvrep.Visible = true;
+        }
+
+    }
+        protected void lnkreport_click(object sender,EventArgs e)
+    {
+        int reportid = Common.CastAsInt32(((LinkButton)sender).CommandArgument);
+        DataTable dt= Common.Execute_Procedures_Select_ByQuery("SELECT ReportUrl FROM Shipsoft_Admin.DBO.tbl_reports WHERE ReportId=" + reportid);
+        if (dt.Rows.Count > 0)
+        {
+            string url = dt.Rows[0][0].ToString();
+            frmrep.Attributes.Add("src", url);
+        }
+    }
+}
+

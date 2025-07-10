@@ -1,0 +1,171 @@
+using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Reporting_StatusWiseCrystalReport : System.Web.UI.Page
+{
+    CrystalDecisions.CrystalReports.Engine.ReportDocument rpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.ddvessel.Attributes.Add("onkeydown", "javascript:if(event.keyCode==13){document.getElementById('" + btnsearch.ClientID + "').focus();}");
+        this.CheckBoxList1.Attributes.Add("onkeydown", "javascript:if(event.keyCode==13){document.getElementById('" + btnsearch.ClientID + "').focus();}");
+        this.chkCrewList.Attributes.Add("onkeydown", "javascript:if(event.keyCode==13){document.getElementById('" + btnsearch.ClientID + "').focus();}");
+        //***********Code to check page acessing Permission
+        int chpageauth = UserPageRelation.CheckUserPageAuthority(Convert.ToInt32(Session["loginid"].ToString()), 87);
+        if (chpageauth <= 0)
+        {
+            Response.Redirect("DummyReport.aspx");
+
+        }
+        //*******************
+        //========== Code to check report printing authority
+        DataTable dtcheck = Alerts.Check_ReportPrintingAuthority(Convert.ToInt32(Session["loginid"].ToString()));
+        foreach (DataRow dr in dtcheck.Rows)
+        {
+            if (Convert.ToInt32(dr[0].ToString()) > 0)
+            {
+                CrystalReportViewer1.HasPrintButton = false;
+            }
+        }
+        //==========
+        this.lblMessage.Text = "";
+        if (Page.IsPostBack == false)
+        {
+            bindVesselDDL();
+            this.CheckBoxList1.DataTextField = "CrewStatusName";
+            this.CheckBoxList1.DataValueField = "CrewStatusId";
+            this.CheckBoxList1.DataSource = StatusWiseCrewList.selectCrewStatus();
+            this.CheckBoxList1.DataBind();
+
+            DataTable dt = StatusWiseCrewList.StatusWiseCrewMemberList(0,"-1","");
+            Session.Add("rptsource", dt);
+        }
+        try
+        {
+            
+            DataTable dt = ((DataTable)Session["rptsource"]);
+            if (dt.Rows.Count > 0)
+            {
+                this.CrystalReportViewer1.Visible = true;
+                CrystalReportViewer1.ReportSource = rpt;
+                rpt.Load(Server.MapPath("StatusWiseCrewMemberList.rpt"));
+                rpt.SetDataSource(dt);
+
+                DataTable dt1 = PrintCrewList.selectCompanyDetails();
+             
+                rpt.Load(Server.MapPath("StatusWiseCrewMemberList.rpt"));
+                foreach (DataRow dr in dt1.Rows)
+                {
+                    rpt.SetParameterValue("@Company", dr["CompanyName"].ToString());
+                    //rpt.SetParameterValue("@Address", dr["Address"].ToString());
+                    //rpt.SetParameterValue("@TelePhone", dr["TelephoneNumber"].ToString());
+                    //rpt.SetParameterValue("@Fax", dr["Faxnumber"].ToString());
+                    //rpt.SetParameterValue("@RegistrationNo", dr["RegistrationNo"].ToString());
+                    //rpt.SetParameterValue("@Email", dr["Email1"].ToString());
+                    //rpt.SetParameterValue("@Website", dr["Website"].ToString());
+                }
+            }
+            else
+            {
+                this.CrystalReportViewer1.Visible = false;
+            }
+        }
+        catch
+        { 
+
+        }
+    }
+    private void bindVesselDDL()
+    {
+        this.ddvessel.DataTextField = "VesselCode";
+        this.ddvessel.DataValueField = "VesselId";
+        this.ddvessel.DataSource = cls_SearchReliever.getMasterData("Vessel", "VesselId", "VesselCode");
+        this.ddvessel.DataBind();
+        this.ddvessel.Items.Insert(0, new ListItem("All", "0"));
+    }
+    protected void btnsearch_Click(object sender, EventArgs e)
+    {
+        int vesselid =Convert.ToInt32(ddvessel.SelectedValue);
+        string status = "";
+        for (int i = 0; i < this.CheckBoxList1.Items.Count; i++)
+        {
+            if (this.CheckBoxList1.Items[i].Selected == true)
+            {
+                if (status == "")
+                {
+                    status = this.CheckBoxList1.Items[i].Value.ToString();
+                }
+                else
+                {
+                    status = status +"," + this.CheckBoxList1.Items[i].Value.ToString();
+                }
+            }
+           
+            
+        }
+        string fields = "";
+        for (int h = 0; h < this.chkCrewList.Items.Count; h++)
+        {
+            if (chkCrewList.Items[h].Selected)
+            {
+                if (fields == "")
+                {
+                    fields = " order by " + chkCrewList.Items[h].Value.ToString();
+                }
+                else
+                {
+                    fields = fields + ',' + chkCrewList.Items[h].Value.ToString();
+                }
+            }
+        }
+        if (status == "")
+        {
+            this.lblMessage.Text = "Select Any Status";
+        }
+        else
+        {
+            this.lblMessage.Text = "";
+            DataTable dt = StatusWiseCrewList.StatusWiseCrewMemberList(vesselid,status, fields);
+            if (dt.Rows.Count > 0)
+            {
+                this.CrystalReportViewer1.Visible = true;
+                CrystalReportViewer1.ReportSource = rpt;
+                rpt.Load(Server.MapPath("StatusWiseCrewMemberList.rpt"));
+
+                Session.Add("rptsource", dt);
+                rpt.SetDataSource(dt);
+
+                DataTable dt1 = PrintCrewList.selectCompanyDetails();
+              
+                rpt.Load(Server.MapPath("StatusWiseCrewMemberList.rpt"));
+                foreach (DataRow dr in dt1.Rows)
+                {
+                    rpt.SetParameterValue("@Company", dr["CompanyName"].ToString());
+                    //rpt.SetParameterValue("@Address", dr["Address"].ToString());
+                    //rpt.SetParameterValue("@TelePhone", dr["TelephoneNumber"].ToString());
+                    //rpt.SetParameterValue("@Fax", dr["Faxnumber"].ToString());
+                    //rpt.SetParameterValue("@RegistrationNo", dr["RegistrationNo"].ToString());
+                    //rpt.SetParameterValue("@Email", dr["Email1"].ToString());
+                    //rpt.SetParameterValue("@Website", dr["Website"].ToString());
+                }
+            }
+            else
+            {
+                lblMessage.Text = "No Records Found.";
+                this.CrystalReportViewer1.Visible = false;
+            }
+        }
+    }
+    protected void Page_Unload(object sender, EventArgs e)
+    {
+        rpt.Close();
+        rpt.Dispose();
+    }
+}

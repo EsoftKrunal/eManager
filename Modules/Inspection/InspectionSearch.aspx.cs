@@ -1,0 +1,1480 @@
+using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using ShipSoft.CrewManager.BusinessObjects;
+using ShipSoft.CrewManager.BusinessLogicLayer;
+using ShipSoft.CrewManager.Operational;
+
+public partial class InspectionSearch : System.Web.UI.Page
+{
+    /// <summary>
+    /// Page Name            : InspectionSearch.aspx
+    /// Purpose              : This is the Search page
+    /// Author               : krishna
+    /// Developed on         : 21-oct-2009
+    /// </summary>
+
+    Authority Auth;
+    int intTemp = 0;
+    #region "PageLoad"
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        try
+        {
+            //------------------------------------
+            ProjectCommon.SessionCheck_New();
+            //------------------------------------
+            //--------------------------------- PAGE ACCESS AUTHORITY ----------------------------------------------------
+            int chpageauth = UserPageRelation.CheckUserPageAuthority(Convert.ToInt32(Session["loginid"].ToString()), 1053);
+            if (chpageauth <= 0)
+                Response.Redirect("blank.aspx");
+            //------------------------------------------------------------------------------------------------------------
+            //this.Form.DefaultButton = this.btndearch.UniqueID.ToString();
+            if (Session["loginid"] == null)
+            {
+                Page.ClientScript.RegisterStartupScript(Page.GetType(), "logout", "alert('Your Session is Expired. Please Login Again.');window.parent.parent.location='../Login.aspx';", true);
+            }
+            lblmessage.Text = "";
+            lblrecord.Text = "";
+            if (Session["PgFlag"] != null) 
+            { lblmessage.Text = "Please select Inspection from Search Page."
+                    ; Session["PgFlag"] = null; } 
+            else { 
+                Session["Mode"] = ""; 
+                //hid1.Text = "Init"; 
+            }
+            //if (Session["NwInspFlag"] != null) { lblmessage.Text = "Please save Planning first."; Session["NwInspFlag"] = null; } else { Session["Mode"] = ""; }
+
+            if (Session["loginid"] != null)
+            {
+                //ProcessCheckAuthority OBJ = new ProcessCheckAuthority(Convert.ToInt32(Session["loginid"].ToString()), 10);
+                ProcessCheckAuthority OBJ = new ProcessCheckAuthority(Convert.ToInt32(Session["loginid"].ToString()), 7);
+                OBJ.Invoke();
+                Session["Authority"] = OBJ.Authority;
+                Auth = OBJ.Authority;
+            }
+
+            if (Page.IsPostBack == false)
+            {
+                if (Page.Request.QueryString["VSession"] != null)
+                {
+                    Session["Port"] = null;
+                    Session["SearchRdb"] = null;
+                    Session["SearchText"] = null;
+                    Session["Owner"] = null;
+                    Session["vesselId"] = null;
+                    Session["Group"] = null;
+                    Session["Inspection_No"] = null;
+                    Session["DueInDays"] = null;
+                    Session["Status"] = null;
+                    Session["PgIndex"] = null;
+                    Session["Insp_Id"] = null;
+                    Session["RadioPV"] = null;
+                }
+                try
+                {
+                    if (Request.QueryString["Session"] != null)
+                    {
+
+                        Session["Sort_Exp"] = null;
+                        Session["Group"] = null;
+                        Session["Owner"] = null;
+                        Session["SearchRdb"] = null;
+                        Session["SearchText"] = null;
+                        Session["vesselId"] = null;
+                        Session["Status"] = null;
+                        Session["DueInDays"] = null;
+                        Session["Port"] = null;
+                        Session["Inspection_No"] = null;
+                        Session["FromDate"] = null;
+                        Session["Todate"] = null;
+                        Session["RadioPV"] = null;
+
+                        chkDue.Checked = true;
+                        Session["DueInDays"] = "60";
+                    }
+                    //--------------------
+                    Session["SortExp"] = "ASC";
+                    if (Session["Port"] != null)
+                    {
+                        if (Session["Port"].ToString() != "")
+                        {
+                            txtport.Text = Session["Port"].ToString();
+                        }
+                    }
+                    //--------------------
+                    if (Session["ChkDue"] != null)
+                    {
+                        if (Session["ChkDue"].ToString() != "")
+                        {
+                            chkDue.Checked = (Session["ChkDue"].ToString() == "1");
+                        }
+                    }
+                    //--------------------
+                    if (Session["ChkOverDue"] != null)
+                    {
+                        if (Session["ChkOverDue"].ToString() != "")
+                        {
+                            chkOverdue.Checked = (Session["ChkOverDue"].ToString() == "1");
+                        }
+                    }
+                    //--------------------
+                    if (Session["SearchRdb"] != null)
+                    {
+                        if (Session["SearchRdb"].ToString() != "")
+                        {
+                            rdbsearch.SelectedValue = Session["SearchRdb"].ToString();
+                        }
+                    }
+                    if (Session["SearchText"] != null)
+                    {
+                        if (Session["SearchText"].ToString() != "")
+                        {
+                            txtsearch.Text = Session["SearchText"].ToString();
+                        }
+                    }
+                    BindOwner();
+                    if (Session["Owner"] != null)
+                    {
+                        if (Session["Owner"].ToString() != "")
+                        {
+                            ddl_owner.SelectedValue = Session["Owner"].ToString();
+                        }
+                    }
+                    BindVessel();
+                    if (Session["vesselId"] != null)
+                    {
+                        if (Session["vesselId"].ToString() != "")
+                        {
+                            ddVessel.SelectedValue = Session["vesselId"].ToString();
+                        }
+                    }
+                    bindInspectionGroupDDL();
+                    //------------
+                    if (Session["Group"] != null)
+                    {
+                        if (Session["Group"].ToString() == "All")
+                        {
+                            chkallgp.Items[0].Selected = true;
+                            chkallgp1(sender, e);
+                        }
+                        else
+                        {
+                            string[] str;
+                            char ch = ',';
+                            str = Session["Group"].ToString().Split(ch);
+                            int i = 0, j = 0;
+                            for (i = 0; i < str.Length; i++)
+                            {
+                                for (j = 0; j < chkgroup.Items.Count; j++)
+                                {
+                                    if (chkgroup.Items[j].Value.ToString() == str[i].ToString())
+                                    {
+                                        chkgroup.Items[j].Selected = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        chkallgp.Items[0].Selected = true;
+                        chkallgp1(sender, e);
+                    }
+                    if (Session["Inspection_No"] != null)
+                    {
+                        if (Session["Inspection_No"].ToString() == "All")
+                        {
+                            BindInspection();
+                            chkallinsp.Items[0].Selected = true;
+                            chakallinsp(sender, e);
+
+                        }
+                        else
+                        {
+                            BindInspection();
+                            chkallinsp.Items[0].Selected = false;
+                            string[] str;
+                            char ch = ',';
+                            str = Session["Inspection_No"].ToString().Split(ch);
+                            int i = 0, j = 0;
+                            //By Umakant
+                            for (j = 0; j < chk_inspection.Items.Count; j++)
+                            {
+                                chk_inspection.Items[j].Selected = false;
+                            }
+                            i = 0; j = 0;
+                            for (i = 0; i < str.Length; i++)
+                            {
+
+                                for (j = 0; j < chk_inspection.Items.Count; j++)
+                                {
+                                    if (chk_inspection.Items[j].Value.ToString() == str[i].ToString())
+                                    {
+                                        chk_inspection.Items[j].Selected = true;
+                                    }
+                                    else
+                                    {
+                                        //chk_inspection.Items[j].Selected = false;
+                                    }
+                                }
+                            }
+
+
+                        }
+                    }
+                    else
+                    {
+                        chkallinsp.Items[0].Selected = true;
+                        chakallinsp(sender, e);
+                    }
+                    // txtduedate.Text = "60";
+                    if (Session["Status"] != null)
+                    {
+                        if (Session["Status"].ToString() != "")
+                        {
+                            ddl_duestatus.SelectedValue = Session["Status"].ToString();
+                            ddl_duestatus_SelectedIndexChanged(sender, e);
+                        }
+                        else
+                        {
+                            ddl_duestatus.SelectedValue = "All";
+                        }
+                    }
+                    else
+                    {
+                        //ddl_duestatus.SelectedValue = "All";
+                        ddl_duestatus.SelectedValue = "Due";
+                        ddl_duestatus_SelectedIndexChanged(sender, e);
+                    }
+                    if (Session["DueInDays"] != null)
+                    {
+                        if (Session["DueInDays"].ToString() != "")
+                        {
+                            txtduedate.Text = Session["DueInDays"].ToString();
+                        }
+                        else
+                        {
+                            txtduedate.Text = "";
+                        }
+                    }
+                    else
+                    {
+                        txtduedate.Text = "60";
+                        int DueInDays = int.Parse(txtduedate.Text);
+                        txt_fromdt.Text = DateTime.Now.ToString("dd-MMM-yyyy");
+                        txt_todt.Text = DateTime.Now.AddDays(DueInDays).ToString("dd-MMM-yyyy");
+                    }
+
+                    if (Session["RadioPV"] != null)
+                    {
+                        try { radPV.SelectedValue = Session["RadioPV"].ToString(); } catch { }
+                    }
+
+                    if (Session["FromDate"] != null)
+                    {
+                        if (Session["FromDate"].ToString() != "")
+                        {
+                            txt_fromdt.Text = Session["FromDate"].ToString();
+                        }
+                        else
+                        {
+                            txt_fromdt.Text = "";
+                        }
+                    }
+                    else
+                    {
+                        txt_fromdt.Text = "";
+                    }
+                    if (Session["Todate"] != null)
+                    {
+                        if (Session["Todate"].ToString() != "")
+                        {
+                            txt_todt.Text = Session["Todate"].ToString();
+                        }
+                        else
+                        {
+                            txt_todt.Text = "";
+                        }
+                    }
+                    else
+                    {
+                        txt_todt.Text = "";
+                    }
+                    Button3_Click(sender, e);
+                    //if (Session["PgIndex"] == null)
+                    //    Session.Add("PgIndex", 1);
+                    //else
+                    //    GrdInspection.PageIndex = int.Parse(Session["PgIndex"].ToString());
+                    if (Session["PgIndex"] != null)
+                        GrdInspection.PageIndex = int.Parse(Session["PgIndex"].ToString());
+                    if (ViewState["Sort_Flag"].ToString() == "0")
+                        SearchData(GrdInspection.Attributes["MySort"]);
+                    else if (ViewState["Sort_Flag"].ToString() == "1")
+                        SearchMyData(GrdInspection.Attributes["MySort"]);
+                    //------------
+                    // bindgrid();
+                    try
+                    {
+                        Alerts.HANDLE_AUTHORITY(6, btnNewInsp, null, null, btnPrint, Auth);
+                    }
+                    catch
+                    {
+                        Page.ClientScript.RegisterStartupScript(Page.GetType(), "logout", "alert('Your Session is Expired. Please Login Again.');window.parent.parent.location='../Login.aspx';", true);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    lblrecord.Text = "";
+                    lblmessage.Text = ex.StackTrace.ToString();
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        
+    }
+    #endregion
+
+    #region "User Defined functions"
+    //Bind Inspection group
+    public void bindInspectionGroupDDL()
+    {
+        try
+        {
+            DataSet ds1 = Inspection_Master.getMasterData("m_InspectionGroup", "Id", "Code as Name");
+            this.chkgroup.DataSource = ds1.Tables[0];
+            if (ds1.Tables[0].Rows.Count > 0)
+            {
+                this.chkgroup.DataValueField = "Id";
+                this.chkgroup.DataTextField = "Name";
+                this.chkgroup.DataBind();
+            }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        //this.ddl_InspGroup.Items.Insert(0, new ListItem("<Select>", "0"));
+    }
+    //Bind Inspection VesselOwner
+    protected void BindOwner()
+    {
+        try
+        {
+            this.ddl_owner.DataTextField = "OwnerShortName";
+            this.ddl_owner.DataValueField = "OwnerId";
+            this.ddl_owner.DataSource = Inspection_Master.getMasterDataforInspection("Owner", "OwnerId", "OwnerShortName");
+            this.ddl_owner.DataBind();
+            this.ddl_owner.Items.Insert(0, new ListItem("All", "0"));
+            this.ddl_owner.Items[0].Value = "0";
+            
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
+    //Bind Grid when there is no data
+    private void bindgrid()
+    {
+        DataTable dt = new DataTable();
+        DataRow dr = null;
+        dt.Columns.Add("InsId");
+        dt.Columns.Add("InspectionNo");
+        dt.Columns.Add("VesselName");
+        dt.Columns.Add("InspName");
+        dt.Columns.Add("DoneDt");
+        dt.Columns.Add("ActualLocation");
+        dt.Columns.Add("NextDue");
+        dt.Columns.Add("DueInDays");
+        dt.Columns.Add("PortName");
+        dt.Columns.Add("PlanDate");
+        dt.Columns.Add("Supt");
+        dt.Columns.Add("Status");
+        dt.Columns.Add("LastDone");
+        dt.Columns.Add("Planned");
+        dt.Columns.Add("StatusColor");
+	dt.Columns.Add("FromPort");
+	dt.Columns.Add("ToPort");
+
+        for (int i = 0; i < 7; i++)
+        {
+            dr = dt.NewRow();
+            dt.Rows.Add(dr);
+            dt.Rows[dt.Rows.Count - 1][0] = "";
+            dt.Rows[dt.Rows.Count - 1][1] = "";
+            dt.Rows[dt.Rows.Count - 1][2] = "";
+            dt.Rows[dt.Rows.Count - 1][3] = "";
+            dt.Rows[dt.Rows.Count - 1][4] = "";
+            dt.Rows[dt.Rows.Count - 1][5] = "";
+            dt.Rows[dt.Rows.Count - 1][6] = "";
+            dt.Rows[dt.Rows.Count - 1][7] = "";
+            dt.Rows[dt.Rows.Count - 1][8] = "";
+            dt.Rows[dt.Rows.Count - 1][9] = "";
+            dt.Rows[dt.Rows.Count - 1][10] = "";
+            dt.Rows[dt.Rows.Count - 1][11] = "";
+            dt.Rows[dt.Rows.Count - 1][12] = "";
+            dt.Rows[dt.Rows.Count - 1][13] = "";
+           
+        }
+        GrdInspection.AllowSorting = false;
+        GrdInspection.DataSource = dt;
+        GrdInspection.DataBind();
+        GrdInspection.SelectedIndex = -1;
+    }
+    //Bind Inspection Vessel
+    protected void BindVessel()
+    {
+        try
+        {
+            DataTable dt;
+            if (ddl_owner.SelectedIndex > 0)
+            {
+                if (chk_Inact.Checked)
+                    dt = Common.Execute_Procedures_Select_ByQuery("select VESSELNAME,VESSELID FROM dbo.vessel with(nolock) where ownerid=" + ddl_owner.SelectedValue + " and VesselId in (Select VesselId from UserVesselRelation with(nolock) where Loginid = " + Convert.ToInt32(Session["loginid"].ToString()) + ") order by vesselname");
+                else
+                    dt = Common.Execute_Procedures_Select_ByQuery("select VESSELNAME,VESSELID FROM dbo.vessel with(nolock) where ownerid=" + ddl_owner.SelectedValue + " and VesselStatusid<>2 and VesselId in (Select VesselId from UserVesselRelation with(nolock) where Loginid = " + Convert.ToInt32(Session["loginid"].ToString()) + ") order by vesselname");
+            }
+            else
+            {
+                if (chk_Inact.Checked)
+                    dt = Common.Execute_Procedures_Select_ByQuery("select VESSELNAME,VESSELID FROM dbo.vessel with(nolock) where VesselId in (Select VesselId from UserVesselRelation with(nolock) where Loginid = " + Convert.ToInt32(Session["loginid"].ToString()) + ") order by vesselname");
+                else
+                    dt = Common.Execute_Procedures_Select_ByQuery("select VESSELNAME,VESSELID FROM dbo.vessel with(nolock) where VesselStatusid<>2 and VesselId in (Select VesselId from UserVesselRelation with(nolock) where Loginid = " + Convert.ToInt32(Session["loginid"].ToString()) + ") order by vesselname");
+            }
+
+            ddVessel.Controls.Clear();
+            this.ddVessel.DataTextField = "VesselName";
+            this.ddVessel.DataValueField = "VesselId";
+            this.ddVessel.DataSource = dt;
+            this.ddVessel.DataBind();
+            this.ddVessel.Items.Insert(0, new ListItem("All", "0"));
+            this.ddVessel.Items[0].Value = "0";
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
+    //Bind Inspection Inspection
+    protected void BindInspection()
+    {
+        try
+        {
+            int i = 0;
+            string str = "";
+            chk_inspection.Items.Clear();
+            chkallinsp.Items[0].Selected = false;
+            for (i = 0; i < chkgroup.Items.Count; i++)
+            {
+                if (chkgroup.Items[i].Selected == true)
+                {
+                    if (str == "")
+                        str = chkgroup.Items[i].Value;
+                    else
+                        str = str + "," + chkgroup.Items[i].Value;
+                }
+            }
+            Session["Group"] = str;
+            this.chk_inspection.DataTextField = "InspName";
+            this.chk_inspection.DataValueField = "ID";
+            if (str != "")
+            {
+                this.chk_inspection.DataSource = Search.GetInspections(str);
+                this.chk_inspection.DataBind();
+            }
+            else
+            {
+                this.chk_inspection.DataSource = null;
+                this.chk_inspection.DataBind();
+            }
+
+            foreach (ListItem li in chk_inspection.Items)
+                li.Selected = true;
+
+            foreach (ListItem li in chkallinsp.Items)
+                li.Selected = true;  
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
+    //function check value is numeric or not
+    public bool IsNumeric(string s)
+    {
+        try
+        {
+            Convert.ToInt32(s);
+            return true;
+        }
+        catch (FormatException)
+        {
+            return false;
+        }
+    }
+    //method for searching data
+    protected void SearchData(String sort)
+    {
+        Session["Sort_Exp"] = sort;
+        int ID = 0;
+        string InspectionId = "";
+        int Vessel = 0;
+        int Port = 0;
+        string Status = "";
+        string FromDate = txt_fromdt.Text;
+        string Todate = txt_todt.Text;
+        int DueInDays = 0;
+        string InspectorName = "";
+        //int Chapter = 0;
+        string Chapter = "";
+        string InspectionNo = "";
+        int CrewId = 0;
+
+        Session["ChkDue"] = (chkDue.Checked) ? "1" : "0";
+        Session["ChkOverDue"] = (chkOverdue.Checked) ? "1" : "0";
+
+        if (chkallgp.SelectedIndex == 0)
+        {
+            Session["Group"] = "All";
+        }
+        Session["Owner"] = ddl_owner.SelectedValue;   
+        try
+        {
+            if (txtsearch.Text.Trim() != "")
+            {
+                if (rdbsearch.SelectedValue == "InspectorName")
+                {
+                    InspectorName = txtsearch.Text;
+                    HiddenField_InspName.Value = InspectorName;
+                    HiddenField_Chapter.Value = "";
+                    HiddenField_InspNo.Value = "";
+                    HiddenField_CrewNum.Value = "";
+                }
+                else if (rdbsearch.SelectedValue == "Chapter")
+                {
+                    Chapter = txtsearch.Text;
+                    HiddenField_Chapter.Value = Chapter;
+                    HiddenField_InspName.Value = "";
+                    HiddenField_InspNo.Value = "";
+                    HiddenField_CrewNum.Value = "";
+                }
+                else if (rdbsearch.SelectedValue == "Inspection")
+                {
+                    InspectionNo = txtsearch.Text;
+                    HiddenField_InspNo.Value = InspectionNo;
+                    HiddenField_Chapter.Value = "";
+                    HiddenField_InspName.Value = "";
+                    HiddenField_CrewNum.Value = "";
+                }
+                else if (rdbsearch.SelectedValue == "Crew")
+                {
+                    string crew = txtsearch.Text;
+                    DataTable dt75 = Inspection_Planning.GetCrewIdFromCrewNo(crew);
+                    if (dt75.Rows.Count > 0)
+                    {
+                        CrewId = int.Parse(dt75.Rows[0]["CrewId"].ToString());
+                        HiddenField_CrewNum.Value = CrewId.ToString();
+                        HiddenField_InspNo.Value = "";
+                        HiddenField_Chapter.Value = "";
+                        HiddenField_InspName.Value = "";
+                    }
+                    else
+                    {
+                        HiddenField_CrewNum.Value = "0";
+                        lblmessage.Text = "Invalid Crew#.";
+                        return;
+                    }
+                }
+                Session["SearchRdb"] = rdbsearch.SelectedValue;
+            }
+            else
+            {
+                Session["SearchRdb"] = rdbsearch.SelectedValue; 
+            }
+            Session["SearchText"] = txtsearch.Text;
+            
+            if (ddVessel.SelectedIndex != 0)
+            {
+                Vessel = int.Parse(ddVessel.SelectedValue);
+            }
+            Session["vesselId"] = ddVessel.SelectedValue;
+            int I;
+            for (I = 0; I < chk_inspection.Items.Count; I++)
+            {
+                if (chk_inspection.Items[I].Selected == true)
+                {
+                    if (InspectionId == "")
+                    {
+                        InspectionId = chk_inspection.Items[I].Value;
+                    }
+                    else
+                    {
+                        InspectionId = InspectionId + "," + chk_inspection.Items[I].Value;
+                    }
+                }
+            }
+            HiddenField_InspId.Value = InspectionId;
+            //---------------------------------
+            if (chkDue.Checked)
+                Status = "Due";
+            else if (chkOverdue.Checked)
+                Status = "Over Due";
+            else
+                if (ddl_duestatus.SelectedIndex != 0)
+                {
+                    Status = ddl_duestatus.SelectedValue;
+                }
+            //Session["Status"] = ddl_duestatus.SelectedValue;
+            Session["Status"] = Status;// ddl_duestatus.SelectedValue;
+            if (txtduedate.Text.Trim() != "" && (chkDue.Checked | chkOverdue.Checked))
+            {
+                DueInDays = int.Parse(txtduedate.Text);
+                FromDate = DateTime.Now.ToString("dd-MMM-yyyy");
+                Todate = DateTime.Now.AddDays(DueInDays).ToString("dd-MMM-yyyy");
+                Session["DueInDays"] = DueInDays;
+            }
+            else
+            {
+                Session["DueInDays"] = "";
+            }
+            if (txtport.Text.Trim() != "")
+            {
+                Session["Port"] = txtport.Text;
+                DataTable dt1 = Inspection_Planning.CheckPort(txtport.Text);
+                if (dt1.Rows[0][0].ToString() == "0")
+                {
+                    //lblmessage.Text = "Please enter correct From Port Name.";
+                    //return;
+                }
+                else
+                {
+                    Port = int.Parse(dt1.Rows[0][0].ToString());
+                }
+                HiddenField_PortId.Value = Port.ToString();
+            }
+            else
+            {
+                Session["Port"] = txtport.Text;
+                HiddenField_PortId.Value = "";
+            }
+            if(chkallinsp.SelectedIndex == 0)
+            {
+                Session["Inspection_No"] = "All";
+                Session["Inspection_No"] = InspectionId;
+            }
+            else
+            {
+                Session["Inspection_No"] = InspectionId;
+            }
+            if (txt_fromdt.Text != "")
+            {
+                Session["FromDate"] = txt_fromdt.Text;
+            }
+            else
+            {
+                Session["FromDate"] = "";
+            }
+            if (txt_todt.Text != "")
+            {
+                Session["Todate"] = txt_todt.Text;
+            }
+            else
+            {
+                Session["Todate"] = "";
+            }
+            //----------------
+            string RadDO="";
+            if (chkDue.Checked)
+            {RadDO = "D"; }
+            else
+            {RadDO = "O";}
+            //----------------
+            string RadPF = "";
+            if (radStatusPF.SelectedIndex == 0)
+            { RadPF = "P"; }
+            else if (radStatusPF.SelectedIndex == 1)
+            { RadPF = "F"; }
+            //----------------
+            String pv = "";
+            try
+            {
+                pv = radPV.SelectedValue.ToString();
+            }
+            catch { }
+            DataTable Dt = Search.SearchRecordNew(ID, InspectionId, Convert.ToInt32(ddl_owner.SelectedValue), Vessel, Port, Status, RadDO, RadPF, FromDate, Todate, DueInDays, InspectorName, Chapter, InspectionNo, CrewId,((chk_Inact.Checked)?1:0),pv, Convert.ToInt32(Session["loginid"].ToString()));
+           
+            if (Dt.Rows.Count == 0)
+            {
+                lblrecord.Text = "Total Records Found: " + Dt.Rows.Count.ToString();
+                bindgrid();
+                return;
+            }
+
+            lblrecord.Text = "Total Records Found: " + Dt.Rows.Count.ToString();
+            GrdInspection.AllowSorting = true;
+            if (Session["SortExp"] != null)
+            {
+                if ((sort != null) || (Session["Sort_Exp"] != null))
+                {
+                    if (intTemp == 0)
+                    {
+                        if (Session["SortExp"].ToString() == "ASC")
+                        {
+                            Dt.DefaultView.Sort = sort;
+                            Session["SortExp"] = "DESC";
+                        }
+                        else
+                        {
+                            if (sort == "AA,BB")
+                            {
+                                char[] c = { ',' };
+                                Array a = sort.Split(c);
+                                for (int l = 0; l < a.Length; l++)
+                                {
+                                    if (l == 0)
+                                        Dt.DefaultView.Sort = a.GetValue(0).ToString() + " " + "DESC";
+                                    else
+                                        Dt.DefaultView.Sort = Dt.DefaultView.Sort + "," + a.GetValue(1).ToString() + " " + "DESC";
+                                }
+                            }
+                            else
+                            {
+                                Dt.DefaultView.Sort = sort + " " + "DESC";
+                            }
+                            Session["SortExp"] = "ASC";
+                        }
+                    }
+                    else
+                    {
+                        if (Session["SortExp"].ToString() == "ASC")
+                        {
+                            if (sort == "AA,BB")
+                            {
+                                char[] c = { ',' };
+                                Array a = sort.Split(c);
+                                for (int l = 0; l < a.Length; l++)
+                                {
+                                    if (l == 0)
+                                        Dt.DefaultView.Sort = a.GetValue(0).ToString() + " " + "DESC";
+                                    else
+                                        Dt.DefaultView.Sort = Dt.DefaultView.Sort + "," + a.GetValue(1).ToString() + " " + "DESC";
+                                }
+                            }
+                            else
+                            {
+                                Dt.DefaultView.Sort = sort + " " + "DESC";
+                            }
+                            Session["SortExp"] = "ASC";
+                        }
+                        else
+                        {
+                            Dt.DefaultView.Sort = sort;
+                            Session["SortExp"] = "DESC";
+                        }
+                    }
+                }
+            }
+
+            Session["SearchPrint"] = Dt;  
+            GrdInspection.DataSource = Dt;
+            GrdInspection.DataBind();
+           
+            GrdInspection.Visible = true;
+            txt_fromdt.Text = FromDate;
+            txt_todt.Text = Todate;
+        }
+        catch (Exception ex)
+        {
+            lblrecord.Text = "";
+            lblmessage.Text = ex.StackTrace.ToString();
+        }
+    }
+    //method for searching CurrentUser data
+    protected void SearchMyData(String sort)
+    {
+        try
+        {
+            Session["Sort_Exp"] = sort;
+            int ID = 0;
+            string InspectionId = "";
+            int Vessel = 0;
+            int Port = 0;
+            string Status = "";
+            string FromDate = txt_fromdt.Text;
+            string Todate = txt_todt.Text;
+            int DueInDays = 0;
+            string InspectorName = "";
+            //int Chapter = 0;
+            string Chapter = "";
+            string InspectionNo = "";
+            int CrewId = 0;
+            if (Session["loginid"] != null)
+                ID = int.Parse(Session["loginid"].ToString());
+            HiddenField_LoginId.Value = ID.ToString();
+            //----------------
+            string RadDO = "";
+            if (chkDue.Checked)
+            { RadDO = "D"; }
+            else
+            { RadDO = "O"; }
+            //----------------
+            string RadPF = "";
+            if (radStatusPF.SelectedIndex == 0)
+            { RadPF = "P"; }
+            else
+            { RadPF = "F"; }
+            //----------------
+            String pv = "";
+            try
+            {
+                pv = radPV.SelectedValue.ToString();
+            }
+            catch { }
+            DataTable Dt = Search.SearchRecordNew(ID, InspectionId, Convert.ToInt32(ddl_owner.SelectedValue), Vessel, Port, Status,RadDO,RadPF,DateTime.Now.ToString(), DateTime.Now.ToString(), DueInDays, InspectorName, Chapter, InspectionNo, CrewId, ((chk_Inact.Checked) ? 1 : 0), pv, Convert.ToInt32(Session["loginid"].ToString()));
+            if (Dt.Rows.Count == 0)
+            {
+                lblrecord.Text = "Total Records Found: " + Dt.Rows.Count.ToString();
+                bindgrid();
+                return;
+            }
+            lblrecord.Text = "Total Records Found: " + Dt.Rows.Count.ToString();
+            GrdInspection.AllowSorting = true;
+            if (Session["SortExp"] != null)
+            {
+                if ((sort != null) || (Session["Sort_Exp"] != null))
+                {
+                    if (intTemp == 0)
+                    {
+                        if (Session["SortExp"].ToString() == "ASC")
+                        {
+                            Dt.DefaultView.Sort = sort;
+                            Session["SortExp"] = "DESC";
+                        }
+                        else
+                        {
+                            if (sort == "AA,BB")
+                            {
+                                char[] c = { ',' };
+                                Array a = sort.Split(c);
+                                for (int l = 0; l < a.Length; l++)
+                                {
+                                    if (l == 0)
+                                        Dt.DefaultView.Sort = a.GetValue(0).ToString() + " " + "DESC";
+                                    else
+                                        Dt.DefaultView.Sort = Dt.DefaultView.Sort + "," + a.GetValue(1).ToString() + " " + "DESC";
+                                }
+                            }
+                            else
+                            {
+                                Dt.DefaultView.Sort = sort + " " + "DESC";
+                            }
+                            Session["SortExp"] = "ASC";
+                        }
+                    }
+                    else
+                    {
+                        if (Session["SortExp"].ToString() == "ASC")
+                        {
+                            if (sort == "AA,BB")
+                            {
+                                char[] c = { ',' };
+                                Array a = sort.Split(c);
+                                for (int l = 0; l < a.Length; l++)
+                                {
+                                    if (l == 0)
+                                        Dt.DefaultView.Sort = a.GetValue(0).ToString() + " " + "DESC";
+                                    else
+                                        Dt.DefaultView.Sort = Dt.DefaultView.Sort + "," + a.GetValue(1).ToString() + " " + "DESC";
+                                }
+                            }
+                            else
+                            {
+                                Dt.DefaultView.Sort = sort + " " + "DESC";
+                            }
+                            Session["SortExp"] = "ASC";
+                        }
+                        else
+                        {
+                            Dt.DefaultView.Sort = sort;
+                            Session["SortExp"] = "DESC";
+                        }
+                    }
+                }
+            }
+            Session["SearchPrint"] = Dt;  
+            GrdInspection.DataSource = Dt;
+            GrdInspection.DataBind();
+            GrdInspection.Visible = true;
+        }
+        catch (Exception ex)
+        {
+            lblrecord.Text = "";
+            lblmessage.Text = ex.Message.ToString();
+        }
+    }
+    #endregion
+
+    #region "Events"
+    protected void ddl_owner_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            BindVessel();
+        }
+        catch (Exception ex)
+        {
+            lblrecord.Text = "";
+            lblmessage.Text = ex.StackTrace.ToString();
+        }
+    }
+    protected void Button3_Click(object sender, EventArgs e)
+    {
+        ViewState.Add("Sort_Flag", 0);
+        SearchData(GrdInspection.Attributes["MySort"]);
+
+        //Inspection_No
+        int j = 0;
+        string InspectionID = "";
+        if (chkallinsp.Items[0].Selected)
+        {
+            InspectionID = "All";
+            Session.Add("Inspection_No", InspectionID);
+        }
+        else
+        {
+            for (j = 0; j < chk_inspection.Items.Count; j++)
+            {
+                if (chk_inspection.Items[j].Selected)
+                {
+                    InspectionID = InspectionID + "," + chk_inspection.Items[j].Value;
+                }
+            }
+
+            if(InspectionID.Trim()!="")
+                InspectionID = InspectionID.Substring(1);
+
+            Session.Add("Inspection_No", InspectionID);
+        }
+    }
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        ViewState.Add("Sort_Flag", 1);
+        SearchMyData(GrdInspection.Attributes["MySort"]);
+    }
+    protected void chkgroup_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            //------------
+            for (int i = 0; i < chkgroup.Items.Count; i++)
+            {
+                if (chkgroup.Items[i].Selected == false)
+                    chkallgp.Items[0].Selected = false;
+            }
+            //------------
+            chk_inspection.Items.Clear();
+            BindInspection();
+        }
+        catch (Exception ex)
+        {
+            lblrecord.Text = "";
+            lblmessage.Text = ex.StackTrace.ToString();
+        }
+    }
+    protected void chkallgp1(object sender, EventArgs e)
+    {
+        int i = 0;
+        for (i = 0; i < chkgroup.Items.Count; i++)
+        {
+            if (chkallgp.Items[0].Selected == true)
+                chkgroup.Items[i].Selected = true;
+            else
+                chkgroup.Items[i].Selected = false;
+        }
+        BindInspection();
+    }
+    protected void chakallinsp(object sender, EventArgs e)
+    {
+        int i = 0;
+        for (i = 0; i < chk_inspection.Items.Count; i++)
+        {
+            if (chkallinsp.Items[0].Selected == true)
+                chk_inspection.Items[i].Selected = true;
+            else
+                chk_inspection.Items[i].Selected = false;
+        }
+    }
+    protected void chk_inspection_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        for (int i = 0; i < chk_inspection.Items.Count; i++)
+        {
+            if (chk_inspection.Items[i].Selected == false)
+                chkallinsp.Items[0].Selected = false;
+        }
+    }
+    protected void btnClear_Click(object sender, EventArgs e)
+    {
+        //Session.Abandon();
+        chkallgp.Items[0].Selected = true;
+        chkallgp1(sender, e);
+        chkallinsp.Items[0].Selected = true;
+        chakallinsp(sender, e);
+        ddl_owner.SelectedIndex = 0;
+        ddl_owner_SelectedIndexChanged(sender, e);
+        ddVessel.SelectedIndex = 0;
+        txtport.Text = "";
+        ddl_duestatus.SelectedIndex = 0;
+        lblFromDt.Visible = false;
+        lblToDate.Visible = false;
+        txt_fromdt.Visible = false;
+        txt_todt.Visible = false;
+        ImageButton2.Visible = false;
+        ImageButton3.Visible = false;
+        txtduedate.Text = "";
+        txt_fromdt.Text = "";
+        txt_todt.Text = "";
+        rdbsearch.SelectedIndex = -1;
+        txtsearch.Text = "";
+        Session["Insp_Id"] = null;
+        hid1.Text = "Init";
+        chkDue.Checked = false;
+        chkOverdue.Checked = false;
+        radPV.SelectedIndex = -1;
+    }
+    protected void btnNewInsp_Click(object sender, EventArgs e)
+    {
+        if (hid1.Text == "Init")
+        {
+            Session["Insp_Id"] = null;
+            Session["DueMode"] = null; 
+            Session["Mode"] = "Add";
+             //Response.Redirect("InspectionPlanning.aspx");
+            //ScriptManager.RegisterStartupScript(Page, this.GetType(), "PP", "window.open('AddEditInspection.aspx');", true);
+            Response.Redirect("~/Modules/Inspection/AddEditInspection.aspx");
+        }
+        if ((hid1.Text == "Due") || (hid1.Text == "Over Due"))
+        {
+            //Session["Mode"] = null; 
+            Session["DueMode"] = "ShowId";
+            // Response.Redirect("InspectionPlanning.aspx");
+            Response.Redirect("~/Modules/Inspection/AddEditInspection.aspx");
+            //ScriptManager.RegisterStartupScript(Page, this.GetType(), "PP", "window.open('AddEditInspection.aspx');", true);
+        }
+        else
+        {
+            if (hid1.Text == "Closed")
+            {
+                lblmessage.Text = "This Inspection has been closed & can't be used for planning.";
+                return;
+            }
+            else
+            {
+                
+                    lblmessage.Text = "This Inspection has already been planned & is in progress.";
+                    return;
+                
+               
+            }
+        }
+    }
+    protected void lnk_Click(object sender, EventArgs e)
+    {
+        Session["Insp_Id"] = hid.Text;
+        Session["DueMode"] = "ShowFull";
+    }
+    #endregion
+
+    #region "GridEvent"
+    protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        try
+        {
+            Session["PgIndex"] = null;
+            GrdInspection.PageIndex = e.NewPageIndex;
+            Session.Add("PgIndex", GrdInspection.PageIndex);
+            if (ViewState["Sort_Flag"].ToString() == "0")
+            {
+                if (Session["Sort_Exp"] != null)
+                {
+                    intTemp = 1;
+                    SearchData(Session["Sort_Exp"].ToString());
+                }
+                else
+                    SearchData(GrdInspection.Attributes["MySort"]);
+            }
+            else if (ViewState["Sort_Flag"].ToString() == "1")
+            {
+                if (Session["Sort_Exp"] != null)
+                {
+                    intTemp = 1;
+                    SearchMyData(Session["Sort_Exp"].ToString());
+                }
+                else
+                    SearchMyData(GrdInspection.Attributes["MySort"]);
+            }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
+    //protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
+    //{
+    //    if (e.Row.RowType == DataControlRowType.DataRow)
+    //    {
+    //        if (DataBinder.Eval(e.Row.DataItem, "NextDue").ToString() != "")
+    //        {
+    //            DateTime dateclose = DateTime.Parse(DataBinder.Eval(e.Row.DataItem, "NextDue").ToString());
+    //            DateTime dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+    //            DateTime dd = new DateTime(dateclose.Year, dateclose.Month, dateclose.Day);
+    //            TimeSpan ts = dd - dt;
+    //            if (ts.Days < 0)
+    //                e.Row.Cells[6].Text = "0";
+    //            else
+    //                e.Row.Cells[6].Text = ts.Days.ToString();
+    //        }
+    //    }
+    //}
+    protected void GridView2_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        try
+        {
+            GrdInspection.PageIndex = e.NewPageIndex;
+            //SearchMyData(GrdMyInspection.Attributes["MySort"]);
+            SearchMyData(GrdInspection.Attributes["MySort"]);
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
+    protected void GridView2_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.RowType == DataControlRowType.DataRow)
+        {
+            
+            if (DataBinder.Eval(e.Row.DataItem, "NextDue").ToString() != "")
+            {
+                DateTime dateclose = DateTime.Parse(DataBinder.Eval(e.Row.DataItem, "NextDue").ToString());
+                DateTime dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                DateTime dd = new DateTime(dateclose.Year, dateclose.Month, dateclose.Day);
+                TimeSpan ts = dd - dt;
+                if (ts.Days < 0)
+                    e.Row.Cells[6].Text = "0";
+                else
+                    e.Row.Cells[6].Text = ts.Days.ToString();
+            }
+        }
+    }
+    protected void GrdInspection_Sorted(object sender, EventArgs e)
+    {
+
+    }
+    protected void GrdInspection_Sorting(object sender, GridViewSortEventArgs e)
+    {
+        if (ViewState["Sort_Flag"].ToString() == "0")
+            SearchData(e.SortExpression);
+        else if(ViewState["Sort_Flag"].ToString()=="1")
+            SearchMyData(e.SortExpression);
+    }
+    protected void GrdMyInspection_Sorted(object sender, EventArgs e)
+    {
+
+    }
+    protected void GrdMyInspection_Sorting(object sender, GridViewSortEventArgs e)
+    {
+        SearchMyData(e.SortExpression);
+    }
+    protected void GrdInspection_PreRender(object sender, EventArgs e)
+    {
+        for (int i = 0; i < GrdInspection.Rows.Count ; i++)
+        {
+            HiddenField hfdStColor = (HiddenField)GrdInspection.Rows[i].FindControl("hfdStatusColor");
+            //GrdInspection.Rows[i].BackColor = System.Drawing.Color.FromName("#" + hfdStColor.Value);
+            GrdInspection.Rows[i].Cells[11].BackColor = System.Drawing.Color.FromName("#" + hfdStColor.Value);
+        }
+    }
+    protected void GrdInspection_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            Alerts.HANDLE_SEARCH_GRID(GrdInspection, Auth);
+        }
+        catch
+        {
+            Page.ClientScript.RegisterStartupScript(Page.GetType(), "logout", "alert('Your Session is Expired. Please Login Again.');window.parent.parent.location='../Login.aspx';", true);
+        }
+        if (e.Row.RowType == DataControlRowType.DataRow)
+        {
+            if (Session["Insp_Id"] != null)
+            {
+                //RadioButton rdb = new RadioButton();
+                Label lbl = new Label();
+                lbl = (Label)e.Row.FindControl("lblid");
+               // rdb = (RadioButton)e.Row.FindControl("rd_select");
+                HiddenField hfdfld = (HiddenField)e.Row.FindControl("hfdid");
+                if (Session["Insp_Id"].ToString() == lbl.Text)
+                {
+                   // rdb.Checked = true;
+                    hid1.Text = hfdfld.Value;
+                    Session["DueMode"] = "ShowFull";
+                }
+            }            
+            //if (DataBinder.Eval(e.Row.DataItem, "StatusColor").ToString() != "")
+            //{
+            //    e.Row.BackColor = System.Drawing.Color.FromName("#" + DataBinder.Eval(e.Row.DataItem, "StatusColor").ToString());
+            //}
+        }
+    }
+    #endregion
+    protected void DueCheck_Changed(object sender, EventArgs e)
+    {
+        if (chkDue.Checked) 
+        {
+            if (txtduedate.Text.Trim() == "")
+                txtduedate.Text = "60";
+
+            ddl_duestatus.SelectedIndex = 0;  
+        }
+        else
+            txtduedate.Text = "";
+
+        txt_fromdt.Text = "";
+        txt_todt.Text = "";
+        lblFromDt.Visible = false;
+        lblToDate.Visible = false;
+        txt_fromdt.Visible = false;
+        txt_todt.Visible = false;
+        ImageButton2.Visible = false;
+        ImageButton3.Visible = false;
+    }
+    protected void ddl_duestatus_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (ddl_duestatus.SelectedIndex != 0)
+        {
+            chkOverdue.Checked = false;
+            chkDue.Checked = false;
+            txtduedate.Text = "";  
+        }
+        //---------------
+        if (ddl_duestatus.SelectedValue == "Due")
+        {
+            //txtduedate.Text = "60";
+            //txtduedate.ReadOnly = false;
+            int DueInDays = int.Parse(txtduedate.Text);
+            txt_fromdt.Text = DateTime.Now.ToString("dd-MMM-yyyy");
+            txt_todt.Text = DateTime.Now.AddDays(DueInDays).ToString("dd-MMM-yyyy");
+            txt_fromdt.ReadOnly = true;
+            txt_todt.ReadOnly = true;
+            lblFromDt.Visible = true;
+            lblToDate.Visible = true;
+            txt_fromdt.Visible = true;
+            txt_todt.Visible = true;
+            ImageButton2.Enabled = false;
+            ImageButton3.Enabled = false;
+        }
+        else if ((ddl_duestatus.SelectedValue == "Observation") || (ddl_duestatus.SelectedValue == "Response") || (ddl_duestatus.SelectedValue == "Executed") || (ddl_duestatus.SelectedValue == "Over Due") || (ddl_duestatus.SelectedValue == "FollowUp") )
+        {
+            txtduedate.Text = "";
+            txt_fromdt.Text = "";
+            txt_todt.Text = "";
+            //txtduedate.ReadOnly = true;
+            txt_fromdt.ReadOnly = true;
+            txt_todt.ReadOnly = true;
+            ImageButton2.Visible = false;
+            ImageButton3.Visible = false;
+            lblFromDt.Visible = false;
+            lblToDate.Visible = false;
+            txt_fromdt.Visible = false;
+            txt_todt.Visible = false;
+
+        }
+        else
+        {
+            //if (Session["Status"].ToString() != "Due")
+            //{
+            //    txtduedate.Text = "";
+            //    txtduedate.ReadOnly = true;
+            //    txt_fromdt.Text = Session["FromDate"].ToString();
+            //    txt_fromdt.ReadOnly = false;
+            //    ImageButton2.Enabled = true;
+            //    txt_todt.Text = Session["ToDate"].ToString();
+            //    txt_todt.ReadOnly = false;
+            //    ImageButton3.Enabled = true;
+            //}
+            //else
+            //{
+                txtduedate.Text = "";
+                //txtduedate.ReadOnly = true;
+                txt_fromdt.Text = "";
+                txt_fromdt.ReadOnly = false;
+                ImageButton2.Enabled = true;
+                txt_todt.Text = "";
+                txt_todt.ReadOnly = false;
+                ImageButton3.Enabled = true;
+            lblFromDt.Visible = true;
+            lblToDate.Visible = true;
+            txt_fromdt.Visible = true;
+            txt_todt.Visible = true;
+            //}
+        }
+
+        //if (ddl_duestatus.SelectedValue != "Due")
+        //{
+        //    txtduedate.Text = "";
+        //    txtduedate.ReadOnly = true;
+        //    txt_fromdt.Text = "";
+        //    txt_todt.Text = "";
+        //    txt_fromdt.ReadOnly = false;
+        //    txt_todt.ReadOnly = false;
+        //    ImageButton2.Enabled = true;
+        //    ImageButton3.Enabled = true;
+        //}
+        //else
+        //{
+        //    txtduedate.Text = "60";
+        //    txtduedate.ReadOnly = false;
+        //    int DueInDays = int.Parse(txtduedate.Text);
+        //    txt_fromdt.Text = DateTime.Now.ToString("dd-MMM-yyyy");
+        //    txt_todt.Text = DateTime.Now.AddDays(DueInDays).ToString("dd-MMM-yyyy");
+        //    txt_fromdt.ReadOnly = true;
+        //    txt_todt.ReadOnly = true;
+        //    ImageButton2.Enabled = false;
+        //    ImageButton3.Enabled = false;
+        //}        
+    }
+    protected void GrdInspection_RowCreated(object sender, GridViewRowEventArgs e)
+    {
+        //if (e.Row.RowType == DataControlRowType.Pager)
+        //{
+        //    //TableCell tb = new TableCell();
+        //    //tb.HorizontalAlign = HorizontalAlign.Left;
+        //    //tb.VerticalAlign = VerticalAlign.Middle;
+        //    //tb.Text = "&nbsp;&nbsp;";
+        //    //tb.Controls.Add(lblrecord);
+        //    //TableCell tb1 = new TableCell();
+        //    //tb1.VerticalAlign = VerticalAlign.Middle;  
+        //    //tb1.HorizontalAlign = HorizontalAlign.Right;
+        //    //tb1.Controls.Add(btnPrint);
+        //    ////e.Row.Cells[0].Width = new Unit(100);
+        //    //e.Row.Controls[0].Controls[0].Controls[0].Controls.AddAt(0, tb);
+        //    //e.Row.Controls[0].Controls[0].Controls[0].Controls.AddAt(e.Row.Controls[0].Controls[0].Controls[0].Controls.Count, tb1);
+
+        //    if (e.Row.Cells[0].Controls[0] != null)
+        //    {
+        //        Table tbl = (Table)e.Row.Cells[0].Controls[0];
+        //        TableCell tblcell = new TableCell();
+        //        TableCell tblcell1 = new TableCell();
+        //        TableCell tblcell2 = new TableCell();
+        //        //tblcell.Width = new Unit(50, UnitType.Percentage); 
+        //        tblcell.HorizontalAlign = HorizontalAlign.Center;
+        //        //tblcell.Text = "You are viewing page " + Convert.ToInt32(GrdInspection.PageIndex + 1) + " of " + GrdInspection.PageCount + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+        //        tblcell.Controls.Add(lblrecord);
+        //        tblcell2.Text = "&nbsp;";
+        //        tblcell1.Controls.Add(btnPrint);
+                
+        //        tbl.Rows[0].Cells.AddAt(0, tblcell);
+        //        tbl.Rows[0].Cells.AddAt(tbl.Rows[0].Cells.Count, tblcell2);
+        //        tbl.Rows[0].Cells.AddAt(tbl.Rows[0].Cells.Count, tblcell1);
+        //        tbl.Rows[0].Cells[0].Width = new Unit(25, UnitType.Percentage);
+        //        tbl.Rows[0].Cells[0].HorizontalAlign = HorizontalAlign.Left;
+        //        //tbl.HorizontalAlign = HorizontalAlign.Left; 
+        //        if (tbl.Rows[0].Cells.Count > 1)
+        //        {
+        //            tbl.Rows[0].Cells[1].Width = new Unit(50, UnitType.Percentage);
+        //            tbl.Rows[0].Cells[1].HorizontalAlign = HorizontalAlign.Right;
+        //        }
+        //        //tbl.Rows[0].Cells[tbl.Rows[0].Cells.Count-1].Width = new Unit(50);
+        //        //tbl.Rows[0].Cells[tbl.Rows[0].Cells.Count - 1].Text = "&nbsp;";
+        //        tbl.Rows[0].Cells[tbl.Rows[0].Cells.Count - 1].Width = new Unit(25, UnitType.Percentage);
+        //        tbl.Rows[0].Cells[tbl.Rows[0].Cells.Count-1].HorizontalAlign = HorizontalAlign.Right;
+
+        //    }
+        //    //e.Row.Controls.AddAt(e.Row.Controls.Count - 1, tb1);
+        //    //e.Row.Controls.AddAt(0, tb);
+        //    //e.Row.Controls.AddAt(e.Row.Controls.Count - 1, btnPrint);
+        //}
+    }
+    protected void txt_todt_TextChanged(object sender, EventArgs e)
+    {
+        if (txt_fromdt.Text != "")
+        {
+            if (txt_todt.Text != "")
+            {
+                if (DateTime.Parse(txt_todt.Text) < DateTime.Parse(txt_fromdt.Text))
+                {
+                    lblmessage.Text = "From Date cannot be less than To Date.";
+                    txt_fromdt.Focus();
+                    return;
+                }
+            }
+        }
+    }
+    protected void rdbsearch_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        chkallgp.Items[0].Selected = true;
+        chkallgp1(sender, e);
+        chkallinsp.Items[0].Selected = true;
+        chakallinsp(sender, e);
+        ddl_owner.SelectedIndex = 0;
+        ddl_owner_SelectedIndexChanged(sender, e);
+        ddVessel.SelectedIndex = 0;
+        txtport.Text = "";
+        ddl_duestatus.SelectedIndex = 0;
+        txtduedate.Text = "";
+        txt_fromdt.Text = "";
+        txt_todt.Text = "";
+        txt_fromdt.Visible = false;
+        txt_todt.Visible = false;
+        lblToDate.Visible = false;
+        lblFromDt.Visible = false;
+        ImageButton2.Visible = false;
+        ImageButton3.Visible = false;
+        txtsearch.Text = "";
+        Session["Insp_Id"] = null;
+        hid1.Text = "Init";
+    }
+    protected void txtsearch_TextChanged(object sender, EventArgs e)
+    {
+        //if (rdbsearch.SelectedValue == "Crew")
+        //{
+        //    DataTable dt75 = Inspection_Planning.GetCrewIdFromCrewNo(txtsearch.Text.Trim());
+        //    if (dt75.Rows.Count <= 0)
+        //    {
+        //        lblmessage.Text = "Invalid Crew#.";
+        //        return;
+        //    }
+        //}
+    }
+    protected void chk_Inact_OnCheckedChanged(object sender, EventArgs e)
+    {
+        BindVessel();
+    }
+    protected void Page_PreRender(object sender, EventArgs e)
+    {
+            ScriptManager.RegisterStartupScript(Page, this.GetType(), "tr", "SetLastFocus('d1');", true);
+            ScriptManager.RegisterStartupScript(Page, this.GetType(), "tr1", "SetLastFocus('d2');", true);
+    }
+
+    protected void GrdInspection_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        Label lblInsId = (Label)GrdInspection.Rows[GrdInspection.SelectedIndex].FindControl("lblid");
+        Session["Mode"] = "View";    
+        Session["Insp_Id"] = lblInsId.Text.ToString();
+
+         Response.Redirect("~/Modules/Inspection/AddEditInspection.aspx");
+        //ScriptManager.RegisterStartupScript(Page, this.GetType(), "PP", "window.open('AddEditInspection.aspx');", true);
+        // Page.ClientScript.RegisterStartupScript(this.GetType(), "abc", "window.open('../Modules/Inspection/AddEditInspection.aspx');", true);
+    }
+}

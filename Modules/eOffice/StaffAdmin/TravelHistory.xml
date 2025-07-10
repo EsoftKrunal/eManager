@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<TravelHistory>
+  <History>
+    <srno>1</srno>
+    <travelpurpose>Business Purpose</travelpurpose>
+    <travellingdays>15 Days</travellingdays>
+    <fromdate>11-Sep-2011</fromdate>
+    <todate>26-Sep-2011</todate>
+    <expert>Yes</expert>
+  </History>
+  <History>
+    <srno>2</srno>
+    <travelpurpose>Training Purpose</travelpurpose>
+    <travellingdays>12 Days</travellingdays>
+    <fromdate>10-Sep-2011</fromdate>
+    <todate>22-Sep-2011</todate>
+    <expert>NO</expert>
+  </History>
+  <History>
+    <srno>3</srno>
+    <travelpurpose>Meeting Purpose</travelpurpose>
+    <travellingdays>20 Days</travellingdays>
+    <fromdate>05-Sep-2011</fromdate>
+    <todate>25-Sep-2011</todate>
+    <expert>Yes</expert>
+  </History>
+</TravelHistory>

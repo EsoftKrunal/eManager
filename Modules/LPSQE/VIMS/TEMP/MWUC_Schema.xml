@@ -1,0 +1,39 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="MWUC_MASTER">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VESSELCODE" type="xs:string" minOccurs="0" />
+              <xs:element name="TABLEID" type="xs:long" minOccurs="0" />
+              <xs:element name="FORDATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="MASTERCREWNO" type="xs:string" minOccurs="0" />
+              <xs:element name="MASTERNAME" type="xs:string" minOccurs="0" />
+              <xs:element name="CREATEDON" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OFFICERECDON" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OFFICECLOSEDON" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="MGMTVISIT" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="MWUC_DETAILS">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VESSELCODE" type="xs:string" minOccurs="0" />
+              <xs:element name="TABLEID" type="xs:long" minOccurs="0" />
+              <xs:element name="CATID" type="xs:int" minOccurs="0" />
+              <xs:element name="SHIPCOMMENT" type="xs:string" minOccurs="0" />
+              <xs:element name="SHIPCOMMENTON" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OFFICECOMMENT" type="xs:string" minOccurs="0" />
+              <xs:element name="OFFICECOMMENTBY" type="xs:string" minOccurs="0" />
+              <xs:element name="OFFICECOMMENTPOSITION" type="xs:string" minOccurs="0" />
+              <xs:element name="OFFICECOMMENTON" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

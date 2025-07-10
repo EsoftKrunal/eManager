@@ -1,0 +1,141 @@
+﻿*
+{
+    margin:0px;
+    padding:0px;
+}
+.form_table tr td
+{
+    padding:2px;
+}
+hr
+{
+    margin:10px 0px 10px 0px;
+}
+.btn
+{
+border-width:0px;
+height:54px;
+width:54px;
+border-color:#0066FF;
+border:solid 2px #0072c6;
+}
+.alignright
+{
+    text-align:right; 
+}
+.alignleft
+{
+    text-align:left; 
+}
+.aligncenter
+{
+    text-align:center; 
+}
+.withmargin15
+{
+    margin:10px; 
+}
+.withpadding15
+{
+    padding:10px; 
+}
+.withmargin5
+{
+    margin:5px; 
+}
+.withpadding5
+{
+    padding:5px; 
+}
+.box
+{
+   border:solid 1px #c2c2c2;
+}
+.shadow
+{
+    box-shadow: 2px 2px 2px 2px #d2d2d2;
+}
+.btn:hover
+{
+background-color:#CCE3F4;
+              
+}
+.btn_save
+{
+    background:url("../Images/msls-blue-icons-36.png") no-repeat -14px -13px;
+}
+.btn_cross
+{
+background:url("../Images/msls-blue-icons-36.png") no-repeat -126px -13px;
+}
+.btn_chk
+{
+background:url("../Images/msls-blue-icons-36.png") no-repeat -242px -13px;
+}
+.btn_back
+{
+background:url("../Images/msls-blue-icons-36.png") no-repeat -362px -13px;
+}
+.btn_back1
+{
+background:url("../Images/msls-blue-icons-36.png") no-repeat -479px -13px;
+}
+.btn_settings
+{
+background:url("../Images/msls-blue-icons-36.png") no-repeat -604px -13px;
+}
+.btn_plus
+{
+background:url("../Images/msls-blue-icons-36.png") no-repeat -724px -13px;
+}
+.btn_minus
+{
+background:url("../Images/msls-blue-icons-36.png") no-repeat -844px -13px;
+}
+.btn_del
+{
+background:url("../Images/msls-blue-icons-36.png") no-repeat -1084px -13px;
+}
+.btn_edit
+{
+background:url("../Images/msls-blue-icons-36.png") no-repeat -1214px -13px;
+}
+.btn_refresh
+{
+background:url("../Images/msls-blue-icons-36.png") no-repeat -1338px -13px;
+}
+.inp
+{
+border:solid 1px #e2e2e2; 
+padding:5px;
+}
+.inp:focus
+{
+border:solid 1px #0072c6; 
+}
+.box_heading
+{
+font-size:22px;
+margin:5px;
+margin-left:0px;
+color:#0072c6;
+}
+hr
+{
+    border:none; 
+    border-collapse:collapse;
+    height: 1px;
+    background-color:#c2c2c2
+}
+.success
+{
+  background-color:#5CD65C;
+  color:black;  
+  border:none;
+}
+.error
+{
+  background-color:#FF6666;
+  color:black;
+  border:none;
+}

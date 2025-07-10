@@ -1,0 +1,133 @@
+.pageheader
+{
+    background-color: #457ab5;
+    color:White;
+    text-align:center;
+    padding:10px;
+    font-weight:bold;
+    font-size:15px;
+    
+}
+.content
+{
+  margin:5px;
+  margin-top:200px;
+  z-index:1;
+}
+.topic
+{
+    font-size:14px;
+    font-weight:bold;
+}
+.category
+{
+    color:#9591b4;
+    margin-top:5px;
+    font-size:11px;
+}
+.date{
+      margin-top:5px;
+       font-size:12px;
+       color:#1a6ae9;
+}
+.time{
+      margin-top:5px;
+       font-size:12px;
+       color:#ff6a00;
+}
+.address{
+      margin-top:5px;
+       font-size:10px;
+       
+}
+
+.contactname{
+      margin-top:5px;
+       font-size:10px;
+       font-weight:bold;
+}
+.contactnumber{
+      margin-top:5px;
+       font-size:12px;
+       
+}
+.contactmail{
+      margin-top:5px;
+       font-size:10px;
+       
+}
+.fixedheader
+{
+    position:fixed;
+    background-color:white;
+    left:0;
+    width:100%;
+    top:0;
+    z-index:4;
+}
+.listheader
+{
+    background-color: #97b3d2;
+    color: #5f5454;
+    padding: 7px;
+}
+.row
+{
+    background-color:#ffffff;
+    border:solid 1px #e6e6e6;
+    padding:1px;
+    margin-bottom:5px;
+}
+.agendatext
+{
+    color:#242424;
+    font-size:12px;
+
+}
+.agendatime {
+    color: #ff6a00;
+    font-size: 12px;
+    margin-top:5px;
+}
+.agendadetails
+{
+    color:#929191;
+    font-size:12px;
+    margin-top:5px;
+}
+.presenterheading
+{
+    color:#4c4c4c;
+    font-size:12px;
+    font-weight:bold;
+    padding-bottom:5px;
+    border-bottom:solid 1px #ede9e9;
+}
+.presenter
+{
+    margin-top:5px;
+    color:#dbb523;
+}
+.listaction .fa{
+    font-size:16px;
+    display:block;
+    margin:4px;
+    padding:4px;
+    color:white;
+    width:20PX;
+    height:20PX;
+    color:#9591b4;
+    cursor:pointer;
+    border:solid 1px #dce4df;
+}
+
+
+.listaction .fa-pencil:hover{
+    background-color:#0c6c29;
+    color:white;
+}
+
+.listaction .fa-trash:hover{
+    background-color:#f72f2f;
+    color:white;
+}

@@ -1,0 +1,255 @@
+using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using ShipSoft.CrewManager.BusinessObjects;
+using ShipSoft.CrewManager.BusinessLogicLayer;
+using ShipSoft.CrewManager.Operational;
+
+public partial class CrewOperation_InvoiceApproval : System.Web.UI.Page
+{
+    public string strappamt;
+    Authority Auth;
+    int InvoiceId, invid, poamt,vesselid;
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        //-----------------------------
+        SessionManager.SessionCheck_New();
+        //-----------------------------
+        lblMessage.Text = "";
+        ProcessCheckAuthority OBJ = new ProcessCheckAuthority(Convert.ToInt32(Session["loginid"].ToString()), 8);
+        OBJ.Invoke();
+        Session["Authority"] = OBJ.Authority;
+        Auth = OBJ.Authority;
+        if(!Page.IsPostBack)
+        {
+            bindForwardToddl();
+            InvoiceId=Convert.ToInt32(Request.QueryString["InvoiceId"].ToString());
+            InvoiceStatus1.InoviceId = InvoiceId;
+            Show_Record_gvinvoice(invid);
+            
+            if (ddl_PoNo.Items.Count == 0)
+            {
+                bindPoNoddl();
+            }
+        }
+    }
+    protected void bindForwardToddl()
+    {
+        
+    }
+    protected void bindPoNoddl()
+    {
+        DataTable dt4 = InvoiceSearchScreen.selectPoNo(Convert.ToInt32(Label1.Text), Convert.ToInt32(lbl_vendorId.Text));
+        this.ddl_PoNo.DataValueField = "PoId";
+        this.ddl_PoNo.DataTextField = "PoNo";
+        this.ddl_PoNo.DataSource = dt4;
+        this.ddl_PoNo.DataBind();
+    }
+    protected void Show_Record_gvinvoice(int Invoiceid)
+    {
+        string Mess = "";
+        int i;
+        HiddenInvoiceApproval.Value = InvoiceId.ToString();
+        DataTable dt3 = InvoiceSearchScreen.selectDataInvoiceApprovalDetailsById(Convert.ToInt32(HiddenInvoiceApproval.Value));
+        foreach (DataRow dr in dt3.Rows)
+        {
+            
+            lbl_RefNo.Text=dr["RefNo"].ToString();
+            lbl_InvoiceNo.Text=dr["InvNo"].ToString();
+            lbl_Vendor.Text=dr["VendorId"].ToString();
+            double dbl = Convert.ToDouble(dr["InvoiceAmount"].ToString());
+            lbl_InvoiceAmount.Text = dbl.ToString("F");
+            lbl_InvoiceDate.Text = dr["InvDate"].ToString();
+            lbl_DueDate.Text = dr["DueDate"].ToString();
+            Label1.Text=dr["VesselId"].ToString();
+            lbl_vendorId.Text = dr["Vendor_Id"].ToString();
+            lbl_Vessel.Text = dr["VesselId1"].ToString();
+            lbl_ForwardTo.Text = dr["ForwardTo"].ToString();
+            lbl_CreatedBy.Text = dr["CreatedBy"].ToString();
+            lbl_CreatedOn.Text = dr["CreatedOn"].ToString();
+            lbl_ApprovedDate.Text=dr["ApprovedDate"].ToString();
+            lbl_ApprovedBy.Text=dr["ApprovedBy"].ToString();
+            double dbl2 = Convert.ToDouble(Convert.ToString(dr["ApprovedAmount"]));
+            txt_ApprovedAmt.Text = dbl2.ToString("F");
+            txt_Remarks.Text = dr["Remarks"].ToString();
+            lbl_Curr.Text = dr["Curr"].ToString();
+            i = Convert.ToInt32(dr["StatusId"].ToString());
+            if (i >= 1)
+            {
+                btn_Approve.Visible = false;
+            }
+            else
+            {
+                btn_Approve.Visible = true && Auth.isEdit;
+
+            }
+            if (Convert.ToString(Page.Request.QueryString["page"])==  "pay")
+            {
+                btn_Approve.Visible = false;
+            }
+            if(i >= 1)
+            {
+                this.ddl_PoNo.Items.Clear();
+                this.ddl_PoNo.Items.Add(new ListItem(dr["PoNo"].ToString(),dr["PoId"].ToString()));
+                ddl_PoNo.SelectedIndex = 0;
+                SelectPoAmount(Convert.ToInt32(ddl_PoNo.SelectedValue));
+                Show_PoDetails(Convert.ToInt32(dr["PoId"].ToString()));
+            }
+            if (i == 0)
+            {
+                txt_PoAmt.Text = "0.0";
+            }
+            // Convert.ToString(Math.Round(dbl2, 2));
+
+        }
+    }
+    protected void btn_Approve_Click(object sender, EventArgs e)
+    {
+        double a = Convert.ToDouble(lbl_InvoiceAmount.Text);
+        double b = Convert.ToDouble(txt_PoAmt.Text);
+        double c = Convert.ToDouble(txt_ApprovedAmt.Text);
+        if ((a != b || b != c || c != a) && txt_Remarks.Text.Trim()=="")
+        {
+            lblMessage.Text = "Remarks is mandatory as InvAmt,PoAmt & ApproveAmt do not match";
+        }
+
+        else
+        {
+            int InvoiceId = 0;
+            int PONo = Convert.ToInt32(ddl_PoNo.SelectedValue);
+            int ModifiedBy = 0;
+            int Verify2To = 0;
+            //double POAmt=Convert.ToInt32(txt_PoAmt.Text);
+            double ApprovedAmt = Convert.ToDouble(txt_ApprovedAmt.Text);
+            string Remarks = txt_Remarks.Text;
+            InvoiceId = Convert.ToInt32(HiddenInvoiceApproval.Value);
+            ModifiedBy = Convert.ToInt32(Session["loginid"].ToString());
+            string Attachment = "";
+            //********* Change on 1-sep 
+           // Verify2To = Convert.ToInt32(ddl_User.SelectedValue);
+            Verify2To = 1;
+            //********************
+            if (this.FileUpload1 != null && this.FileUpload1.FileContent.Length > 0)
+            {
+                HttpPostedFile file = FileUpload1.PostedFile;
+                UtilityManager um = new UtilityManager();
+                string fileName;
+                fileName = um.UploadFileToServer(this.FileUpload1.PostedFile, this.hfd_Invoice.Value.Trim(), "I");
+                if (fileName.StartsWith("?"))
+                {
+                    lblMessage.Text = fileName.Substring(1);
+                    return;
+                }
+                
+                 Attachment = fileName;
+            }
+
+            try
+            {
+                InvoiceSearchScreen.updateInvoiceApprovalDeatils("UpdateInvoiceApprovalDetalis",
+                                                                       InvoiceId,
+                                                                       PONo,
+                                                                       ApprovedAmt,
+                                                                       Remarks,
+                                                                       Attachment,
+                                                                       ModifiedBy,
+                                                                       Verify2To
+                                                              );
+                for (int i = 0; i < this.gvinvoice.Rows.Count;i++ )
+                {
+                    TextBox tbamount = ((TextBox)gvinvoice.Rows[i].FindControl("lblAmount"));
+                    HiddenField hfdid = ((HiddenField)gvinvoice.Rows[i].FindControl("hfd_AccountId"));
+                    InvoiceSearchScreen.insertinvoicedetails("InsertInvoiceDetails", InvoiceId, Convert.ToInt32(hfdid.Value), Convert.ToDouble(tbamount.Text));
+                }
+                //InvoiceSearchScreen.InsertInvoiceDetails
+                    
+
+                lblMessage.Text = "Invoice Successfully Forwarded.";
+            }
+            catch
+            {
+                lblMessage.Text = "Invoice Can't Forwarded.";
+                return;
+            }
+            
+
+            
+            btn_Approve.Enabled = false;
+            Response.Redirect("InvoiceApprovalSearchScreen.aspx"); 
+        }
+
+    }
+    protected void ddl_PoNo_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        SelectPoAmount(poamt);
+        Show_PoDetails(Convert.ToInt32(ddl_PoNo.SelectedValue));
+    }
+    protected void Show_PoDetails(int Poid)
+    {
+       gvinvoice.DataSource=InvoiceSearchScreen.get_PODetails(Poid);
+       gvinvoice.DataBind();
+        
+         
+    }
+    protected void SelectPoAmount(int _VesseId)
+    {
+        DataTable dt8 = InvoiceSearchScreen.selectPoAmount(Convert.ToInt32(ddl_PoNo.SelectedValue));
+        txt_PoAmt.Text = "0.0";
+        foreach (DataRow dr in dt8.Rows)
+        {
+            double dbl2 = Convert.ToDouble(dr["AmountUSD"].ToString());
+            txt_PoAmt.Text = dbl2.ToString("F");
+        }
+    }
+    protected void btn_Back_Approval_Click(object sender, EventArgs e)
+    {
+        int i = 0;
+        if (Convert.ToString(Page.Request.QueryString["page"]) == "pay")
+        {
+
+            try
+            {
+                i = Convert.ToInt32(Request.QueryString["backpage"]);
+            }
+            catch
+            {
+                //Response.Redirect("ApprovedInvoices.aspx");
+            }
+            if (i == 3)
+            { Response.Redirect("ApprovedInvoices.aspx"); }
+            if (i == 1)
+            { Response.Redirect("InvoiceListforVerification1.aspx?mode=1"); }
+
+        }
+        else
+        {
+            Response.Redirect("InvoiceApprovalSearchScreen.aspx");
+        }
+        }
+    protected void gvinvoice_PreRender(object sender, EventArgs e)
+    {
+        string str="";
+        for (int i = 0; i < gvinvoice.Rows.Count; i++)
+        {
+            TextBox txtamount = ((TextBox)gvinvoice.Rows[i].FindControl("lblamount"));
+            txtamount.Attributes.Add("onchange", "return set_values();");
+            if (str.Length == 0)
+            {
+                str = "'" + gvinvoice.Rows[i].FindControl("lblamount").ClientID + "'";
+            }
+            else
+            {
+                str = str+ ","+ "'" + gvinvoice.Rows[i].FindControl("lblamount").ClientID + "'";
+            }
+        }
+        
+     strappamt=str;
+    }
+}

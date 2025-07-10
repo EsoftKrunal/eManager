@@ -1,0 +1,118 @@
+body,td,th 
+    {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #0e64a0;
+	text-align: left;
+}
+body 
+{
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-repeat:repeat-x;background-color:#ffffff;
+}
+
+hr { color:#8fafdb;
+	background-color:#8fafdb;
+	border-top:1px solid #8fafdb;
+	border-bottom:1px solid #8fafdb;
+	border-left:1px solid #8fafdb;
+	border-right:1px solid #8fafdb;
+}
+	 
+ .newformat
+{
+    font-size:15px;
+    font-family:Sans-Serif;
+    text-align:center;
+}
+.newformat thead td
+{
+    color:Black;
+    background-color:#FFCC66;
+    text-align:center;
+}
+    .newformat tfoot td
+{
+    color:Black;
+    background-color:#FFCC66;
+    text-align:center;
+}
+    .newformat tbody td
+{
+    text-align:center;
+    /*background-color:#ECF1F6;*/
+    color:Black;
+}
+    .newformat tbody .tdSel
+{
+    background-color:#FFFFD6;
+    color:Black;
+}
+input[type='text']
+{
+    border : solid 1px #c2c2c2;
+    background-color:#FFFFEB;
+    padding-left:3px;
+}
+textarea
+{
+    border : solid 1px #c2c2c2;
+}
+select
+{
+    border:none;
+    background-color:#FFFFEB;
+}
+td
+{
+    word-wrap:break-word;
+    vertical-align:middle;
+}
+
+td.valign_middle
+{
+    vertical-align:middle;
+}
+.Btn1{ font-family:Arial; font-weight:bold; font-size:12px; background-color:#e5e5e5; border:solid 1px DarkGray; padding:4px;  }
+.BtnSel{ font-family:Arial; font-weight:bold; font-size:12px; border:solid 1px DarkGray; padding:4px; background-color:#4371a5;color:White;}
+
+.ScrollAutoReset
+{
+    overflow-y:scroll;
+    overflow-x:hidden;
+}
+a img
+{
+border:none
+}
+ 
+  .popupclosebtn {
+  background: #eb7467;
+  background-image: -webkit-linear-gradient(top, #eb7467, #ba3627);
+  background-image: -moz-linear-gradient(top, #eb7467, #ba3627);
+  background-image: -ms-linear-gradient(top, #eb7467, #ba3627);
+  background-image: -o-linear-gradient(top, #eb7467, #ba3627);
+  background-image: linear-gradient(to bottom, #eb7467, #ba3627);
+  -webkit-border-radius: 6;
+  -moz-border-radius: 6;
+  border-radius: 6px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 14px;
+  padding: 4px 20px 4px 20px;
+  text-decoration: none;
+}
+
+.popupclosebtn:hover {
+  background: #ba3627;
+  background-image: -webkit-linear-gradient(top, #ba3627, #eb7467);
+  background-image: -moz-linear-gradient(top, #ba3627, #eb7467);
+  background-image: -ms-linear-gradient(top, #ba3627, #eb7467);
+  background-image: -o-linear-gradient(top, #ba3627, #eb7467);
+  background-image: linear-gradient(to bottom, #ba3627, #eb7467);
+  text-decoration: none;
+}
+

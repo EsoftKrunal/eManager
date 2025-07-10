@@ -1,0 +1,141 @@
+<%@ Page Language="vb" AutoEventWireup="false" Inherits="Testing.ClientSide" CodeFile="ClientSide.aspx.vb" %>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+	<HEAD>
+		<title>Client Side Column Locking</title>
+		<meta content="Microsoft Visual Studio .NET 7.1" name="GENERATOR">
+		<meta content="Visual Basic .NET 7.1" name="CODE_LANGUAGE">
+		<meta content="JavaScript" name="vs_defaultClientScript">
+		<meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
+		<LINK href="../Styles/Gridstyle.css" type="text/css" rel="stylesheet">
+	   <link id="lnk1"  rel="stylesheet" type="text/css" />
+	   <style type="text/css">
+#container {
+
+	width:500px;
+	
+}
+
+div.tableContainer {
+	width: 100%;		/* table width will be 99% of this*/
+	height: 295px; 	/* must be greater than tbody*/
+	overflow: auto;
+	margin: 0 auto;
+	overflow-y:hidden;
+	}
+
+table {
+	width: 600px;		/*100% of container produces horiz. scroll in Mozilla*/
+	border: none;
+	background-color: #f7f7f7;
+
+	}
+	
+table	{  /* child selector syntax which IE6 and older do not support*/
+	overflow: auto; 
+	height: 250px;
+	overflow-x: hidden;
+
+	}
+	
+#DataGrid1 tr	{
+	position:relative; 
+	top: expression(offsetParent.scrollTop); /*IE5+ only*/
+	}
+	
+tr th{
+	text-align: center;
+	font-size: 14px; 
+	background-color: oldlace;
+	color: steelblue;
+	font-weight: bold;
+	border-top: solid 1px #d8d8d8;
+	}	
+	
+td	{
+	color: #000;
+	padding-right: 2px;
+	font-size: 12px;
+	text-align: right;
+	border-bottom: solid 1px #d8d8d8;
+	border-left: solid 1px #d8d8d8;
+	}
+	
+
+
+td:last-child {padding-right: 20px;} /*prevent Mozilla scrollbar from hiding cell content*/
+
+</style>
+	</HEAD>
+	<body>
+		<form id="Form1" method="post" runat="server">
+<div id="container">
+		 <div class="tableContainer">
+	
+			
+
+				<asp:GridView ID="DataGrid1" runat="server" CssClass="Grid" Width="2000px" UseAccessibleHeader="True" AutoGenerateColumns=False>
+				  <Columns>
+                             <asp:CommandField ButtonType="Image" SelectImageUrl="~/Modules/HRD/Images/HourGlass.gif" ShowSelectButton="True" HeaderText="View" >
+                              <ItemStyle Wrap="False"></ItemStyle>
+                               </asp:CommandField>
+                              <asp:CommandField ButtonType="Image" ShowEditButton="True" EditImageUrl="~/Modules/HRD/Images/edit.jpg" HeaderText="Edit" >
+                              <ItemStyle Wrap="False"></ItemStyle>
+                              </asp:CommandField>
+                               <asp:TemplateField HeaderText="Delete" ShowHeader="False">
+                               <ItemStyle Wrap="False"></ItemStyle>
+                                <ItemTemplate>
+                                 <asp:ImageButton ID="ImageButton1" runat="server" CausesValidation="False" CommandName="Delete" ImageUrl="~/Modules/HRD/Images/delete.jpg" Text="Delete" OnClientClick="javascript:return window.confirm('Are you Sure to Delete.');" />
+                                </ItemTemplate>
+                               </asp:TemplateField>
+                               <asp:BoundField DataField="CostCentreGroupName" HeaderText="Cost Centre Group Name">
+                              
+                               <ItemStyle Wrap="False"></ItemStyle>
+                               </asp:BoundField>
+                              <asp:TemplateField HeaderText="Cost Centre Name">
+                               <ItemStyle Wrap="False"></ItemStyle>
+                             
+                                  <ItemTemplate>  
+                                   <asp:Label ID="lblcostcentrename" runat="server" Text='<%#Eval("CostCentreName")%>'></asp:Label>
+                                   <asp:HiddenField ID="HiddenAccountHeadId" runat="server" Value='<%#Eval("AccountHeadId")%>' />
+                                  </ItemTemplate>
+                               </asp:TemplateField>
+                              
+                                <asp:BoundField DataField="AccountHeadNumber" HeaderText="Number">
+                              
+                                  <ItemStyle Wrap="False"></ItemStyle>
+                                  
+                               </asp:BoundField>
+                                 <asp:BoundField DataField="AccountHeadName" HeaderText="Name">
+                               <ItemStyle Wrap="False"></ItemStyle>
+                               </asp:BoundField>
+                                <asp:BoundField DataField="AccountHeadType" HeaderText="Type">
+                               <ItemStyle Wrap="False"></ItemStyle>
+                               </asp:BoundField>
+                                <asp:BoundField DataField="IncludeInBudgets" HeaderText="Include In Budgets">
+                              <ItemStyle Wrap="False"></ItemStyle>
+                               </asp:BoundField>
+                               <asp:BoundField DataField="CreatedBy" HeaderText="Created By">
+                              <ItemStyle Wrap="False"></ItemStyle>
+                               </asp:BoundField>
+                               <asp:BoundField DataField="CreatedOn" HeaderText="Created On">
+                                 <ItemStyle Wrap="False"></ItemStyle>
+                               </asp:BoundField>
+                               <asp:BoundField DataField="ModifiedBy" HeaderText="Modified By">
+                              <ItemStyle Wrap="False"></ItemStyle>
+                               </asp:BoundField>
+                               <asp:BoundField DataField="ModifiedOn" HeaderText="Modified On">
+                              <ItemStyle Wrap="False"></ItemStyle>
+                               </asp:BoundField>
+                                <asp:BoundField DataField="StatusName" HeaderText="Status">
+                                <ItemStyle Wrap="False"></ItemStyle>
+                               </asp:BoundField>
+                         </Columns>
+				</asp:GridView>
+				</div>
+			</div>
+		</form>
+	</body>
+	
+
+</HTML>

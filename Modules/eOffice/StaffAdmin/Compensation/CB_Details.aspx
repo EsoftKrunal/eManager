@@ -1,0 +1,369 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="CB_Details.aspx.cs" Inherits="emtm_StaffAdmin_Emtm_CB_Details" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>EMANAGER</title>
+    <script src="../../../HRD/JS/jquery-1.10.2.js" type="text/javascript"></script>
+     <link href="../../../HRD/Styles/StyleSheet.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <form id="form1" runat="server" >
+     <asp:ScriptManager ID="ScriptManager001" runat="server" ></asp:ScriptManager>
+    <div style="font-family:Arial;font-size:12px;">
+        <div class="text headerband" style=" text-align :center; font-size :13px;  padding :7px; ">
+            Compensation and Benifits
+        </div>
+        <div>
+                 <div style="padding:6px; font-size:20px; background-color:#37afeb"">
+                            Salary Revision History : ( <asp:Label ID="lblEmpCode" runat="server"></asp:Label> ) <asp:Label ID="lblEmpName" runat="server"></asp:Label>
+                        </div>
+                        <table cellpadding="2" cellspacing="0" width="99%" border="0" class="gridheader" style="border-collapse:collapse">
+                            <col width="50px" />
+                            <col />                            
+                           <%-- <col width="90px" />
+                            <col width="90px" />
+                            <col width="90px" />
+                            <col width="150px" />--%>
+                            <tr>
+                                <td>View</td>
+                                <td>Revised On</td>
+                               <%-- <td style="text-align:right;">Bonus</td>
+                                <td style="text-align:right;">Income</td>
+                                <td style="text-align:right;">Deduction</td>
+                                <td style="text-align:right;">Net Payable(Monthly)</td>--%>
+                            </tr>
+                        </table>
+                        <table cellpadding="2" cellspacing="0" width="99%" border="0" class="gridrow" style="border-collapse:collapse">
+                            <col width="50px" />
+                            <col  />
+                            <col width="90px" />
+                            <col width="90px" />
+                            <col width="90px" />
+                            <col width="150px" />
+                            <asp:Repeater ID="rptRevisionMaster" runat="server">
+                                <ItemTemplate>
+                                    <tr>
+                                        <td> <asp:ImageButton runat="server" ImageUrl="~/Modules/HRD/Images/magnifier.png" ToolTip="View" CommandArgument='<%#Eval("RevisionId")%>' OnClick="btnViewRevision_Click" /> </td>
+                                        <td> <%#Common.ToDateString(Eval("RevisionDate")) %> </td>
+                                        <%--<td style="text-align:right;"> <%#Eval("Bonus") %> </td>
+                                        <td style="text-align:right;"> <%#Eval("Income") %> </td>
+                                        <td style="text-align:right;"> <%#Eval("Deduction") %> </td>
+                                        <td style="text-align:right;"> <%#Convert.ToDecimal(Eval("Income"))-Convert.ToDecimal(Eval("Deduction")) %> </td>   --%> 
+                                </tr>
+                                </ItemTemplate>
+                            </asp:Repeater>
+                        </table>
+            </div>
+        <div style="padding:6px; font-size:20px; background-color:#37afeb">
+                        Revision On :  <asp:Label ID="lblLastRevisionDta" runat="server" style="padding:3px; font-size:16px;"></asp:Label>  
+                       
+                    </div>
+        <table cellpadding="2" cellspacing="0" width="99%" border="0" >
+                              <tr>
+                                  <td>
+                                        <table cellpadding="2" cellspacing="0" width="100%" border="0" class="gridheader" style="border-collapse:collapse">
+                                        <tr>
+                                            <td style="width:250px; text-align:left;">Salary Head</td>
+                                            <td style="width:100px">Income</td>
+                                            <td style="width:100px">Deduction</td>
+                                            <td style="">&nbsp;</td>
+                                        </tr>
+                                        </table>
+                                        <table cellpadding="2" cellspacing="0" width="100%" border="0" class="gridrow" style="border-collapse:collapse">
+                                        <asp:Repeater ID="rptCurrSalary" runat="server">
+                                            <ItemTemplate>
+                                            <tr>
+                                                <td  style="width:250px; text-align:left;"><%#Eval("HeadName")%></td>
+                                                <td style="width:100px; text-align:right;" class="cls_I"><%#((Eval("Income_Ded").ToString()!="D")?Eval("HeadValue"):"")%></td>
+                                                <td style="width:100px; text-align:right;" class="cls_D"><%#((Eval("Income_Ded").ToString()=="D")?Eval("HeadValue"):"")%></td>
+                                                <td style="">
+                                                    <%#((Eval("YearlyHead").ToString()=="Y")?"Yearly":"Monthly")%>  <%#((Eval("Income_Ded").ToString()=="C")?" / CTC Only":"")%>
+
+                                                </td>
+                                            </tr>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
+                                        </table>
+                                       <table cellpadding="2" cellspacing="0" width="100%" border="0" class="gridheader" style="border-collapse:collapse">
+                                        <tr >
+                                            <td style="width:250px; text-align:left; font-weight:bold;">Net Payable / Month : </td>
+                                            <td style="width:100px; text-align:right;" ><asp:Label runat="server" ID="lblNetPayable" Font-Bold="true" ></asp:Label></td>
+                                            <td style=""><i>( Excluding CTC & yearly heads )</i></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:250px; text-align:left; font-weight:bold;">Annual CTC : </td>
+                                            <td style="width:100px; text-align:right;" > <asp:Label runat="server" ID="lblCTC" Font-Bold="true" ></asp:Label></td>
+                                            <td style=""><i> ( ( Monthly Income - Monthly Deduction) * 12 ) + Yearly Income - Yearly Deduction </i></td>
+                                        </tr>
+                                           
+                                        </table>
+                                  </td>
+                                 
+                              </tr>
+                              </table>               
+        <div style="padding:6px; font-size:20px; text-align:center">
+             <asp:Button ID="btnUpdateRevisionPopup" runat="server" Text="Edit Revision" CssClass="btn" OnClick="btnUpdateRevisionPopup_OnClick" Visible="false" />
+                        <asp:Button ID="btn_Add" runat="server" CausesValidation="false" CssClass="btn" OnClick="btn_AddRevision_Click" Text="New Revision" />
+            </div>
+    </div>
+        <%--New Revision--%>
+        <div style="position:absolute;top:0px;left:0px; height :100%; width:100%;z-index:100;" runat="server" id="dvSalaryRevision" visible="false" >
+    <center>
+    <div style="position:absolute;top:0px;left:0px; height :100%; width:100%; background-color :Gray;z-index:100; opacity:0.4;filter:alpha(opacity=40)"></div>
+    <div style="position :relative; width:750px;text-align :center; border :solid 5px #000000;padding-bottom:5px; background : white; z-index:150;top:100px;opacity:1;filter:alpha(opacity=100)">
+        <center>
+            <div style="background-color:#37afeb;padding:5px;font-size:20px;"> New Revision </div>
+                <table border="0" cellpadding="6" cellspacing="0" style="width:100%;border-collapse:collapse;">
+                    <tr>
+                        <td style="width:150px;">Employee Name :</td>
+                        <td>
+                           <asp:Label ID="lblEmployeeName" runat="server" ></asp:Label>
+                        </td>
+                    </tr>
+                    </table>
+
+               
+                <table border="0" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse;" class="gridheader">
+                     <col width="180px"/>
+                        <col width="180px"/>
+                        <col />
+                    <tr>
+                            <td> Head Name</td>
+                             <td> Amount</td>
+                                <td></td>
+                        </tr>
+                    </table>
+
+                    <table border="0" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse;" class="gridrow"> 
+                        <col width="180px"/>
+                        <col width="180px"/>
+                        <col />
+                    <asp:Repeater ID="rptEmployeeLastHeadValues" runat="server" >
+                        
+                        <ItemTemplate>
+                            <tr class='<%#"cls_" + Eval("Income_Ded").ToString() %>'>
+                                <td style="text-align:left;"> 
+                                    <%#Eval("HeadName") %>
+                                    <asp:HiddenField ID="hfHeadID" runat="server" Value='<%#Eval("HeadID") %>' />
+                                </td>
+                                <td style="text-align:right"> 
+                                    <asp:TextBox ID="txtHeadValue" runat="server" Text='<%#Eval("HeadValue") %>' style="text-align:right;" class='<%#(Eval("YEARLYHEAD").ToString()!="Y")? ("InvomeDeductionvalue " + Eval("Income_Ded").ToString()):"" %>'  ></asp:TextBox>
+                                    <%--CssClass='InvomeDeductionvalue <%#Eval("Income_Ded").ToString() %>'--%>
+                                </td>
+                                <td style="">
+                                    <%#((Eval("YearlyHead").ToString()=="Y")?"Yearly":"Monthly")%>
+                                    <%#((Eval("Income_Ded").ToString()=="C")?" / CTC Only":"")%>
+
+                                </td>
+                                <%--<td style=""><%#((Eval("YearlyHead").ToString()=="Y")?("Payable in " + new DateTime(2016,Common.CastAsInt32(Eval("PayInMonth")),1).ToString("MMM")) + " Only":"")%></td>--%>
+                            </tr>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </table>
+            <table border="0" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse; font-weight:bold;" class="gridheader">
+                     <col width="180px"/>
+                        <col width="180px"/>
+                        <col />
+                    <tr>
+                            <td> New Payable Monthly </td>
+                            <td style="text-align:right">  <asp:Label runat="server" ID="lblReviseTotal" Text="0" CssClass="ReviseTotal"></asp:Label>  </td>
+                                <td> (Excluding bonus & CTC only heads) </td>
+                        </tr>
+                    </table>
+            <div style="padding:10px; font-weight:bold;">
+                <table border="0" cellpadding="3" cellspacing="0" style="border-collapse:collapse;" > 
+                        <col />
+                    <tr>
+                        <td>Revised From : </td>
+                        <td>
+                            <asp:DropDownList runat="server" ID="ddlMonth">
+                            <asp:ListItem Text="Jan" Value="1"></asp:ListItem>
+                            <asp:ListItem Text="Feb" Value="2"></asp:ListItem>
+                            <asp:ListItem Text="Mar" Value="3"></asp:ListItem>
+                            <asp:ListItem Text="Apr" Value="4"></asp:ListItem>
+                            <asp:ListItem Text="May" Value="5"></asp:ListItem>
+                            <asp:ListItem Text="Jun" Value="6"></asp:ListItem>
+                            <asp:ListItem Text="Jul" Value="7"></asp:ListItem>
+                            <asp:ListItem Text="Aug" Value="8"></asp:ListItem>
+                            <asp:ListItem Text="Sep" Value="9"></asp:ListItem>
+                            <asp:ListItem Text="Oct" Value="10"></asp:ListItem>
+                            <asp:ListItem Text="Nov" Value="11"></asp:ListItem>
+                            <asp:ListItem Text="Dec" Value="12"></asp:ListItem>
+                          </asp:DropDownList>
+
+                            &nbsp;<asp:DropDownList runat="server" ID="ddlYear"></asp:DropDownList>
+                        </td>
+                    </tr>
+                    </table>
+                </div>
+                <asp:UpdatePanel ID="UpdatePanel001" runat="server">
+                    <ContentTemplate>
+
+                    
+                <div style="height:50px;">
+                <asp:Button ID="btnSaveRevisedSalary" runat="server" CssClass="btn" onclick="btnSaveRevisedSalary_Click" Text="Save" CausesValidation="false" Width="100px" />
+                <asp:Button ID="btnClosePopup" runat="server" CssClass="btn" onclick="btnClosePopup_Click" Text="Close" CausesValidation="false" Width="100px" />
+                    <div style="padding-top:5px;">
+                         <asp:Label ID="lblMsgSalaryRevision" runat="server" style="color:red;"></asp:Label>
+                        </div>
+                    </div>
+                        </ContentTemplate>
+                    <Triggers > 
+                        <asp:PostBackTrigger ControlID="btnClosePopup" />
+                    </Triggers>
+                </asp:UpdatePanel>
+             <table border="0" cellpadding="6" cellspacing="0" style="width:100%;border-collapse:collapse;">
+                    <tr>
+                        <td colspan="2" style="text-align:center; background-color:#37afeb">
+                            Total propersed Increment for <%=(DateTime.Now.ToString("yyyy")) %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Revised Amount : <asp:Label ID="lblPropesedAmount" runat="server"  Font-Bold="true"></asp:Label>  </td>
+                        <td> Bonus Amount : <asp:Label ID="lblPropesedBonus" runat="server"  Font-Bold="true"></asp:Label>  </td>
+                    </tr>
+                </table>
+            </center>
+    </div>
+        </center>
+            </div>
+
+        <%--Update Revision--%>
+        <div style="position:absolute;top:0px;left:0px; height :100%; width:100%;z-index:100;" runat="server" id="dvSalaryRevisionUpdate" visible="false" >
+    <center>
+    <div style="position:absolute;top:0px;left:0px; height :100%; width:100%; background-color :Gray;z-index:100; opacity:0.4;filter:alpha(opacity=40)"></div>
+    <div style="position :relative; width:750px;text-align :center; border :solid 5px #000000;padding-bottom:5px; background : white; z-index:150;top:100px;opacity:1;filter:alpha(opacity=100)">
+        <center>
+            <div style="background-color:#37afeb;padding:5px; font-size:17px;"> Modify Revision For ( <asp:Label ID="lblRevDate" runat="server" Font-Size="17px"></asp:Label> ) </div>
+                
+                <table border="0" cellpadding="6" cellspacing="0" style="width:100%;border-collapse:collapse;">
+                    <tr>
+                        <td style="width:150px;">Employee Name :</td>
+                        <td>
+                           <asp:Label ID="lblEmployeeNameU" runat="server"></asp:Label>
+                        </td>
+                    </tr>
+                    </table>
+                   
+                <table border="0" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse;" class="gridheader">
+                     <col width="180px"/>
+                        <col width="180px"/>
+                        <col />
+                    <tr>
+                            <td> Head Name</td>
+                             <td> Amount</td>
+                                <td></td>
+                        </tr>
+                    </table>
+                       <asp:HiddenField ID="hfLastRevisionID" runat="server" />
+                    <table border="0" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse;" class="gridrow"> 
+                        <col width="180px"/>
+                        <col width="180px"/>
+                        <col />
+                    <asp:Repeater ID="rptEmployeeLastHeadValuesU" runat="server" >
+                        
+                        <ItemTemplate>
+                            <tr class='<%#"cls_" + Eval("Income_Ded").ToString() %>'>
+                                <td> 
+                                    <%#Eval("HeadName") %>
+                                    <asp:HiddenField ID="hfHeadIDU" runat="server" Value='<%#Eval("HeadID") %>' />
+                                </td>
+                                <td style="text-align:right"> 
+                                    <asp:TextBox ID="txtHeadValueU" runat="server" Text='<%#Eval("HeadValue") %>' style="text-align:right;" class='<%#(Eval("YEARLYHEAD").ToString()!="Y")? ("InvomeDeductionvalueU " + Eval("Income_Ded").ToString()+"U"):"" %>'></asp:TextBox>
+                                </td>
+                                <td style="">
+                                    <%#((Eval("YearlyHead").ToString()=="Y")?"Yearly":"Monthly")%>
+                                    <%#((Eval("Income_Ded").ToString()=="C")?" / CTC Only":"")%>
+
+                                </td>
+                                <%--<td style=""><%#((Eval("YearlyHead").ToString()=="Y")?("Payable in " + new DateTime(2016,Common.CastAsInt32(Eval("PayInMonth")),1).ToString("MMM")) + " Only":"")%></td>--%>
+                            </tr>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </table>
+            
+            <table border="0" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse; font-weight:bold;" class="gridheader">
+                     <col width="180px"/>
+                        <col width="180px"/>
+                        <col />
+                    <tr>
+                            <td> New Payable Monthly : </td>
+                             <td style="text-align:right">  <asp:Label runat="server" ID="lblReviseTotalU" Text="0" CssClass="ReviseTotalU"></asp:Label>  </td>
+                              <td> (Excluding bonus & CTC only heads) </td>
+                        </tr>
+                    </table>
+            <br />
+            <asp:UpdatePanel ID="UpdatePanel002" runat="server">
+                <ContentTemplate>
+               <div style="height:50px;">
+                <asp:Button ID="btnSaveRevisedSalaryU" runat="server" CssClass="btn" onclick="btnSaveRevisedSalaryU_Click" Text="Update" CausesValidation="false" Width="100px" />
+                <asp:Button ID="btnClosePopupU" runat="server" CssClass="btn" onclick="btnClosePopupU_Click" Text="Close" CausesValidation="false" Width="100px" />
+                    <div style="padding-top:5px;">
+                         <asp:Label ID="lblMsgSalaryRevisionU" runat="server" style="color:red;"></asp:Label>
+                        </div>
+                    </div>
+
+                    </ContentTemplate>
+                <Triggers>
+                    <asp:PostBackTrigger ControlID="btnClosePopupU" />
+                </Triggers>
+            </asp:UpdatePanel>
+            </center>
+          <table border="0" cellpadding="6" cellspacing="0" style="width:100%;border-collapse:collapse;">
+                    <tr>
+                        <td colspan="2" style="text-align:center; background-color:#37afeb">
+                            Approved Increment for <%=(DateTime.Now.ToString("yyyy")) %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Monthly Revised Salary : <asp:Label ID="lblPropesedAmountU" runat="server" Font-Bold="true"></asp:Label>  </td>
+                        <td>Annual Bonus Amount : <asp:Label ID="lblPropesedBonusU" runat="server" Font-Bold="true"></asp:Label>  </td>
+                    </tr>
+           </table>
+    </div>
+        </center>
+            </div>
+
+        
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                
+                $(".InvomeDeductionvalue").change(function () {
+                    var TE = 0;
+                    var TD = 0;
+                    $.each($(".I"), function () {
+                        if ($(this).val() != "") {
+                            TE = TE + parseFloat($(this).val());
+                        }
+                    });
+
+                    $.each($(".D"), function () {
+                        if ($(this).val() != "") {
+                            TD = TD + parseFloat($(this).val());
+                        }
+                    });
+                    $(".ReviseTotal").html(TE - TD);
+                });
+
+                $(".InvomeDeductionvalueU").change(function () {
+                    var TE = 0;
+                    var TD = 0;
+                    $.each($(".IU"), function () {
+                        if ($(this).val() != "") {
+                            TE = TE + parseFloat($(this).val());
+                        }
+                    });
+
+                    $.each($(".DU"), function () {
+                        if ($(this).val() != "") {
+                            TD = TD + parseFloat($(this).val());
+                        }
+                    });
+                    $(".ReviseTotalU").html(TE - TD);
+                });
+            })
+        </script>
+    </form>
+</body>
+</html>

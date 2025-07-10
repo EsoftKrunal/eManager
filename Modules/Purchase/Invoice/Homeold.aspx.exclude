@@ -1,0 +1,506 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Home.aspx.cs" Inherits="Invoice_Home" %>
+
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>POS-Invoice Register</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <script type="text/javascript" src="JS/jquery.min.js"></script>
+     <script src="JS/AutoComplete/knockout-2.2.1.js" type="text/javascript"></script>
+     <!-- Auto Complete -->
+     <link rel="stylesheet" href="JS/AutoComplete/jquery-ui.css" />
+     <script src="JS/AutoComplete/jquery-ui.js" type="text/javascript"></script>
+     <script type="text/javascript">
+         function RegisterAutoComplete() {
+             $(function () {
+                 //------------
+                 function log(message) {
+                     $("<div>").text(message).prependTo("#log");
+                     $("#log").scrollTop(0);
+                 }
+                 //------------
+                 
+                 $("#txtF_Vendor").autocomplete(
+                 {
+                     source: function (request, response) {
+                         $.ajax({
+                             url: getBaseURL() + "/Purchase/Invoice/getautocompletedata.ashx",
+                             dataType: "json",
+                             headers: { "cache-control": "no-cache" },
+                             type: "POST",
+                             data: { Key: $("#txtF_Vendor").val(), Type: "VEN" },
+                             cache: false,
+                             success: function (data) {
+                                 response($.map(data.geonames, function (item) { return { label: item.SupplierName, value: item.SupplierName, id: item.SupplierId} }
+                                    ));
+                             }
+                         });
+                     },
+                     minLength: 2,
+                     select: function (event, ui) {
+                         log(ui.item ? "Selected: " + ui.item.label : "Nothing selected, input was " + this.value);
+//                         $("#hfdSupplier").val(ui.item.id);
+                     },
+                     open: function () {
+                         $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
+                     },
+                     close: function () {
+                         $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
+                     }
+                 });
+                 //---------------
+             });
+         }
+         function getBaseURL() {
+
+             var url = window.location.href.split('/');
+             var baseUrl = url[0] + '//' + url[2] + '/' + url[3];
+             return baseUrl;
+         }
+     </script>
+  <script type="text/javascript" src="JS/KPIScript.js"></script>
+    <style type="text/css">
+    .style1
+    {
+        text-align :left; 
+        font-size :13px;  
+        font-family:Arial Unicode MS; 
+        color :#222222; 
+        padding :5px; 
+        border-style:none;
+        text-align :left; 
+        width:600px;
+    }
+    .style2
+    {
+    	text-align :left; 
+        font-size :13px;  
+        font-family:Comic Sans MS; 
+        color :Red; 
+    }
+    .gridheadings
+    {
+    	background-color :#008AE6;
+    	color : White ;
+    	font-size :13px; 
+    	border :dotted 1px Black;
+    	padding :2px;
+    }
+    </style>
+    <style type="text/css">
+    body
+    {
+        font-family:Verdana;
+        font-size:12px;
+        margin:0px;
+    }
+    .round
+    {
+          background: #FFD6D6;
+          border-radius: 28px;
+          font-family: Arial;
+          color: Black;
+          font-size: 13px;
+          padding: 10px 20px 10px 20px;
+          text-decoration: none;
+          width:30px;
+    }
+    .round1
+    {
+          background: #99CCFF;         
+          border-radius: 28px;
+          font-family: Arial;
+          color: #000000;
+          font-size: 13px;
+          padding: 10px 20px 10px 20px;
+          text-decoration: none;
+}    
+    </style>
+    <script type="text/javascript" >
+//         background: #3498db;
+         function OpenAddWindow() {
+             winref = window.open('../Invoice/InvoiceEntry.aspx', '', '');
+             return false;
+         }
+
+         function OpenApprovalWindow(w) {
+             var InvId = w.getAttribute("invid");
+             winref = window.open('../Invoice/InvoiceEntry.aspx?InvId=' + InvId, '', '');
+             return false;
+         }
+
+         function download(m) {
+             var getvalue = m.getAttribute("invid");
+//             alert(getvalue);
+             var hf = document.getElementById("hfInvId");
+             var btn = document.getElementById("btndownload");
+             hf.value = getvalue;
+//             alert(hf.value);
+             btn.click();
+         }
+         function EditInv(InvId) {
+
+             winref = window.open('InvoiceEntry.aspx?InvoiceId=' + InvId, '', '');
+             return false;
+         }
+         function viewInv(InvId) {
+
+             winref = window.open('ViewInvoice.aspx?InvoiceId=' + InvId, '', '');
+             return false;
+         }
+         function PrintVoucher(InvId) {
+
+             winref = window.open('PaymentVoucher.aspx?PaymentId=' + InvId + '&PaymentMode=O', '', '');
+             return false;
+         }
+
+         
+    </script>       
+</head>
+<body>
+    <form id="form1" runat="server" defaultbutton="btnSearch">
+    <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" ></asp:ToolkitScriptManager>
+    <asp:UpdateProgress runat="server" AssociatedUpdatePanelID="UpdatePanel1" ID="UpdateProgress1">
+                                            <ProgressTemplate>
+                                                <div style="background-color:Black; opacity:0.4;filter:alpha(opacity=40); width:100%; z-index:50; min-height:100%; position:absolute; top:0px; left:0px;" ></div>
+                                                <div style="position: absolute; top: 300px; left: 0px; width: 100%; z-index: 100;
+                                                    text-align: center; color: Blue;">
+                                                    <center>
+                                                        <div style="border: solid 2px blue; height: 50px; width: 120px; background-color: White;">
+                                                            <img src="../Images/loading.gif" alt="loading">
+                                                            Loading ...
+                                                        </div>
+                                                    </center>
+                                                </div>
+                                            </ProgressTemplate>
+                                        </asp:UpdateProgress>
+    <div>
+    <table width="100%">
+            <tr>
+                <td valign="top" style="border:solid 1px #4371a5; height:477px;">
+                    
+                    <table cellpadding="5" cellspacing="0" width="100%">
+                        <tr>
+                            <%--<td style="text-align:left;font-size :16px; width:200px;">Hi,&nbsp;<asp:Label id="lblEmpName" Font-Names="Verdana" runat="server" Font-Size="15px" ></asp:Label></td>
+                            <td style="text-align :center"><asp:Label id="lblCurrentYear" Font-Names="Verdana" runat="server" Font-Size="15px" ></asp:Label></td>
+                            <td style="text-align:right;font-size :16px; width:200px;">&nbsp;</td>--%>
+                            <td style=" background-color:#008AE6; color:White; font-size:15px; font-weight:bold;">Invoice Register</td>
+                        </tr>
+                    </table>
+                    <div style="text-align :left; font-size :14px; color :Black;">
+                      <table width="100%" cellpadding="0" cellspacing ="0" border="0">
+                            <tr>
+                                <td width="60%" valign="top">
+                                <center>
+                                <table width="100%" cellpadding="5" cellspacing ="0" border="0" height="110px">
+                                <tr style="font-size:12px">
+                                <td style="width:25%; text-align:center;"><div class="round1">Process Stage</div></td>
+                                <td style="width:25%;text-align:center;"><div class="round1">Approval Stage</div></td>
+                                <td style="width:25%;text-align:center;"><div class="round1">Payment Stage</div></td>
+                                <td style="text-align:center;"><div class="round1">Overdue Invoices</div></td>
+                                </tr>
+                                <tr style="font-size:12px">
+                                <td style="background-color:white; text-align:center;"><center><a href="InvoiceList.aspx?Mode=1" target="_blank"><div class="round"><asp:Label runat="server" ID="lblC1" Font-Bold="true"></asp:Label></div></a></center></td>
+                                <td style="background-color:white; text-align:center;"><center><a href="InvoiceList.aspx?Mode=2" target="_blank"><div class="round"><asp:Label runat="server" ID="lblC2" Font-Bold="true"></asp:Label></div></a></center></td>
+                                <td style="background-color:white; text-align:center;"><center><a href="InvoiceList.aspx?Mode=3" target="_blank"><div class="round"><asp:Label runat="server" ID="lblC3" Font-Bold="true"></asp:Label></div></a></center></td>
+                                <td style="background-color:white; text-align:center;"><center><a href="OverDueInvoiceList.aspx" target="_blank"><div class="round"><asp:Label runat="server" ID="lblC4" Font-Bold="true"></asp:Label></div></a></center></td>
+                                </tr>
+                                <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                </tr>
+                                </table>
+                                </center>
+                                </td>
+                                <td width="40%" style="padding-left :10px;" >
+                                     <table width="100%" cellpadding="0" cellspacing ="0" border="0">
+                                         <tr>
+                                             <td style="vertical-align:top">
+                                                 <table width="100%" cellpadding="2" cellspacing ="0" border="0" >
+                                       <tr >
+                                            <td style="text-align :left" valign="top">
+                                                <div runat="server" id="trAdd">
+                                                    ► <a href="#" id="AddInvoice" onclick="OpenAddWindow();" ><span style="color:#2A5D94; font-size:12px;">Add Invoice</span></a>
+                                                    <asp:Button ID="btnAddInvoice" runat="server" style="display:none;" onclick="btnAddInvoice_Click" CausesValidation="false"/>           
+                                                </div>
+                                              
+                                             </td>
+                                             
+                                        </tr>
+                                       <tr>
+                                            <td style="text-align :left" valign="top">
+                                                ► <a id="FindInvoice" href="FindInvoice.aspx" target="_blank" ><span style="color:#2A5D94; font-size:12px;">Find Invoice</span></a>
+                                                <asp:Button ID="btnFindInvoice" runat="server" style="display:none;" onclick="btnFindInvoice_Click" CausesValidation="false"/>           
+                                                
+                                             </td>
+                                            
+                                        </tr>
+                                        <tr runat="server" id="trAdmin">
+                                            <td style="text-align :left" valign="top">
+                                                ► <a href="InvoiceManagement.aspx" id="LeaveStatus" target="_blank"><span style="color:#2A5D94; font-size:12px;">Invoice Management</span></a>
+                                               
+                                            </td>
+                                           
+                                        </tr>
+                                         <tr>
+                                            <td style="text-align :left" valign="top">
+                                                ► <a href="InvoiceReports.aspx" id="InvoiceReports" target="_blank"><span style="color:#2A5D94; font-size:12px;">Reports</span></a>
+                                                
+                                            </td>
+                                           
+                                        </tr>
+                                        <tr runat="server" id="trClaim">
+                                            <td style="text-align :left" valign="top">
+                                                ► <a href="ExpenseClaim.aspx" id="A2" target="_blank"><span style="color:#2A5D94; font-size:12px;">Expense Claim</span></a>
+                                                <br />
+                                                
+                                            </td>
+                                           
+                                        </tr>
+                                     </table>
+                                             </td>
+                                             <td style="vertical-align:top">
+                                                 <table width="100%" cellpadding="2" cellspacing ="0" border="0">
+                                                     <tr  runat="server" id="trPayment">
+                                            <td style="text-align :left" valign="top">
+                                                 <div>
+                                                    ► <a href="PaymentVoucherList.aspx" id="A1" target="_blank"><span style="color:#2A5D94; font-size:12px;">Payment Voucher</span></a>
+                                                </div>
+                                                </td>
+                                                     </tr>
+                                                     <tr runat="server" id="trOwnerBalance" visible="false">
+                                                    <td style="text-align :left" valign="top">
+                                                ► <a href="OwnerAccount.aspx" target="_blank" runat="server" id="aOwneracc"><span style="color:#2A5D94; font-size:12px;">Owner's Account</span></a>    
+                                            </td>
+                                                     </tr>
+                                                      <tr  runat="server" id="trExport">
+                                                        <td style="text-align :left" valign="top">
+                                                             <div>
+                                                                ► <a href="ExportToTraverse.aspx" target="_blank"><span style="color:#2A5D94; font-size:12px;">Export To Traverse</span></a>
+                                                            </div>
+                                                            </td>
+                                                     </tr>
+                                                     </table>
+                                             </td>
+                                         </tr>
+                                         </table>
+                                     
+                                </td>
+                            </tr>     
+                       </table>
+                    </div>
+                    <table width="100%" cellpadding="0" cellspacing="3" border="0">
+                        <tr>
+                            <td valign="top">
+                                <%--<div class="gridheadings">My Invoices</div>--%>
+                                <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+                                    <ContentTemplate>                                        
+                                    <div id="divApproval" runat="server" style="text-align:left">
+                                      <table border="1" bordercolor="#008AE6" cellpadding="4" cellspacing="0" rules="all" style="width:100%; height:60px;  border-collapse:collapse;">
+                                            <colgroup>
+                                             <col style="width:80px; text-align:center;"/>
+                                             <col />
+                                             <col style="width:80px;" />
+                                             <col style="width:80px;" />
+                                             <col style="width:150px;" />
+                                             <col style="width:150px;" />
+                                             <col style="width:100px;" />
+                                             <col style="width:100px;" />
+                                             <col style="width:200px;" />
+                                             </colgroup>
+                                                <tr align="center" style=" background-color:#008AE6; color:White; " > <%--background-color:#008AE6--%>
+                                                <td>Ref #</td>
+                                                <td>Vendor</td>
+                                                <td>Inv #</td>
+                                                <td>Curr #</td>
+                                                <td>Owner</td>
+                                                <td>Vessel</td>
+                                                <td>Status</td>
+                                                <td>Stage</td>
+                                                <td></td>
+                                                </tr> 
+                                                <tr align="center"  >
+                                                    <td><asp:TextBox ID="txtF_RefNo" Width="95%"  style="border:solid 1px #008AE6;" runat="server"></asp:TextBox> </td>
+                                                    <td><asp:TextBox ID="txtF_Vendor" Width="98%"  style="border:solid 1px #008AE6;" runat="server"></asp:TextBox> </td>
+                                                    <td><asp:TextBox ID="txtF_InvNo" Width="95%"  style="border:solid 1px #008AE6;" runat="server"></asp:TextBox> </td>
+                                                    <td><asp:DropDownList ID="ddCurrency"  runat="server" CssClass="input_box" Width="60px"></asp:DropDownList></td>
+                                                    <td><asp:DropDownList ID="ddlF_Owner" runat="server"  Width="95%" OnSelectedIndexChanged="ddlF_Owner_OnSelectedIndexChanged" AutoPostBack="true"></asp:DropDownList></td>
+                                                    <td><asp:DropDownList ID="ddlF_Vessel" runat="server"  Width="95%"></asp:DropDownList></td>
+                                                    <td><asp:DropDownList ID="ddlF_Status"   runat="server"  Width="95%">
+                                                             <asp:ListItem Text="All" Value=""></asp:ListItem>
+                                                             <asp:ListItem Text="Paid" Value="Paid"></asp:ListItem>
+                                                             <asp:ListItem Text="UnPaid" Value="UnPaid"></asp:ListItem>
+                                                             <%--<asp:ListItem Text="Cancelled" Value="Cancelled"></asp:ListItem>--%>
+                                                        </asp:DropDownList></td>
+                                                    <td><asp:DropDownList ID="ddlF_Stage"  runat="server"  Width="95%">
+                                                             <asp:ListItem Text="All" Value=""></asp:ListItem>
+                                                             <asp:ListItem Text="Entry" Value="0"></asp:ListItem>
+                                                             <asp:ListItem Text="Processing" Value="1"></asp:ListItem>
+                                                             <asp:ListItem Text="Approval" Value="2"></asp:ListItem>
+                                                             <asp:ListItem Text="Payment" Value="3"></asp:ListItem>
+                                                        </asp:DropDownList></td>
+                                                    <td colspan="2" style="text-align:center;">
+                                                    <asp:ImageButton runat="server" ID="btnReset" ImageUrl="~/Images/reset.png" OnClick="btnReset_Click" ToolTip="Clear" />
+                                                    <asp:Button ID="btnSearch" runat="server" Text="Search" Width="80px" OnClick="ShowMyInvoices" Style="background-color: orange; color: White; border: none; padding: 0px;" />&nbsp;
+                                                        <asp:Button ID="btnPay" runat="server" Text="Pay" Width="80px" OnClick="btnPay_Click" Style="background-color: orange; color: White; border: none; padding: 0px;" />
+                                                    
+                                                    </td>
+                                                </tr>
+                                          
+                                                </table>
+                                    <div style="OVERFLOW-Y: scroll; OVERFLOW-X: hidden;HEIGHT: 30px ; text-align:center; border-bottom:none;">
+                                           <table border="1" bordercolor="white" cellpadding="4" cellspacing="0" rules="all" style="width:100%; height:30px;  border-collapse:collapse;">
+                                            <colgroup>
+                                                <col style="width:25px;"/>
+                                                <%--<col style="width:25px;"/>--%>
+                                                <col style="width:80px; text-align:center;"/>
+                                                <col />
+                                                <col style="width:150px;" />
+                                                <col style="width:90px;" />
+                                                <col style="width:90px;" />
+                                                <col style="width:40px;" />
+                                                <col style="width:100px;" />
+                                                <col style="width:50px;" />
+                                                <col style="width:105px;" />
+                                                <col style="width:80px;" />
+                                                <col style="width:80px;" />
+                                                <col style="width:25px;"/>
+                                                <col style="width:25px;"/>
+                                                <tr align="left" style=" background-color:Gray; color:White;" >
+                                                    <td></td>
+                                                    <%--<td></td>--%>
+                                                    <td>Ref #</td>
+                                                    <td>Vendor</td>
+                                                    <td>Inv #</td>
+                                                    <td>Inv Dt.</td>
+                                                    <td>Inv Amt</td>
+                                                    <td>Curr.</td>
+                                                    <td>Payment Due</td>
+                                                    <td>Vessel</td>
+                                                    <td>MTM Voucher #</td>
+                                                    <td>Stage</td>
+                                                    <td>Curr. User</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                            </colgroup>
+                                        </table>
+                                        </div>         
+                                            <div id="divLeavesApproval" runat="server" class="ScrollAutoReset" style="OVERFLOW-Y: scroll; OVERFLOW-X: hidden; HEIGHT: 245px; text-align:center;">
+                                            <table border="1" bordercolor="#F0F5F5" cellpadding="4" cellspacing="0" style=" text-align: center; border-collapse:collapse; width:100%;">
+                                                <colgroup>
+                                                    <col style="width:25px;"/>
+                                                    <%--<col style="width:25px;"/>--%>
+                                                    <col style="width:80px;"/>
+                                                    <col />
+                                                    <col style="width:150px;" />
+                                                    <col style="width:90px;" />
+                                                    <col style="width:90px;" />
+                                                    <col style="width:40px;" />
+                                                    <col style="width:100px;" />
+                                                    <col style="width:50px;" />
+                                                    <col style="width:105px;" />
+                                                    <col style="width:80px;" />
+                                                    <col style="width:80px;" />
+                                                    <col style="width:25px;"/>
+                                                    <col style="width:25px;"/>
+                                                </colgroup>
+                                                <asp:Repeater ID="RptMyInvoices" runat="server">
+                                                    <ItemTemplate>
+                                                        <tr>
+                                                            <td><asp:CheckBox ID="chkpay" CssClass='<%#Eval("InvoiceId")%>' Visible='<%#( Eval("Status").ToString().Trim() == "UnPaid" && Eval("Stage").ToString().Trim() == "3") %>'  runat="server" />
+                                                                <a onclick='EditInv(<%#Eval("InvoiceId")%>);'  href="#" style='<%#(EditAllowed && Common.CastAsInt32(Eval("Stage")) <=1 && Eval("Status").ToString().Trim() == "UnPaid" && Eval("EntertedBy").ToString().Trim() == UserId.ToString() ) ? "" : "display:none" %>'  > <img src="../Images/AddPencil.gif" title="Edit Invoice" alt="" style="border:none;" /></a>
+                                                            </td>
+                                                            <%--<td>
+                                                                <a onclick='PrintVoucher(<%#Eval("PAYMENTID")%>);'  href="#" style='<%#(( Eval("Status").ToString().Trim() == "Paid" && Eval("Stage").ToString().Trim() == "3")) ? "" : "display:none" %>'  > <img src="../Images/printer12x12.png" title="Print Voucher" alt="" style="border:none;" /></a>
+                                                            </td>--%>
+                                                            <td align="left"><a onclick='viewInv(<%#Eval("InvoiceId")%>);' href="#"  > <%#Eval("RefNo")%></a></td>
+                                                            <td align="left"><%#Eval("Vendor")%> <b style='color:Red'><i> ( <%#Eval("VendorCode")%> ) </i></b></td>                                                            
+                                                            <td align="left"><%#Eval("InvNo")%></td>
+                                                            <td align="left"><%#Common.ToDateString(Eval("InvDate"))%></td>
+                                                            <td align="right"><%#Eval("InvoiceAmount")%></td>
+                                                            <td align="left"><%#Eval("Currency")%></td>
+                                                            <td align="left"><%#Common.ToDateString(Eval("DueDate"))%></td>
+                                                            <td align="left"><%#Eval("INVVesselCode")%> </td>
+                                                            <td align="left"><a onclick='PrintVoucher(<%#Eval("PAYMENTID")%>);'  href="#" style='<%#(( Eval("Status").ToString().Trim() == "Paid" && Eval("Stage").ToString().Trim() == "3")) ? "" : "display:none" %>'  ><%#Eval("VoucherNo")%></a></td>   
+                                                            <td align="left"><%#Eval("StageText")%></td>
+                                                            <td align="left"><%#Eval("CurrentUser")%> </td>
+                                                            <td style="text-align:center;">
+                                                              <img id="Img3" src="../Images/paperclip.gif" onclick="download(this);" invid='<%#Eval("InvoiceId")%>' style='<%#(Eval("AttachmentName").ToString() != "") ? "" : "visibility:hidden" %>'  title="download attachment" runat="server" alt=""  />
+                                                            </td>
+                                                            <td>
+
+                                                            <img id="Img1" src="../Images/green_circle.gif" runat="server" visible='<%#((Common.CastAsInt32(Eval("LINKED_COUNT"))<=0)?(Eval("Booked").ToString()=="True"):(Common.CastAsInt32(Eval("LINKED_COUNT"))<=Common.CastAsInt32(Eval("TRAV_COUNT"))))%>'  />
+                                                            <img id="Img2" src="../Images/red_circle.png"  runat="server" visible='<%#((Common.CastAsInt32(Eval("LINKED_COUNT"))<=0)?(Eval("Booked").ToString()=="False"):(Common.CastAsInt32(Eval("LINKED_COUNT"))>Common.CastAsInt32(Eval("TRAV_COUNT"))))%>'  />
+
+                                                           <%-- <img id="Img1" src="../Images/green_circle.gif" runat="server" visible='<%#(Common.CastAsInt32(Eval("LINKED_COUNT"))<=Common.CastAsInt32(Eval("TRAV_COUNT")))%>'  />
+                                                            <img id="Img2" src="../Images/red_circle.png"  runat="server" visible='<%#(Common.CastAsInt32(Eval("LINKED_COUNT"))>Common.CastAsInt32(Eval("TRAV_COUNT")))%>'  />--%>
+                                                            </td>
+                                                        </tr>
+                                                    </ItemTemplate>
+                                                    <AlternatingItemTemplate>
+                                                       <tr style="background-color:#E6F3FC" >
+                                                            <td><asp:CheckBox ID="chkpay" CssClass='<%#Eval("InvoiceId")%>' Visible='<%#( Eval("Status").ToString().Trim() == "UnPaid" && Eval("Stage").ToString().Trim() == "3") %>'  runat="server" />
+                                                                <a onclick='EditInv(<%#Eval("InvoiceId")%>);'  href="#" style='<%#(EditAllowed && Common.CastAsInt32(Eval("Stage")) <=1 && Eval("Status").ToString().Trim() == "UnPaid" && Eval("EntertedBy").ToString().Trim() == UserId.ToString() ) ? "" : "display:none" %>'  > <img src="../Images/AddPencil.gif" title="Edit Invoice" alt="" style="border:none;" /></a>
+                                                            </td>
+                                                             <%--<td>
+                                                                <a onclick='PrintVoucher(<%#Eval("PAYMENTID")%>);'  href="#" style='<%#(( Eval("Status").ToString().Trim() == "Paid" && Eval("Stage").ToString().Trim() == "3")) ? "" : "display:none" %>'  > <img src="../Images/printer12x12.png" title="Print Voucher" alt="" style="border:none;" /></a>
+                                                            </td>  --%>                                                         
+                                                            <td align="left"><a onclick='viewInv(<%#Eval("InvoiceId")%>);' href="#"  > <%#Eval("RefNo")%></a></td>
+                                                            <td align="left"><%#Eval("Vendor")%> <b style='color:Red'><i> ( <%#Eval("VendorCode")%> ) </i></b></td>                                                                                                                   
+                                                            <td align="left"><%#Eval("InvNo")%></td>
+                                                            <td align="left"><%#Common.ToDateString(Eval("InvDate"))%></td>
+                                                            <td align="right"><%#Eval("InvoiceAmount")%></td>
+                                                            <td align="left"><%#Eval("Currency")%></td>
+                                                            <td align="left"><%#Common.ToDateString(Eval("DueDate"))%></td>
+                                                            <td align="left"><%#Eval("INVVesselCode")%> </td>
+                                                            <td align="left"><a onclick='PrintVoucher(<%#Eval("PAYMENTID")%>);'  href="#" style='<%#(( Eval("Status").ToString().Trim() == "Paid" && Eval("Stage").ToString().Trim() == "3")) ? "" : "display:none" %>'  ><%#Eval("VoucherNo")%></a></td>   
+                                                            <td align="left"><%#Eval("StageText")%></td>
+                                                            <td align="left"><%#Eval("CurrentUser")%> </td>
+                                                            <td style="text-align:center;">
+                                                              <img id="Img3" src="../Images/paperclip.gif" onclick="download(this);" invid='<%#Eval("InvoiceId")%>' style='<%#(Eval("AttachmentName").ToString() != "") ? "" : "visibility:hidden" %>'  title="download attachment" runat="server" alt=""  />
+                                                            </td>
+                                                            <td>
+                                                            
+                                                            <%--<img id="Img1" src="../Images/green_circle.gif" runat="server" visible='<%#(Common.CastAsInt32(Eval("LINKED_COUNT"))<=Common.CastAsInt32(Eval("TRAV_COUNT")))%>'  />
+                                                            <img id="Img2" src="../Images/red_circle.png"  runat="server" visible='<%#(Common.CastAsInt32(Eval("LINKED_COUNT"))>Common.CastAsInt32(Eval("TRAV_COUNT")))%>'  />--%>
+
+                                                            <img id="Img1" src="../Images/green_circle.gif" runat="server" visible='<%#((Common.CastAsInt32(Eval("LINKED_COUNT"))<=0)?(Eval("Booked").ToString()=="True"):(Common.CastAsInt32(Eval("LINKED_COUNT"))<=Common.CastAsInt32(Eval("TRAV_COUNT"))))%>'  />
+                                                            <img id="Img2" src="../Images/red_circle.png"  runat="server" visible='<%#((Common.CastAsInt32(Eval("LINKED_COUNT"))<=0)?(Eval("Booked").ToString()=="False"):(Common.CastAsInt32(Eval("LINKED_COUNT"))>Common.CastAsInt32(Eval("TRAV_COUNT"))))%>'  />
+                                                            </td>
+                                                        </tr>
+                                                    </AlternatingItemTemplate>
+                                                </asp:Repeater>
+                                             </table>
+                                        </div>
+                                    </div>
+                                </ContentTemplate> 
+                                </asp:UpdatePanel>
+                                <asp:HiddenField ID="hfInvId" runat="server" />
+                                <asp:Button ID="btndownload" Text=""  OnClick="btnDownloadFile_Click" style="display:none;" runat="server" /> 
+                                 
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+       </table>
+
+    
+    </div>
+    </form>
+</body>
+<script type="text/javascript">
+    function Page_CallAfterRefresh() {
+        RegisterAutoComplete();
+    }
+    $(document).ready(function () {
+        RegisterAutoComplete();
+    });
+</script>
+</html>

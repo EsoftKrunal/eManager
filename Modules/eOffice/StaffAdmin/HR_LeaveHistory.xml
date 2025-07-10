@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<LeaveHistory>
+  <Leave>
+    <srno>1</srno>
+    <empno>Emp001</empno>
+    <leavetype>Sick Leave</leavetype>
+    <leavefrom>09-Sep-2011</leavefrom>
+    <leaveto>12-Sep-2011</leaveto>
+    <requestedOn>08-Sep-2011</requestedOn>
+    <apprejby>Admin</apprejby>
+    <apprejon>08-Sep-2011</apprejon>
+    <status>Approved</status>
+  </Leave>
+  <Leave>
+    <srno>2</srno>
+    <empno>Emp002</empno>
+    <leavetype>Paid Leave</leavetype>
+    <leavefrom>12-Oct-2011</leavefrom>
+    <leaveto>16-Oct-2011</leaveto>
+    <requestedOn>09-Sep-2011</requestedOn>
+    <apprejby>Admin</apprejby>
+    <apprejon>10-Sep-2011</apprejon>
+    <status>Rejected</status>
+  </Leave>
+  <Leave>
+    <srno>3</srno>
+    <empno>Emp003</empno>
+    <leavetype>Personal Leave</leavetype>
+    <leavefrom>20-Nov-2011</leavefrom>
+    <leaveto>25-Nov-2011</leaveto>
+    <requestedOn>12-Sep-2011</requestedOn>
+    <apprejby>Admin</apprejby>
+    <apprejon>14-Sep-2011</apprejon>
+    <status>Pending</status>
+  </Leave>
+</LeaveHistory>

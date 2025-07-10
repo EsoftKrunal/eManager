@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Otherxperience>
+  <experience>
+    <srno>1</srno>
+    <companyname>Esoft softwares</companyname>
+    <designation>Project Manager</designation>
+    <fromdate>01-jan-1980</fromdate>
+    <todate>30-Dec-1980</todate>
+  </experience>
+  <experience>
+    <srno>2</srno>
+    <companyname>Esoft Pvt Ltd</companyname>
+    <designation>Software Engineer</designation>
+    <fromdate>01-mar-1981</fromdate>
+    <todate>01-Dec-1981</todate>
+  </experience>
+  <experience>
+    <srno>3</srno>
+    <companyname>Esoft Lucknow</companyname>
+    <designation>Team Leader</designation>
+    <fromdate>01-mar-1982</fromdate>
+    <todate>01-Dec-1982</todate>
+  </experience>
+</Otherxperience>
+

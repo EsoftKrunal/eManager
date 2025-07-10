@@ -1,0 +1,151 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="FormReportingMaster.master.cs" Inherits="FormReportingMaster" MasterPageFile="~/MasterPage.master" %>
+<%@ Register Src="~/Modules/Inspection/Tracker/ModuleMenu.ascx" TagName="menu" TagPrefix="mtm"  %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+    <link href="Styles/style.css" rel="stylesheet" type="text/css" />
+    <link href="Styles/sddm.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../HRD/Styles/StyleSheet.css" />
+    <link href="Styles/tabs.css" rel="stylesheet" type="text/css" />
+    <style  type="text/css" >
+    #mask {
+      position:absolute;
+      left:0;
+      top:0;
+      z-index:9000;
+      background-color:#000;
+      display:none;
+    }
+      
+    #boxes .window {
+      position:absolute;
+      left:0;
+      top:0;
+      width:440px;
+      height:200px;
+      display:none;
+      z-index:9999;
+      padding:20px;
+    }
+
+    #boxes #dialog {
+      width:375px; 
+      height:203px;
+      padding:10px;
+      background-color:#ffffff;
+    }
+
+    #boxes #dialog1 {
+      width:375px; 
+      height:203px;
+    }
+
+    #dialog1 .d-header {
+      background:url(images/login-header.png) no-repeat 0 0 transparent; 
+      width:375px; 
+      height:150px;
+    }
+
+    #dialog1 .d-header input {
+      position:relative;
+      top:60px;
+      left:100px;
+      border:3px solid #cccccc;
+      height:22px;
+      width:200px;
+      font-size:15px;
+      padding:5px;
+      margin-top:4px;
+    }
+
+    #dialog1 .d-blank {
+      float:left;
+      background:url(images/login-blank.png) no-repeat 0 0 transparent; 
+      width:267px; 
+      height:53px;
+    }
+
+    #dialog1 .d-login {
+      float:left;
+      width:108px; 
+      height:53px;
+    }
+
+    #boxes #dialog2 {
+      background:url(../Images/notice.png) no-repeat 0 0 transparent; 
+      width:326px; 
+      height:229px;
+      padding:50px 0 20px 25px;
+    }
+    </style>
+    </asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentMainMaster" runat="Server">
+    <ajaxToolkit:ToolkitScriptManager ID="ScriptManager2" runat="server"></ajaxToolkit:ToolkitScriptManager>
+        <table style="width :100%" cellpadding="0" cellspacing="0">
+        <tr>
+        
+        <td style=" text-align :left; vertical-align : top;" >
+        <table border="0" cellpadding="0" cellspacing="0" style="border: #4371a5 1px solid;" width="100%">
+            <tr>
+                <td style=" height: 23px;text-align :center" class="text headerband" >Tracker</td>
+            </tr>
+            <tr>
+                <td>
+                    <table style="background-color:#f9f9f9" border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <td style="padding-right:10px;  padding-left:10px;">
+                               <%-- <div id="header">
+                                  <ul>
+                                    <li><a href="FollowUpList.aspx"><span>FollowUp List</span></a></li> 
+                                    <li><a href="NCRNew.aspx"><span>NCR</span></a></li> 
+                                    <li><a href="COC.aspx"><span>COC</span></a></li> 
+                                    <li><a href="DATest.aspx"><span>Vessel D&amp;A Test </span></a></li> 
+                                    <li><a href="FleetMeeting.aspx"><span>Fleet Notes </span></a></li> 
+                                    <li><a href="FM_New.aspx"><span>Fleet Meeting </span></a></li> 
+                                    <li><a href="Hoto.aspx"><span>HOTO </span></a></li> 
+                                    <li><a href="CRM.aspx"><span>CRM </span></a></li> 
+                                    <li><a href="VesselReports.aspx"><span>Vessel Reports</span></a></li> 
+                                    <li><a href="MWUCList.aspx"><span>MWUC</span></a></li> 
+                                  </ul>
+                                </div>--%>
+                                <script>
+                                function tabing(){
+                                     var strHref = window.location.href;
+	                                 var strQueryString = strHref.split(".aspx");
+	                                 var aQueryString = strQueryString[0].split("/");
+	                                 var curpage =unescape(aQueryString[aQueryString.length-1]).toLowerCase();
+	                                 var menunum=document.getElementById('header').getElementsByTagName('li').length;
+	                                 var menu=document.getElementById('header').getElementsByTagName('li')
+	                                 for(x=0; x<menunum; x++){	 	                               
+	 	                                if(unescape(menu[x].childNodes[0]).toLowerCase().indexOf(curpage) > -1){
+	 	                                    menu[x].className='current';		                                
+	                                    }
+	                                 }
+	                                 if( curpage=='accident' )
+	                                 {
+	                                    menu[0].className='current';		                                
+	                                 }
+                                }
+                                tabing();
+                                </script>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="padding-right: 10px; padding-left: 10px;">                                               
+                            <asp:UpdatePanel ID="up1" runat="server" ><ContentTemplate >
+                            
+                            <div style="width:100%; min-height:470px; border:0px solid #000; overflow:auto; overflow-y:hidden" >
+                            <asp:contentplaceholder id="ContentPlaceHolder1" runat="server"></asp:contentplaceholder>
+                            </div>
+                            
+                            </ContentTemplate></asp:UpdatePanel>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+         </td> 
+        </tr>
+        </table>  
+   </asp:Content>

@@ -1,0 +1,2465 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>24455</TrainingRequirementId>
+    <Crewid>4785</Crewid>
+    <TrainingId>362</TrainingId>
+    <TrainingName> traiining 362 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>PEAP</Source>
+    <N_DueDate>2012-09-26T00:00:00+08:00</N_DueDate>
+    <LastDone>2014-08-28T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>24456</TrainingRequirementId>
+    <Crewid>4785</Crewid>
+    <TrainingId>365</TrainingId>
+    <TrainingName> traiining 365 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>PEAP</Source>
+    <N_DueDate>2012-09-26T00:00:00+08:00</N_DueDate>
+    <LastDone>2012-10-06T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>24457</TrainingRequirementId>
+    <Crewid>4785</Crewid>
+    <TrainingId>366</TrainingId>
+    <TrainingName> traiining 366 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>PEAP</Source>
+    <N_DueDate>2012-09-26T00:00:00+08:00</N_DueDate>
+    <LastDone>2012-10-20T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>24458</TrainingRequirementId>
+    <Crewid>4785</Crewid>
+    <TrainingId>367</TrainingId>
+    <TrainingName> traiining 367 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>PEAP</Source>
+    <N_DueDate>2012-09-26T00:00:00+08:00</N_DueDate>
+    <LastDone>2014-06-22T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>24460</TrainingRequirementId>
+    <Crewid>4785</Crewid>
+    <TrainingId>371</TrainingId>
+    <TrainingName> traiining 371 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>PEAP</Source>
+    <N_DueDate>2012-09-26T00:00:00+08:00</N_DueDate>
+    <LastDone>2012-10-20T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>24462</TrainingRequirementId>
+    <Crewid>4785</Crewid>
+    <TrainingId>375</TrainingId>
+    <TrainingName> traiining 375 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>PEAP</Source>
+    <N_DueDate>2012-09-26T00:00:00+08:00</N_DueDate>
+    <LastDone>2012-10-20T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>24464</TrainingRequirementId>
+    <Crewid>4785</Crewid>
+    <TrainingId>380</TrainingId>
+    <TrainingName>, traiining 380 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>PEAP</Source>
+    <N_DueDate>2012-09-26T00:00:00+08:00</N_DueDate>
+    <LastDone>2013-10-31T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>24467</TrainingRequirementId>
+    <Crewid>4785</Crewid>
+    <TrainingId>383</TrainingId>
+    <TrainingName> traiining 383 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>PEAP</Source>
+    <N_DueDate>2012-09-26T00:00:00+08:00</N_DueDate>
+    <LastDone>2013-09-21T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>28319</TrainingRequirementId>
+    <Crewid>8073</Crewid>
+    <TrainingId>166</TrainingId>
+    <TrainingName> traiining 166 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>PEAP</Source>
+    <N_DueDate>2013-12-31T00:00:00+08:00</N_DueDate>
+    <LastDone>2013-10-26T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>28411</TrainingRequirementId>
+    <Crewid>4785</Crewid>
+    <TrainingId>360</TrainingId>
+    <TrainingName>, traiining 360 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>PEAP</Source>
+    <N_DueDate>2012-09-26T00:00:00+08:00</N_DueDate>
+    <LastDone>2016-07-12T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>28412</TrainingRequirementId>
+    <Crewid>4785</Crewid>
+    <TrainingId>362</TrainingId>
+    <TrainingName> traiining 362 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>PEAP</Source>
+    <N_DueDate>2012-09-26T00:00:00+08:00</N_DueDate>
+    <LastDone>2014-08-28T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>28413</TrainingRequirementId>
+    <Crewid>4785</Crewid>
+    <TrainingId>365</TrainingId>
+    <TrainingName> traiining 365 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>PEAP</Source>
+    <N_DueDate>2012-09-26T00:00:00+08:00</N_DueDate>
+    <LastDone>2012-10-06T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>28414</TrainingRequirementId>
+    <Crewid>4785</Crewid>
+    <TrainingId>366</TrainingId>
+    <TrainingName> traiining 366 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>PEAP</Source>
+    <N_DueDate>2012-09-26T00:00:00+08:00</N_DueDate>
+    <LastDone>2012-10-20T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>28415</TrainingRequirementId>
+    <Crewid>4785</Crewid>
+    <TrainingId>367</TrainingId>
+    <TrainingName> traiining 367 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>PEAP</Source>
+    <N_DueDate>2012-09-26T00:00:00+08:00</N_DueDate>
+    <LastDone>2014-06-22T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>28416</TrainingRequirementId>
+    <Crewid>4785</Crewid>
+    <TrainingId>368</TrainingId>
+    <TrainingName> traiining 368 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>PEAP</Source>
+    <N_DueDate>2012-09-26T00:00:00+08:00</N_DueDate>
+    <LastDone>2016-05-28T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>28417</TrainingRequirementId>
+    <Crewid>4785</Crewid>
+    <TrainingId>371</TrainingId>
+    <TrainingName> traiining 371 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>PEAP</Source>
+    <N_DueDate>2012-09-26T00:00:00+08:00</N_DueDate>
+    <LastDone>2012-10-20T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>28418</TrainingRequirementId>
+    <Crewid>4785</Crewid>
+    <TrainingId>374</TrainingId>
+    <TrainingName> traiining 374 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>PEAP</Source>
+    <N_DueDate>2012-09-26T00:00:00+08:00</N_DueDate>
+    <LastDone>2016-07-12T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>28419</TrainingRequirementId>
+    <Crewid>4785</Crewid>
+    <TrainingId>375</TrainingId>
+    <TrainingName> traiining 375 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>PEAP</Source>
+    <N_DueDate>2012-09-26T00:00:00+08:00</N_DueDate>
+    <LastDone>2012-10-20T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>28420</TrainingRequirementId>
+    <Crewid>4785</Crewid>
+    <TrainingId>378</TrainingId>
+    <TrainingName> traiining 378 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>PEAP</Source>
+    <N_DueDate>2012-09-26T00:00:00+08:00</N_DueDate>
+    <LastDone>2016-05-30T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>28421</TrainingRequirementId>
+    <Crewid>4785</Crewid>
+    <TrainingId>380</TrainingId>
+    <TrainingName>, traiining 380 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>PEAP</Source>
+    <N_DueDate>2012-09-26T00:00:00+08:00</N_DueDate>
+    <LastDone>2013-10-31T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>28422</TrainingRequirementId>
+    <Crewid>4785</Crewid>
+    <TrainingId>381</TrainingId>
+    <TrainingName> traiining 381 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>PEAP</Source>
+    <N_DueDate>2012-09-26T00:00:00+08:00</N_DueDate>
+    <LastDone>2016-07-13T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>28423</TrainingRequirementId>
+    <Crewid>4785</Crewid>
+    <TrainingId>382</TrainingId>
+    <TrainingName> traiining 382 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>PEAP</Source>
+    <N_DueDate>2012-09-26T00:00:00+08:00</N_DueDate>
+    <LastDone>2016-07-13T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>28424</TrainingRequirementId>
+    <Crewid>4785</Crewid>
+    <TrainingId>383</TrainingId>
+    <TrainingName> traiining 383 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>PEAP</Source>
+    <N_DueDate>2012-09-26T00:00:00+08:00</N_DueDate>
+    <LastDone>2013-09-21T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>28593</TrainingRequirementId>
+    <Crewid>5965</Crewid>
+    <TrainingId>380</TrainingId>
+    <TrainingName>, traiining 380 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>PEAP</Source>
+    <N_DueDate>2015-02-01T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>30311</TrainingRequirementId>
+    <Crewid>5965</Crewid>
+    <TrainingId>380</TrainingId>
+    <TrainingName>, traiining 380 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>PEAP</Source>
+    <N_DueDate>2015-02-01T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>30321</TrainingRequirementId>
+    <Crewid>5965</Crewid>
+    <TrainingId>380</TrainingId>
+    <TrainingName>, traiining 380 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>PEAP</Source>
+    <N_DueDate>2015-02-01T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>40032</TrainingRequirementId>
+    <Crewid>3683</Crewid>
+    <TrainingId>359</TrainingId>
+    <TrainingName> traiining 359 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-02-16T00:00:00+08:00</N_DueDate>
+    <PlannedFor>2017-10-20T00:00:00+08:00</PlannedFor>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>40033</TrainingRequirementId>
+    <Crewid>3683</Crewid>
+    <TrainingId>363</TrainingId>
+    <TrainingName> traiining 363 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>40034</TrainingRequirementId>
+    <Crewid>3683</Crewid>
+    <TrainingId>364</TrainingId>
+    <TrainingName> traiining 364 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>40035</TrainingRequirementId>
+    <Crewid>3683</Crewid>
+    <TrainingId>365</TrainingId>
+    <TrainingName> traiining 365 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>40036</TrainingRequirementId>
+    <Crewid>3683</Crewid>
+    <TrainingId>369</TrainingId>
+    <TrainingName> traiining 369 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>40037</TrainingRequirementId>
+    <Crewid>3683</Crewid>
+    <TrainingId>370</TrainingId>
+    <TrainingName>, traiining 370 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>40038</TrainingRequirementId>
+    <Crewid>3683</Crewid>
+    <TrainingId>374</TrainingId>
+    <TrainingName> traiining 374 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>40039</TrainingRequirementId>
+    <Crewid>3683</Crewid>
+    <TrainingId>375</TrainingId>
+    <TrainingName> traiining 375 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>40040</TrainingRequirementId>
+    <Crewid>3683</Crewid>
+    <TrainingId>376</TrainingId>
+    <TrainingName> traiining 376 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>40041</TrainingRequirementId>
+    <Crewid>3683</Crewid>
+    <TrainingId>377</TrainingId>
+    <TrainingName> traiining 377 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>40042</TrainingRequirementId>
+    <Crewid>3683</Crewid>
+    <TrainingId>378</TrainingId>
+    <TrainingName> traiining 378 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>41881</TrainingRequirementId>
+    <Crewid>8335</Crewid>
+    <TrainingId>364</TrainingId>
+    <TrainingName> traiining 364 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-01-20T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>41882</TrainingRequirementId>
+    <Crewid>8335</Crewid>
+    <TrainingId>381</TrainingId>
+    <TrainingName> traiining 381 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-01-20T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>41883</TrainingRequirementId>
+    <Crewid>8335</Crewid>
+    <TrainingId>382</TrainingId>
+    <TrainingName> traiining 382 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-01-20T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>41884</TrainingRequirementId>
+    <Crewid>8335</Crewid>
+    <TrainingId>384</TrainingId>
+    <TrainingName> traiining 384 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-01-20T00:00:00+08:00</N_DueDate>
+    <LastDone>2013-01-15T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>41885</TrainingRequirementId>
+    <Crewid>8335</Crewid>
+    <TrainingId>385</TrainingId>
+    <TrainingName> traiining 385 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-01-20T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>41886</TrainingRequirementId>
+    <Crewid>8335</Crewid>
+    <TrainingId>386</TrainingId>
+    <TrainingName> traiining 386 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-01-20T00:00:00+08:00</N_DueDate>
+    <LastDone>2013-01-17T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>41887</TrainingRequirementId>
+    <Crewid>8335</Crewid>
+    <TrainingId>434</TrainingId>
+    <TrainingName> traiining 434 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-01-20T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>41888</TrainingRequirementId>
+    <Crewid>8335</Crewid>
+    <TrainingId>436</TrainingId>
+    <TrainingName> traiining 436 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-01-20T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>41889</TrainingRequirementId>
+    <Crewid>8335</Crewid>
+    <TrainingId>438</TrainingId>
+    <TrainingName> traiining 438 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-01-20T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>41890</TrainingRequirementId>
+    <Crewid>8335</Crewid>
+    <TrainingId>440</TrainingId>
+    <TrainingName>, traiining 440 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-01-20T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>41891</TrainingRequirementId>
+    <Crewid>8335</Crewid>
+    <TrainingId>442</TrainingId>
+    <TrainingName> traiining 442 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-01-20T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>41892</TrainingRequirementId>
+    <Crewid>8335</Crewid>
+    <TrainingId>444</TrainingId>
+    <TrainingName> traiining 444 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-01-20T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>41893</TrainingRequirementId>
+    <Crewid>8335</Crewid>
+    <TrainingId>445</TrainingId>
+    <TrainingName> traiining 445 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-01-20T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>47665</TrainingRequirementId>
+    <Crewid>12739</Crewid>
+    <TrainingId>355</TrainingId>
+    <TrainingName> traiining 355 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2014-10-25T00:00:00+08:00</N_DueDate>
+    <PlannedFor>2017-10-27T00:00:00+08:00</PlannedFor>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>47666</TrainingRequirementId>
+    <Crewid>12739</Crewid>
+    <TrainingId>356</TrainingId>
+    <TrainingName> traiining 356 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2014-10-25T00:00:00+08:00</N_DueDate>
+    <PlannedFor>2017-10-27T00:00:00+08:00</PlannedFor>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>47667</TrainingRequirementId>
+    <Crewid>12739</Crewid>
+    <TrainingId>360</TrainingId>
+    <TrainingName>, traiining 360 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2014-10-25T00:00:00+08:00</N_DueDate>
+    <PlannedFor>2017-10-27T00:00:00+08:00</PlannedFor>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>47668</TrainingRequirementId>
+    <Crewid>12739</Crewid>
+    <TrainingId>361</TrainingId>
+    <TrainingName> traiining 361 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2014-10-25T00:00:00+08:00</N_DueDate>
+    <PlannedFor>2017-11-15T00:00:00+08:00</PlannedFor>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>47669</TrainingRequirementId>
+    <Crewid>12739</Crewid>
+    <TrainingId>362</TrainingId>
+    <TrainingName> traiining 362 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2014-10-25T00:00:00+08:00</N_DueDate>
+    <PlannedFor>2017-11-15T00:00:00+08:00</PlannedFor>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>47670</TrainingRequirementId>
+    <Crewid>12739</Crewid>
+    <TrainingId>364</TrainingId>
+    <TrainingName> traiining 364 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2014-10-25T00:00:00+08:00</N_DueDate>
+    <PlannedFor>2017-11-15T00:00:00+08:00</PlannedFor>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>47671</TrainingRequirementId>
+    <Crewid>12739</Crewid>
+    <TrainingId>365</TrainingId>
+    <TrainingName> traiining 365 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2014-10-25T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>47672</TrainingRequirementId>
+    <Crewid>12739</Crewid>
+    <TrainingId>366</TrainingId>
+    <TrainingName> traiining 366 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2014-10-25T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>47673</TrainingRequirementId>
+    <Crewid>12739</Crewid>
+    <TrainingId>367</TrainingId>
+    <TrainingName> traiining 367 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2014-10-25T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>47674</TrainingRequirementId>
+    <Crewid>12739</Crewid>
+    <TrainingId>368</TrainingId>
+    <TrainingName> traiining 368 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2014-10-25T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>47675</TrainingRequirementId>
+    <Crewid>12739</Crewid>
+    <TrainingId>369</TrainingId>
+    <TrainingName> traiining 369 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2014-10-25T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>47676</TrainingRequirementId>
+    <Crewid>12739</Crewid>
+    <TrainingId>370</TrainingId>
+    <TrainingName>, traiining 370 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2014-10-25T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>47677</TrainingRequirementId>
+    <Crewid>12739</Crewid>
+    <TrainingId>371</TrainingId>
+    <TrainingName> traiining 371 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2014-10-25T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>47678</TrainingRequirementId>
+    <Crewid>12739</Crewid>
+    <TrainingId>372</TrainingId>
+    <TrainingName> traiining 372 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2014-10-25T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>47679</TrainingRequirementId>
+    <Crewid>12739</Crewid>
+    <TrainingId>373</TrainingId>
+    <TrainingName> traiining 373 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2014-10-25T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>47680</TrainingRequirementId>
+    <Crewid>12739</Crewid>
+    <TrainingId>374</TrainingId>
+    <TrainingName> traiining 374 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2014-10-25T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>47681</TrainingRequirementId>
+    <Crewid>12739</Crewid>
+    <TrainingId>375</TrainingId>
+    <TrainingName> traiining 375 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2014-10-25T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>47682</TrainingRequirementId>
+    <Crewid>12739</Crewid>
+    <TrainingId>376</TrainingId>
+    <TrainingName> traiining 376 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2014-10-25T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>47683</TrainingRequirementId>
+    <Crewid>12739</Crewid>
+    <TrainingId>377</TrainingId>
+    <TrainingName> traiining 377 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2014-10-25T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>47684</TrainingRequirementId>
+    <Crewid>12739</Crewid>
+    <TrainingId>378</TrainingId>
+    <TrainingName> traiining 378 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2014-10-25T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>47685</TrainingRequirementId>
+    <Crewid>12739</Crewid>
+    <TrainingId>379</TrainingId>
+    <TrainingName> traiining 379 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2014-10-25T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>47686</TrainingRequirementId>
+    <Crewid>12739</Crewid>
+    <TrainingId>380</TrainingId>
+    <TrainingName>, traiining 380 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2014-10-25T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>47687</TrainingRequirementId>
+    <Crewid>12739</Crewid>
+    <TrainingId>381</TrainingId>
+    <TrainingName> traiining 381 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2014-10-25T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>48420</TrainingRequirementId>
+    <Crewid>12884</Crewid>
+    <TrainingId>369</TrainingId>
+    <TrainingName> traiining 369 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-05-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>48423</TrainingRequirementId>
+    <Crewid>12884</Crewid>
+    <TrainingId>380</TrainingId>
+    <TrainingName>, traiining 380 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-05-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>48424</TrainingRequirementId>
+    <Crewid>12884</Crewid>
+    <TrainingId>381</TrainingId>
+    <TrainingName> traiining 381 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-05-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>48425</TrainingRequirementId>
+    <Crewid>12884</Crewid>
+    <TrainingId>382</TrainingId>
+    <TrainingName> traiining 382 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-05-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>48426</TrainingRequirementId>
+    <Crewid>12884</Crewid>
+    <TrainingId>383</TrainingId>
+    <TrainingName> traiining 383 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-05-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>48427</TrainingRequirementId>
+    <Crewid>12884</Crewid>
+    <TrainingId>384</TrainingId>
+    <TrainingName> traiining 384 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-05-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>48428</TrainingRequirementId>
+    <Crewid>12884</Crewid>
+    <TrainingId>385</TrainingId>
+    <TrainingName> traiining 385 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-05-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>48429</TrainingRequirementId>
+    <Crewid>12884</Crewid>
+    <TrainingId>386</TrainingId>
+    <TrainingName> traiining 386 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-05-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>48430</TrainingRequirementId>
+    <Crewid>12884</Crewid>
+    <TrainingId>436</TrainingId>
+    <TrainingName> traiining 436 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-05-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>48432</TrainingRequirementId>
+    <Crewid>12884</Crewid>
+    <TrainingId>442</TrainingId>
+    <TrainingName> traiining 442 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-05-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>48433</TrainingRequirementId>
+    <Crewid>12884</Crewid>
+    <TrainingId>444</TrainingId>
+    <TrainingName> traiining 444 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-05-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>54370</TrainingRequirementId>
+    <Crewid>4785</Crewid>
+    <TrainingId>379</TrainingId>
+    <TrainingName> traiining 379 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-18T00:00:00+08:00</N_DueDate>
+    <LastDone>2013-09-15T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>54371</TrainingRequirementId>
+    <Crewid>4785</Crewid>
+    <TrainingId>384</TrainingId>
+    <TrainingName> traiining 384 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-18T00:00:00+08:00</N_DueDate>
+    <LastDone>2013-01-09T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>54372</TrainingRequirementId>
+    <Crewid>7570</Crewid>
+    <TrainingId>367</TrainingId>
+    <TrainingName> traiining 367 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-18T00:00:00+08:00</N_DueDate>
+    <LastDone>2013-02-13T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>54373</TrainingRequirementId>
+    <Crewid>7570</Crewid>
+    <TrainingId>369</TrainingId>
+    <TrainingName> traiining 369 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-18T00:00:00+08:00</N_DueDate>
+    <LastDone>2013-02-18T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>54374</TrainingRequirementId>
+    <Crewid>7570</Crewid>
+    <TrainingId>376</TrainingId>
+    <TrainingName> traiining 376 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-18T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>54376</TrainingRequirementId>
+    <Crewid>7902</Crewid>
+    <TrainingId>369</TrainingId>
+    <TrainingName> traiining 369 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-18T00:00:00+08:00</N_DueDate>
+    <LastDone>2013-06-02T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>54377</TrainingRequirementId>
+    <Crewid>7902</Crewid>
+    <TrainingId>378</TrainingId>
+    <TrainingName> traiining 378 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-18T00:00:00+08:00</N_DueDate>
+    <LastDone>2012-10-20T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>281697</TrainingRequirementId>
+    <Crewid>9465</Crewid>
+    <TrainingId>362</TrainingId>
+    <TrainingName> traiining 362 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-11-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>281698</TrainingRequirementId>
+    <Crewid>9465</Crewid>
+    <TrainingId>365</TrainingId>
+    <TrainingName> traiining 365 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-11-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>281699</TrainingRequirementId>
+    <Crewid>9465</Crewid>
+    <TrainingId>366</TrainingId>
+    <TrainingName> traiining 366 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-11-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>281701</TrainingRequirementId>
+    <Crewid>9465</Crewid>
+    <TrainingId>375</TrainingId>
+    <TrainingName> traiining 375 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-11-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>281703</TrainingRequirementId>
+    <Crewid>9465</Crewid>
+    <TrainingId>383</TrainingId>
+    <TrainingName> traiining 383 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-11-13T00:00:00+08:00</N_DueDate>
+    <LastDone>2012-07-22T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>281705</TrainingRequirementId>
+    <Crewid>9465</Crewid>
+    <TrainingId>385</TrainingId>
+    <TrainingName> traiining 385 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-11-13T00:00:00+08:00</N_DueDate>
+    <LastDone>2012-09-16T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>281706</TrainingRequirementId>
+    <Crewid>9465</Crewid>
+    <TrainingId>386</TrainingId>
+    <TrainingName> traiining 386 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-11-13T00:00:00+08:00</N_DueDate>
+    <LastDone>2012-08-19T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>281707</TrainingRequirementId>
+    <Crewid>14652</Crewid>
+    <TrainingId>355</TrainingId>
+    <TrainingName> traiining 355 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-08-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>281708</TrainingRequirementId>
+    <Crewid>14652</Crewid>
+    <TrainingId>356</TrainingId>
+    <TrainingName> traiining 356 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-08-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>281710</TrainingRequirementId>
+    <Crewid>14652</Crewid>
+    <TrainingId>361</TrainingId>
+    <TrainingName> traiining 361 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-08-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>281711</TrainingRequirementId>
+    <Crewid>14652</Crewid>
+    <TrainingId>362</TrainingId>
+    <TrainingName> traiining 362 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-08-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>281712</TrainingRequirementId>
+    <Crewid>14652</Crewid>
+    <TrainingId>364</TrainingId>
+    <TrainingName> traiining 364 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-08-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>281713</TrainingRequirementId>
+    <Crewid>14652</Crewid>
+    <TrainingId>365</TrainingId>
+    <TrainingName> traiining 365 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-08-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>281714</TrainingRequirementId>
+    <Crewid>14652</Crewid>
+    <TrainingId>366</TrainingId>
+    <TrainingName> traiining 366 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-08-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>281715</TrainingRequirementId>
+    <Crewid>14652</Crewid>
+    <TrainingId>367</TrainingId>
+    <TrainingName> traiining 367 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-08-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>281717</TrainingRequirementId>
+    <Crewid>14652</Crewid>
+    <TrainingId>369</TrainingId>
+    <TrainingName> traiining 369 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-08-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>281718</TrainingRequirementId>
+    <Crewid>14652</Crewid>
+    <TrainingId>371</TrainingId>
+    <TrainingName> traiining 371 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-08-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>281719</TrainingRequirementId>
+    <Crewid>14652</Crewid>
+    <TrainingId>372</TrainingId>
+    <TrainingName> traiining 372 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-08-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>281720</TrainingRequirementId>
+    <Crewid>14652</Crewid>
+    <TrainingId>373</TrainingId>
+    <TrainingName> traiining 373 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-08-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>281721</TrainingRequirementId>
+    <Crewid>14652</Crewid>
+    <TrainingId>374</TrainingId>
+    <TrainingName> traiining 374 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-08-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>281723</TrainingRequirementId>
+    <Crewid>14652</Crewid>
+    <TrainingId>376</TrainingId>
+    <TrainingName> traiining 376 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-08-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>281725</TrainingRequirementId>
+    <Crewid>14652</Crewid>
+    <TrainingId>379</TrainingId>
+    <TrainingName> traiining 379 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-08-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>281726</TrainingRequirementId>
+    <Crewid>14652</Crewid>
+    <TrainingId>380</TrainingId>
+    <TrainingName>, traiining 380 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-08-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>281728</TrainingRequirementId>
+    <Crewid>14652</Crewid>
+    <TrainingId>382</TrainingId>
+    <TrainingName> traiining 382 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-08-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>281729</TrainingRequirementId>
+    <Crewid>14652</Crewid>
+    <TrainingId>383</TrainingId>
+    <TrainingName> traiining 383 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-08-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>281730</TrainingRequirementId>
+    <Crewid>14652</Crewid>
+    <TrainingId>384</TrainingId>
+    <TrainingName> traiining 384 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-08-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>281732</TrainingRequirementId>
+    <Crewid>14652</Crewid>
+    <TrainingId>386</TrainingId>
+    <TrainingName> traiining 386 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-08-13T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283205</TrainingRequirementId>
+    <Crewid>14881</Crewid>
+    <TrainingId>357</TrainingId>
+    <TrainingName> traiining 357 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283206</TrainingRequirementId>
+    <Crewid>14881</Crewid>
+    <TrainingId>358</TrainingId>
+    <TrainingName> traiining 358 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283207</TrainingRequirementId>
+    <Crewid>14881</Crewid>
+    <TrainingId>360</TrainingId>
+    <TrainingName>, traiining 360 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283208</TrainingRequirementId>
+    <Crewid>14881</Crewid>
+    <TrainingId>363</TrainingId>
+    <TrainingName> traiining 363 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283209</TrainingRequirementId>
+    <Crewid>14881</Crewid>
+    <TrainingId>364</TrainingId>
+    <TrainingName> traiining 364 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283210</TrainingRequirementId>
+    <Crewid>14881</Crewid>
+    <TrainingId>365</TrainingId>
+    <TrainingName> traiining 365 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283211</TrainingRequirementId>
+    <Crewid>14881</Crewid>
+    <TrainingId>367</TrainingId>
+    <TrainingName> traiining 367 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283212</TrainingRequirementId>
+    <Crewid>14881</Crewid>
+    <TrainingId>369</TrainingId>
+    <TrainingName> traiining 369 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283213</TrainingRequirementId>
+    <Crewid>14881</Crewid>
+    <TrainingId>370</TrainingId>
+    <TrainingName>, traiining 370 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283214</TrainingRequirementId>
+    <Crewid>14881</Crewid>
+    <TrainingId>371</TrainingId>
+    <TrainingName> traiining 371 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283215</TrainingRequirementId>
+    <Crewid>14881</Crewid>
+    <TrainingId>372</TrainingId>
+    <TrainingName> traiining 372 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283216</TrainingRequirementId>
+    <Crewid>14881</Crewid>
+    <TrainingId>375</TrainingId>
+    <TrainingName> traiining 375 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283217</TrainingRequirementId>
+    <Crewid>14881</Crewid>
+    <TrainingId>376</TrainingId>
+    <TrainingName> traiining 376 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283218</TrainingRequirementId>
+    <Crewid>14881</Crewid>
+    <TrainingId>377</TrainingId>
+    <TrainingName> traiining 377 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283220</TrainingRequirementId>
+    <Crewid>14881</Crewid>
+    <TrainingId>379</TrainingId>
+    <TrainingName> traiining 379 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283221</TrainingRequirementId>
+    <Crewid>14881</Crewid>
+    <TrainingId>380</TrainingId>
+    <TrainingName>, traiining 380 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283223</TrainingRequirementId>
+    <Crewid>14881</Crewid>
+    <TrainingId>382</TrainingId>
+    <TrainingName> traiining 382 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283224</TrainingRequirementId>
+    <Crewid>14881</Crewid>
+    <TrainingId>383</TrainingId>
+    <TrainingName> traiining 383 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283225</TrainingRequirementId>
+    <Crewid>14881</Crewid>
+    <TrainingId>384</TrainingId>
+    <TrainingName> traiining 384 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283226</TrainingRequirementId>
+    <Crewid>14881</Crewid>
+    <TrainingId>386</TrainingId>
+    <TrainingName> traiining 386 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283227</TrainingRequirementId>
+    <Crewid>11521</Crewid>
+    <TrainingId>356</TrainingId>
+    <TrainingName> traiining 356 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283232</TrainingRequirementId>
+    <Crewid>11521</Crewid>
+    <TrainingId>364</TrainingId>
+    <TrainingName> traiining 364 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283233</TrainingRequirementId>
+    <Crewid>11521</Crewid>
+    <TrainingId>365</TrainingId>
+    <TrainingName> traiining 365 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283234</TrainingRequirementId>
+    <Crewid>11521</Crewid>
+    <TrainingId>367</TrainingId>
+    <TrainingName> traiining 367 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283235</TrainingRequirementId>
+    <Crewid>11521</Crewid>
+    <TrainingId>369</TrainingId>
+    <TrainingName> traiining 369 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283236</TrainingRequirementId>
+    <Crewid>11521</Crewid>
+    <TrainingId>371</TrainingId>
+    <TrainingName> traiining 371 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283237</TrainingRequirementId>
+    <Crewid>11521</Crewid>
+    <TrainingId>372</TrainingId>
+    <TrainingName> traiining 372 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283239</TrainingRequirementId>
+    <Crewid>11521</Crewid>
+    <TrainingId>376</TrainingId>
+    <TrainingName> traiining 376 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283240</TrainingRequirementId>
+    <Crewid>11521</Crewid>
+    <TrainingId>379</TrainingId>
+    <TrainingName> traiining 379 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283241</TrainingRequirementId>
+    <Crewid>11521</Crewid>
+    <TrainingId>380</TrainingId>
+    <TrainingName>, traiining 380 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283243</TrainingRequirementId>
+    <Crewid>11521</Crewid>
+    <TrainingId>382</TrainingId>
+    <TrainingName> traiining 382 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283244</TrainingRequirementId>
+    <Crewid>11521</Crewid>
+    <TrainingId>383</TrainingId>
+    <TrainingName> traiining 383 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283245</TrainingRequirementId>
+    <Crewid>11521</Crewid>
+    <TrainingId>384</TrainingId>
+    <TrainingName> traiining 384 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283246</TrainingRequirementId>
+    <Crewid>11521</Crewid>
+    <TrainingId>386</TrainingId>
+    <TrainingName> traiining 386 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283247</TrainingRequirementId>
+    <Crewid>14882</Crewid>
+    <TrainingId>367</TrainingId>
+    <TrainingName> traiining 367 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283248</TrainingRequirementId>
+    <Crewid>14882</Crewid>
+    <TrainingId>369</TrainingId>
+    <TrainingName> traiining 369 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283252</TrainingRequirementId>
+    <Crewid>14882</Crewid>
+    <TrainingId>381</TrainingId>
+    <TrainingName> traiining 381 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283254</TrainingRequirementId>
+    <Crewid>14882</Crewid>
+    <TrainingId>383</TrainingId>
+    <TrainingName> traiining 383 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283255</TrainingRequirementId>
+    <Crewid>14882</Crewid>
+    <TrainingId>384</TrainingId>
+    <TrainingName> traiining 384 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>315404</TrainingRequirementId>
+    <Crewid>15357</Crewid>
+    <TrainingId>55</TrainingId>
+    <TrainingName> traiining 55 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>ASSIGNED</Source>
+    <N_DueDate>2017-10-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283257</TrainingRequirementId>
+    <Crewid>14980</Crewid>
+    <TrainingId>356</TrainingId>
+    <TrainingName> traiining 356 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283258</TrainingRequirementId>
+    <Crewid>14980</Crewid>
+    <TrainingId>362</TrainingId>
+    <TrainingName> traiining 362 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283259</TrainingRequirementId>
+    <Crewid>14980</Crewid>
+    <TrainingId>365</TrainingId>
+    <TrainingName> traiining 365 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283260</TrainingRequirementId>
+    <Crewid>14980</Crewid>
+    <TrainingId>366</TrainingId>
+    <TrainingName> traiining 366 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283261</TrainingRequirementId>
+    <Crewid>14980</Crewid>
+    <TrainingId>367</TrainingId>
+    <TrainingName> traiining 367 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283263</TrainingRequirementId>
+    <Crewid>14980</Crewid>
+    <TrainingId>369</TrainingId>
+    <TrainingName> traiining 369 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283264</TrainingRequirementId>
+    <Crewid>14980</Crewid>
+    <TrainingId>374</TrainingId>
+    <TrainingName> traiining 374 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283269</TrainingRequirementId>
+    <Crewid>14980</Crewid>
+    <TrainingId>380</TrainingId>
+    <TrainingName>, traiining 380 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283270</TrainingRequirementId>
+    <Crewid>14980</Crewid>
+    <TrainingId>381</TrainingId>
+    <TrainingName> traiining 381 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283271</TrainingRequirementId>
+    <Crewid>14980</Crewid>
+    <TrainingId>382</TrainingId>
+    <TrainingName> traiining 382 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283272</TrainingRequirementId>
+    <Crewid>14980</Crewid>
+    <TrainingId>383</TrainingId>
+    <TrainingName> traiining 383 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283273</TrainingRequirementId>
+    <Crewid>14980</Crewid>
+    <TrainingId>384</TrainingId>
+    <TrainingName> traiining 384 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-02T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>315405</TrainingRequirementId>
+    <Crewid>15357</Crewid>
+    <TrainingId>70</TrainingId>
+    <TrainingName>, traiining 70 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>ASSIGNED</Source>
+    <N_DueDate>2017-10-12T00:00:00+08:00</N_DueDate>
+    <PlannedFor>2017-10-20T00:00:00+08:00</PlannedFor>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283276</TrainingRequirementId>
+    <Crewid>8073</Crewid>
+    <TrainingId>355</TrainingId>
+    <TrainingName> traiining 355 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+    <LastDone>2013-05-25T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283277</TrainingRequirementId>
+    <Crewid>8073</Crewid>
+    <TrainingId>356</TrainingId>
+    <TrainingName> traiining 356 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+    <LastDone>2013-05-29T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>283278</TrainingRequirementId>
+    <Crewid>8073</Crewid>
+    <TrainingId>380</TrainingId>
+    <TrainingName>, traiining 380 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-09-02T00:00:00+08:00</N_DueDate>
+    <LastDone>2013-07-28T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>284228</TrainingRequirementId>
+    <Crewid>3942</Crewid>
+    <TrainingId>380</TrainingId>
+    <TrainingName>, traiining 380 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>284229</TrainingRequirementId>
+    <Crewid>3942</Crewid>
+    <TrainingId>381</TrainingId>
+    <TrainingName> traiining 381 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>284230</TrainingRequirementId>
+    <Crewid>3942</Crewid>
+    <TrainingId>382</TrainingId>
+    <TrainingName> traiining 382 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>284231</TrainingRequirementId>
+    <Crewid>3942</Crewid>
+    <TrainingId>383</TrainingId>
+    <TrainingName> traiining 383 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>284234</TrainingRequirementId>
+    <Crewid>5965</Crewid>
+    <TrainingId>356</TrainingId>
+    <TrainingName> traiining 356 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>284235</TrainingRequirementId>
+    <Crewid>5965</Crewid>
+    <TrainingId>362</TrainingId>
+    <TrainingName> traiining 362 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>284236</TrainingRequirementId>
+    <Crewid>5965</Crewid>
+    <TrainingId>365</TrainingId>
+    <TrainingName> traiining 365 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>284237</TrainingRequirementId>
+    <Crewid>5965</Crewid>
+    <TrainingId>366</TrainingId>
+    <TrainingName> traiining 366 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>284238</TrainingRequirementId>
+    <Crewid>5965</Crewid>
+    <TrainingId>367</TrainingId>
+    <TrainingName> traiining 367 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>284239</TrainingRequirementId>
+    <Crewid>5965</Crewid>
+    <TrainingId>368</TrainingId>
+    <TrainingName> traiining 368 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>284240</TrainingRequirementId>
+    <Crewid>5965</Crewid>
+    <TrainingId>369</TrainingId>
+    <TrainingName> traiining 369 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>284241</TrainingRequirementId>
+    <Crewid>5965</Crewid>
+    <TrainingId>374</TrainingId>
+    <TrainingName> traiining 374 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>284242</TrainingRequirementId>
+    <Crewid>5965</Crewid>
+    <TrainingId>375</TrainingId>
+    <TrainingName> traiining 375 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>284243</TrainingRequirementId>
+    <Crewid>5965</Crewid>
+    <TrainingId>376</TrainingId>
+    <TrainingName> traiining 376 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>284244</TrainingRequirementId>
+    <Crewid>5965</Crewid>
+    <TrainingId>378</TrainingId>
+    <TrainingName> traiining 378 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>284247</TrainingRequirementId>
+    <Crewid>5965</Crewid>
+    <TrainingId>382</TrainingId>
+    <TrainingName> traiining 382 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-12T00:00:00+08:00</N_DueDate>
+    <LastDone>2013-09-15T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>284248</TrainingRequirementId>
+    <Crewid>5965</Crewid>
+    <TrainingId>383</TrainingId>
+    <TrainingName> traiining 383 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-12T00:00:00+08:00</N_DueDate>
+    <LastDone>2013-10-26T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>284249</TrainingRequirementId>
+    <Crewid>5965</Crewid>
+    <TrainingId>384</TrainingId>
+    <TrainingName> traiining 384 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-12T00:00:00+08:00</N_DueDate>
+    <LastDone>2013-11-09T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>284250</TrainingRequirementId>
+    <Crewid>5965</Crewid>
+    <TrainingId>385</TrainingId>
+    <TrainingName> traiining 385 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-12T00:00:00+08:00</N_DueDate>
+    <LastDone>2013-10-26T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>284251</TrainingRequirementId>
+    <Crewid>5965</Crewid>
+    <TrainingId>386</TrainingId>
+    <TrainingName> traiining 386 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2015-12-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>289006</TrainingRequirementId>
+    <Crewid>15663</Crewid>
+    <TrainingId>357</TrainingId>
+    <TrainingName> traiining 357 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>289007</TrainingRequirementId>
+    <Crewid>15663</Crewid>
+    <TrainingId>358</TrainingId>
+    <TrainingName> traiining 358 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>289008</TrainingRequirementId>
+    <Crewid>15663</Crewid>
+    <TrainingId>360</TrainingId>
+    <TrainingName>, traiining 360 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>289009</TrainingRequirementId>
+    <Crewid>15663</Crewid>
+    <TrainingId>363</TrainingId>
+    <TrainingName> traiining 363 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>289010</TrainingRequirementId>
+    <Crewid>15663</Crewid>
+    <TrainingId>364</TrainingId>
+    <TrainingName> traiining 364 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>289011</TrainingRequirementId>
+    <Crewid>15663</Crewid>
+    <TrainingId>365</TrainingId>
+    <TrainingName> traiining 365 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>289012</TrainingRequirementId>
+    <Crewid>15663</Crewid>
+    <TrainingId>367</TrainingId>
+    <TrainingName> traiining 367 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>289013</TrainingRequirementId>
+    <Crewid>15663</Crewid>
+    <TrainingId>369</TrainingId>
+    <TrainingName> traiining 369 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>289014</TrainingRequirementId>
+    <Crewid>15663</Crewid>
+    <TrainingId>375</TrainingId>
+    <TrainingName> traiining 375 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>289015</TrainingRequirementId>
+    <Crewid>15663</Crewid>
+    <TrainingId>376</TrainingId>
+    <TrainingName> traiining 376 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>289016</TrainingRequirementId>
+    <Crewid>15663</Crewid>
+    <TrainingId>379</TrainingId>
+    <TrainingName> traiining 379 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>289017</TrainingRequirementId>
+    <Crewid>15663</Crewid>
+    <TrainingId>380</TrainingId>
+    <TrainingName>, traiining 380 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>289018</TrainingRequirementId>
+    <Crewid>15663</Crewid>
+    <TrainingId>381</TrainingId>
+    <TrainingName> traiining 381 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>289020</TrainingRequirementId>
+    <Crewid>15663</Crewid>
+    <TrainingId>383</TrainingId>
+    <TrainingName> traiining 383 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>289021</TrainingRequirementId>
+    <Crewid>15663</Crewid>
+    <TrainingId>384</TrainingId>
+    <TrainingName> traiining 384 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>289022</TrainingRequirementId>
+    <Crewid>15663</Crewid>
+    <TrainingId>386</TrainingId>
+    <TrainingName> traiining 386 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>289023</TrainingRequirementId>
+    <Crewid>15662</Crewid>
+    <TrainingId>356</TrainingId>
+    <TrainingName> traiining 356 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>289024</TrainingRequirementId>
+    <Crewid>15662</Crewid>
+    <TrainingId>365</TrainingId>
+    <TrainingName> traiining 365 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>289025</TrainingRequirementId>
+    <Crewid>15662</Crewid>
+    <TrainingId>367</TrainingId>
+    <TrainingName> traiining 367 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>289026</TrainingRequirementId>
+    <Crewid>15662</Crewid>
+    <TrainingId>369</TrainingId>
+    <TrainingName> traiining 369 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>289027</TrainingRequirementId>
+    <Crewid>15662</Crewid>
+    <TrainingId>375</TrainingId>
+    <TrainingName> traiining 375 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>289028</TrainingRequirementId>
+    <Crewid>15662</Crewid>
+    <TrainingId>376</TrainingId>
+    <TrainingName> traiining 376 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>289029</TrainingRequirementId>
+    <Crewid>15662</Crewid>
+    <TrainingId>379</TrainingId>
+    <TrainingName> traiining 379 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>289030</TrainingRequirementId>
+    <Crewid>15662</Crewid>
+    <TrainingId>380</TrainingId>
+    <TrainingName>, traiining 380 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>289031</TrainingRequirementId>
+    <Crewid>15662</Crewid>
+    <TrainingId>381</TrainingId>
+    <TrainingName> traiining 381 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>289032</TrainingRequirementId>
+    <Crewid>15662</Crewid>
+    <TrainingId>382</TrainingId>
+    <TrainingName> traiining 382 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>289033</TrainingRequirementId>
+    <Crewid>15662</Crewid>
+    <TrainingId>383</TrainingId>
+    <TrainingName> traiining 383 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>289036</TrainingRequirementId>
+    <Crewid>15605</Crewid>
+    <TrainingId>367</TrainingId>
+    <TrainingName> traiining 367 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>289037</TrainingRequirementId>
+    <Crewid>15605</Crewid>
+    <TrainingId>369</TrainingId>
+    <TrainingName> traiining 369 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>289040</TrainingRequirementId>
+    <Crewid>15605</Crewid>
+    <TrainingId>380</TrainingId>
+    <TrainingName>, traiining 380 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>289042</TrainingRequirementId>
+    <Crewid>15605</Crewid>
+    <TrainingId>382</TrainingId>
+    <TrainingName> traiining 382 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>289043</TrainingRequirementId>
+    <Crewid>15605</Crewid>
+    <TrainingId>383</TrainingId>
+    <TrainingName> traiining 383 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>289044</TrainingRequirementId>
+    <Crewid>15605</Crewid>
+    <TrainingId>384</TrainingId>
+    <TrainingName> traiining 384 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-02-16T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304778</TrainingRequirementId>
+    <Crewid>16198</Crewid>
+    <TrainingId>361</TrainingId>
+    <TrainingName> traiining 361 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-04-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304779</TrainingRequirementId>
+    <Crewid>16198</Crewid>
+    <TrainingId>362</TrainingId>
+    <TrainingName> traiining 362 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-04-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304780</TrainingRequirementId>
+    <Crewid>16198</Crewid>
+    <TrainingId>364</TrainingId>
+    <TrainingName> traiining 364 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-04-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304781</TrainingRequirementId>
+    <Crewid>16198</Crewid>
+    <TrainingId>365</TrainingId>
+    <TrainingName> traiining 365 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-04-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304782</TrainingRequirementId>
+    <Crewid>16198</Crewid>
+    <TrainingId>366</TrainingId>
+    <TrainingName> traiining 366 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-04-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304783</TrainingRequirementId>
+    <Crewid>16198</Crewid>
+    <TrainingId>367</TrainingId>
+    <TrainingName> traiining 367 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-04-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304784</TrainingRequirementId>
+    <Crewid>16198</Crewid>
+    <TrainingId>368</TrainingId>
+    <TrainingName> traiining 368 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-04-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304785</TrainingRequirementId>
+    <Crewid>16198</Crewid>
+    <TrainingId>369</TrainingId>
+    <TrainingName> traiining 369 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-04-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304786</TrainingRequirementId>
+    <Crewid>16198</Crewid>
+    <TrainingId>373</TrainingId>
+    <TrainingName> traiining 373 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-04-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304787</TrainingRequirementId>
+    <Crewid>16198</Crewid>
+    <TrainingId>374</TrainingId>
+    <TrainingName> traiining 374 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-04-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304788</TrainingRequirementId>
+    <Crewid>16198</Crewid>
+    <TrainingId>375</TrainingId>
+    <TrainingName> traiining 375 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-04-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304789</TrainingRequirementId>
+    <Crewid>16198</Crewid>
+    <TrainingId>376</TrainingId>
+    <TrainingName> traiining 376 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-04-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304790</TrainingRequirementId>
+    <Crewid>16198</Crewid>
+    <TrainingId>378</TrainingId>
+    <TrainingName> traiining 378 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-04-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304791</TrainingRequirementId>
+    <Crewid>16198</Crewid>
+    <TrainingId>379</TrainingId>
+    <TrainingName> traiining 379 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-04-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304793</TrainingRequirementId>
+    <Crewid>16198</Crewid>
+    <TrainingId>381</TrainingId>
+    <TrainingName> traiining 381 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-04-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304794</TrainingRequirementId>
+    <Crewid>16198</Crewid>
+    <TrainingId>382</TrainingId>
+    <TrainingName> traiining 382 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-04-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304795</TrainingRequirementId>
+    <Crewid>16198</Crewid>
+    <TrainingId>383</TrainingId>
+    <TrainingName> traiining 383 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-04-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304796</TrainingRequirementId>
+    <Crewid>16198</Crewid>
+    <TrainingId>384</TrainingId>
+    <TrainingName> traiining 384 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-04-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304797</TrainingRequirementId>
+    <Crewid>16198</Crewid>
+    <TrainingId>385</TrainingId>
+    <TrainingName> traiining 385 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-04-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304798</TrainingRequirementId>
+    <Crewid>16198</Crewid>
+    <TrainingId>386</TrainingId>
+    <TrainingName> traiining 386 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-04-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304799</TrainingRequirementId>
+    <Crewid>8335</Crewid>
+    <TrainingId>356</TrainingId>
+    <TrainingName> traiining 356 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-01-12T00:00:00+08:00</N_DueDate>
+    <LastDone>2013-11-03T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304800</TrainingRequirementId>
+    <Crewid>8335</Crewid>
+    <TrainingId>357</TrainingId>
+    <TrainingName> traiining 357 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-01-12T00:00:00+08:00</N_DueDate>
+    <LastDone>2013-02-02T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304801</TrainingRequirementId>
+    <Crewid>8335</Crewid>
+    <TrainingId>358</TrainingId>
+    <TrainingName> traiining 358 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-01-12T00:00:00+08:00</N_DueDate>
+    <LastDone>2013-10-07T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304802</TrainingRequirementId>
+    <Crewid>8335</Crewid>
+    <TrainingId>360</TrainingId>
+    <TrainingName>, traiining 360 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-01-12T00:00:00+08:00</N_DueDate>
+    <LastDone>2013-03-13T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304803</TrainingRequirementId>
+    <Crewid>8335</Crewid>
+    <TrainingId>365</TrainingId>
+    <TrainingName> traiining 365 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-01-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304804</TrainingRequirementId>
+    <Crewid>8335</Crewid>
+    <TrainingId>369</TrainingId>
+    <TrainingName> traiining 369 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-01-12T00:00:00+08:00</N_DueDate>
+    <LastDone>2013-12-15T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304805</TrainingRequirementId>
+    <Crewid>8335</Crewid>
+    <TrainingId>371</TrainingId>
+    <TrainingName> traiining 371 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-01-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304806</TrainingRequirementId>
+    <Crewid>8335</Crewid>
+    <TrainingId>372</TrainingId>
+    <TrainingName> traiining 372 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-01-12T00:00:00+08:00</N_DueDate>
+    <LastDone>2013-10-07T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304807</TrainingRequirementId>
+    <Crewid>8335</Crewid>
+    <TrainingId>375</TrainingId>
+    <TrainingName> traiining 375 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-01-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304808</TrainingRequirementId>
+    <Crewid>8335</Crewid>
+    <TrainingId>376</TrainingId>
+    <TrainingName> traiining 376 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-01-12T00:00:00+08:00</N_DueDate>
+    <LastDone>2013-10-29T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304809</TrainingRequirementId>
+    <Crewid>8335</Crewid>
+    <TrainingId>379</TrainingId>
+    <TrainingName> traiining 379 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-01-12T00:00:00+08:00</N_DueDate>
+    <LastDone>2013-12-15T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304810</TrainingRequirementId>
+    <Crewid>8335</Crewid>
+    <TrainingId>380</TrainingId>
+    <TrainingName>, traiining 380 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-01-12T00:00:00+08:00</N_DueDate>
+    <LastDone>2013-02-03T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304811</TrainingRequirementId>
+    <Crewid>8335</Crewid>
+    <TrainingId>383</TrainingId>
+    <TrainingName> traiining 383 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-01-12T00:00:00+08:00</N_DueDate>
+    <LastDone>2013-04-07T00:00:00+08:00</LastDone>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304812</TrainingRequirementId>
+    <Crewid>12884</Crewid>
+    <TrainingId>365</TrainingId>
+    <TrainingName> traiining 365 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-04-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>304813</TrainingRequirementId>
+    <Crewid>12884</Crewid>
+    <TrainingId>375</TrainingId>
+    <TrainingName> traiining 375 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>MATRIX</Source>
+    <N_DueDate>2016-04-12T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>315384</TrainingRequirementId>
+    <Crewid>14882</Crewid>
+    <TrainingId>81</TrainingId>
+    <TrainingName> traiining 81 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>ASSIGNED</Source>
+    <N_DueDate>2017-10-26T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>315385</TrainingRequirementId>
+    <Crewid>14882</Crewid>
+    <TrainingId>124</TrainingId>
+    <TrainingName> traiining 124 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>ASSIGNED</Source>
+    <N_DueDate>2017-10-21T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>315386</TrainingRequirementId>
+    <Crewid>14882</Crewid>
+    <TrainingId>125</TrainingId>
+    <TrainingName> traiining 125 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>ASSIGNED</Source>
+    <N_DueDate>2017-10-21T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>315387</TrainingRequirementId>
+    <Crewid>14882</Crewid>
+    <TrainingId>126</TrainingId>
+    <TrainingName> traiining 126 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>ASSIGNED</Source>
+    <N_DueDate>2017-10-21T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+  <PMS_CREW_TRAININGREQUIREMENT>
+    <VesselCode>LIG</VesselCode>
+    <TrainingRequirementId>315390</TrainingRequirementId>
+    <Crewid>3683</Crewid>
+    <TrainingId>115</TrainingId>
+    <TrainingName> traiining 115 &lt;span style='color:green'&gt;[SHORE BASED ]&lt;/span&gt;</TrainingName>
+    <Source>ASSIGNED</Source>
+    <N_DueDate>2017-10-18T00:00:00+08:00</N_DueDate>
+  </PMS_CREW_TRAININGREQUIREMENT>
+</NewDataSet>

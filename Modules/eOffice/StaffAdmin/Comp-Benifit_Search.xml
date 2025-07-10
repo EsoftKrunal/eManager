@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Benifitdetail>
+  <Detail>
+    <srno>1</srno>
+    <employeeno>E0001</employeeno>
+    <name>Demo Data</name>
+    <mtmoff>Singapore</mtmoff>
+    <status>Working</status>
+  </Detail>
+  <Detail>
+    <srno>2</srno>
+    <employeeno>E0002</employeeno>
+    <name>Demo Data2</name>
+    <mtmoff>Singapore</mtmoff>
+    <status>Working</status>
+  </Detail>
+  <Detail>
+    <srno>3</srno>
+    <employeeno>E0003</employeeno>
+    <name>Demo Data3</name>
+    <mtmoff>Singapore</mtmoff>
+    <status>Working</status>
+  </Detail>
+</Benifitdetail>
+

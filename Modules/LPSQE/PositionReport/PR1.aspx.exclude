@@ -1,0 +1,54 @@
+<%@ Page Language="C#" MasterPageFile="~/VesselPositionReporting.master" AutoEventWireup="true" CodeFile="PR1.aspx.cs" Inherits="PositionReport_PR1" Title="Vessel Position Reporting" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <script type="text/javascript">
+        function OpenDetails(obj) {
+            window.open('Details.aspx?VSLCode=' + obj.getAttribute('value') + '&VSLName=' + obj.getAttribute('title'));
+        }
+        function OpenDetails2(VSlCode, VSLName, VoyNo) {
+            window.open('PositionReport.aspx?VSLCode=' + VSlCode + '&VSL=' + VSLName);
+        }
+        function ShowDetailsPopup(ctl, RepType) {
+            window.open('Details2.aspx?ReportType=' + RepType + '&ReportId=' + ctl.getAttribute('value') + '&VSLCode=' + ctl.getAttribute('vslvalue'));
+            return false;
+        }
+        function ShowReport(ob) {
+            window.open('../Reports/PositionReport.aspx?ReportId=' + ob.getAttribute('value') + "&VSLCode=" + obj.getAttribute('vslvalue'));
+            return false;
+        }  
+    </script>
+    <style type="text/css">
+        .pink
+        {
+            background-color: #FFCCE0;
+            color: White;
+        }
+        .btn1
+        {
+            border: none;
+            border-bottom: none;
+            background-color: #B2D1FF;
+            padding: 5px;
+            color:#221e1e;            
+        }
+        .btn1-sel
+        {
+            border: none;
+            border-bottom: none;
+            background-color: #3385FF;
+            padding: 5px;
+            color:white;            
+        }
+        .menu-container {
+            padding:0;
+            border-bottom:solid 3px #3385FF;
+            margin-bottom:2px;
+        }
+    </style>
+   
+    <div class="menu-container" style="text-align:left">
+        <asp:Button ID="btnPR_New" runat="server" OnClick="menu_click" CommandArgument="1" Text="Report" CssClass="btn1-sel"  />
+        <asp:Button ID="btnPR_Old" runat="server" OnClick="menu_click" CommandArgument="2" Text="EEOI" CssClass="btn1"  />
+    </div>   
+    <iframe  id="iframePR" runat="server" frameborder="0" Width="100%" Height="420px" ></iframe>
+</asp:Content>

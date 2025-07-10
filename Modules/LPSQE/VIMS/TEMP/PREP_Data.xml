@@ -1,0 +1,89 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <VSL_VPRArrivalReport>
+    <ReportsPK>3</ReportsPK>
+    <ArrivalID>1</ArrivalID>
+    <VesselID>LIG</VesselID>
+    <ReportDate>2015-01-28T00:00:00+05:30</ReportDate>
+    <VoyageNo>szzdsadasas</VoyageNo>
+    <SteamingHrs>0</SteamingHrs>
+    <SteamingMin>0</SteamingMin>
+    <DistanceMadeGood>0.00</DistanceMadeGood>
+    <AvgSpeed>0.00</AvgSpeed>
+    <Stoppages>0</Stoppages>
+    <StoppagesHH>0</StoppagesHH>
+    <StoppagesMM>0</StoppagesMM>
+    <Remarks />
+    <VoyCondition>0</VoyCondition>
+    <DepPort />
+    <DepArrivalPort />
+    <EOSPHrs>0</EOSPHrs>
+    <EOSPMin>0</EOSPMin>
+    <DraftFwd>0.00</DraftFwd>
+    <DraftAft>0.00</DraftAft>
+    <ArrivalPortAgent />
+    <PersonalIncharge />
+    <AddressContactDetails />
+    <CourceT>0.00</CourceT>
+    <WindDirectionT>0.00</WindDirectionT>
+    <WindForce>0</WindForce>
+    <SeaDirection>0.00</SeaDirection>
+    <SeaState>0</SeaState>
+    <CurrentDirection>0.00</CurrentDirection>
+    <CurrentStrength>0.00</CurrentStrength>
+    <WeatherRemarks />
+    <Lattitude1>0</Lattitude1>
+    <Lattitude2>0</Lattitude2>
+    <Lattitude3>0</Lattitude3>
+    <Longitude1>0</Longitude1>
+    <Longitud2>0</Longitud2>
+    <Longitud3>0</Longitud3>
+    <LocationDescription />
+    <ROBIFO45Fuel>0.00</ROBIFO45Fuel>
+    <ROBIFO1Fuel>10.00</ROBIFO1Fuel>
+    <ROBMGO5Fuel>10.00</ROBMGO5Fuel>
+    <ROBMGO1Fuel>10.00</ROBMGO1Fuel>
+    <ROBMDOFuel>10.00</ROBMDOFuel>
+    <ROBIFO45Lube>10.00</ROBIFO45Lube>
+    <ROBIFO1Lube>10.00</ROBIFO1Lube>
+    <ROBMGO5Lube>10.00</ROBMGO5Lube>
+    <ROBMGO1Lube>10.00</ROBMGO1Lube>
+    <ROBMDOLube>0.00</ROBMDOLube>
+    <ROBFreshWater>2000.00</ROBFreshWater>
+    <MEIFO45>20.00</MEIFO45>
+    <MEIFO1>100.00</MEIFO1>
+    <MEMGO5>100.00</MEMGO5>
+    <MEMGO1>0.00</MEMGO1>
+    <MEMDO>100.00</MEMDO>
+    <AEIFO45>20.00</AEIFO45>
+    <AEIFO1>40.00</AEIFO1>
+    <AEMGO5>90.00</AEMGO5>
+    <AEMGO1>90.00</AEMGO1>
+    <AEMDO>0.00</AEMDO>
+    <CargoHeatingIFO45>10.00</CargoHeatingIFO45>
+    <CargoHeatingIFO1>0.00</CargoHeatingIFO1>
+    <CargoHeatingMGO5>0.00</CargoHeatingMGO5>
+    <CargoHeatingMGO1>200.00</CargoHeatingMGO1>
+    <CargoHeatingMDO>90.00</CargoHeatingMDO>
+    <MECCLube>490.00</MECCLube>
+    <MECYLLube>590.00</MECYLLube>
+    <AECCLube>490.00</AECCLube>
+    <HYDLube>490.00</HYDLube>
+    <MDOLube>0.00</MDOLube>
+    <GeneratedFreshWater>1100.00</GeneratedFreshWater>
+    <ConsumedFreshWater>500.00</ConsumedFreshWater>
+    <TCW>0.00</TCW>
+    <BW>0.00</BW>
+    <TCU20L>0</TCU20L>
+    <TCU40L>0</TCU40L>
+    <TCU45L>0</TCU45L>
+    <TCU20E>0</TCU20E>
+    <TCU40E>0</TCU40E>
+    <TCU45E>0</TCU45E>
+    <NextActivity xml:space="preserve"> </NextActivity>
+    <ETBHrs>0</ETBHrs>
+    <ETBMin>0</ETBMin>
+    <TotalCargoWeight>0.00</TotalCargoWeight>
+    <BallastWeight>0.00</BallastWeight>
+  </VSL_VPRArrivalReport>
+</NewDataSet>

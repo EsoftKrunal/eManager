@@ -1,0 +1,363 @@
+body
+	{
+		font-family: Verdana, Arial, Helvetica, sans-serif;
+		font-size: 11px;
+		margin:0 0 0 0;
+		padding:0 0 0 0;  
+		text-align: left;
+	}
+input[type=text]
+{
+	 font-family: Verdana, Arial, Helvetica, sans-serif;
+	 font-size: 11px;
+	 color: #003399;
+	 border:1px solid #9abcd7;
+	 
+}
+input[required=yes]
+{
+	 font-family: Verdana, Arial, Helvetica, sans-serif;
+	 font-size: 11px;
+	 background-color : #FFFBC9;
+	 border:1px solid #9abcd7;
+}
+input[type=password]
+{
+	 font-family: Verdana, Arial, Helvetica, sans-serif;
+	 font-size: 11px;
+	 color: #003399;
+	 border:1px solid #9abcd7;
+}
+textarea
+{
+	 font-family: Verdana, Arial, Helvetica, sans-serif;
+	 font-size: 11px;
+	 color: #003399;
+	 border:1px solid #9abcd7;
+}
+textarea[required=yes]
+{
+	 background-color : #FFFBC9;
+	 font-family: Verdana, Arial, Helvetica, sans-serif;
+	 font-size: 11px;
+	 color: #003399;
+	 border:1px solid #9abcd7;
+
+}
+.scrollbox
+{
+	 border:1px solid #9abcd7;
+}
+.dottedscrollbox
+{
+	 border:dotted 1px #9abcd7;
+	 background-color:#EEEEEE; 
+}
+.treeselectednode
+{
+	  color:#FF6600;
+	  font-weight:bold ; 
+	  border :dotted 1px red;
+	  margin-left :5px;
+	  margin-right :5px;
+}
+.treehovernoder
+{
+	 font-size :11px;
+	 font-style :italic; 
+}
+/*.treenode
+{
+	color:blue;
+}*/
+
+select
+	{
+		 font-family: Verdana, Arial, Helvetica, sans-serif;
+		 font-size: 11px;
+		 color: #003399;
+		 border:1px solid #9abcd7;
+		 width: 240px;
+	}
+select[required=yes]
+{
+	 background-color : #FFFBC9;
+	 font-family: Verdana, Arial, Helvetica, sans-serif;
+	 font-size: 11px;
+	 color: #003399;
+	 border:1px solid #9abcd7;
+	 width: 240px;
+}
+.btn
+{
+	/*font-family: Arial, Helvetica, sans-serifl;
+	cursor: pointer;
+	font-size: 15px;
+	font-weight : bold;
+	color: #000000;
+ 
+	background-image: url( '../Images/buttonbgsmall.png' );
+	width: 100px;
+	height: 31px;
+	padding: 2px;
+	border :none;*/
+	font-family: Arial, Helvetica, sans-serifl;
+	cursor: pointer;
+	font-size: 11px;
+	
+	
+	width: 60px;
+	font-weight: bold;
+	height: 25px;
+}
+	.btnorange
+{
+	font-family: Arial, Helvetica, sans-serifl;
+	cursor: pointer;
+	font-size: 11px;
+	width: 60px;
+	font-weight: bold;
+	height: 25px;
+}
+.btnhighlight
+{
+	font-family: Arial, Helvetica, sans-serifl;
+	cursor: pointer;
+	font-size: 11px;
+	color:White;
+	background-color:#4371a5;
+	border:solid 1px #4371a5;
+	width: 60px;
+	font-weight: bold;
+	height: 23px;
+	margin-top:1px;
+}
+.error_msg
+{
+	color:Red;
+	
+}
+
+.pagename
+{
+	background-color:#4371a5;
+	height: 19px; 
+	text-align :center;
+	color :White ;
+	font-weight :bold ;
+	font-family :Verdana;
+	height:20px;
+}
+.blueheader
+{
+	background-color:#5b8fc9;
+	height: 19px; 
+	text-align :center;
+	color :White ;
+	font-weight :normal;
+	font-family :Verdana;
+	height:20px;
+}
+.orangeheader
+{
+	background-color:#236B8E;
+	height: 19px; 
+	text-align :center;
+	color : White ;
+	font-family :Verdana;
+	font-size:11px; 
+	height:20px;
+}
+
+.gridheader
+{
+	background-color:#4371a5;
+	height: 19px; 
+	text-align :center;
+	color :White ;
+	font-weight :normal ;
+	font-family :Verdana;
+	height:15px;
+	padding-top :5px;
+}
+td
+{
+	vertical-align:top;  
+}
+.row
+{
+	background-color : #E2E2E2;
+	color :Black;
+	
+}
+.alternaterow
+{
+	color :Black;
+}
+.selectedrow
+{
+	background-color : #de7f04;
+	color :White; 
+	cursor:pointer;
+}
+.highlightrow
+{
+	background-color : #FFCCCC;
+	color :Black; 
+	cursor:pointer;
+}
+
+/*Modal Popup*/
+.modalBackground {
+	background-color:Gray;
+	filter:alpha(opacity=70);
+	opacity:0.7;
+}
+
+.modalPopup {
+	background-color:White;
+	border-width:3px;
+	border-style:solid;
+	border-color:Gray;
+	padding:3px;
+	width:250px;
+}
+
+.modalPopup p {
+    padding: 5px;
+}
+.bluetext
+{
+	color :#254f7e;
+	font-weight: bold ; 
+}
+.required
+{
+	color :Red;
+	text-align :left ;
+}
+.critical
+{
+	color :Red;
+	text-align :left ;
+}
+.lightbluetext
+{
+	color :#4371a5;
+}
+.error
+{
+	color :Red;
+	font-size : 14px;
+	font-weight :bold ;
+	padding-left :3px;
+}
+.grid-view
+{   
+   font-family: Verdana, Arial, Helvetica, sans-serif;   
+}
+.grid-view tr.normal
+{
+   color: black;   
+   text-decoration:none;    
+}
+.grid-view tr.alternate
+{
+   color: black; 
+   text-decoration:none; 
+}
+.grid-view tr.normal:hover, .grid-view tr.alternate:hover
+{
+   color:Red;
+   text-decoration:none;
+   font-weight: bold;
+}
+.modalBackground {
+	background-color:Gray;
+	filter:alpha(opacity=70);
+	opacity:0.7;
+}
+.ShadowBox 
+{
+	filter:progid:DXImageTransform.Microsoft.Shadow(color=#0000FF,direction=45);
+    width: 150px; color: #FF0000;
+}
+.CriticalType_C
+{
+	background-color:Red;
+	color:White;
+}
+.CriticalType_E
+{
+	background-color:Green;
+	color:White;
+}
+.CriticalType_
+{
+	display:none;
+	background-color:white;
+	color:White;
+}
+.Summeryheader
+{
+	background-color:#FFCC00;	 
+	text-align :center;	
+	font-family :Verdana;
+	font-size:12px; 
+	height:20px;
+}
+.ProductSummeryheader
+{
+	background-color:#8CC739;	 
+	text-align :center;	
+	font-family :Verdana;
+	font-size:12px; 
+	height:20px;
+}
+
+
+.NewpageHeader
+{
+    color:White; 
+    font-size:15px; 
+    background-color:#85C2FF; 
+    padding:5px;
+}
+.NewBtn
+{
+    background-color:#7A29CC;
+    color:White;
+    border:solid 1px #85C2FF;
+    font-family:Sans-Serif;
+    font-size:12px;
+    padding:4px;
+    padding-left:10px;
+    padding-right:10px;
+}
+.NewGridheaderColumn
+{
+    height:20px; 
+    vertical-align:middle;
+    background-color:Wheat;
+    padding-bottom:3px;
+    font-weight:bold;
+}
+.NewSelect
+{
+    border:solid 1px #85C2FF;
+    font-family:Sans-Serif;
+    font-size:12px;
+    padding:0px;
+   
+}
+.nwcgridheader2
+{
+	background-color:#91C5D4;
+	height: 19px; 
+	text-align :center;
+	color :White ;
+	font-weight :normal ;
+	font-family :Verdana;
+	height:15px;
+	padding-top :5px;
+}

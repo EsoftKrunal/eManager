@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<countrycodedata>
+  <countrycode>
+    <countrycodename>+91</countrycodename>
+    <countrycodeid>91</countrycodeid>
+  </countrycode>
+  <countrycode>
+    <countrycodename>+92</countrycodename>
+    <countrycodeid>92</countrycodeid>
+  </countrycode>
+  <countrycode>
+    <countrycodename>+93</countrycodename>
+    <countrycodeid>93</countrycodeid>
+  </countrycode>
+  <countrycode>
+    <countrycodename>+40</countrycodename>
+    <countrycodeid>40</countrycodeid>
+  </countrycode>
+</countrycodedata>
+

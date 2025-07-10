@@ -1,0 +1,87 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="CrewTraining.master.cs" Inherits="CrewTraining" MasterPageFile="~/MasterPage.master" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+    <%--<link href="Styles/style.css" rel="stylesheet" type="text/css" />--%>
+    <link href="Styles/sddm.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="Styles/StyleSheet.css" />
+    <link rel="stylesheet" type="text/css" href="Styles/jquery.datetimepicker.css" />
+    <script type="text/javascript" src="JS/jquery.min.js"></script>
+    <script type="text/javascript" src="JS/KPIScript.js"></script>
+     <link rel="stylesheet" href="../../../css/app_style.css" />
+     <link rel="stylesheet" type="text/css" href="Styles/StyleSheet.css" />
+    <style type="text/css">
+        .selbtn {
+             background-color: #669900;
+            color: White;
+            border: none;
+            padding:5px 10px 5px 10px;     
+        }
+
+        .btn1 {
+           background-color: #c2c2c2;
+            border: solid 1px gray;
+            border: none;
+            padding:5px 10px 5px 10px;
+        }
+    </style>
+    </asp:Content>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentMainMaster" runat="Server">
+    <%--<body>
+    <form id="form1" runat="server">--%>
+        <table style="width: 100%" cellpadding="0" cellspacing="0">
+            <tr>
+                <td style="text-align: left; vertical-align: top;">
+                    <div id="a" style="background-color: ivory; border: solid 1px black; width: 300px; height: 150px; text-align: left; padding-left: 3px; display: none"></div>
+                    <div style="text-align: center">
+                        <ajaxToolkit:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></ajaxToolkit:ToolkitScriptManager>
+                        <table style="background-color: #f9f9f9; border-collapse: collapse; width: 100%" border="1" bordercolor="#4371a5">
+                            <tr>
+                                <td class="text headerband">
+                                     <img runat="server" id="imgHome" style ="cursor:pointer;float :right; padding-right :5px;" src="~/Modules/HRD/Images/home.png" alt="Home" onclick="window.location.href='../Dashboard.aspx'" /> &nbsp;
+                                    Crew Training</td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #f9f9f9; height: 178px; vertical-align: top; text-align: center;">
+                                    <div style="width: 100%; text-align: left">
+                                        <%--<asp:Menu ID="SubMenu3" runat="server" meta:resourcekey="Menu1Resource1" Orientation="Horizontal" StaticEnableDefaultPopOutImage="False" Width="311px">
+                           <Items>
+                                <asp:MenuItem ImageUrl="~/Modules/HRD/Images/gifs/trainmat.jpg" NavigateUrl="~/CrewOperation/UpdateTrainingMatrix.aspx" meta:resourcekey="MenuItemResource1"
+                                Text=" " Value="0"></asp:MenuItem>
+                               <asp:MenuItem ImageUrl="~/Modules/HRD/Images/gifs/asstrain.jpg" NavigateUrl="~/CrewOperation/AssignTraining.aspx" meta:resourcekey="MenuItemResource1"
+                                Text=" " Value="0"></asp:MenuItem>
+                               <asp:MenuItem ImageUrl="~/Modules/HRD/Images/gifs/veritrain.jpg" NavigateUrl="~/CrewOperation/UpdateTraining.aspx" meta:resourcekey="MenuItemResource2"
+                                Text=" " Value="1"></asp:MenuItem>
+                               <asp:MenuItem ImageUrl="~/Modules/HRD/Images/gifs/updtrain.jpg" NavigateUrl="~/CrewOperation/VerifyTraining.aspx" meta:resourcekey="MenuItemResource3"
+                                Text=" " Value="2"></asp:MenuItem>
+                                  <asp:MenuItem ImageUrl="~/Modules/HRD/Images/gifs/trareg.jpg" NavigateUrl="~/CrewOperation/TrainingRegister.aspx" meta:resourcekey="MenuItemResource1"
+                                Text=" " Value="-1"></asp:MenuItem>
+                           </Items>
+                  </asp:Menu>--%>
+                                        <div style="text-align: left; border: none; padding: 0px; margin: 0px;">
+
+                                            <asp:Button runat="server" ID="btnTMg" Text="Training Onboard" CssClass="btn1" OnClick="RegisterSelect" CommandArgument="0" />
+                                            <asp:Button runat="server" ID="btnOST" Text="Training Ashore" CssClass="btn1" OnClick="RegisterSelect" CommandArgument="1" />
+                                            <asp:Button runat="server" ID="btnAssign" Text="Assign Training" CssClass="btn1" OnClick="RegisterSelect" CommandArgument="2" />
+                                            <asp:Button runat="server" ID="btnReport" Text="Report" CssClass="btn1" OnClick="RegisterSelect" CommandArgument="3" />
+                                            <asp:Button runat="server" ID="btnTM" Text="Training Matrix" CssClass="btn1" OnClick="RegisterSelect" CommandArgument="4" />
+                                            <asp:Button runat="server" ID="btnTr" Text="Training Register" CssClass="btn1" OnClick="RegisterSelect" CommandArgument="5"  Visible="false"/>
+                                            <asp:Button runat="server" ID="btnSeminar" Text="Seminar" CssClass="btn1" OnClick="RegisterSelect" CommandArgument="6" />
+                                            <asp:Button runat="server" ID="btnAssessmentQuestion" Text="Assessment Question" CssClass="btn1" OnClick="RegisterSelect" CommandArgument="7" Visible="false" />
+                                            <asp:Button runat="server" ID="btnKSt" Text="KST" CssClass="btn1" OnClick="RegisterSelect" CommandArgument="8" Visible="false" />
+                                            <div style="width: 100%; border: solid 1px #4371a5; border-top: solid 5px #4371a5; padding: 0px; margin: 0px; min-height: 484px;" >
+                                                <asp:ContentPlaceHolder ID="contentPlaceHolder1" runat="Server"></asp:ContentPlaceHolder>
+                                            </div>
+                                        </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+   <%-- </form>
+</body>
+</html>--%>
+    </asp:Content>

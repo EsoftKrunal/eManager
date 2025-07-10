@@ -1,0 +1,110 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using CrystalDecisions.CrystalReports.Engine;
+using System.IO;
+using System.Drawing.Imaging;
+using System.Drawing;
+using System.Security.Cryptography;
+
+public partial class RestHourSetup : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        //-----------------------------
+        SessionManager.SessionCheck_New();
+        //-----------------------------
+        if (!IsPostBack)
+        {
+            BindVessel();
+            //DataTable dt = Common.Execute_Procedures_Select_ByQueryCMS("SELECT *,(select FlagStateName from FlagState where FlagStateID=V.FlagStateID)FlagStateName FROM VESSEL V where VesselID=" + ddlVessel.SelectedValue);
+            //if (dt.Rows.Count > 0)
+            //{
+            //    DataRow Dr = dt.Rows[0];
+            //    //lblVessel.Text = Dr["VesselName"].ToString();
+            //}
+
+        }
+    }
+    protected void BtnCreateDB_OnClick(object sender, EventArgs e)
+    {
+        DataTable dt = Common.Execute_Procedures_Select_ByQueryCMS("SELECT *,(select FlagStateName from FlagState where FlagStateID=V.FlagStateID)FlagStateName FROM VESSEL V where VesselID=" + ddlVessel.SelectedValue);
+        if (dt.Rows.Count > 0)
+        {
+            DataRow Dr = dt.Rows[0];
+            String VesselCode = Dr["VesselCode"].ToString();
+            String VesselName = Dr["VesselName"].ToString();
+            String LrimoNumber = Dr["LrimoNumber"].ToString();
+            String FlagStateName = Dr["FlagStateName"].ToString();
+            string Data = File.ReadAllText(Server.MapPath("~/modules/HRD/RestHour/MTM-WatchKeeper.sql"));
+            Data = Data.Replace("#VCODE#",VesselCode);
+            Data = Data.Replace("#VNAME#",VesselName);
+            Data = Data.Replace("#LRIMO#",LrimoNumber);
+            Data = Data.Replace("#FLAG#",FlagStateName);
+            File.WriteAllText(Server.MapPath("~/modules/HRD/RestHour/MTM-WatchKeeper_" + VesselCode + ".txt"),Data);
+            //ScriptManager.RegisterStartupScript(this,this.GetType(),"a","window.open('MTM-WatchKeeper_" + VesselCode + ".sql');",true);
+            trlink.Visible = true;
+            ancLink.HRef = (new LinkButton().ResolveClientUrl("~/modules/HRD/RestHour/MTM-WatchKeeper_" + VesselCode + ".txt"));  
+        }
+    }
+    public static string Encrypt(string strText, string strEncrKey)
+    {
+        byte[] IV = { 0x12, 0x34, 0x56, 0x78, 0x90, 0xab, 0xcd, 0xef };
+        try
+        {
+            byte[] bykey = System.Text.Encoding.UTF8.GetBytes(strEncrKey.Substring(0, 8));
+            byte[] InputByteArray = System.Text.Encoding.UTF8.GetBytes(strText);
+            DESCryptoServiceProvider des = new DESCryptoServiceProvider();
+            MemoryStream ms = new MemoryStream();
+            CryptoStream cs = new CryptoStream(ms, des.CreateEncryptor(bykey, IV), CryptoStreamMode.Write);
+            cs.Write(InputByteArray, 0, InputByteArray.Length);
+            cs.FlushFinalBlock();
+            return Convert.ToBase64String(ms.ToArray());
+        }
+        catch (Exception ex)
+        {
+            return ex.Message;
+        }
+    }
+    public static string Decrypt(string strText, string sDecrKey)
+    {
+        byte[] IV = { 0x12, 0x34, 0x56, 0x78, 0x90, 0xab, 0xcd, 0xef };
+        byte[] inputByteArray = new byte[strText.Length + 1];
+        try
+        {
+            byte[] byKey = System.Text.Encoding.UTF8.GetBytes(sDecrKey.Substring(0, 8));
+            DESCryptoServiceProvider des = new DESCryptoServiceProvider();
+            inputByteArray = Convert.FromBase64String(strText);
+            MemoryStream ms = new MemoryStream();
+            CryptoStream cs = new CryptoStream(ms, des.CreateDecryptor(byKey, IV), CryptoStreamMode.Write);
+            cs.Write(inputByteArray, 0, inputByteArray.Length);
+            cs.FlushFinalBlock();
+            System.Text.Encoding encoding = System.Text.Encoding.UTF8;
+            return encoding.GetString(ms.ToArray());
+        }
+        catch (Exception ex)
+        {
+            return ex.Message;
+        }
+    }
+
+    public void BindVessel()
+    {
+        //ddlVessel
+        string sql = "SELECT VesselID,VesselName FROM DBO.VESSEL V where  VesselStatusid<>2 and vesselid not in (41,43,44) order by vesselname";
+        DataTable dt=Common.Execute_Procedures_Select_ByQuery(sql);
+
+        ddlVessel.DataSource = dt;
+        ddlVessel.DataTextField = "VesselName";
+        ddlVessel.DataValueField = "VesselID";
+        ddlVessel.DataBind();
+        ddlVessel.Items.Insert(0, new ListItem(" Select ", ""));
+    }
+}

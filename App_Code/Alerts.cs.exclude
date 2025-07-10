@@ -1,0 +1,31 @@
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
+using System.Web;
+using System.Web.Security;
+using System.Web.SessionState;
+using System.Web.UI;
+using System.Data.Common;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+public class Alerts
+{
+    public static DataTable getCRMAlert()
+    {
+        return Common.Execute_Procedures_Select_ByQuery_CMS("exec get_CRMAlert");
+    }
+    public static DataTable get_DocumentAlert()
+    {
+        return Common.Execute_Procedures_Select_ByQuery_CMS("exec get_DocumentAlert");
+    }
+    public static DataTable getSignOffCrewAlert()
+    {
+        return Common.Execute_Procedures_Select_ByQuery_CMS("exec get_SignOffCrewAlert");
+    }
+    public static DataTable getVesselManningAlert()
+    {
+        return Common.Execute_Procedures_Select_ByQuery_CMS("exec get_VesselManningAlert");
+    }
+}

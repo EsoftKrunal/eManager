@@ -1,0 +1,504 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Data;
+using System.Web.UI.WebControls;
+
+public partial class MonthlyBudgetForecasting : System.Web.UI.Page
+{
+    // PAGE PROPERTIES ------------------
+    AuthenticationManager authRecInv;
+    public string CompanyCode
+    {
+        get
+        {return ViewState["Comp"].ToString();}
+        set
+        {ViewState["Comp"] = value;}
+    }    
+    public string VesselCode
+    {
+        get
+        { return ViewState["Vess"].ToString(); }
+        set
+        { ViewState["Vess"] = value; }
+    }
+    public string StartDate
+    {
+        get
+        { return ViewState["SD"].ToString(); }
+        set
+        { ViewState["SD"] = value; }
+    }
+    public string EndDate
+    {
+        get
+        { return ViewState["ED"].ToString(); }
+        set
+        { ViewState["ED"] = value; }
+    }
+    public int AccountNumber
+    {
+        get
+        { return int.Parse("0"+ViewState["AccountNumber"].ToString()); }
+        set
+        { ViewState["AccountNumber"] = value; }
+    }
+    public int AcctID
+    {
+        get
+        { return int.Parse("0" + ViewState["AcctID"].ToString()); }
+        set
+        { ViewState["AcctID"] = value; }
+    }
+    public int AccountID
+    {
+        get
+        { return int.Parse("0" + ViewState["AccountID"].ToString()); }
+        set
+        { ViewState["AccountID"] = value; }
+    }
+    public int BYear
+    {
+        get
+        { return int.Parse("0" + ViewState["Year"].ToString()); }
+        set
+        { ViewState["Year"] = value; }
+    }
+    public int BYearDays
+    {
+        get
+        { return int.Parse("0" + ViewState["BYearDays"].ToString()); }
+        set
+        { ViewState["BYearDays"] = value; }
+    }
+    public decimal NewEstBudget
+    {
+        get
+        { return Common.CastAsDecimal("0" + ViewState["Budget"].ToString()); }
+        set
+        { ViewState["Budget"] = value; }
+    }
+    public decimal AnnualAmount
+    {
+        get
+        { return Common.CastAsDecimal("0" + ViewState["AnnualAmount"].ToString()); }
+        set
+        { ViewState["AnnualAmount"] = value; }
+    }
+    public int MajCatID
+    {
+        get
+        { return int.Parse("0" + ViewState["MajCatID"].ToString()); }
+        set
+        { ViewState["MajCatID"] = value; }
+    }
+    public int MidCatID
+    {
+        get
+        { return int.Parse("0" + ViewState["MidCatID"].ToString()); }
+        set
+        { ViewState["MidCatID"] = value; }
+    }
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        //---------------------------------------
+       ProjectCommon.SessionCheck();
+        //---------------------------------------
+        #region --------- USER RIGHTS MANAGEMENT -----------
+        try
+        {
+            authRecInv = new AuthenticationManager(269, int.Parse(Session["loginid"].ToString()), ObjectType.Page);
+            if (!(authRecInv.IsView))
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "a", "alert('You have not permissions to access this page.');window.close();", true);
+            }
+        }
+        catch (Exception ex)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "a", "alert('Your session is expired.');window.close();", true);
+        }
+
+        #endregion ----------------------------------------
+        if (!Page.IsPostBack)
+        {
+            // DATA FROM QUERY STRING ---------
+            CompanyCode = Page.Request.QueryString["Co"].ToString();
+            VesselCode = Page.Request.QueryString["Vess"].ToString();
+            StartDate = Page.Request.QueryString["StartDate"].ToString();
+            EndDate = Page.Request.QueryString["EndDate"].ToString();
+            AccountNumber = int.Parse("0" + Page.Request.QueryString["AccountNumber"].ToString());
+            AcctID = Common.CastAsInt32(Page.Request.QueryString["AcctID"]);
+            AccountID = Common.CastAsInt32(Page.Request.QueryString["AccountID"]);
+            BYear = Common.CastAsInt32(Page.Request.QueryString["year"]);
+            NewEstBudget = Common.CastAsDecimal(Page.Request.QueryString["Budget"]);
+            AnnualAmount = Common.CastAsDecimal(Page.Request.QueryString["AnnAmt"]);
+            BYearDays = (Convert.ToDateTime(EndDate).Subtract(Convert.ToDateTime(StartDate))).Days + 1;
+            MajCatID = Common.CastAsInt32(Page.Request.QueryString["MajCatID"]);
+            MidCatID = Common.CastAsInt32(Page.Request.QueryString["MidCatID"]);
+
+            // DATA FOR DISPLAY ONLY  ---------
+            lblAccNum.Text = AccountNumber.ToString();
+            lblAccName.Text = GetAccountName(AccountNumber);
+            lblBudgetAmt.Text = NewEstBudget.ToString();
+            lblCompVess.Text = CompanyCode + " - " + VesselCode;
+            lblAnnBdg.Text = AnnualAmount.ToString();
+            SetComments();
+            hfSelMonth.Value = GetMonthFromDB().ToString(); 
+            // CALL LOADING FUNCTION
+            BindGrid();
+        }
+        if (IsBudgetLocked())
+        {
+            btnSave.Visible = false;
+        }
+        else
+        {
+            btnReAllocate.Visible = authRecInv.IsUpdate;
+            btnSave.Visible = authRecInv.IsUpdate;
+        }
+    }
+    // Event -----------------------------------------------------------------------
+    protected void btnSave_OnClick(object sender, EventArgs e)
+    {
+        Common.Set_Procedures("sp_NewPR_UpdateBudgetDetailsMonthWise");
+        Common.Set_ParameterLength(25);
+        Common.Set_Parameters(
+            new MyParameter("@CoCode", CompanyCode),
+            new MyParameter("@AccountID", AccountID),
+            new MyParameter("@Accountnumber", AccountNumber),
+            new MyParameter("@AcctID",AcctID ),
+            new MyParameter("@Year", BYear),
+
+            new MyParameter("@totalBudget", lblTotBdgDB.Text),
+            new MyParameter("@UpdatedBy", Session["UserName"].ToString()),
+            new MyParameter("@YearDays", BYearDays),
+            new MyParameter("@VessStart", StartDate),
+            new MyParameter("@VessEnd", EndDate),
+            new MyParameter("@ShipID", VesselCode),
+
+            new MyParameter("@JanAmt", txtJan.Text),
+            new MyParameter("@FebAmt", txtFeb.Text),
+            new MyParameter("@MarAmt", txtMar.Text),
+            new MyParameter("@AprAmt", txtApr.Text),
+            new MyParameter("@mayAmt", txtMay.Text),
+            new MyParameter("@JunAmt", txtJun.Text),
+            new MyParameter("@JulAmt", txtJul.Text),
+            new MyParameter("@AugAmt", txtAug.Text),
+            new MyParameter("@SepAmt", txtSep.Text),
+            new MyParameter("@OctAmt", txtOct.Text),
+            new MyParameter("@NevAmt", txtNev.Text),
+            new MyParameter("@DecAmt", txtDec.Text),
+            new MyParameter("@AnnAmt", lblAnnBdg.Text),
+            new MyParameter("@BudgetComments", txtComments.Text)
+            );
+        DataSet Ds = new DataSet();
+        Boolean res = false;
+        res = Common.Execute_Procedures_IUD(Ds);
+        if (res == true)
+        {
+            lblmsg.Text = "Record saved successfully.";
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "dialog", "window.opener.RefereshPage();window.close();", true); 
+        }
+        else
+        {
+            lblmsg.Text = "Record could not saved."+Common.ErrMsg;
+        }
+    }
+    protected void Amount_OnTextChanged(object sender, EventArgs e)
+    {
+        CalculateTotal(); 
+    }
+    protected void btnReload_OnClick(object sender, EventArgs e)
+    {
+        ResetNewValues();
+    }
+    // Function ---------------------------------------------------------------------
+    private void BindGrid()
+    {
+        DataTable DT = Common.Execute_Procedures_Select_ByQuery("SELECT BUDGET from dbo.v_BudgetForecast where COCODE='" + CompanyCode + "' AND VESS='" + VesselCode + "' AND [YEAR]=" + (BYear - 1).ToString() + " AND ACCOUNTNUMBER=" + AccountNumber + " ORDER BY PERIOD");
+        if (DT.Rows.Count > 0)
+        {
+            txtJan.Text = DT.Rows[0][0].ToString();
+            txtFeb.Text = DT.Rows[1][0].ToString();
+            txtMar.Text = DT.Rows[2][0].ToString();
+            txtApr.Text = DT.Rows[3][0].ToString();
+            txtMay.Text = DT.Rows[4][0].ToString();
+            txtJun.Text = DT.Rows[5][0].ToString();
+            txtJul.Text = DT.Rows[6][0].ToString();
+            txtAug.Text = DT.Rows[7][0].ToString();
+            txtSep.Text = DT.Rows[8][0].ToString();
+            txtOct.Text = DT.Rows[9][0].ToString();
+            txtNev.Text = DT.Rows[10][0].ToString();
+            txtDec.Text = DT.Rows[11][0].ToString();
+        }
+
+        CalculateTotal();
+    }
+    private int GetMonthFromDB()
+    {
+        int DBMonth = 0;
+        string sql = "select top 1 forecast as actforecast,period,round(forecast,0)as forecast  from [dbo].tblSMDBudgetForecast  " +
+                    " where CoCode='" + CompanyCode + "'  " +
+                    " AND AccountID in (select AccountID from [dbo].sql_tblSMDPRAccounts where MajCatID=" + MajCatID + ") " +
+                    " AND forecast>0 AND VESSNO=" + GetVesselNo(VesselCode) + " AND Year=" + (BYear - 1).ToString() + " order by period";
+        DataTable dt = Common.Execute_Procedures_Select_ByQuery(sql);
+        if (dt!= null)
+        if (dt.Rows.Count > 0)
+        {
+            DBMonth = Common.CastAsInt32(dt.Rows[0]["period"]);
+        }
+        return DBMonth;
+    }
+    public void ResetNewValues()
+    {
+        Decimal DBudget = 0;
+        if (MidCatID == 6 || (MidCatID == 25 || MidCatID == 26)) // this case is when selected Dry Docking or Pre Delivery Expenses
+        {
+            int DBMonth = Common.CastAsInt32(hfSelMonth.Value);    
+            if (DBMonth <= 0)
+            {
+                //ScriptManager.RegisterStartupScript(this, this.GetType(), "xx", "CheckMidCat();", true);
+                dbAskMonth.Visible =true ;
+                dvAskMonthBox.Visible = true; 
+                return;
+            }
+            else
+            {
+                txtJan.Text = "0";
+                txtFeb.Text = "0";
+                txtMar.Text = "0";
+                txtApr.Text = "0";
+                txtMay.Text = "0";
+                txtJun.Text = "0";
+                txtJul.Text = "0";
+                txtAug.Text = "0";
+                txtSep.Text = "0";
+                txtOct.Text = "0";
+                txtNev.Text = "0";
+                txtDec.Text = "0";
+                switch (Common.CastAsInt32(hfSelMonth.Value))
+                {
+                    case 1:
+                        txtJan.Text = NewEstBudget.ToString();
+                        break;
+                    case 2:
+                        txtFeb.Text = NewEstBudget.ToString();
+                        break;
+                    case 3:
+                        txtMar.Text = NewEstBudget.ToString();
+                        break;
+                    case 4:
+                        txtApr.Text = NewEstBudget.ToString();
+                        break;
+                    case 5:
+                        txtMay.Text = NewEstBudget.ToString();
+                        break;
+                    case 6:
+                        txtJun.Text = NewEstBudget.ToString();
+                        break;
+                    case 7:
+                        txtJul.Text = NewEstBudget.ToString();
+                        break;
+                    case 8:
+                        txtAug.Text = NewEstBudget.ToString();
+                        break;
+                    case 9:
+                        txtSep.Text = NewEstBudget.ToString();
+                        break;
+                    case 10:
+                        txtOct.Text = NewEstBudget.ToString();
+                        break;
+                    case 11:
+                        txtNev.Text = NewEstBudget.ToString();
+                        break;
+                    case 12:
+                        txtDec.Text = NewEstBudget.ToString();
+                        break;
+                }
+            }
+        }
+        else
+        {
+            DBudget = Math.Round(NewEstBudget / 12, 0);
+            if (StartDate == "" && EndDate == "")
+            {
+                txtJan.Text = DBudget.ToString();
+                txtFeb.Text = DBudget.ToString();
+                txtMar.Text = DBudget.ToString();
+                txtApr.Text = DBudget.ToString();
+                txtMay.Text = DBudget.ToString();
+                txtJun.Text = DBudget.ToString();
+                txtJul.Text = DBudget.ToString();
+                txtAug.Text = DBudget.ToString();
+                txtSep.Text = DBudget.ToString();
+                txtOct.Text = DBudget.ToString();
+                txtNev.Text = DBudget.ToString();
+                txtDec.Text = DBudget.ToString();
+            }
+            else
+            {
+                int Month = Convert.ToDateTime(StartDate).Month;
+                string val = "0.00";
+                ViewState.Add("TotalBudget", "0");
+                for (int i = 1; i <= 12; i++)
+                {
+                    if (i >= Month + 1)
+                    {
+                        val = DBudget.ToString();
+                    }
+                    else if (i == Month)
+                    {
+                        int startDay = Convert.ToDateTime(StartDate).Day;
+                        if (startDay == 1)
+                        {
+                            val = DBudget.ToString();
+                        }
+                        else
+                        {
+                            int Dateyear = Convert.ToDateTime(StartDate).Year;
+                            int DateMonth = Convert.ToDateTime(StartDate).Month;
+                            int DaysInMonth = DateTime.DaysInMonth(Dateyear, DateMonth);
+                            int TotalBudgetDays = DaysInMonth - startDay + 1;
+                            decimal PerDayBudget = DBudget / DaysInMonth;
+                            val = Math.Round(Common.CastAsDecimal(PerDayBudget * TotalBudgetDays), 0).ToString();
+                        }
+                    }
+
+                    switch (i)
+                    {
+                        case 1:
+                            txtJan.Text = val.ToString();
+                            ViewState["TotalBudget"] = Common.CastAsDecimal(ViewState["TotalBudget"]) + Common.CastAsDecimal(val);
+                            break;
+                        case 2:
+                            txtFeb.Text = val.ToString();
+                            ViewState["TotalBudget"] = Common.CastAsDecimal(ViewState["TotalBudget"]) + Common.CastAsDecimal(val);
+                            break;
+                        case 3:
+                            txtMar.Text = val.ToString();
+                            ViewState["TotalBudget"] = Common.CastAsDecimal(ViewState["TotalBudget"]) + Common.CastAsDecimal(val);
+                            break;
+                        case 4:
+                            txtApr.Text = val.ToString();
+                            ViewState["TotalBudget"] = Common.CastAsDecimal(ViewState["TotalBudget"]) + Common.CastAsDecimal(val);
+                            break;
+                        case 5:
+                            txtMay.Text = val.ToString();
+                            ViewState["TotalBudget"] = Common.CastAsDecimal(ViewState["TotalBudget"]) + Common.CastAsDecimal(val);
+                            break;
+                        case 6:
+                            txtJun.Text = val.ToString();
+                            ViewState["TotalBudget"] = Common.CastAsDecimal(ViewState["TotalBudget"]) + Common.CastAsDecimal(val);
+                            break;
+                        case 7:
+                            txtJul.Text = val.ToString();
+                            ViewState["TotalBudget"] = Common.CastAsDecimal(ViewState["TotalBudget"]) + Common.CastAsDecimal(val);
+                            break;
+                        case 8:
+                            txtAug.Text = val.ToString();
+                            ViewState["TotalBudget"] = Common.CastAsDecimal(ViewState["TotalBudget"]) + Common.CastAsDecimal(val);
+                            break;
+                        case 9:
+                            txtSep.Text = val.ToString();
+                            ViewState["TotalBudget"] = Common.CastAsDecimal(ViewState["TotalBudget"]) + Common.CastAsDecimal(val);
+                            break;
+                        case 10:
+                            txtOct.Text = val.ToString();
+                            ViewState["TotalBudget"] = Common.CastAsDecimal(ViewState["TotalBudget"]) + Common.CastAsDecimal(val);
+                            break;
+                        case 11:
+                            txtNev.Text = val.ToString();
+                            ViewState["TotalBudget"] = Common.CastAsDecimal(ViewState["TotalBudget"]) + Common.CastAsDecimal(val);
+                            break;
+                        case 12:
+                            txtDec.Text = val.ToString();
+                            ViewState["TotalBudget"] = Common.CastAsDecimal(ViewState["TotalBudget"]) + Common.CastAsDecimal(val);
+                            break;
+                    }
+                }
+            }
+        }
+        CalculateTotal();
+    }
+    private void CalculateTotal()
+    {
+        //==============
+        lblTotBdgDB.Text = (Common.CastAsDecimal(txtJan.Text) + Common.CastAsDecimal(txtFeb.Text) + Common.CastAsDecimal(txtMar.Text) + Common.CastAsDecimal(txtApr.Text) + Common.CastAsDecimal(txtMay.Text) + Common.CastAsDecimal(txtJun.Text) + Common.CastAsDecimal(txtJul.Text) + Common.CastAsDecimal(txtAug.Text) + Common.CastAsDecimal(txtSep.Text) + Common.CastAsDecimal(txtOct.Text) + Common.CastAsDecimal(txtNev.Text) + Common.CastAsDecimal(txtDec.Text)).ToString();
+        if (NewEstBudget == Common.CastAsDecimal(lblTotBdgDB.Text))
+        {
+            trnewBdg.Attributes.Add("color", "green");
+        }
+        else
+        {
+            trnewBdg.Attributes.Add("class", "error");
+        }
+
+        lblAnnBdg.Text = NewEstBudget.ToString();
+    }
+    //----------
+    public string GetAccountName(int AccountNumber)
+    {
+        string sql = "select accountName  from VW_sql_tblSMDPRAccounts where accountNumber=" + AccountNumber + "";
+        DataTable dt = Common.Execute_Procedures_Select_ByQuery(sql);
+        if (dt != null)
+        {
+            if (dt.Rows.Count > 0)
+            {
+                return dt.Rows[0][0].ToString();
+            }
+        }
+
+        return "";
+    }
+    public int GetVesselNo(string _VesselCode)
+    {
+        string sql = "Select VesselId As vESSELNO from Vessel with(nolock) where VesselCode='" + _VesselCode + "'";
+        DataTable dt = Common.Execute_Procedures_Select_ByQuery(sql);
+        if (dt != null)
+        {
+            if (dt.Rows.Count > 0)
+            {
+                return Common.CastAsInt32(dt.Rows[0][0]);
+            }
+        }
+        return 0;
+
+    }
+    public void SetComments()
+    {
+        string sql = "SELECT tblSMDBudgetForecastYear.*, Lk_tblSMDPRAccounts.AccountName, Lk_tblSMDPRVessels.ShipName " +
+                    " FROM ([dbo].tblSMDBudgetForecastYear INNER JOIN VW_sql_tblSMDPRAccounts as Lk_tblSMDPRAccounts ON  " +
+                    " tblSMDBudgetForecastYear.AccountID=Lk_tblSMDPRAccounts.AccountID) INNER JOIN VW_sql_tblSMDPRVessels as Lk_tblSMDPRVessels ON  " +
+                    " tblSMDBudgetForecastYear.ShipID=Lk_tblSMDPRVessels.ShipID " +
+                    " where tblSMDBudgetForecastYear.Year=" + (BYear - 1).ToString() + "  and tblSMDBudgetForecastYear.shipid='" + VesselCode + "' and tblSMDBudgetForecastYear.AccountID=" + AccountID + "";
+
+        DataTable dt = Common.Execute_Procedures_Select_ByQuery(sql);
+        if (dt != null)
+        {
+            if (dt.Rows.Count > 0)
+            {
+                txtComments.Text = dt.Rows[0]["yearComment"].ToString();
+            }
+        }
+    }
+    public Boolean IsBudgetLocked()
+    {
+        string sql = "select * from Add_tblBudgetLocking where Company='" + CompanyCode + "' and Vessel='" + VesselCode + "' and Year=" + BYear .ToString()+ "";
+        DataTable DT = Common.Execute_Procedures_Select_ByQuery(sql);
+        if (DT.Rows.Count > 0)
+            return true;
+        else
+            return false;
+    }
+    protected void btnSet_Click(object sender, EventArgs e)
+    {
+        dbAskMonth.Visible = false ;
+        dvAskMonthBox.Visible = false;
+
+        hfSelMonth.Value=txtMonth.Text;
+        ResetNewValues();
+    }
+}

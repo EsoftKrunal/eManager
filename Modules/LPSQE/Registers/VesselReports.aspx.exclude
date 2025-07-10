@@ -1,0 +1,158 @@
+<%@ Page Language="C#" MasterPageFile="~/Web/FormReportingMaster.master" AutoEventWireup="true" CodeFile="VesselReports.aspx.cs" Inherits="FormReporting_VesselReports" Title="Untitled Page" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+<script language="javascript" type="text/javascript">
+//    function OpenVesselWiseDetailWindow(vslid)
+//    {
+//        var VesselId=vslid;
+//        var FollowUpCategories=document.getElementById("ctl00_ContentPlaceHolder1_HiddenField_FollowUpCat").value;
+//        var FromDate=document.getElementById("ctl00_ContentPlaceHolder1_HiddenField_FromDate").value;
+//        var ToDate=document.getElementById("ctl00_ContentPlaceHolder1_HiddenField_ToDate").value;
+//        window.open('..\\FormReporting\\VesselWiseFollowUpList.aspx?FPVesselId='+VesselId+'&FPCatID='+FollowUpCategories+'&FPFrmDate='+FromDate+'&FPToDate='+ToDate,'tyu','title=no,toolbars=no,scrollbars=yes,width=1000,height=560,left=150,top=100,addressbar=no');
+//    }
+
+    function ShowProgress(ctl) 
+    {
+        ctl.setAttribute("value", "Loading...");
+    }
+    function CallPostBack(val) {
+        var pid = '<%=txt_key.ClientID%>';
+        var bid = '<%=btnDownloadFile.ClientID%>';
+        document.getElementById(pid).setAttribute("value", val);
+        document.getElementById(bid).click();
+    }
+</script>
+<style type="text/css">
+.btn1
+{
+    padding:2px;
+    background-color:#4371a5;
+    color:White;
+    border:solid 1px #D9E3ED;
+    padding-left:15px;
+    padding-right:15px;
+}
+a img
+{
+    border:none;
+}
+</style>
+<div style='display:none;'>
+    <asp:TextBox id="txt_key" runat="server" style="display:none;" />
+    <asp:LinkButton runat="server" ID="btnDownloadFile" OnClick="btnDownloadFile_Click" Text="a" ></asp:LinkButton>
+</div>
+            
+<table id="filter" width="100%" style ="text-align :center" cellpadding="2" cellspacing="1" style="border:solid 1px #4371a5;" >
+    <tr style="background-color :#4371a5;font-weight:bold;">
+        <td style="width:80px;color:White; text-align:center">Year</td>
+        <td style="width:130px;color:White; text-align:center">Fleet</td>
+        <td style="width:200px;color:White; text-align:center">Vessel</td>
+        <td style="width:200px;color:White; text-align:center">Inactive Vessels</td>
+        <td style="width:150px;color:White; text-align:center">Report Group</td>
+        <td style="width:150px;color:White; text-align:center">Report Frequency</td>
+        <td style="color:White; text-align:center">View Report for</td>
+    </tr>
+    <tr>
+        <td>
+            <asp:DropDownList runat="server"  ID="ddlYear" CssClass="input_box" Width="100%" ></asp:DropDownList> 
+        </td>
+        <td>
+            <asp:DropDownList runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlFleet_OnSelectedIndexChanged"  ID="ddlFleet" CssClass="input_box" Width="100%" ></asp:DropDownList>
+        </td>
+        <td>
+            <asp:DropDownList runat="server"  ID="ddlVessel" CssClass="input_box" Width="100%" ></asp:DropDownList> 
+        </td>
+        <td style="text-align:left"><asp:CheckBox runat="server" ID="chk_Inactive" OnCheckedChanged="chk_Inactive_OnCheckedChanged" Text="Include Inactive Vessels" AutoPostBack="true"  />  </td>
+        <td style="text-align:center">
+            <asp:DropDownList runat="server"  ID="ddlGroup" CssClass="input_box" Width="100%"></asp:DropDownList> 
+        </td>
+        <td style="text-align:center">
+            <asp:DropDownList runat="server"  ID="ddlFrequency" CssClass="input_box" Width="100%"></asp:DropDownList> 
+        </td>
+        <%--<td style="text-align:center">
+            From 
+            <asp:TextBox runat="server" id="txtFromDate"  MaxLength="15" CssClass="input_box" Width="80px" ></asp:TextBox>
+            <asp:ImageButton id="ImageButton3" runat="server" CausesValidation="False" ImageUrl="~/Images/Calendar.gif"></asp:ImageButton> 
+            &nbsp;&nbsp; TO
+            <asp:TextBox runat="server" id="txtToDate"  MaxLength="15" CssClass="input_box" Width="80px"  ></asp:TextBox>
+            <asp:ImageButton id="ImageButton4" runat="server" CausesValidation="False" ImageUrl="~/Images/Calendar.gif"></asp:ImageButton>
+            <ajaxToolkit:CalendarExtender id="CalendarExtender1" runat="server" Format="dd-MMM-yyyy" PopupButtonID="ImageButton3" PopupPosition="TopRight" TargetControlID="txtFromDate"></ajaxToolkit:CalendarExtender>
+            <ajaxToolkit:CalendarExtender id="CalendarExtender2" runat="server" Format="dd-MMM-yyyy" PopupButtonID="ImageButton4" PopupPosition="TopRight" TargetControlID="txtToDate"></ajaxToolkit:CalendarExtender> 
+        </td>--%>
+        <td style='text-align:center' >
+            <asp:Button runat="server" CssClass="btn1" ID="Button1" Text="Show" onclick="btn_Show_Click" OnClientClick='ShowProgress(this)'/> 
+            &nbsp;<asp:Button runat="server" CssClass="btn1" ID="btnClear" Text="Clear" OnClick="btnClear_OnClick" /> 
+            &nbsp;<asp:Button id="btn_AddNew" runat="server" CssClass="btn1" Text="Upload Reports" OnClick="btn_AddNew_Click"></asp:Button>
+        </td>
+    </tr>
+</table>
+<div>
+    <asp:Literal runat="server" ID="lit_Data"></asp:Literal>
+</div>
+
+<div style="position:absolute;top:0px;left:0px; height :470px; width:100%;" id="dvAddReport" runat="server" visible="false">
+    <center>
+        <div style="position:fixed;top:0px;left:0px; min-height :100%; width:100%; background-color :Gray;z-index:100; opacity:0.4;filter:alpha(opacity=40)"></div>
+        <div style="position:relative;width:700px;  height:220px;padding :5px; text-align :center;background : white; z-index:150;top:150px; border:solid 0px black;">
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <ContentTemplate>
+            <center >
+            <div style="padding:6px; background-color:#D6EBFF; font-size:14px;"><b>Add / Edit Vessel Report </b></div>
+            <div style="height:172px; margin-top:5px;">
+            <table cellpadding="2" cellspacing="0" border="0" width='100%'>
+            <tr>
+            <td style='text-align:right; width:130px;'> Vessel :</td>
+            <td>
+                <asp:DropDownList runat="server" id="ddlVessel1" Width='255px' OnSelectedIndexChanged="ddlVessel1_SelectedIndexChanged" AutoPostBack="true" ></asp:DropDownList>    
+                <asp:CompareValidator runat="server"  ID="CompareValidator2" ControlToValidate="ddlVessel1" ValueToCompare="0" Operator="GreaterThan" ErrorMessage="Required."></asp:CompareValidator>
+            </td>
+            </tr>
+            <tr>
+            <td style='text-align:right; width:130px;'> Year :</td>
+            <td>
+                <asp:DropDownList runat="server" id="ddlYear1" Width='255px'></asp:DropDownList>    
+            </td>
+            </tr>
+            <tr>
+            <td style='text-align:right; width:130px;'> Report :</td>
+            <td>
+                <asp:DropDownList runat="server" id="ddlReport" Width='255px' OnSelectedIndexChanged="ddlReport_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>    
+                <asp:CompareValidator runat="server"  ID="CompareValidator1" ControlToValidate="ddlReport" ValueToCompare="0" Operator="GreaterThan" ErrorMessage="Required."></asp:CompareValidator>
+            </td>
+            </tr>
+            <tr runat="server" id="tr_Period" visible="false">
+            <td style='text-align:right; width:130px;'> Period :</td>
+            <td>
+                <asp:DropDownList runat="server" id="ddlPeriod" Width='255px' AutoPostBack="true" OnSelectedIndexChanged="ddlPeriod_SelectedIndexChanged"></asp:DropDownList>
+                &nbsp;
+                <asp:LinkButton runat="server" ID="lnkDownloadFile" OnClick="lnkDownloadFile_Click"></asp:LinkButton>
+            </td>
+            </tr>
+
+            <tr>
+            <td style='text-align:right; width:130px;'> Attachement :</td>
+            <td>
+                 <asp:FileUpload runat="server" ID="upl_File" Width="455px"/>
+            </td>
+            </tr>
+            </table>
+            <asp:Button runat="server" ID="btnSave" Text="Save" onclick="btnSave_Click" style="border:none; background-color:Green; color:White;padding:5px; width:100px; margin-top:5px;" />   
+           
+            </div>
+            <div style="text-align:right; position:relative; right:-22px; top:-2px;">
+               <asp:ImageButton runat="server" ID="btnClose" Text="Close" onclick="btnClose_Click" ImageUrl="~/Images/close-button.png" CausesValidation="false" title='Close this Window !'/>   
+            </div>
+             </center>
+        </ContentTemplate>
+        <Triggers>
+        <asp:PostBackTrigger ControlID="btnSave" />
+        <asp:PostBackTrigger ControlID="btnDownloadFile" />
+        <asp:PostBackTrigger ControlID="lnkDownloadFile" />
+        
+        </Triggers>
+        </asp:UpdatePanel>
+         </div>
+         </center>
+        
+</div>
+</asp:Content>
+

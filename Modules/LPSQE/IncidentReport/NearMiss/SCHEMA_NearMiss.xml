@@ -1,0 +1,40 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ER_S133_Report_Office">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ReportId" type="xs:long" minOccurs="0" />
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="Remarks" type="xs:string" minOccurs="0" />
+              <xs:element name="NMSeverity" type="xs:string" minOccurs="0" />
+              <xs:element name="CA_HumanActions" type="xs:string" minOccurs="0" />
+              <xs:element name="CA_HumanActions_Other" type="xs:string" minOccurs="0" />
+              <xs:element name="CA_Conditions" type="xs:string" minOccurs="0" />
+              <xs:element name="CA_Conditions_Other" type="xs:string" minOccurs="0" />
+              <xs:element name="RC_HumanFactors" type="xs:string" minOccurs="0" />
+              <xs:element name="RC_HumanFactors_Other" type="xs:string" minOccurs="0" />
+              <xs:element name="RC_JobFactors" type="xs:string" minOccurs="0" />
+              <xs:element name="RC_JobFactors_Other" type="xs:string" minOccurs="0" />
+              <xs:element name="Is_Closed" type="xs:string" minOccurs="0" />
+              <xs:element name="CloseDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ClosedBy" type="xs:string" minOccurs="0" />
+              <xs:element name="Is_Closure_Notified" type="xs:string" minOccurs="0" />
+              <xs:element name="NotifyDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CreatedBy" type="xs:string" minOccurs="0" />
+              <xs:element name="CreatedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Updated" type="xs:boolean" minOccurs="0" />
+              <xs:element name="UpdatedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Status" type="xs:string" minOccurs="0" />
+              <xs:element name="Locked" type="xs:string" minOccurs="0" />
+              <xs:element name="ExportedBy" type="xs:string" minOccurs="0" />
+              <xs:element name="ExportedOn" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

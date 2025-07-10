@@ -1,0 +1,271 @@
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using System.Collections;
+using System.ComponentModel;
+using System.Configuration;
+using System.Web;
+using System.Web.Security;
+using System.Web.SessionState;
+using System.Web.UI;
+using System.Data.Common;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using System.Transactions;
+using Microsoft.Practices.EnterpriseLibrary.Data;
+using ShipSoft.CrewManager.BusinessObjects;
+public class Alerts
+{
+    public static void SetHelp(HtmlImage imgCtl)
+    {
+        imgCtl.Attributes.Add("onclick", "javascript:window.open('" + ConfigurationManager.AppSettings["ManualLink"] + "Module_" + imgCtl.Attributes["moduleid"].ToString() + ".pdf')");
+        imgCtl.Visible = true;
+    }
+    public static int isAutorized(int LoginId, int ModuleId)
+    {
+        string procedurename = "isAutorized";
+        DataTable dt4 = new DataTable();
+
+        Database objDatabase = DatabaseFactory.CreateDatabase();
+        DbCommand objDbCommand = objDatabase.GetStoredProcCommand(procedurename);
+        objDatabase.AddInParameter(objDbCommand, "@LoginId", DbType.Int32, LoginId);
+        objDatabase.AddInParameter(objDbCommand, "@ApplicationModuleId", DbType.Int32, ModuleId);
+        using (IDataReader dr = objDatabase.ExecuteReader(objDbCommand))
+        {
+            dt4.Load(dr);
+        }
+        return Convert.ToInt32(dt4.Rows[0][0].ToString());
+    }
+    public static int getRoleId(int LoginId)
+    {
+        string procedurename = "isAdmin";
+        DataTable dt4 = new DataTable();
+
+        Database objDatabase = DatabaseFactory.CreateDatabase();
+        DbCommand objDbCommand = objDatabase.GetStoredProcCommand(procedurename);
+        objDatabase.AddInParameter(objDbCommand, "@LoginId", DbType.Int32, LoginId);
+        using (IDataReader dr = objDatabase.ExecuteReader(objDbCommand))
+        {
+            dt4.Load(dr);
+        }
+        return Convert.ToInt32(dt4.Rows[0][0].ToString());
+    }
+    //=============== REGISTER PAGES
+    public static void HANDLE_AUTHORITY(int Action, Button Add, Button Save, Button Cancel, Button Print,Authority Auth)
+    {
+        switch (Action)
+        {
+            case 1:  // case when Page Load 
+                Add.Visible = Auth.isAdd;
+                Save.Visible = false;
+                Cancel.Visible = false;
+                //Print.Visible = false;
+                Print.Visible = Auth.isPrint;
+                break;
+            case 2:  // case when Add Click
+                Add.Visible = false;
+                Save.Visible = true;
+                Cancel.Visible = true;
+                //Print.Visible = false;
+                Print.Visible = Auth.isPrint;
+                break;
+            case 3:  // case when Save Click
+                Add.Visible = Auth.isAdd;
+                Save.Visible = false;
+                Cancel.Visible = false;
+                //Print.Visible = false;
+                Print.Visible = Auth.isPrint;
+                break;
+            case 4:  // case when View Click
+                Add.Visible = Auth.isAdd;
+                Save.Visible = false;
+                Cancel.Visible = true;
+                Print.Visible = Auth.isPrint;
+                break;
+            case 5:  // case when Edit Click
+                //Add.Visible = Auth.isAdd;
+                Add.Visible = false;
+                Save.Visible = true;
+                Cancel.Visible = true;
+                //Print.Visible = Auth.isPrint;
+                //Print.Visible = false;
+                Print.Visible = Auth.isPrint;
+                break;
+                // Transactions
+            case 6: // Search Screen
+                Add.Enabled = Auth.isAdd;
+                Print.Enabled = Auth.isPrint;
+                break;
+            case 7: // Planning Screen (Page Load)
+                Add.Enabled = Auth.isEdit;
+                Save.Enabled = Auth.isEdit;
+                Print.Enabled = Auth.isPrint;
+                break;
+            case 8: // Travel Schedule Screen
+                Save.Enabled = Auth.isEdit;
+                Print.Enabled = Auth.isPrint;
+                break;
+            case 9: // Observation Screen
+                Add.Enabled = Auth.isEdit;
+                Save.Enabled = Auth.isEdit;
+                Cancel.Enabled = Auth.isEdit;
+                Print.Enabled = Auth.isEdit;
+                break;
+            case 10: // Response Screen
+                Add.Enabled = Auth.isAdd;
+                Save.Enabled = Auth.isEdit;
+                Cancel.Enabled = Auth.isDelete;
+                Print.Enabled = Auth.isPrint;
+                break;
+            case 11: // Inspection Closer Screen
+                Add.Enabled = Auth.isEdit;
+                break;
+            case 12: // Create Reports
+                Add.Enabled = Auth.isAdd;
+                Save.Enabled = Auth.isEdit;
+                Cancel.Enabled = Auth.isEdit;
+                Print.Enabled = Auth.isEdit;
+                break;
+            case 13: // Create Reports
+                Cancel.Enabled = Auth.isDelete;
+                break;
+            case 14: // Vessel Certificates
+                Add.Enabled = Auth.isAdd;
+                Save.Enabled = Auth.isEdit;
+                Cancel.Enabled = Auth.isEdit;
+                Print.Enabled = Auth.isEdit;
+                break;
+            default: // cancel
+                Add.Visible = Auth.isAdd;
+                Save.Visible = false;
+                Cancel.Visible = false;
+                //Print.Visible = false;
+                Print.Visible = Auth.isPrint;
+                break;
+        }
+
+    }
+    public static void HANDLE_GRID(GridView gv, Authority ob)
+    {
+        AuthenticationManager au = new AuthenticationManager(ob.ApplicationModuleId, ob.UserId, ObjectType.Page);
+        try
+        {
+            gv.Columns[gv.Columns.Count - 2].Visible = au.IsUpdate;
+            gv.Columns[gv.Columns.Count - 1].Visible = au.IsDelete;
+        }
+        catch
+        {
+            gv.Columns[gv.Columns.Count - 2].Visible = false;
+            gv.Columns[gv.Columns.Count - 2].Visible = au.IsDelete;
+        }
+
+        //try
+        //{
+        //    gv.Columns[gv.Columns.Count - 2].Visible = ob.isEdit;
+        //    gv.Columns[gv.Columns.Count - 1].Visible = ob.isDelete;
+        //}
+        //catch
+        //{
+        //    gv.Columns[gv.Columns.Count - 2].Visible = false;
+        //    gv.Columns[gv.Columns.Count - 2].Visible = ob.isDelete;
+        //}
+    }
+    public static void HANDLE_GRID_VC(GridView gv, Authority ob)
+    {
+        AuthenticationManager au = new AuthenticationManager(ob.ApplicationModuleId, ob.UserId, ObjectType.Page);
+        try
+        {
+            gv.Columns[1].Visible = au.IsUpdate;
+            gv.Columns[2].Visible = au.IsDelete;
+        }
+        catch
+        {
+            gv.Columns[1].Visible = false;
+            gv.Columns[1].Visible = au.IsDelete;
+        }
+
+        //try
+        //{
+        //    gv.Columns[1].Visible = ob.isEdit;
+        //    gv.Columns[2].Visible = ob.isDelete;
+        //}
+        //catch
+        //{
+        //    gv.Columns[1].Visible = false;
+        //    gv.Columns[1].Visible = ob.isDelete;
+        //}
+    }
+    //************ Transactions Screens
+    public static void HANDLE_SEARCH_GRID(GridView gv, Authority ob)
+    {
+        AuthenticationManager au = new AuthenticationManager(ob.ApplicationModuleId, ob.UserId, ObjectType.Page);
+        try
+        {
+            gv.Columns[0].Visible = au.IsView;
+        }
+        catch
+        {
+            gv.Columns[0].Visible = false;
+            gv.Columns[0].Visible = au.IsView;
+        }
+
+        //try
+        //{
+        //    gv.Columns[0].Visible = ob;
+        //}
+        //catch
+        //{
+        //    gv.Columns[0].Visible = false;
+        //    gv.Columns[0].Visible = ob.isPrint;
+        //}
+    }
+    public static void HANDLE_PLANNING_GRID(ImageButton imgbtn, Authority ob)
+    {
+        AuthenticationManager au = new AuthenticationManager(ob.ApplicationModuleId, ob.UserId, ObjectType.Page);
+        try
+        {
+            imgbtn.Enabled = au.IsDelete;
+            //gv.Columns[gv.Columns.Count - 1].Visible = ob.isDelete;
+        }
+        catch
+        {
+            imgbtn.Enabled = false;
+            imgbtn.Enabled = au.IsDelete;
+            //gv.Columns[gv.Columns.Count - 1].Visible = false;
+            //gv.Columns[gv.Columns.Count - 1].Visible = ob.isDelete;
+        }
+
+        //try
+        //{
+        //    imgbtn.Enabled = ob.isDelete;
+        //    //gv.Columns[gv.Columns.Count - 1].Visible = ob.isDelete;
+        //}
+        //catch
+        //{
+        //    imgbtn.Enabled = false;
+        //    imgbtn.Enabled = ob.isDelete;
+        //    //gv.Columns[gv.Columns.Count - 1].Visible = false;
+        //    //gv.Columns[gv.Columns.Count - 1].Visible = ob.isDelete;
+        //}
+    }
+    //********************************
+    //*****UserOnBehalf/Subordinate Rights
+    public static int UserOnBehalfRight(int _LoginId, int _InspectionDueId)
+    {
+        return 1;
+        //DataTable dtub = Common.Execute_Procedures_Select_ByQuery("SELECT SUPERINTENDENTID FROM dbo.T_INSPSUPT WHERE INSPECTIONDUEID=" + _InspectionDueId.ToString() + " AND SUPERINTENDENTID IN (SELECT ASSIGNEDUSERID FROM UserOnbehalfRight WHERE ONBEHALFUSERID=" + _LoginId.ToString() + ")");
+        //if (dtub != null)
+        //{
+        //    if (dtub.Rows.Count > 0)
+        //        return 1;
+        //    else
+        //        return 0;
+        //}
+        //else
+        //{
+        //    return 0;
+        //}
+    }
+    //*************************************
+}

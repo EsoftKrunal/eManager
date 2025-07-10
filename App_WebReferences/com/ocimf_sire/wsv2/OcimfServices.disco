@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="http://wsv2.ocimf-sire.com/OcimfServices.asmx?wsdl" docRef="http://wsv2.ocimf-sire.com/OcimfServices.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://wsv2.ocimf-sire.com/OcimfServices.asmx" xmlns:q1="http://www.ocimf.com/" binding="q1:OcimfServicesSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://wsv2.ocimf-sire.com/OcimfServices.asmx" xmlns:q2="http://www.ocimf.com/" binding="q2:OcimfServicesSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>

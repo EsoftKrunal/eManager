@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.ocimf.com/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://www.ocimf.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.ocimf.com/">
+      <s:element name="StartWebServiceSession">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AccountNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StartWebServiceSessionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StartWebServiceSessionResult" type="tns:OcimfWsResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="OcimfWsResponse">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ResultCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorTicketNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataXml" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="InvokeMethod">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TokenID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MethodName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Version" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InvokeMethodResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InvokeMethodResult" type="tns:OcimfWsResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="StartWebServiceSessionSoapIn">
+    <wsdl:part name="parameters" element="tns:StartWebServiceSession" />
+  </wsdl:message>
+  <wsdl:message name="StartWebServiceSessionSoapOut">
+    <wsdl:part name="parameters" element="tns:StartWebServiceSessionResponse" />
+  </wsdl:message>
+  <wsdl:message name="InvokeMethodSoapIn">
+    <wsdl:part name="parameters" element="tns:InvokeMethod" />
+  </wsdl:message>
+  <wsdl:message name="InvokeMethodSoapOut">
+    <wsdl:part name="parameters" element="tns:InvokeMethodResponse" />
+  </wsdl:message>
+  <wsdl:portType name="OcimfServicesSoap">
+    <wsdl:operation name="StartWebServiceSession">
+      <wsdl:input message="tns:StartWebServiceSessionSoapIn" />
+      <wsdl:output message="tns:StartWebServiceSessionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InvokeMethod">
+      <wsdl:input message="tns:InvokeMethodSoapIn" />
+      <wsdl:output message="tns:InvokeMethodSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="OcimfServicesSoap" type="tns:OcimfServicesSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="StartWebServiceSession">
+      <soap:operation soapAction="http://www.ocimf.com/StartWebServiceSession" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InvokeMethod">
+      <soap:operation soapAction="http://www.ocimf.com/InvokeMethod" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="OcimfServicesSoap12" type="tns:OcimfServicesSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="StartWebServiceSession">
+      <soap12:operation soapAction="http://www.ocimf.com/StartWebServiceSession" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InvokeMethod">
+      <soap12:operation soapAction="http://www.ocimf.com/InvokeMethod" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="OcimfServices">
+    <wsdl:port name="OcimfServicesSoap" binding="tns:OcimfServicesSoap">
+      <soap:address location="http://wsv2.ocimf-sire.com/OcimfServices.asmx" />
+    </wsdl:port>
+    <wsdl:port name="OcimfServicesSoap12" binding="tns:OcimfServicesSoap12">
+      <soap12:address location="http://wsv2.ocimf-sire.com/OcimfServices.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,66 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="RestHourSetup.aspx.cs" Inherits="RestHourSetup" %>
+<%@ Register Assembly="CrystalDecisions.Web, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304"
+    Namespace="CrystalDecisions.Web" TagPrefix="CR" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Rest Hour Setup.</title>
+     <link href="../Styles/style.css" rel="stylesheet" type="text/css" />
+    <link href="../Styles/sddm.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../Styles/StyleSheet.css" />
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        <br />
+        <br />
+    
+        <br />
+    
+        <br />
+        <br />
+        
+        
+        <table cellpadding="4" cellspacing="0" border="1" width="90%" style="margin:auto; font-size:medium; text-align:right;">
+            <col width="50%" />
+            <col />
+            <tr>
+                <td>
+                    Select Vessel : 
+                </td>
+                <td align="left">
+                    <asp:DropDownList ID="ddlVessel" runat="server" Width="200px" style="background-color:Yellow;" ></asp:DropDownList>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*" ControlToValidate="ddlVessel"></asp:RequiredFieldValidator>
+                    
+                    <%--<asp:Label runat="server" ID="lblVessel"></asp:Label>--%>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:center"><asp:Button ID="BtnCreateDB" runat="server" CssClass="input_box" Text="Create DB" OnClick="BtnCreateDB_OnClick"  /></td>
+            </tr>
+            <tr runat="server" id="trlink" visible="false">
+                <td colspan="2" style="text-align:left; font-size :12px" >
+                <a runat="server" id="ancLink">Database script link </a>
+                (right click and select 
+                    &quot;save as target&quot; in the context menu)</td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:left;font-size :12px;">
+                <b>Notes :</b>
+                <br />
+                1. Use Published Project.
+                <br />
+                2. Check Web.Config File for Connection String. e.g given below.
+                <br />
+                <textarea style="width:99%; color:blue; text-align:left; height :70px; overflow:hidden;" aliign="left"><add name="eMANAGER" connectionString="Data Source=LOCALHOST\SQLEXPRESS;Initial Catalog=<DataBaseName>;Persist Security Info=False;Integrated Security=SSPI" providerName="System.Data.SqlClient"/>
+                </textarea> 
+                <br />
+                3. Get Database Script and execute through "PMS-Administration > Maintainance" Utility on the PMS Database Server.
+                </td>
+            </tr>
+        </table>
+    </div>
+    </form>
+</body>
+</html>

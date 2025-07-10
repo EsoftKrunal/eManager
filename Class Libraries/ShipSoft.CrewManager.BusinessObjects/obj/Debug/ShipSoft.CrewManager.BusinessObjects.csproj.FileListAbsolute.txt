@@ -1,0 +1,58 @@
+D:\Projects_VS2010\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\bin\Debug\ShipSoft.CrewManager.BusinessObjects.dll
+D:\Projects_VS2010\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\bin\Debug\ShipSoft.CrewManager.BusinessObjects.pdb
+D:\Projects_VS2010\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ResolveAssemblyReference.cache
+D:\Projects_VS2010\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ShipSoft.CrewManager.BusinessObjects.dll
+D:\Projects_VS2010\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ShipSoft.CrewManager.BusinessObjects.pdb
+D:\GIT\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\bin\Debug\ShipSoft.CrewManager.BusinessObjects.dll
+D:\GIT\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\bin\Debug\ShipSoft.CrewManager.BusinessObjects.pdb
+D:\GIT\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ResolveAssemblyReference.cache
+D:\GIT\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ShipSoft.CrewManager.BusinessObjects.dll
+D:\GIT\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ShipSoft.CrewManager.BusinessObjects.pdb
+D:\MTM_GIT\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\bin\Debug\ShipSoft.CrewManager.BusinessObjects.dll
+D:\MTM_GIT\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\bin\Debug\ShipSoft.CrewManager.BusinessObjects.pdb
+D:\MTM_GIT\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ResolveAssemblyReference.cache
+D:\MTM_GIT\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ShipSoft.CrewManager.BusinessObjects.dll
+D:\MTM_GIT\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ShipSoft.CrewManager.BusinessObjects.pdb
+D:\Project Repositry\GIT@192_168_2_6\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\bin\Debug\ShipSoft.CrewManager.BusinessObjects.dll
+D:\Project Repositry\GIT@192_168_2_6\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\bin\Debug\ShipSoft.CrewManager.BusinessObjects.pdb
+D:\Project Repositry\GIT@192_168_2_6\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ResolveAssemblyReference.cache
+D:\Project Repositry\GIT@192_168_2_6\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ShipSoft.CrewManager.BusinessObjects.dll
+D:\Project Repositry\GIT@192_168_2_6\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ShipSoft.CrewManager.BusinessObjects.pdb
+F:\GIT\Projects@10.10.8.6\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\bin\Debug\ShipSoft.CrewManager.BusinessObjects.dll
+F:\GIT\Projects@10.10.8.6\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\bin\Debug\ShipSoft.CrewManager.BusinessObjects.pdb
+F:\GIT\Projects@10.10.8.6\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ShipSoft.CrewManager.BusinessObjects.dll
+F:\GIT\Projects@10.10.8.6\mtm_cms\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ShipSoft.CrewManager.BusinessObjects.pdb
+V:\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\bin\Debug\ShipSoft.CrewManager.BusinessObjects.dll
+V:\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\bin\Debug\ShipSoft.CrewManager.BusinessObjects.pdb
+V:\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ShipSoft.CrewManager.BusinessObjects.csprojResolveAssemblyReference.cache
+V:\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ShipSoft.CrewManager.BusinessObjects.dll
+V:\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ShipSoft.CrewManager.BusinessObjects.pdb
+C:\Projects\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\bin\Debug\ShipSoft.CrewManager.BusinessObjects.dll
+C:\Projects\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\bin\Debug\ShipSoft.CrewManager.BusinessObjects.pdb
+C:\Projects\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ShipSoft.CrewManager.BusinessObjects.csprojResolveAssemblyReference.cache
+C:\Projects\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ShipSoft.CrewManager.BusinessObjects.dll
+C:\Projects\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ShipSoft.CrewManager.BusinessObjects.pdb
+C:\MyDATA\project13oct\project13oct\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\bin\Debug\ShipSoft.CrewManager.BusinessObjects.dll
+C:\MyDATA\project13oct\project13oct\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\bin\Debug\ShipSoft.CrewManager.BusinessObjects.pdb
+C:\MyDATA\project13oct\project13oct\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ShipSoft.CrewManager.BusinessObjects.csproj.AssemblyReference.cache
+C:\MyDATA\project13oct\project13oct\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ShipSoft.CrewManager.BusinessObjects.csproj.CoreCompileInputs.cache
+C:\MyDATA\project13oct\project13oct\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ShipSoft.CrewManager.BusinessObjects.dll
+C:\MyDATA\project13oct\project13oct\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ShipSoft.CrewManager.BusinessObjects.pdb
+C:\MyDATA\energiosOS\Sourcecode\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\bin\Debug\ShipSoft.CrewManager.BusinessObjects.dll
+C:\MyDATA\energiosOS\Sourcecode\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\bin\Debug\ShipSoft.CrewManager.BusinessObjects.pdb
+C:\MyDATA\energiosOS\Sourcecode\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ShipSoft.CrewManager.BusinessObjects.csproj.AssemblyReference.cache
+C:\MyDATA\energiosOS\Sourcecode\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ShipSoft.CrewManager.BusinessObjects.csproj.CoreCompileInputs.cache
+C:\MyDATA\energiosOS\Sourcecode\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ShipSoft.CrewManager.BusinessObjects.dll
+C:\MyDATA\energiosOS\Sourcecode\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ShipSoft.CrewManager.BusinessObjects.pdb
+C:\Sourcecode\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\bin\Debug\ShipSoft.CrewManager.BusinessObjects.dll
+C:\Sourcecode\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\bin\Debug\ShipSoft.CrewManager.BusinessObjects.pdb
+C:\Sourcecode\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ShipSoft.CrewManager.BusinessObjects.csproj.AssemblyReference.cache
+C:\Sourcecode\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ShipSoft.CrewManager.BusinessObjects.csproj.CoreCompileInputs.cache
+C:\Sourcecode\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ShipSoft.CrewManager.BusinessObjects.dll
+C:\Sourcecode\CMS\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ShipSoft.CrewManager.BusinessObjects.pdb
+C:\Sourcecode\Class Libraries\ShipSoft.CrewManager.BusinessObjects\bin\Debug\ShipSoft.CrewManager.BusinessObjects.dll
+C:\Sourcecode\Class Libraries\ShipSoft.CrewManager.BusinessObjects\bin\Debug\ShipSoft.CrewManager.BusinessObjects.pdb
+C:\Sourcecode\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ShipSoft.CrewManager.BusinessObjects.csproj.AssemblyReference.cache
+C:\Sourcecode\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ShipSoft.CrewManager.BusinessObjects.csproj.CoreCompileInputs.cache
+C:\Sourcecode\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ShipSoft.CrewManager.BusinessObjects.dll
+C:\Sourcecode\Class Libraries\ShipSoft.CrewManager.BusinessObjects\obj\Debug\ShipSoft.CrewManager.BusinessObjects.pdb

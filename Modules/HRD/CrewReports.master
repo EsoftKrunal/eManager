@@ -1,0 +1,479 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="CrewReports.master.cs" Inherits="Crew_Reports" MasterPageFile="~/MasterPage.master"  %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <%--<link href="Styles/sddm.css" rel="stylesheet" type="text/css" />--%>
+    <link rel="stylesheet" href="../../css/app_style.css" />
+    <link rel="stylesheet" type="text/css" href="Styles/StyleSheet.css" />
+      <script language="javascript" type="text/javascript">
+          function CallPrint(strid) {
+              var prtContent = document.getElementById(strid);
+              var WinPrint = window.open('', '', 'letf=0,top=0,width=1,height=1,toolbar=0,scrollbars=0,status=0');
+              WinPrint.document.write(prtContent.innerHTML);
+              WinPrint.document.close();
+              WinPrint.focus();
+              WinPrint.print();
+              WinPrint.close();
+              // prtContent.innerHTML=strOldOne;
+          }
+      </script> 
+    <title="EMANAGER"></title>
+    <style type="text/css">
+        .auto-style1 {
+            width: 99px;
+            height: 23px;
+        }
+        .auto-style2 {
+            width: 211px;
+            height: 23px;
+        }
+        .auto-style3 {
+            height: 23px;
+        }
+    </style>
+    </asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentMainMaster" runat="Server">
+    <div style="text-align: center">
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+          <table style="width :100%" cellpadding="0" cellspacing="0">
+        <tr>
+        <td style=" text-align :left; vertical-align : top;" >
+        <table border="0" cellpadding="0" cellspacing="0" style="border-right: #4371a5 1px solid;border-top: #4371a5 1px solid; border-left: #4371a5 1px solid; border-bottom: #4371a5 1px solid; text-align:center" width="100%">
+            <tr>
+                <td align="center" style="text-align:center;background-color:#4c7a6f;color:#fff;font-size: 14px;" >
+                     <img runat="server" id="imgHome" style ="cursor:pointer;float :right; padding-right :5px;" src="~/Modules/HRD/Images/home.png" alt="Home" onclick="window.location.href='../Dashboard.aspx'" /> &nbsp;
+                    Reports</td>
+            </tr>
+            <tr>
+                <td>
+                    <table style="background-color:#f9f9f9" border="0" cellpadding="0" cellspacing="0" width="100%" runat="Server" id="singaporetable">
+                      
+                        <tr>
+                            <td style="padding:10px; color: red; height: 13px; text-align: left">
+                                        <fieldset style="border-right: #8fafdb 1px solid; border-top: #8fafdb 1px solid; border-left: #8fafdb 1px solid; border-bottom: #8fafdb 1px solid; text-align: left;">
+                                            <legend><strong>Personal Reports</strong> </legend>
+                                            <table border="0" cellpadding="5" cellspacing="5" style="border-collapse: collapse" width="100%" class="reporttbl" >
+                                                <tr  class="reportNameTitle">
+                                                    <td style="width: 99px">
+                                                    </td>
+                                                    <td style="width: 211px">
+                                                        <a href="PrintCV.aspx?Mode=In"  target="_blank" >Print CV</a></td>
+                                                    <td style="width: 211px" class="reportNameTitle" >
+                                                        <%--<a href="FamilyMembersReport.aspx" target="_blank" >Family Member Reports</a>--%>
+                                                        <a href="CrewsExperienceReport.aspx" target="_blank" >Crew Experience Summary Report</a>
+                                                    </td>
+                                                    <td >
+                                                        <a href="BirthdayListReport.aspx" target="_blank">Crew Birthday List</a>            
+                                                        </td>
+                                                    <td >
+                                                    </td>
+                                                </tr>
+                                                <tr class="reportNameTitle">
+                                                    <td style="width: 99px">
+                                                    </td>
+                                                    <td style="width: 211px">
+                                                      <%--<a href="CRMReport.aspx" target="_blank">CRM Report</a>--%>
+                                                        <a href="BirthdayListReportFamily.aspx" target="_blank">Crew Family Birthday List</a> 
+                                                    </td>
+                                                    <td style="width: 211px">
+                                                                                            
+                                                    </td>
+                                                    <td>
+                                                                                                               
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </fieldset>
+                                         <br />
+                                        <fieldset style="border-right: #8fafdb 1px solid; border-top: #8fafdb 1px solid; border-left: #8fafdb 1px solid; border-bottom: #8fafdb 1px solid; text-align: left;">
+                                            <legend><strong>Operations Reports</strong> </legend>
+                                            <table border="0" cellpadding="5" cellspacing="5" style="border-collapse: collapse" width="100%" class="reporttbl">
+                                                <tr class="reportNameTitle">
+                                                    <td style="width: 99px">
+                                                    </td>
+                                                    <td style="width: 211px">
+                                                        <a href="CrewChangeReport.aspx" target="_blank">Crew Change Report</a></td>
+                                                    <td style="width: 211px" >
+                                                        <a href="OfficersJoinedFirstTimeWithCompany.aspx" target="_blank">New Joiners to Company</a></td>
+                                                    <td >
+                                                       <%-- <a href="Activity_Tracking.aspx" target="_blank">Activity Tracking</a>
+                                                        <a href="StatusWiseCrystalReport.aspx">Crew Statistics</a>--%>
+                                                        <a href="CrewListReport.aspx" target="_blank">Crew List Report</a>
+                                                    </td>
+                                                    <td >
+                                                    </td>
+                                                </tr>
+                                                <tr class="reportNameTitle">
+                                                    <td style="width: 99px">
+                                                    </td>
+                                                    <td style="width: 211px">
+                                                        <a href="RankWiseCountingOnboardOnleave.aspx" target="_blank">Total Rank Counting Onboard/Onleave</a></td>
+                                                    <td style="width: 211px">
+                                                        <a href="ListOfExpiringDocuments.aspx" target="_blank">List of Expiring Documents</a></td>
+                                                    <td>
+                                                     <%--<a href="PIMedicalCaseReport.aspx">P & I Case Report</a>--%>
+                                                       <%-- <a href= "ExtraCrewOnBoardDuringSelectedPeriod.aspx">Crew Onboard During Selected Period</a>--%>
+                                                       <a href="OffSignersListByPeriod.aspx" target="_blank">Offsigner list By Period</a><%--Vessel Port of Call--%></td>
+                                                       
+                                                    <td>
+                                                    </td>
+                                                </tr>
+                                                <tr class="reportNameTitle">
+                                                    <td style="width: 99px">
+                                                    </td>
+                                                    <td style="width: 211px">
+                                                        <%--<a href="planTrainingYearly.aspx" target="_blank">Planned Training Yearly</a>--%>
+                                                        <a href="CrewListReport2.aspx" target="_blank">Crewlist by Vessel Experience</a>
+                                                    </td>
+                                                    <td style="width: 211px">
+                                                        <a href="DateWiseMemberJoinOffice.aspx" target="_blank">Onsigner List by period</a>                      </td>
+                                                    <td>
+                                                        <a href="ReliefDueForNextSpecifiedDays.aspx" target="_blank">Relief Due Days Wise</a>
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                </tr>
+                                                <tr class="reportNameTitle">
+                                                    <td style="width: 99px">
+                                                    </td>
+                                                    <td style="width: 211px">
+                                                        <a href="MedicalTestByPeriod.aspx" target="_blank">Medical Test</a><%--<a href="PortCallReport.aspx">Port Call Activity Tracking</a> &nbsp;--%></td>
+                                                    <td style="width: 211px">
+                                                        <a href="ReliefPlanningUnderOperation.aspx" target="_blank">Relief Planning</a>     
+                                                     </td>
+                                                    <td> 
+                                                    
+                                                     <%--<a href="TravelAgentHeaderReport.aspx">Travel Agent Activity Tracking</a>--%>
+                                                        <%--Crew Matrix--%>
+                                                        <a href="ReliefCountHeader.aspx" target="_blank">Relief Count</a>
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                </tr>
+                                                <tr class="reportNameTitle">
+                                                    <td style="width: 99px"></td>
+                                                    <td style="width: 211px"> 
+                                                        <a href="VesselCrewMatrix.aspx" target="_blank">Vessel Matrix</a>
+                                                    </td> 
+                                                    <td style="width: 211px">
+                                                        <%-- <a href="CrewReliefPlanning.aspx" target="_blank">Crew Relief Plan</a>--%>
+                                                        <a href="CrewListReportforImoVessel.aspx?Flag=1" target="_blank">IMO Crew List</a>
+                                                    </td>
+                                                    <td>
+                                                       <%--<a href="NTBRDetails.aspx">NTBR/DeNTBR Activity Tracking</a>--%> 
+                                                    </td>
+                                                    <td></td>
+                                                </tr>                         
+                                               
+                                               
+                                            </table>
+                                        </fieldset>
+                                   <br />
+                                <table width="100%" id="tblReports" runat="server" visible="false" >
+                                    <tr>
+                                        <td>
+                                            <fieldset style="border-right: #8fafdb 1px solid; border-top: #8fafdb 1px solid; border-left: #8fafdb 1px solid; border-bottom: #8fafdb 1px solid; text-align: left;" >
+                                            <legend><strong>Accounts Reports</strong> </legend>
+                                            <table border="0" cellpadding="5" cellspacing="5" style="border-collapse: collapse" width="100%" class="reporttbl">
+                                                <tr class="reportNameTitle">
+                                                    <td style="width: 99px">
+                                                    </td>
+                                                    <td style="width: 211px">
+                                                        <a href="CrewOnVesselHeader.aspx" target="_blank">Crew List with Wages</a><%--<a href="InvoiceReport.aspx">Invoice Reports</a>--%></td>
+                                                    <td style="width: 211px">
+                                                   <%--     <a href="VarianceReport.aspx" target="_blank">Vessel Wise Crew Variance</a><a href="CrewOnVesselHeader.aspx">Crew List with Wages</a>--%>
+                                                        <a href="CrewingFee.aspx" target="_blank">Crewing Fee Report</a>
+                                                    </td>
+                                                    <td ><a href="MonthlyWagePaymentToCrew.aspx" target="_blank">Monthly Pay Slip to Crew</a><%--<a href="VarianceReport.aspx">Vessel Wise Crew Variance</a>--%></td>
+                                                    <td >
+                                                    </td>
+                                                </tr>
+                                                <tr class="reportNameTitle">
+                                                    <td style="width: 99px">
+                                                    </td>
+                                                    <td style="width: 211px">
+                                                        <a href="WagePayableToCrew.aspx" target="_blank" >Portage Bill</a><%--<a href="MonthlyWagePaymentToCrew.aspx" >Monthly Wage Pay To Crew</a>--%><%--Crew Allotment--%></td>
+                                                    <td style="width: 211px">
+                                                        <a href="ArearReportHeader.aspx" target="_blank" >Arrear Report</a><%--<a href="MonthlyWagePaymentToCrew.aspx" >Monthly Wage Pay To Crew</a>--%><%--Crew Allotment--%></td>
+                                                    <td>
+                                                      <a href="FinalWage.aspx" target="_blank">Final Wage To Crew</a>
+                                                        </td>
+                                                    <td>
+                                                  
+                                                    </td>
+                                                </tr>
+                                                <%--<tr class="reportNameTitle">
+                                                    <td style="width: 99px">
+                                                    </td>
+                                                    <td style="width: 211px">
+                                                    <a href="MonthlyCommitedCost.aspx" target="_blank">Monthly Commited Cost</a>
+                                                      </td>
+                                                    <td style="width: 211px">
+                                                       
+                                                        <a href="AllotmentRequestReport.aspx" target="_blank">Allotment Request</a>
+
+                                                    </td>
+                                                   
+                                                    <td><a href="TicketCancellation.aspx" target="_blank">Ticket Cancellation Recoverable Amount</a>
+                                                    </td> <td>
+                                                        </td>
+                                                </tr>--%>
+                                                <tr class="reportNameTitle">
+                                                    <td style="width: 99px">
+                                                    </td>
+                                                    <td style="width: 211px">
+                                                    <a href="WageScaleReport.aspx" target="_blank">Wage Scale</a>
+                                                    </td>
+                                                    <td style="width: 211px">
+                                                   <%-- <a href="ConciseMonthlyWagesReport.aspx" target="_blank">Concise Monthly Wages</a>--%>
+                                                    </td>
+                                                    <td>
+                                                      
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </fieldset>
+                                   <br />
+                                        <fieldset style="border-right: #8fafdb 1px solid; border-top: #8fafdb 1px solid; border-left: #8fafdb 1px solid; border-bottom: #8fafdb 1px solid; text-align: left;">
+                                            <legend><strong>MIS Reports</strong> </legend>
+                                            <table border="0" cellpadding="5" cellspacing="5" style="border-collapse: collapse" width="100%" class="reporttbl">
+                                                <tr class="reportNameTitle">
+                                                    <td style="width: 99px">
+                                                    </td>
+                                                    <td style="width: 211px">
+                                                        <a href="ManPowerReportHeader.aspx" target="_blank">ManPower Report</a></td>
+                                                    <td style="width: 211px">
+                                                        <a href="CrewNationalitySummaryHeader.aspx" target="_blank">Crew Nationality Summary</a></td>
+                                                    <td >
+                                                        <%--<a href="TotalWebApplications.aspx">Total Web Applications</a>--%>
+                                                        <a href="OfficerRejoinCompany.aspx" target="_blank">Officer Rejoined Company</a>
+                                                   </td>
+                                                        
+                                                    <td >
+                                                    </td>
+                                                </tr>
+                                                <tr class="reportNameTitle">
+                                                    <td style="width: 99px">
+                                                    </td>
+                                                    <td style="width: 211px">
+                                                        <a href="CrewsAddressReport.aspx" target="_blank" >Crew Contact Details</a>
+                                                    </td>
+                                                    <td style="width: 211px">
+                                                        <a href="CrewAppraisalList.aspx" target="_blank">Promotion List</a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="DateWisePromotedMemberList.aspx" target="_blank">Date Wise Promoted Offiers</a>
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                </tr>
+                                                <tr class="reportNameTitle">
+                                                    <td style="width: 99px">
+                                                    </td>
+                                                    <td style="width: 211px">
+                                                        <%--<a href="CrewOffStatus.aspx" target="_blank">Crew/OFF Status-Nationality Wise</a>--%>
+                                                         <a href="GOACrewList.aspx" target="_blank">GOA Crew List</a>
+                                                    </td>
+                                                    <td style="width: 211px">
+                                                        <a href="DateWiseCrewContract.aspx" target="_blank">Crew Contract Listing</a>
+                                                    </td>
+                                                    <td>
+                                                       <%-- <a href="VesselSafeManning.aspx" target="_blank" >Vessel Manning Status</a>--%>
+                                                        <a href="PoolRatioSearch.aspx" target="_blank"> Pool Ratio </a> 
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                </tr>
+                                                <tr class="reportNameTitle">
+                                                    <td style="width: 99px">
+                                                    </td>
+                                                    <td style="width: 211px">
+                                                        <%--<a href="TrainingRecordSummary.aspx">Training Record Summary Period Wise</a>--%>
+                                                        <a href="StaffNotRelievedOnTime.aspx" target="_blank">Crew Not Relieved On Time</a>
+                                                    </td>
+                                                    <td style="width: 211px">
+                                                        <a href="PortCallReport1Header.aspx" target="_blank">Port Call Listing</a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="VesselLineUpReport.aspx" target="_blank">Vessel Line Up</a>
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                </tr>
+                                                <%--<tr>
+                                                    <td style="width: 99px">
+                                                    </td>
+                                                    <td style="width: 228px">
+                                                        
+                                                    </td>
+                                                    <td><a href="PortCallReport2Header.aspx">Monthly Port Calls With Po</a></td>
+                                                    <td><a href="PortCallReport3Header.aspx">Monthly Port Calls With Po &amp; Invocie Data</a></td>
+                                                    <td></td>
+                                                </tr>--%>
+                                                    
+                                                <tr class="reportNameTitle">
+                                                    <td class="auto-style1">
+                                                    </td>                                                    
+                                                    <td class="auto-style2">
+                                                       <%-- <a href="CrewTrainingReport.aspx" target="_blank">Training Requirements & Tracking</a>--%>
+                                                     <a href="Top4OnBoard.aspx" target="_blank"> Top 4 Onboard Experience Report</a>
+                                                    </td>
+                                                    <td class="auto-style2">
+                                                        <a href="FleetAge.aspx" target="_blank">Fleet Age Profile Report</a>
+                                                    </td>
+                                                    <td class="auto-style3">
+                                                        <a href="CrewAvailibilityReport.aspx" target="_blank">Crew Availibility Report</a>
+                                                    </td>
+                                                    <td class="auto-style3">
+                                                    </td>
+                                                </tr>
+                                                <tr class="reportNameTitle">
+                                                    <td style="width: 99px">
+                                                        
+                                                    </td>
+                                                    <td style="width: 211px">
+                                                        <a href="OnSignerReport.aspx" target="_blank">Mumbai Crew Sign On/OFF (Form IIIA)</a>
+                                                        <%--<a href="NTBRInActiveReport.aspx" target="_blank">NTBR/InActive Report</a>--%>
+                                                    </td>
+                                                    <td style="width: 211px">
+                                                        <a href="NewAcOpForm.aspx" target="_blank">ISPF  Report</a>  
+                                                    </td>
+                                                    <td>
+                                                        <%--<a href="TravelAnalysisReport.aspx">Travel Analysis Report</a>--%>
+                                                          
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                </tr>
+                                              <%--  <tr class="reportNameTitle">
+                                                    <td style="width: 99px"></td>                                                    
+                                                    <td style="width: 211px">    
+                                                       
+                                                    </td>                                                    
+                                                    <td style="width: 211px">
+                                                        
+                                                    </td>
+                                                    <td>
+                                                        <a href="VesselOfficerHistory.aspx" target="_blank"> Vessel's Officers History </a> 
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                </tr>
+                                                <tr class="reportNameTitle">
+                                                  
+                                                    <td>
+                                                        
+                                                    </td>
+                                                      <td style="width: 211px">
+                                                    
+                                                    </td>
+                                                    <td style="width: 211px"></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>--%>
+                                            </table>
+                                        </fieldset>
+                                        </td>
+                                    </tr>
+                                </table>
+                                        
+                                   
+
+                </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-right: 10px; padding-left: 10px; padding-bottom: 10px;
+                                padding-top: 10px">
+                                &nbsp;</td>
+                        </tr>
+                        <tr>
+                        <td colspan="5">
+                                                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" EnableViewState="true">
+                                                </asp:ContentPlaceHolder>
+                                            </td>
+                        </tr>
+                    </table>
+                    <%--<table border="0" cellpadding="0" cellspacing="0" width="100%" runat="Server" id="yangoontable">
+                        <tr>
+                            <td style=" text-align :left" >
+                            <TABLE style="BORDER-COLLAPSE: collapse" cellSpacing=5 cellPadding=5 width="100%" border=0><TBODY>
+                                <tr>
+                                    <td colspan="5">
+                                        <strong>
+                                        Personal :</strong>
+                                        <hr />
+                                        </td>
+                                </tr>
+                                <TR>
+                                    <td style="width: 59px">
+                                    </td>
+                                    <TD style="WIDTH: 159px">
+                                        1. <A href="PrintCV.aspx">Print CV</A></TD><TD style="WIDTH: 193px">
+                                        2. <A href="FamilyMembersReport.aspx">Family Member Reports</A></TD><TD style="width: 264px">
+                                        3. <A href="CrewsExperienceReport.aspx">Crew Experience Summary Report</A></TD><TD style="width: 182px">
+                                        4. <a href="CRMReport.aspx">CRM Report</a>
+                                    </TD></TR>
+                                <tr>
+                                    <td colspan="5">
+                                        <strong>
+                                        Operation :
+                                            <hr />
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <TR>
+                                    <td style="width: 59px">
+                                    </td>
+                                    <TD style="WIDTH: 159px">
+                                        1. <A href="ReliefPlanningUnderOperation.aspx">Relief Planning</A></TD><TD style="WIDTH: 193px">
+                                        2. <A href="VesselCrewMatrix.aspx">Vessel Matrix</A></TD><TD style="width: 264px">
+                                        3. <A href="MedicalTestByPeriod.aspx">Medical Test</A></TD><TD style="width: 182px">
+                                        4. <a href="CrewListReport.aspx">Crew List Report</a>
+                                    </TD></TR>
+                                <tr>
+                                    <td colspan="5">
+                                        <strong>
+                                        MIS :
+                                            <hr />
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <TR>
+                                    <td style="width: 59px">
+                                    </td>
+                                    <TD style="WIDTH: 159px">
+                                        1. <A href="ManPowerReportHeader.aspx">Man Power Report</A></TD><TD style="WIDTH: 193px">
+                                        2. <A href="VesselLineUpReport.aspx">Vessel LineUp Report</A></TD><TD style="width: 264px">
+                                        3. <A href="CrewTrainingReport.aspx">Training Requirement & Tracking </A></TD><TD style="width: 182px">
+                                        4. <a href="FleetAge.aspx">Fleet Age Profile</a>
+                                    </TD></TR>
+                                <tr>
+                                    <td style="width: 59px">
+                                    
+                                        &nbsp;</td>
+                                    <td style="width: 159px">
+                                    5. <A href="CrewAvailibilityReport.aspx">Crew Availibility Report</A>
+                                    </td>
+                                    <td style="width: 193px">
+                                    </td>
+                                    <td style="width: 264px">
+                                    </td>
+                                    <td style="width: 182px">
+                                    </td>
+                                </tr>
+                            </TBODY></TABLE>
+                            </td>
+                        </tr>
+                    </table>--%> 
+                </td>
+            </tr>
+        </table> 
+            </td>
+            </tr>
+              </table>
+     </div>
+
+</asp:Content>

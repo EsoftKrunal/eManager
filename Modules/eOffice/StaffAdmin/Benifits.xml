@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Benifits>
+<Detail>
+  <srno>1</srno>
+  <employeeno>E0001</employeeno>
+  <healthbenifit>4000</healthbenifit>
+  <riskbenifit>4000</riskbenifit>
+  <retiralbenifit>2000</retiralbenifit>
+  <publicholiday>08</publicholiday>
+  <cafeteriaservice>250</cafeteriaservice>
+  <Benefits>500</Benefits>
+</Detail>
+</Benifits>

@@ -1,0 +1,367 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="InvoiceApproval.aspx.cs" Inherits="CrewOperation_InvoiceApproval" MasterPageFile="~/Modules/HRD/InvoiceRegister.master" %>
+
+<%@ Register Src="../UserControls/InvoiceStatus.ascx" TagName="InvoiceStatus" TagPrefix="uc1" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="contentPlaceHolder1" Runat="Server">
+<%--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>Untitled Page</title>
+     <link href="../Styles/style.css" rel="stylesheet" type="text/css" />
+    <link href="../Styles/sddm.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../Styles/StyleSheet.css" />
+</head>
+<body style="text-align: center">
+    <form id="form1" runat="server">
+        <br />
+    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>--%>
+ <script language="javascript" type="text/javascript">
+function set_values()
+{
+    var List=new Array(<%Response.Write(strappamt);%>);
+    var Amount,dummy,tot;
+    Amount=0;
+    dummy=0;
+    tot=List.length;
+    for(i=0;i<tot;i++)
+    {
+        dummy=parseFloat(document.getElementById(List[i]).getAttribute("value"));
+        if(isNaN(dummy))
+        {
+        dummy=0;
+        }
+        Amount=parseFloat(Amount) + parseFloat(dummy); 
+    }
+    Amount=Math.round(Amount*100)/100;
+    document.getElementById('<%Response.Write(txt_ApprovedAmt.ClientID);%>').value=Amount;  
+}
+</script>
+<div align="center">
+     <ajaxToolkit:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></ajaxToolkit:ToolkitScriptManager>
+      <table cellpadding="0" cellspacing="0" width="800px">
+         <tr>
+           <td class="textregisters">
+             <strong>Invoice Register</strong></td>
+         </tr>
+          <tr>
+              <td style="height: 13px">
+                          </td>
+          </tr>
+         <tr>
+           <td>
+            <%--<strong>Invoice Approval
+            </strong>--%>
+             <asp:Panel ID="pnl_InvoiceEntry" runat="server" Width="100%">
+              <fieldset style="border-right: #8fafdb 1px solid; border-top: #8fafdb 1px solid;border-left: #8fafdb 1px solid; border-bottom: #8fafdb 1px solid; text-align: center;" class="">
+                  <table border="0" cellpadding="0" cellspacing="0" style="height: 76px; text-align: center" width="100%">
+                    <tr>
+                      <td colspan="6" style="text-align: right">
+                          <asp:HiddenField ID="HiddenInvoiceApproval" runat="server" />
+                          <asp:Label ID="lblMessage" runat="server" ForeColor="Red"></asp:Label>&nbsp;
+                      </td>
+                    </tr>
+                      <tr>
+                          <td align="right" style="text-align: right; padding-right:15px; height: 12px; width: 85px;">
+                              Ref. #:</td>
+                          <td style="text-align: left; height: 12px; width: 133px;">
+                              <asp:Label ID="lbl_RefNo" runat="server" Width="84px"></asp:Label></td>
+                          <td align="right" style="text-align: right; padding-right:15px; height: 12px; width: 88px;">Vendor:</td>
+                          <td style="text-align: left; height: 12px; width: 194px;">
+                              <asp:Label ID="lbl_Vendor" runat="server" Width="186px"></asp:Label></td>
+                          <td style="padding-right: 15px; text-align: right; height: 12px; width: 79px;">
+                              Inv. #:</td>
+                          <td style="text-align: left; height: 12px;">
+                              <asp:Label ID="lbl_InvoiceNo" runat="server" Width="82px"></asp:Label></td>
+                      </tr>
+                      <tr>
+                          <td align="right" style="padding-right: 15px; text-align: right; width: 85px; height: 2px;">
+                          </td>
+                          <td style="text-align: left; width: 133px; height: 2px;">
+                              &nbsp;
+                          </td>
+                          <td align="right" style="padding-right: 15px; text-align: right; width: 88px; height: 2px;">
+                          </td>
+                          <td style="text-align: left; width: 194px; height: 2px;">
+                              </td>
+                          <td style="text-align: right; width: 79px; padding-right: 15px; height: 2px;">
+                          </td>
+                          <td style="text-align: left; height: 2px;">
+                          </td>
+                      </tr>
+                      <tr>
+                          <td align="right" style="text-align: right; padding-right:15px; height: 8px; width: 85px;">
+                              Inv. Amt.:</td>
+                          <td style="text-align: left; height: 8px; width: 133px;">
+                              <asp:Label ID="lbl_InvoiceAmount" runat="server" Width="87px"></asp:Label></td>
+                          <td align="right" style="text-align: right; padding-right:15px; height: 8px; width: 88px;">
+                              Inv. Date:</td>
+                          <td style="text-align: left; height: 8px; width: 194px;">
+                              <asp:Label ID="lbl_InvoiceDate" runat="server" Width="114px"></asp:Label></td>
+                          <td style="padding-right: 15px; text-align: right; height: 8px; width: 79px;">
+                              Due Date:</td>
+                          <td style="text-align: left; height: 8px;">
+                              <asp:Label ID="lbl_DueDate" runat="server" Width="114px"></asp:Label></td>
+                      </tr>
+                      <tr>
+                          <td align="right" style="padding-right: 15px; text-align: right; width: 85px; height: 3px;">
+                          </td>
+                          <td style="text-align: left; width: 133px; height: 3px;">
+                              &nbsp;
+                          </td>
+                          <td align="right" style="padding-right: 15px; text-align: right; width: 88px; height: 3px;">
+                          </td>
+                          <td style="text-align: left; width: 194px; height: 3px;">
+                              </td>
+                          <td style="text-align: right; width: 79px; padding-right: 15px; height: 3px;">
+                          </td>
+                          <td style="text-align: left; height: 3px;">
+                          </td>
+                      </tr>
+                      <tr>
+                          <td align="right" style="text-align: right; padding-right:15px; height: 8px; width: 85px;">
+                              Vessel:</td>
+                          <td style="text-align: left; height: 8px; width: 133px;">
+                              <asp:Label ID="lbl_Vessel" runat="server" Width="92px"></asp:Label></td>
+                          <td align="right" style="text-align: right; padding-right:15px; height: 8px; width: 88px;">
+                              Forward To:</td>
+                          <td style="text-align: left; height: 8px; width: 194px;">
+                              <asp:Label ID="lbl_ForwardTo" runat="server" Width="114px"></asp:Label></td>
+                          <td style="padding-right: 15px; text-align: right; height: 8px; width: 79px;">
+                              Created By:</td>
+                          <td style="text-align: left; height: 8px;">
+                              <asp:Label ID="lbl_CreatedBy" runat="server" Width="182px"></asp:Label></td>
+                      </tr>
+                      <tr>
+                          <td align="right" style="padding-right: 15px; text-align: right; width: 85px; height: 2px;">
+                          </td>
+                          <td style="text-align: left; width: 133px; height: 2px;">
+                              &nbsp;
+                          </td>
+                          <td align="right" style="padding-right: 15px; text-align: right; width: 88px; height: 2px;">
+                          </td>
+                          <td style="text-align: left; width: 194px; height: 2px;">
+                          </td>
+                          <td style="text-align: left; width: 79px; height: 2px;">
+                          </td>
+                          <td style="text-align: left; height: 2px;">
+                          </td>
+                      </tr>
+                      <tr>
+                          <td align="right" style="text-align: right; padding-right:15px; height: 9px; width: 85px;">Created On:</td>
+                          <td style="text-align: left; height: 9px; width: 133px;">
+                              <asp:Label ID="lbl_CreatedOn" runat="server" Width="82px"></asp:Label></td>
+                          <td align="right" style="text-align: right; padding-right:15px; height: 9px; width: 88px;">
+                              Curency:</td>
+                          <td style="text-align: left; height: 9px; width: 194px;">
+                              <asp:Label ID="lbl_Curr" runat="server" Width="114px"></asp:Label>
+                          </td>
+                          <td style="text-align: right; padding-right: 15px; height: 9px; width: 79px;">
+                              <asp:Label ID="lbl_vendorId" runat="server" Visible="False"></asp:Label></td>
+                          <td style="text-align: left; height: 9px;">
+                              <asp:Label ID="Label1" runat="server" Visible="False"></asp:Label>
+                              </td>
+                      </tr>
+                      <tr>
+                          <td align="right" style="padding-right: 15px; text-align: right; width: 85px;">
+                          </td>
+                          <td style="text-align: left; width: 133px;">
+                              &nbsp;
+                          </td>
+                          <td align="right" style="padding-right: 15px; text-align: right; width: 88px;">
+                          </td>
+                          <td style="text-align: left; width: 194px;">
+                          </td>
+                          <td style="text-align: right; width: 79px;">
+                          </td>
+                          <td style="text-align: left">
+                          </td>
+                      </tr>
+                     </table>
+                  </fieldset>
+                 <br />
+                 <fieldset style="border-right: #8fafdb 1px solid; border-top: #8fafdb 1px solid;border-left: #8fafdb 1px solid; border-bottom: #8fafdb 1px solid; text-align: center;" class="">
+                <legend><strong>Invoice Approval</strong></legend>
+                  <table border="0" cellpadding="0" cellspacing="0" style="height: 100px; text-align: center" width="100%">
+                      <tr>
+                          <td align="right" style="padding-right: 15px; text-align: right; width: 94px; height: 6px;">
+                          </td>
+                          <td style="text-align: left; width: 92px; height: 6px;">
+                              &nbsp;
+                          </td>
+                          <td align="right" style="padding-right: 15px; text-align: right; width: 101px; height: 6px;">
+                          </td>
+                          <td style="text-align: left; width: 125px; height: 6px;">
+                          </td>
+                          <td style="width: 125px; height: 6px; text-align: left">
+                          </td>
+                          <td style="width: 125px; height: 6px; text-align: left">
+                          </td>
+                      </tr>
+                      <tr>
+                          <td align="right" style="text-align: right; padding-right:1px; height: 19px; width: 94px;">
+                              PO #:</td>
+                          <td style="text-align: left; height: 19px; width: 92px;">
+                              <asp:DropDownList ID="ddl_PoNo" runat="server" AutoPostBack="True" CssClass="input_box"
+                                  OnSelectedIndexChanged="ddl_PoNo_SelectedIndexChanged" TabIndex="1" Width="190px">
+                              </asp:DropDownList></td>
+                          <td align="right" style="text-align: right; padding-right:1px; height: 19px; width: 101px;">
+                              PO Amt.:</td>
+                          <td style="text-align: left; height: 19px; width: 125px;">
+                              <asp:TextBox ID="txt_PoAmt" runat="server" CssClass="input_box" Width="96px" TabIndex="2" ReadOnly="True"></asp:TextBox></td>
+                          <td style="width: 125px; height: 19px; text-align: right">
+                              Approve Amt.:</td>
+                          <td style="width: 125px; height: 19px; text-align: left">
+                              <asp:TextBox ID="txt_ApprovedAmt" runat="server" CssClass="required_box" Width="82px" style=" text-align:right" TabIndex="3"></asp:TextBox></td>
+                      </tr>
+                      <tr>
+                          <td align="right" style="padding-right: 15px; text-align: right; height: 4px; width: 94px;">
+                          </td>
+                          <td style="text-align: left; height: 4px; width: 92px;">
+                              &nbsp;
+                              </td>
+                          <td align="right" style="padding-right: 1px; text-align: right; height: 4px; width: 101px;">
+                          </td>
+                          <td style="text-align: left; height: 4px; width: 125px;">
+                              &nbsp;</td>
+                          <td style="width: 125px; height: 4px; text-align: right">
+                              <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txt_ApprovedAmt"
+                                  ErrorMessage="Required." meta:resourcekey="RequiredFieldValidator4Resource1"></asp:RequiredFieldValidator></td>
+                          <td style="width: 125px; height: 4px; text-align: left">
+                              <asp:RegularExpressionValidator  ID="RegularExpressionValidator1" runat="server" ControlToValidate="txt_ApprovedAmt"
+                                  ErrorMessage="Till 2 decimal places only." ValidationExpression="[-]?\b\d{1,13}\.?\d{0,2}" Width="171px"></asp:RegularExpressionValidator></td>
+                      </tr>
+                      <tr>
+                          <td align="right" style="padding-right: 1px; text-align: right; width: 94px; height: 6px;">
+                              Approved By:</td>
+                          <td style="text-align: left; width: 92px; height: 6px;">
+                              <asp:Label ID="lbl_ApprovedBy" runat="server" Width="165%"></asp:Label></td>
+                          <td align="right" style="padding-right: 1px; text-align: right; width: 101px; height: 6px;">
+                              Approved Date:&nbsp;</td>
+                          <td style="text-align: left; width: 125px; height: 6px;">
+                              &nbsp;<asp:Label ID="lbl_ApprovedDate" runat="server" Width="1px"></asp:Label></td>
+                          <td style="width: 125px; height: 6px; text-align: right">
+                              Upload Invoice:</td>
+                          <td style="width: 125px; height: 6px; text-align: left">
+                                <asp:FileUpload ID="FileUpload1" size="1" runat="server" style="left:-4px; width:110px; border:0px solid; background-color:#f9f9f9; " TabIndex="5" Width="40px" /></td>
+                      </tr>
+                      <tr>
+                          <td align="right" style="padding-right: 5px; width: 94px; height: 13px; text-align: right">
+                          </td>
+                          <td style="width: 92px; height: 13px; text-align: left">
+                              &nbsp;</td>
+                          <td align="right" style="padding-right: 15px; width: 101px; height: 13px; text-align: right">
+                          </td>
+                          <td style="width: 125px; height: 13px; text-align: left">
+                          </td>
+                          <td style="width: 125px; height: 13px; text-align: left">
+                          </td>
+                          <td style="width: 125px; height: 13px; text-align: left">
+                          </td>
+                      </tr>
+                      <tr>
+                          <td align="right" colspan="4" style="padding-right: 1px;text-align: right">
+                              <asp:GridView ID="gvinvoice" runat="server" AllowSorting="True" AutoGenerateColumns="False" GridLines="Horizontal" Style="text-align: center" Width="99%" OnPreRender="gvinvoice_PreRender">
+                                  <Columns>
+                                      <asp:BoundField DataField="AccountHeadName" HeaderText="AccountHead Name">
+                                          <ItemStyle HorizontalAlign="Left" />
+                                      </asp:BoundField>
+                                      <asp:BoundField DataField="AmountUSD" HeaderText="Amount[USD]"  DataFormatString="{0:0.00}" HtmlEncode="False" >
+                                          <ItemStyle HorizontalAlign="Left" />
+                                      </asp:BoundField>
+                                     <asp:TemplateField HeaderText="Approved Amount" >
+                                          <ItemTemplate>
+                                              <asp:HiddenField ID="hfd_AccountId" runat="server" Value='<%#Eval("AccountHeadId")%>' />
+                                              <%--Eval("AppAmt").ToString().Substring(0,Eval("AppAmt").ToString().Length-2)--%>
+                                              <asp:TextBox ID="lblAmount" Width="120px" runat="server" CssClass="input_box" style=" text-align:right" Text='<%# String.Format("{0:f2}",Eval("AppAmt")) %>' /></ItemTemplate>
+                                          <ItemStyle HorizontalAlign="Center" Width="25px" />
+                                      </asp:TemplateField>
+                                      
+                                   </Columns>
+                                  <RowStyle CssClass="rowstyle" />
+                                  <SelectedRowStyle CssClass="selectedtowstyle" />
+                                  <HeaderStyle CssClass="headerstylefixedheadergrid" />
+                              </asp:GridView>
+                          </td>
+                          <td align="right" colspan="1" style="padding-right: 1px;text-align: right">
+                          </td>
+                          <td align="right" colspan="1" style="padding-right: 1px;text-align: right">
+                          </td>
+                      </tr>
+                      <tr>
+                          <td align="right" style="padding-right: 5px; width: 94px; height: 13px; text-align: right">
+                          </td>
+                          <td style="width: 92px; height: 13px; text-align: left">
+                          </td>
+                          <td align="right" style="padding-right: 15px; width: 101px; height: 13px; text-align: right">
+                          </td>
+                          <td style="width: 125px; height: 13px; text-align: left">
+                          </td>
+                          <td style="width: 125px; height: 13px; text-align: left">
+                          </td>
+                          <td style="width: 125px; height: 13px; text-align: left">
+                          </td>
+                      </tr>
+                      <tr>
+                          <td align="right" style="padding-right: 1px; text-align: right; height: 19px; width: 94px;" valign="top">
+                              Remarks:</td>
+                          <td colspan="3" style="height: 60px; text-align: left" valign="top">
+                              <asp:TextBox ID="txt_Remarks" runat="server" CssClass="input_box" TextMode="MultiLine"
+                                  Width="340px" Height="53px" TabIndex="4"></asp:TextBox></td>
+                          <td colspan="1" style="height: 60px; text-align: left" valign="top">
+                          </td>
+                          <td colspan="1" style="height: 60px; text-align: left" valign="top">
+                          </td>
+                      </tr>
+                      <tr>
+                          <td align="right" style="padding-right: 15px; text-align: right; width: 94px;">
+                          </td>
+                          <td style="text-align: left; width: 92px;">
+                              &nbsp;
+                          </td>
+                          <td align="right" style="padding-right: 15px; text-align: right; width: 101px;">
+                          </td>
+                          <td style="text-align: left; width: 125px;">
+                          </td>
+                          <td style="width: 125px; text-align: left">
+                          </td>
+                          <td style="width: 125px; text-align: left">
+                          </td>
+                      </tr>
+                     </table>
+                  </fieldset>
+                 <uc1:InvoiceStatus ID="InvoiceStatus1" runat="server" />
+                 <br />
+                </asp:Panel>
+              <table cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td align="right">
+                     <ajaxToolkit:FilteredTextBoxExtender ID="FilteredTextBoxExtender1" runat="server"
+                          FilterType="Numbers,Custom" TargetControlID="txt_ApprovedAmt" ValidChars="-.">
+                      </ajaxToolkit:FilteredTextBoxExtender>
+                       <%--<ajaxToolkit:MaskedEditExtender ID="MaskedEditExtender2" runat="server" 
+                          ClearMaskOnLostFocus="true" Mask="9999999.99" AcceptNegative="Left" AutoComplete="false" MaskType="Number" TargetControlID="txt_ApprovedAmt">
+                      </ajaxToolkit:MaskedEditExtender>--%>
+                      <asp:HiddenField ID="hfd_Invoice" runat="server" />
+                      <asp:Button ID="btn_Approve" runat="server" Text="Approve" CssClass="btn" Width="106px" TabIndex="6" OnClick="btn_Approve_Click" />
+                      <asp:Button ID="btn_Back_Approval" runat="server" Text="Back" CssClass="btn" Width="59px" TabIndex="7" OnClick="btn_Back_Approval_Click" CausesValidation="False" /><br />
+                      &nbsp;
+                  </td>
+                </tr>
+              </table>
+           </td>
+         </tr>
+       </table>
+       <script type="text/javascript" language="javascript">
+       <%
+       if(btn_Approve.Visible==true)
+       { 
+       Response.Write("set_values();");
+       }
+       %>
+       </script>
+    </div>
+ 
+  </asp:Content>
+ <%--   </form>
+</body>
+</html>--%>

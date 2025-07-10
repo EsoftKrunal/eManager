@@ -1,0 +1,73 @@
+using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using System.Data.SqlClient;
+using CrystalDecisions.CrystalReports.Engine;
+
+public partial class PrintContract : System.Web.UI.Page
+{
+    SqlConnection con = new SqlConnection();
+    SqlCommand cmd = new SqlCommand();
+    SqlCommand cmd1 = new SqlCommand();
+    SqlDataAdapter adp = new SqlDataAdapter();
+    DataSet ds = new DataSet();
+    ReportDocument rpt = new ReportDocument();
+
+    string qry;
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        con.ConnectionString = "user id=sa; password=Esoft!@#$%^; persist security info=true; data source=172.30.1.105; initial catalog=shipsoftdemo";
+        cmd.Connection = con;
+        adp.SelectCommand = cmd;
+
+        cmd.CommandText = "PrintCompanydetails";
+        cmd.CommandType = CommandType.StoredProcedure;
+        SqlParameter para2 = new SqlParameter();
+        cmd.Parameters.AddWithValue("@loginid", Convert.ToInt32(Session["loginid"].ToString()));
+        adp.Fill(ds, "company");
+
+        cmd1.Connection = con;
+        adp.SelectCommand = cmd1;
+        cmd1.CommandText = "PrintContract";
+        cmd1.CommandType = CommandType.StoredProcedure;
+        SqlParameter para1 = new SqlParameter();
+        cmd1.Parameters.AddWithValue("@ContractId", Convert.ToInt32(Session["Cont_id"].ToString().Trim()));
+        adp.Fill(ds, "test");
+
+
+        CrystalDecisions.CrystalReports.Engine.ReportDocument rpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+        CrystalReportViewer1.ReportSource = rpt;
+        rpt.Load(Server.MapPath("CrystalReport2.rpt"));
+        rpt.SetDataSource(ds.Tables["test"]);  
+        rpt.SetParameterValue(0, 5);
+        
+
+            foreach (DataRow dr in ds.Tables["company"].Rows)
+            {
+                rpt.SetParameterValue(1, dr["CompanyName"].ToString());
+                rpt.SetParameterValue(2, dr["Address"].ToString());
+                rpt.SetParameterValue(3, dr["TelephoneNumber"].ToString());
+                rpt.SetParameterValue(4, dr["Faxnumber"].ToString());
+                rpt.SetParameterValue(5, dr["CompanyName"].ToString());
+                rpt.SetParameterValue(6, dr["CompanyName"].ToString());
+                rpt.SetParameterValue(7, dr["Name"].ToString());
+
+                foreach (DataRow dr1 in ds.Tables["test"].Rows)
+                {
+                    rpt.SetParameterValue(8,dr1["firstname"].ToString());
+                    rpt.SetParameterValue(9, dr1["SeamanBook"].ToString());
+                    rpt.SetParameterValue(10, dr1["StartDate"].ToString());
+                }
+            }
+            CrystalReportViewer1.ReportSource = rpt;
+            
+        }
+
+    }

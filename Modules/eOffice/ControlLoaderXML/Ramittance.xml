@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ramittancedetails>
+  <ramittance>
+    <ramittanceId>1</ramittanceId>
+    <ramittanceName>cheque</ramittanceName>
+  </ramittance>
+  <ramittance>
+    <ramittanceId>2</ramittanceId>
+    <ramittanceName>draft</ramittanceName>
+  </ramittance>
+  <ramittance>
+    <ramittanceId>3</ramittanceId>
+    <ramittanceName>payorder</ramittanceName>
+  </ramittance>
+</ramittancedetails>

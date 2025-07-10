@@ -1,0 +1,91 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="VIQ_VIQMaster">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="VIQId" type="xs:long" minOccurs="0" />
+              <xs:element name="PVIQId" type="xs:long" minOccurs="0" />
+              <xs:element name="ViqNo" type="xs:string" minOccurs="0" />
+              <xs:element name="VIQType" type="xs:int" minOccurs="0" />
+              <xs:element name="InspGroupId" type="xs:int" minOccurs="0" />
+              <xs:element name="TargetDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="VIQStatus" type="xs:short" minOccurs="0" />
+              <xs:element name="CreatedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ShipRecdDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="MailSent" type="xs:short" minOccurs="0" />
+              <xs:element name="MailSentOn" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VIQ_VIQDetails">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="VIQId" type="xs:long" minOccurs="0" />
+              <xs:element name="QuestionId" type="xs:int" minOccurs="0" />
+              <xs:element name="SortOrder" type="xs:int" minOccurs="0" />
+              <xs:element name="RiskScore" type="xs:string" minOccurs="0" />
+              <xs:element name="ObsCount" type="xs:int" minOccurs="0" />
+              <xs:element name="ChapterId" type="xs:int" minOccurs="0" />
+              <xs:element name="ChapterNo" type="xs:string" minOccurs="0" />
+              <xs:element name="ChapterName" type="xs:string" minOccurs="0" />
+              <xs:element name="VersionName" type="xs:string" minOccurs="0" />
+              <xs:element name="QuestionNo" type="xs:string" minOccurs="0" />
+              <xs:element name="Question" type="xs:string" minOccurs="0" />
+              <xs:element name="Guidance" type="xs:string" minOccurs="0" />
+              <xs:element name="PreVetting" type="xs:short" minOccurs="0" />
+              <xs:element name="OfficeRemarks" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VIQ_VIQDetailsRanks">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="VIQId" type="xs:long" minOccurs="0" />
+              <xs:element name="QuestionId" type="xs:int" minOccurs="0" />
+              <xs:element name="RankId" type="xs:int" minOccurs="0" />
+              <xs:element name="NameDoneBy" type="xs:string" minOccurs="0" />
+              <xs:element name="DoneDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ShipComments" type="xs:string" minOccurs="0" />
+              <xs:element name="ModifiedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ShipClosureStatus" type="xs:short" minOccurs="0" />
+              <xs:element name="OfficeCommentBy" type="xs:string" minOccurs="0" />
+              <xs:element name="OfficeComment" type="xs:string" minOccurs="0" />
+              <xs:element name="OfficeCommentDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OfficeClosureStatus" type="xs:short" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VIQ_VIQDetailsRanks_Inv">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="VIQId" type="xs:long" minOccurs="0" />
+              <xs:element name="QuestionId" type="xs:int" minOccurs="0" />
+              <xs:element name="RankId" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VIQ_VIQDetailsRanksAttachments">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="VIQId" type="xs:long" minOccurs="0" />
+              <xs:element name="QuestionId" type="xs:int" minOccurs="0" />
+              <xs:element name="RankId" type="xs:int" minOccurs="0" />
+              <xs:element name="AttachmentId" type="xs:int" minOccurs="0" />
+              <xs:element name="Description" type="xs:string" minOccurs="0" />
+              <xs:element name="FileName" type="xs:string" minOccurs="0" />
+              <xs:element name="ModifiedOn" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

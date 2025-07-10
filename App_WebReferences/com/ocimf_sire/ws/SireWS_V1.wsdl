@@ -1,0 +1,1398 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s3="http://www.ocimf-sire.com/schemas/SireDocument_1.0.08.xsd" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://ws.ocimf-sire.com/" xmlns:s1="http://www.ocimf-sire.com/schemas/SireWebServiceRequest_1.0.09.xsd" xmlns:s4="http://www.ocimf-sire.com/schemas/SireWebServiceRequest_1.0.08.xsd" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s2="http://www.ocimf-sire.com/schemas/SireIndex_1.0.09.xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://ws.ocimf-sire.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Sire WebServices v1.0.11. 24.11.2009</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://ws.ocimf-sire.com/">
+      <s:import namespace="http://www.ocimf-sire.com/schemas/SireWebServiceRequest_1.0.09.xsd" />
+      <s:import namespace="http://www.ocimf-sire.com/schemas/SireIndex_1.0.09.xsd" />
+      <s:import namespace="http://www.ocimf-sire.com/schemas/SireDocument_1.0.08.xsd" />
+      <s:import namespace="http://www.ocimf-sire.com/schemas/SireWebServiceRequest_1.0.08.xsd" />
+      <s:element name="GetSystemStatus">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetSystemStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSystemStatusResult" type="tns:SireStatusResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SireStatusResponse">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="response_code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="response_message" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetAllDocumentIndexExtXML">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="XmlRequest" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllDocumentIndexExtXMLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllDocumentIndexExtXMLResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllDocumentIndexExt">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" ref="s1:SireRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllDocumentIndexExtResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" ref="s2:GetAllDocumentIndexExtResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentXML">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="XmlRequest" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentXMLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" ref="s3:GetDocumentXMLResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocument">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" ref="s4:SireRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" ref="s3:GetDocumentResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnumerateId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="enum_id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnumerateIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EnumerateIdResult" type="tns:SireEnumeratedCodeReturn" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SireEnumeratedCodeReturn">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="enum_id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="enum_group" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="enum_code" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ListAllDocumentTemplates">
+        <s:complexType />
+      </s:element>
+      <s:element name="ListAllDocumentTemplatesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListAllDocumentTemplatesResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCrewIndex">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="request" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCrewIndexResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCrewIndexResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateCrewDocument">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="request" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateCrewDocumentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateCrewDocumentResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCrewDocument">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="request" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCrewDocumentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCrewDocumentResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveCrewRecord">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="request" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveCrewRecordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SaveCrewRecordResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveCrewGeneralComments">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="request" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveCrewGeneralCommentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SaveCrewGeneralCommentsResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SireStatusResponse" nillable="true" type="tns:SireStatusResponse" />
+      <s:element name="SireEnumeratedCodeReturn" nillable="true" type="tns:SireEnumeratedCodeReturn" />
+      <s:element name="boolean" type="s:boolean" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.ocimf-sire.com/schemas/SireWebServiceRequest_1.0.09.xsd">
+      <s:element name="SireRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsumerInfo" type="s1:sire-index-consumer-info" />
+            <s:element minOccurs="0" maxOccurs="1" name="RequestInfo" type="s1:sire-index-request-info" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="sire-index-consumer-info">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ApplicationCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ApplicationBuild" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="sire-index-request-info">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Parameters">
+            <s:complexType>
+              <s:sequence>
+                <s:element minOccurs="0" maxOccurs="1" name="DateRange">
+                  <s:complexType>
+                    <s:attribute name="RangeStart" type="s:dateTime" use="required" />
+                    <s:attribute name="RangeEnd" type="s:dateTime" use="required" />
+                  </s:complexType>
+                </s:element>
+                <s:element minOccurs="0" maxOccurs="1" name="Pending" type="s:boolean" />
+                <s:element minOccurs="0" maxOccurs="1" name="DocumentTypes" type="s1:ArrayOfString" />
+                <s:element minOccurs="0" maxOccurs="1" name="VesselInfo">
+                  <s:complexType>
+                    <s:sequence>
+                      <s:element minOccurs="1" maxOccurs="1" name="VesselId" type="s:int" />
+                      <s:element minOccurs="0" maxOccurs="1" name="IMONumber" type="s:string" />
+                      <s:element minOccurs="0" maxOccurs="1" name="VesselName" type="s:string" />
+                    </s:sequence>
+                  </s:complexType>
+                </s:element>
+                <s:element minOccurs="0" maxOccurs="unbounded" name="Parameter" type="s1:sire-index-request-parameter" />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+          <s:element minOccurs="0" maxOccurs="1" name="User" type="s1:sire-user" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DocumentType" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="sire-index-request-parameter">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ParameterKey" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ParameterValue" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="sire-user">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.ocimf-sire.com/schemas/SireIndex_1.0.09.xsd">
+      <s:element name="GetAllDocumentIndexExtResult">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ResponseMessages" type="s2:ArrayOfSireresponsemessage" />
+            <s:element minOccurs="0" maxOccurs="1" name="IndexHeader" type="s2:sire-index-header" />
+            <s:element minOccurs="0" maxOccurs="1" name="IndexResponse" type="s2:sire-index-response" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfSireresponsemessage">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Message" type="s2:sire-response-message" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="sire-response-message">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="sire-index-header">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="GeneratedDateTime" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="GeneratorBuild" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SchemaInfo" type="s2:sire-index-schema-info" />
+          <s:element minOccurs="0" maxOccurs="1" name="ConsumerInfo" type="s2:sire-index-consumer-info" />
+          <s:element minOccurs="0" maxOccurs="1" name="RequestInfo" type="s2:sire-index-request-info" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="sire-index-schema-info">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="SchemaBuild" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SchemaBuildDateTime" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="sire-index-consumer-info">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ApplicationCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ApplicationBuild" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="sire-index-request-info">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Parameters">
+            <s:complexType>
+              <s:sequence>
+                <s:element minOccurs="0" maxOccurs="1" name="DateRange">
+                  <s:complexType>
+                    <s:attribute name="RangeStart" type="s:dateTime" use="required" />
+                    <s:attribute name="RangeEnd" type="s:dateTime" use="required" />
+                  </s:complexType>
+                </s:element>
+                <s:element minOccurs="0" maxOccurs="1" name="Pending" type="s:boolean" />
+                <s:element minOccurs="0" maxOccurs="1" name="DocumentTypes" type="s2:ArrayOfString" />
+                <s:element minOccurs="0" maxOccurs="1" name="VesselInfo">
+                  <s:complexType>
+                    <s:sequence>
+                      <s:element minOccurs="1" maxOccurs="1" name="VesselId" type="s:int" />
+                      <s:element minOccurs="0" maxOccurs="1" name="IMONumber" type="s:string" />
+                      <s:element minOccurs="0" maxOccurs="1" name="VesselName" type="s:string" />
+                    </s:sequence>
+                  </s:complexType>
+                </s:element>
+                <s:element minOccurs="0" maxOccurs="unbounded" name="Parameter" type="s2:sire-index-request-parameter" />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+          <s:element minOccurs="0" maxOccurs="1" name="User" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DocumentType" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="sire-index-request-parameter">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ParameterKey" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ParameterValue" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="sire-index-response">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Assets" type="s2:ArrayOfSireasset" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfSireasset">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Asset" type="s2:sire-asset" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="sire-asset">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AssetId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Created" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Modified" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="AssetInfo" type="s2:sire-asset-info" />
+          <s:element minOccurs="0" maxOccurs="1" name="Documents" type="s2:ArrayOfSiredocument" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="sire-asset-info">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AssetType">
+            <s:simpleType>
+              <s:restriction base="s:string">
+                <s:enumeration value="Vessel" />
+              </s:restriction>
+            </s:simpleType>
+          </s:element>
+          <s:element minOccurs="0" maxOccurs="1" name="VesselInfo" type="s2:sire-asset-vessel-info" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="sire-asset-vessel-info">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="IMONumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EBISNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RegisteredNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VINNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IVRNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VesselName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Flag" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DWT" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Region" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OperatingCompany" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="YearBuilt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HullType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ClassificationSociety" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NextSurveyDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="LatestVPQDate" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfSiredocument">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Document" type="s2:sire-document" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="sire-document">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SireId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DocumentType" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cost">
+            <s:complexType>
+              <s:simpleContent>
+                <s:extension base="s:double">
+                  <s:attribute name="Currency" type="s:string" />
+                </s:extension>
+              </s:simpleContent>
+            </s:complexType>
+          </s:element>
+          <s:element minOccurs="1" maxOccurs="1" name="Purchased" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="ProcessingStatus" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Created" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Modified" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="InspectionModified" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentInfo" type="s2:sire-document-info" />
+          <s:element minOccurs="0" maxOccurs="1" name="Renditions" type="s2:ArrayOfSirerendition" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="sire-document-info">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentType">
+            <s:simpleType>
+              <s:restriction base="s:string">
+                <s:enumeration value="Inspection" />
+                <s:enumeration value="Particulars" />
+              </s:restriction>
+            </s:simpleType>
+          </s:element>
+          <s:element minOccurs="0" maxOccurs="1" name="InspectionInfo">
+            <s:complexType>
+              <s:sequence>
+                <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+                <s:element minOccurs="1" maxOccurs="1" name="CommentsFirst" type="s2:sire-comments" />
+                <s:element minOccurs="1" maxOccurs="1" name="CommentsSecond" type="s2:sire-comments" />
+                <s:element minOccurs="0" maxOccurs="1" name="InspectingCompany" type="s:string" />
+                <s:element minOccurs="1" maxOccurs="1" name="InspectionDate" type="s:dateTime" />
+                <s:element minOccurs="0" maxOccurs="1" name="InspectionOperation" type="s:string" />
+                <s:element minOccurs="0" maxOccurs="1" name="ReleaseDate" type="s:dateTime" />
+                <s:element minOccurs="0" maxOccurs="1" name="VesselName" type="s:string" />
+                <s:element minOccurs="0" maxOccurs="1" name="OperatorName" type="s:string" />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="sire-comments">
+        <s:restriction base="s:string">
+          <s:enumeration value="" />
+          <s:enumeration value="XML" />
+          <s:enumeration value="FAX" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfSirerendition">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Rendition" type="s2:sire-rendition" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="sire-rendition">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="RenditionId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Rendered" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="RenditionType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MimeType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SourceHost" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.ocimf-sire.com/schemas/SireDocument_1.0.08.xsd">
+      <s:element name="GetDocumentXMLResult">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ResponseMessages" type="s3:ArrayOfSireresponsemessage" />
+            <s:element minOccurs="0" maxOccurs="1" name="DocumentHeader" type="s3:sire-document-header" />
+            <s:element minOccurs="0" maxOccurs="1" name="DocumentResponse" type="s3:sire-document-response" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfSireresponsemessage">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Message" type="s3:sire-response-message" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="sire-response-message">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="sire-document-header">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="GeneratedDateTime" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="GeneratorBuild" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SchemaInfo" type="s3:sire-index-schema-info" />
+          <s:element minOccurs="0" maxOccurs="1" name="ConsumerInfo" type="s3:sire-index-consumer-info" />
+          <s:element minOccurs="0" maxOccurs="1" name="RequestInfo" type="s3:sire-index-request-info" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="sire-index-schema-info">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="SchemaBuild" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SchemaBuildDateTime" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="sire-index-consumer-info">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ApplicationCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ApplicationBuild" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="sire-index-request-info">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Parameters" type="s3:ArrayOfSireindexrequestparameter" />
+          <s:element minOccurs="0" maxOccurs="1" name="User" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfSireindexrequestparameter">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Parameter" type="s3:sire-index-request-parameter" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="sire-index-request-parameter">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ParameterKey" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ParameterValue" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="sire-document-response">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="InstanceReference" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RenditionId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SireId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Created" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Modified" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Rendered" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="MimeType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TextContent">
+            <s:complexType mixed="true">
+              <s:sequence>
+                <s:any />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+          <s:element minOccurs="0" maxOccurs="1" name="BinaryContent">
+            <s:complexType>
+              <s:sequence>
+                <s:element minOccurs="0" maxOccurs="1" name="FileName" type="s:string" />
+                <s:element minOccurs="1" maxOccurs="1" name="Length" type="s:int" />
+                <s:element minOccurs="0" maxOccurs="1" name="Content" type="s:base64Binary" />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetDocumentResult">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ResponseMessages" type="s3:ArrayOfSireresponsemessage" />
+            <s:element minOccurs="0" maxOccurs="1" name="DocumentHeader" type="s3:sire-document-header" />
+            <s:element minOccurs="0" maxOccurs="1" name="DocumentResponse" type="s3:sire-document-response" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SireDocument">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ResponseMessages" type="s3:ArrayOfSireresponsemessage" />
+            <s:element minOccurs="0" maxOccurs="1" name="DocumentHeader" type="s3:sire-document-header" />
+            <s:element minOccurs="0" maxOccurs="1" name="DocumentResponse" type="s3:sire-document-response" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.ocimf-sire.com/schemas/SireWebServiceRequest_1.0.08.xsd">
+      <s:element name="SireRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsumerInfo" type="s4:sire-index-consumer-info" />
+            <s:element minOccurs="0" maxOccurs="1" name="RequestInfo" type="s4:sire-index-request-info" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="sire-index-consumer-info">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ApplicationCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ApplicationBuild" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="sire-index-request-info">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Parameters" type="s4:ArrayOfSireindexrequestparameter" />
+          <s:element minOccurs="0" maxOccurs="1" name="User" type="s4:sire-user" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfSireindexrequestparameter">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Parameter" type="s4:sire-index-request-parameter" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="sire-index-request-parameter">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ParameterKey" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ParameterValue" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="sire-user">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetSystemStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSystemStatus" />
+  </wsdl:message>
+  <wsdl:message name="GetSystemStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSystemStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllDocumentIndexExtXMLSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllDocumentIndexExtXML" />
+  </wsdl:message>
+  <wsdl:message name="GetAllDocumentIndexExtXMLSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllDocumentIndexExtXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllDocumentIndexExtSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllDocumentIndexExt" />
+  </wsdl:message>
+  <wsdl:message name="GetAllDocumentIndexExtSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllDocumentIndexExtResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentXMLSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDocumentXML" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentXMLSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDocumentXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDocument" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDocumentResponse" />
+  </wsdl:message>
+  <wsdl:message name="EnumerateIdSoapIn">
+    <wsdl:part name="parameters" element="tns:EnumerateId" />
+  </wsdl:message>
+  <wsdl:message name="EnumerateIdSoapOut">
+    <wsdl:part name="parameters" element="tns:EnumerateIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListAllDocumentTemplatesSoapIn">
+    <wsdl:part name="parameters" element="tns:ListAllDocumentTemplates" />
+  </wsdl:message>
+  <wsdl:message name="ListAllDocumentTemplatesSoapOut">
+    <wsdl:part name="parameters" element="tns:ListAllDocumentTemplatesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCrewIndexSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCrewIndex" />
+  </wsdl:message>
+  <wsdl:message name="GetCrewIndexSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCrewIndexResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateCrewDocumentSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateCrewDocument" />
+  </wsdl:message>
+  <wsdl:message name="CreateCrewDocumentSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateCrewDocumentResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCrewDocumentSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCrewDocument" />
+  </wsdl:message>
+  <wsdl:message name="GetCrewDocumentSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCrewDocumentResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveCrewRecordSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveCrewRecord" />
+  </wsdl:message>
+  <wsdl:message name="SaveCrewRecordSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveCrewRecordResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveCrewGeneralCommentsSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveCrewGeneralComments" />
+  </wsdl:message>
+  <wsdl:message name="SaveCrewGeneralCommentsSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveCrewGeneralCommentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSystemStatusHttpGetIn" />
+  <wsdl:message name="GetSystemStatusHttpGetOut">
+    <wsdl:part name="Body" element="tns:SireStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllDocumentIndexExtXMLHttpGetIn">
+    <wsdl:part name="XmlRequest" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllDocumentIndexExtXMLHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentXMLHttpGetIn">
+    <wsdl:part name="XmlRequest" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentXMLHttpGetOut">
+    <wsdl:part name="Body" element="s3:SireDocument" />
+  </wsdl:message>
+  <wsdl:message name="EnumerateIdHttpGetIn">
+    <wsdl:part name="enum_id" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="EnumerateIdHttpGetOut">
+    <wsdl:part name="Body" element="tns:SireEnumeratedCodeReturn" />
+  </wsdl:message>
+  <wsdl:message name="ListAllDocumentTemplatesHttpGetIn" />
+  <wsdl:message name="ListAllDocumentTemplatesHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="GetCrewIndexHttpGetIn">
+    <wsdl:part name="request" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetCrewIndexHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="CreateCrewDocumentHttpGetIn">
+    <wsdl:part name="request" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreateCrewDocumentHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="GetCrewDocumentHttpGetIn">
+    <wsdl:part name="request" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetCrewDocumentHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="SaveCrewRecordHttpGetIn">
+    <wsdl:part name="request" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SaveCrewRecordHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="SaveCrewGeneralCommentsHttpGetIn">
+    <wsdl:part name="request" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SaveCrewGeneralCommentsHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="GetSystemStatusHttpPostIn" />
+  <wsdl:message name="GetSystemStatusHttpPostOut">
+    <wsdl:part name="Body" element="tns:SireStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllDocumentIndexExtXMLHttpPostIn">
+    <wsdl:part name="XmlRequest" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllDocumentIndexExtXMLHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentXMLHttpPostIn">
+    <wsdl:part name="XmlRequest" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentXMLHttpPostOut">
+    <wsdl:part name="Body" element="s3:SireDocument" />
+  </wsdl:message>
+  <wsdl:message name="EnumerateIdHttpPostIn">
+    <wsdl:part name="enum_id" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="EnumerateIdHttpPostOut">
+    <wsdl:part name="Body" element="tns:SireEnumeratedCodeReturn" />
+  </wsdl:message>
+  <wsdl:message name="ListAllDocumentTemplatesHttpPostIn" />
+  <wsdl:message name="ListAllDocumentTemplatesHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="GetCrewIndexHttpPostIn">
+    <wsdl:part name="request" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetCrewIndexHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="CreateCrewDocumentHttpPostIn">
+    <wsdl:part name="request" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreateCrewDocumentHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="GetCrewDocumentHttpPostIn">
+    <wsdl:part name="request" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetCrewDocumentHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="SaveCrewRecordHttpPostIn">
+    <wsdl:part name="request" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SaveCrewRecordHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="SaveCrewGeneralCommentsHttpPostIn">
+    <wsdl:part name="request" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SaveCrewGeneralCommentsHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:portType name="Sire_x0020_WebServices_x0020_v1.0.11Soap">
+    <wsdl:operation name="GetSystemStatus">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns Sire system status. Response code 100 = database active. Response code 200 = system status error.</wsdl:documentation>
+      <wsdl:input message="tns:GetSystemStatusSoapIn" />
+      <wsdl:output message="tns:GetSystemStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllDocumentIndexExtXML">
+      <wsdl:input message="tns:GetAllDocumentIndexExtXMLSoapIn" />
+      <wsdl:output message="tns:GetAllDocumentIndexExtXMLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllDocumentIndexExt">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns index documents.</wsdl:documentation>
+      <wsdl:input message="tns:GetAllDocumentIndexExtSoapIn" />
+      <wsdl:output message="tns:GetAllDocumentIndexExtSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentXML">
+      <wsdl:input message="tns:GetDocumentXMLSoapIn" />
+      <wsdl:output message="tns:GetDocumentXMLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDocument">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a document rendition based upon RenditionId and ModifiedDate.</wsdl:documentation>
+      <wsdl:input message="tns:GetDocumentSoapIn" />
+      <wsdl:output message="tns:GetDocumentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EnumerateId">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Enumerates an integer to its enumeration code and group.</wsdl:documentation>
+      <wsdl:input message="tns:EnumerateIdSoapIn" />
+      <wsdl:output message="tns:EnumerateIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListAllDocumentTemplates">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">List all document templates, including current version, modified date, status and template URL</wsdl:documentation>
+      <wsdl:input message="tns:ListAllDocumentTemplatesSoapIn" />
+      <wsdl:output message="tns:ListAllDocumentTemplatesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCrewIndex">
+      <wsdl:input message="tns:GetCrewIndexSoapIn" />
+      <wsdl:output message="tns:GetCrewIndexSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateCrewDocument">
+      <wsdl:input message="tns:CreateCrewDocumentSoapIn" />
+      <wsdl:output message="tns:CreateCrewDocumentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCrewDocument">
+      <wsdl:input message="tns:GetCrewDocumentSoapIn" />
+      <wsdl:output message="tns:GetCrewDocumentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveCrewRecord">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Save an individual vessel crew member's details.</wsdl:documentation>
+      <wsdl:input message="tns:SaveCrewRecordSoapIn" />
+      <wsdl:output message="tns:SaveCrewRecordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveCrewGeneralComments">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Save general comments relating to an Operator Crew document (per vessel).</wsdl:documentation>
+      <wsdl:input message="tns:SaveCrewGeneralCommentsSoapIn" />
+      <wsdl:output message="tns:SaveCrewGeneralCommentsSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="Sire_x0020_WebServices_x0020_v1.0.11HttpGet">
+    <wsdl:operation name="GetSystemStatus">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns Sire system status. Response code 100 = database active. Response code 200 = system status error.</wsdl:documentation>
+      <wsdl:input message="tns:GetSystemStatusHttpGetIn" />
+      <wsdl:output message="tns:GetSystemStatusHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllDocumentIndexExtXML">
+      <wsdl:input message="tns:GetAllDocumentIndexExtXMLHttpGetIn" />
+      <wsdl:output message="tns:GetAllDocumentIndexExtXMLHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentXML">
+      <wsdl:input message="tns:GetDocumentXMLHttpGetIn" />
+      <wsdl:output message="tns:GetDocumentXMLHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EnumerateId">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Enumerates an integer to its enumeration code and group.</wsdl:documentation>
+      <wsdl:input message="tns:EnumerateIdHttpGetIn" />
+      <wsdl:output message="tns:EnumerateIdHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListAllDocumentTemplates">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">List all document templates, including current version, modified date, status and template URL</wsdl:documentation>
+      <wsdl:input message="tns:ListAllDocumentTemplatesHttpGetIn" />
+      <wsdl:output message="tns:ListAllDocumentTemplatesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCrewIndex">
+      <wsdl:input message="tns:GetCrewIndexHttpGetIn" />
+      <wsdl:output message="tns:GetCrewIndexHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateCrewDocument">
+      <wsdl:input message="tns:CreateCrewDocumentHttpGetIn" />
+      <wsdl:output message="tns:CreateCrewDocumentHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCrewDocument">
+      <wsdl:input message="tns:GetCrewDocumentHttpGetIn" />
+      <wsdl:output message="tns:GetCrewDocumentHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveCrewRecord">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Save an individual vessel crew member's details.</wsdl:documentation>
+      <wsdl:input message="tns:SaveCrewRecordHttpGetIn" />
+      <wsdl:output message="tns:SaveCrewRecordHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveCrewGeneralComments">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Save general comments relating to an Operator Crew document (per vessel).</wsdl:documentation>
+      <wsdl:input message="tns:SaveCrewGeneralCommentsHttpGetIn" />
+      <wsdl:output message="tns:SaveCrewGeneralCommentsHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="Sire_x0020_WebServices_x0020_v1.0.11HttpPost">
+    <wsdl:operation name="GetSystemStatus">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns Sire system status. Response code 100 = database active. Response code 200 = system status error.</wsdl:documentation>
+      <wsdl:input message="tns:GetSystemStatusHttpPostIn" />
+      <wsdl:output message="tns:GetSystemStatusHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllDocumentIndexExtXML">
+      <wsdl:input message="tns:GetAllDocumentIndexExtXMLHttpPostIn" />
+      <wsdl:output message="tns:GetAllDocumentIndexExtXMLHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentXML">
+      <wsdl:input message="tns:GetDocumentXMLHttpPostIn" />
+      <wsdl:output message="tns:GetDocumentXMLHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EnumerateId">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Enumerates an integer to its enumeration code and group.</wsdl:documentation>
+      <wsdl:input message="tns:EnumerateIdHttpPostIn" />
+      <wsdl:output message="tns:EnumerateIdHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListAllDocumentTemplates">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">List all document templates, including current version, modified date, status and template URL</wsdl:documentation>
+      <wsdl:input message="tns:ListAllDocumentTemplatesHttpPostIn" />
+      <wsdl:output message="tns:ListAllDocumentTemplatesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCrewIndex">
+      <wsdl:input message="tns:GetCrewIndexHttpPostIn" />
+      <wsdl:output message="tns:GetCrewIndexHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateCrewDocument">
+      <wsdl:input message="tns:CreateCrewDocumentHttpPostIn" />
+      <wsdl:output message="tns:CreateCrewDocumentHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCrewDocument">
+      <wsdl:input message="tns:GetCrewDocumentHttpPostIn" />
+      <wsdl:output message="tns:GetCrewDocumentHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveCrewRecord">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Save an individual vessel crew member's details.</wsdl:documentation>
+      <wsdl:input message="tns:SaveCrewRecordHttpPostIn" />
+      <wsdl:output message="tns:SaveCrewRecordHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveCrewGeneralComments">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Save general comments relating to an Operator Crew document (per vessel).</wsdl:documentation>
+      <wsdl:input message="tns:SaveCrewGeneralCommentsHttpPostIn" />
+      <wsdl:output message="tns:SaveCrewGeneralCommentsHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="Sire_x0020_WebServices_x0020_v1.0.11Soap" type="tns:Sire_x0020_WebServices_x0020_v1.0.11Soap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetSystemStatus">
+      <soap:operation soapAction="http://ws.ocimf-sire.com/GetSystemStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllDocumentIndexExtXML">
+      <soap:operation soapAction="http://ws.ocimf-sire.com/GetAllDocumentIndexExtXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllDocumentIndexExt">
+      <soap:operation soapAction="http://ws.ocimf-sire.com/GetAllDocumentIndexExt" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentXML">
+      <soap:operation soapAction="http://ws.ocimf-sire.com/GetDocumentXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocument">
+      <soap:operation soapAction="http://ws.ocimf-sire.com/GetDocument" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnumerateId">
+      <soap:operation soapAction="http://ws.ocimf-sire.com/EnumerateId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListAllDocumentTemplates">
+      <soap:operation soapAction="http://ws.ocimf-sire.com/ListAllDocumentTemplates" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCrewIndex">
+      <soap:operation soapAction="http://ws.ocimf-sire.com/GetCrewIndex" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateCrewDocument">
+      <soap:operation soapAction="http://ws.ocimf-sire.com/CreateCrewDocument" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCrewDocument">
+      <soap:operation soapAction="http://ws.ocimf-sire.com/GetCrewDocument" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveCrewRecord">
+      <soap:operation soapAction="http://ws.ocimf-sire.com/SaveCrewRecord" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveCrewGeneralComments">
+      <soap:operation soapAction="http://ws.ocimf-sire.com/SaveCrewGeneralComments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="Sire_x0020_WebServices_x0020_v1.0.11Soap12" type="tns:Sire_x0020_WebServices_x0020_v1.0.11Soap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetSystemStatus">
+      <soap12:operation soapAction="http://ws.ocimf-sire.com/GetSystemStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllDocumentIndexExtXML">
+      <soap12:operation soapAction="http://ws.ocimf-sire.com/GetAllDocumentIndexExtXML" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllDocumentIndexExt">
+      <soap12:operation soapAction="http://ws.ocimf-sire.com/GetAllDocumentIndexExt" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentXML">
+      <soap12:operation soapAction="http://ws.ocimf-sire.com/GetDocumentXML" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocument">
+      <soap12:operation soapAction="http://ws.ocimf-sire.com/GetDocument" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnumerateId">
+      <soap12:operation soapAction="http://ws.ocimf-sire.com/EnumerateId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListAllDocumentTemplates">
+      <soap12:operation soapAction="http://ws.ocimf-sire.com/ListAllDocumentTemplates" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCrewIndex">
+      <soap12:operation soapAction="http://ws.ocimf-sire.com/GetCrewIndex" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateCrewDocument">
+      <soap12:operation soapAction="http://ws.ocimf-sire.com/CreateCrewDocument" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCrewDocument">
+      <soap12:operation soapAction="http://ws.ocimf-sire.com/GetCrewDocument" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveCrewRecord">
+      <soap12:operation soapAction="http://ws.ocimf-sire.com/SaveCrewRecord" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveCrewGeneralComments">
+      <soap12:operation soapAction="http://ws.ocimf-sire.com/SaveCrewGeneralComments" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="Sire_x0020_WebServices_x0020_v1.0.11HttpGet" type="tns:Sire_x0020_WebServices_x0020_v1.0.11HttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="GetSystemStatus">
+      <http:operation location="/GetSystemStatus" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllDocumentIndexExtXML">
+      <http:operation location="/GetAllDocumentIndexExtXML" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentXML">
+      <http:operation location="/GetDocumentXML" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnumerateId">
+      <http:operation location="/EnumerateId" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListAllDocumentTemplates">
+      <http:operation location="/ListAllDocumentTemplates" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCrewIndex">
+      <http:operation location="/GetCrewIndex" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateCrewDocument">
+      <http:operation location="/CreateCrewDocument" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCrewDocument">
+      <http:operation location="/GetCrewDocument" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveCrewRecord">
+      <http:operation location="/SaveCrewRecord" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveCrewGeneralComments">
+      <http:operation location="/SaveCrewGeneralComments" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="Sire_x0020_WebServices_x0020_v1.0.11HttpPost" type="tns:Sire_x0020_WebServices_x0020_v1.0.11HttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="GetSystemStatus">
+      <http:operation location="/GetSystemStatus" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllDocumentIndexExtXML">
+      <http:operation location="/GetAllDocumentIndexExtXML" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentXML">
+      <http:operation location="/GetDocumentXML" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnumerateId">
+      <http:operation location="/EnumerateId" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListAllDocumentTemplates">
+      <http:operation location="/ListAllDocumentTemplates" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCrewIndex">
+      <http:operation location="/GetCrewIndex" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateCrewDocument">
+      <http:operation location="/CreateCrewDocument" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCrewDocument">
+      <http:operation location="/GetCrewDocument" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveCrewRecord">
+      <http:operation location="/SaveCrewRecord" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveCrewGeneralComments">
+      <http:operation location="/SaveCrewGeneralComments" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Sire_x0020_WebServices_x0020_v1.0.11">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Sire WebServices v1.0.11. 24.11.2009</wsdl:documentation>
+    <wsdl:port name="Sire_x0020_WebServices_x0020_v1.0.11Soap" binding="tns:Sire_x0020_WebServices_x0020_v1.0.11Soap">
+      <soap:address location="http://ws.ocimf-sire.com/SireWS_V1.0.11.asmx" />
+    </wsdl:port>
+    <wsdl:port name="Sire_x0020_WebServices_x0020_v1.0.11Soap12" binding="tns:Sire_x0020_WebServices_x0020_v1.0.11Soap12">
+      <soap12:address location="http://ws.ocimf-sire.com/SireWS_V1.0.11.asmx" />
+    </wsdl:port>
+    <wsdl:port name="Sire_x0020_WebServices_x0020_v1.0.11HttpGet" binding="tns:Sire_x0020_WebServices_x0020_v1.0.11HttpGet">
+      <http:address location="http://ws.ocimf-sire.com/SireWS_V1.0.11.asmx" />
+    </wsdl:port>
+    <wsdl:port name="Sire_x0020_WebServices_x0020_v1.0.11HttpPost" binding="tns:Sire_x0020_WebServices_x0020_v1.0.11HttpPost">
+      <http:address location="http://ws.ocimf-sire.com/SireWS_V1.0.11.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

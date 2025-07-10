@@ -1,0 +1,183 @@
+﻿@charset "utf-8";
+/* CSS Document */
+body {
+    margin: 0px auto;
+    background-color: #bcf5c5;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    color: #003370;
+    padding: 10px;
+    text-align: left;
+}
+
+.a {
+    outline: none;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.clr {
+    clear: both;
+    margin: 0px auto;
+    padding: 0px;
+    line-height: 0px;
+}
+
+#main-wrap {
+    margin: 0px auto;
+    width: 85%;
+    height: auto;
+    background-color: #ffffff;
+    padding: 1%;
+    border: 1px solid #ddd;
+}
+
+.title {
+    background-color: #80b34a;
+    border-radius: 0px 0px 10px 10px;
+    color: #fff;
+    padding: 1% 0%;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.form-title {
+    border-bottom: 1px solid #80b34a;
+}
+
+.form-title-left {
+    float: left;
+    padding: 1% 0%;
+    font-size: 18px;
+    color: #fe0034;
+}
+
+.form-title-right {
+    float: right;
+    padding: 10px 0px;
+    font-size: 18px;
+    color: #101010;
+}
+
+.frm-fields {
+    margin: 5px 0px;
+    padding: 5px;
+}
+
+.drop {
+    height: 25px;
+    padding: 2px 5px;
+    border: 1px solid #e8ede3;
+    padding-left: 1%;
+    font-size: 12px;
+    color: #003370;
+    outline: none;
+    width: 60%;
+}
+
+.drop1 {
+    height: 25px;
+    padding: 2px 5px;
+    border: 1px solid #e8ede3;
+    padding-left: 1%;
+    font-size: 12px;
+    color: #003370;
+    outline: none;
+    width: 40%;
+}
+
+.sample {
+    border-collapse: collapse;
+}
+
+    .sample td {
+        border: solid 1px #ddd;
+        padding: 7px 0px 7px 7px;
+    }
+
+.nbr {
+    padding: 0px !important;
+}
+
+    .nbr table {
+        border: none;
+        padding: 0px;
+        border-collapse: collapse;
+    }
+
+        .nbr table td.tbn {
+            border-top: none;
+        }
+
+        .nbr table td.bbn {
+            border-bottom: none;
+        }
+
+        .nbr table td.lbn {
+            border-left: none;
+        }
+
+        .nbr table td.rbn {
+            border-right: none;
+        }
+
+
+.inp_style {
+    height: 25px;
+    padding: 2px 5px;
+    border: 1px solid #e8ede3;
+    font-size: 12px;
+    color: #003370;
+    outline: none;
+    width: 60%;
+}
+
+.t-area_style {
+    height: auto;
+    width: 90%;
+    padding: 2px 5px;
+    border: 1px solid #e8ede3;
+    font-size: 12px;
+    color: #003370;
+    outline: none;
+}
+
+.t-area2_style {
+    height: auto;
+    width: 50%;
+    padding: 2px 5px;
+    border: 1px solid #e8ede3;
+    font-size: 12px;
+    color: #003370;
+    outline: none;
+}
+
+.section-title {
+    color: #003370;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.sample {
+    border-collapse: collapse;
+    text-align: left;
+    width: 100%;
+}
+
+.f1_title {
+    font-weight: bold;
+}
+
+.f1_title2 {
+    font-weight: bold;
+    text-align: center;
+    font-size: 15px;
+}
+.note {color:#ff0000;}

@@ -1,0 +1,181 @@
+﻿*
+{
+	margin: 0px 0px 0px 0px;
+	font-family : Verdana; 
+	font-size : 12px;
+}
+body 
+{
+	background-color :White;
+	color : #4172ac;
+}
+input [type=text]
+{
+	font-family:Arial @Arial Unicode MS;
+	font-size :12px;
+	border:solid 1px #244898; 
+}
+input [type=button]
+{
+	font-family:Arial @Arial Unicode MS;
+	font-size :12px;
+	border:solid 1px #244898; 
+	height:25px;
+}
+.imgbtn
+{
+	font-family:Arial @Arial Unicode MS;
+	font-size :12px;
+	border:solid 1px #f3f6fd; 
+	height:25px;
+}
+#footer
+{
+	
+}
+#hor_bar
+{
+	
+}
+#hor_band
+{
+	
+}
+a img
+{
+	border :none;
+}
+.pagename
+{
+	display: block;
+    padding: 0px 5px 5px;
+    background: #5B90E6;
+    border-bottom: 1px solid Black;
+    text-decoration: none;
+    color: White;
+    text-align :center;
+}
+.header
+{
+	background-image:url(images/bar_bg.png);
+	color :White ;
+	height :25px;
+	font-size:11px;
+	
+}
+.rowcontent td
+{
+	font-size:11px; 
+}
+.selrowcontent td
+{
+	font-size:11px; 
+	background-color: Orange; 
+}
+.required 
+{
+	font-size:12px; 
+	color :Red; 
+}
+.helptext
+{
+	color:Maroon;
+ 	font-size:9px; 
+}
+.btn
+{
+	color:Black ;
+	background-image:url(images/bar_bg.png);
+	height :25px;
+	border:solid 1px gray;
+	margin :2px;
+	border-right:solid 2px black;
+	border-bottom:solid 2px black; 
+}
+.readonly
+{
+	background-color:gray;
+}
+.input_box{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #003399;
+	border:1px solid #9abcd7;
+	width: 120px;
+	}
+	.input_box_error{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #003399;
+	background-color:#F78181;
+	border:1px solid #9abcd7;
+	width: 120px;
+	}
+
+.heading1
+{
+	font-size :12px;
+	color :Blue; 
+	cursor :pointer;
+	background-color :#d2d2d2;
+	width :100%;
+	padding-top:5px;
+	padding-bottom:5px;
+	text-align :center;
+}
+.ancheading1
+{
+	font-size :12px;
+	color :Blue; 
+	cursor :pointer;
+	text-decoration :underline;
+}
+.tab
+{
+	border:none;
+	color :White ;
+	background-color :#8AAEE7;
+	border:solid 1px black;
+}
+.tab_band
+{
+	border-bottom:solid 1px black;
+}
+.tab_blank
+{
+	border:none;
+	color :White ;
+	background-color :#FFFF66;
+	border:solid 1px black;
+	border-top:none;
+}
+.tabSel
+{
+	border:none; 
+	background-color :#FFFF66;
+	color:Red; 
+	border:solid 1px black;
+	border-bottom:none;
+	font-weight:bold;  
+}
+.tabSel a
+{
+	text-decoration:none;
+	color:Red; 
+}
+.tabSel a:hover
+{
+	text-decoration:underline;
+	color:Blue; 
+}
+.tab a
+{
+	text-decoration:none;
+	color:White; 
+}
+.tab a:hover
+{
+	text-decoration:underline;
+	color:Blue; 
+}
+

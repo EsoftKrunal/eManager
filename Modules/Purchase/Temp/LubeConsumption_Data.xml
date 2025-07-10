@@ -1,0 +1,233 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <POS_OrderReceiptDetails_Consumption>
+    <VesselCode>PRG</VesselCode>
+    <BidId>3524</BidId>
+    <BidItemID>27160</BidItemID>
+    <Recid>9702</Recid>
+    <ConsumpMonth>4</ConsumpMonth>
+    <ConsumpYear>2024</ConsumpYear>
+    <RecQty>400</RecQty>
+    <PreMonthROB>100</PreMonthROB>
+    <CurrMonthConsumpQty>25</CurrMonthConsumpQty>
+    <CurrMonthROB>75</CurrMonthROB>
+    <Description>April Lube Consumption for 2024</Description>
+    <Master_Name>Master</Master_Name>
+    <CE_Name>Master</CE_Name>
+    <Status>false</Status>
+    <AddedBy>Master</AddedBy>
+    <AddedOn>2024-05-23T17:51:00+05:30</AddedOn>
+    <ExportedBy>MASTER</ExportedBy>
+    <ExportedOn>2024-05-24T11:04:00+05:30</ExportedOn>
+    <OfficeVerifiedBy>emadmin</OfficeVerifiedBy>
+    <OfficedVerifiedOn>2024-06-03T13:25:00+05:30</OfficedVerifiedOn>
+    <OfficeRemark>Ok verified.</OfficeRemark>
+  </POS_OrderReceiptDetails_Consumption>
+  <POS_OrderReceiptDetails_Consumption>
+    <VesselCode>PRG</VesselCode>
+    <BidId>3520</BidId>
+    <BidItemID>27124</BidItemID>
+    <Recid>9606</Recid>
+    <ConsumpMonth>4</ConsumpMonth>
+    <ConsumpYear>2024</ConsumpYear>
+    <RecQty>5000</RecQty>
+    <PreMonthROB>1300</PreMonthROB>
+    <CurrMonthConsumpQty>200</CurrMonthConsumpQty>
+    <CurrMonthROB>1100</CurrMonthROB>
+    <Description>April Lube Consumption for 2024</Description>
+    <Master_Name>Master</Master_Name>
+    <CE_Name>Master</CE_Name>
+    <Status>false</Status>
+    <AddedBy>Master</AddedBy>
+    <AddedOn>2024-05-23T17:51:00+05:30</AddedOn>
+    <ExportedBy>MASTER</ExportedBy>
+    <ExportedOn>2024-05-24T11:04:00+05:30</ExportedOn>
+    <OfficeVerifiedBy>emadmin</OfficeVerifiedBy>
+    <OfficedVerifiedOn>2024-06-03T13:25:00+05:30</OfficedVerifiedOn>
+    <OfficeRemark>Ok verified.</OfficeRemark>
+  </POS_OrderReceiptDetails_Consumption>
+  <POS_OrderReceiptDetails_Consumption>
+    <VesselCode>PRG</VesselCode>
+    <BidId>3520</BidId>
+    <BidItemID>27123</BidItemID>
+    <Recid>9607</Recid>
+    <ConsumpMonth>4</ConsumpMonth>
+    <ConsumpYear>2024</ConsumpYear>
+    <RecQty>3000</RecQty>
+    <PreMonthROB>1000</PreMonthROB>
+    <CurrMonthConsumpQty>200</CurrMonthConsumpQty>
+    <CurrMonthROB>800</CurrMonthROB>
+    <Description>April Lube Consumption for 2024</Description>
+    <Master_Name>Master</Master_Name>
+    <CE_Name>Master</CE_Name>
+    <Status>false</Status>
+    <AddedBy>Master</AddedBy>
+    <AddedOn>2024-05-23T17:51:00+05:30</AddedOn>
+    <ExportedBy>MASTER</ExportedBy>
+    <ExportedOn>2024-05-24T11:04:00+05:30</ExportedOn>
+    <OfficeVerifiedBy>emadmin</OfficeVerifiedBy>
+    <OfficedVerifiedOn>2024-06-03T13:25:00+05:30</OfficedVerifiedOn>
+    <OfficeRemark>Ok verified.</OfficeRemark>
+  </POS_OrderReceiptDetails_Consumption>
+  <POS_OrderReceiptDetails_Consumption>
+    <VesselCode>PRG</VesselCode>
+    <BidId>3336</BidId>
+    <BidItemID>26259</BidItemID>
+    <Recid>9463</Recid>
+    <ConsumpMonth>4</ConsumpMonth>
+    <ConsumpYear>2024</ConsumpYear>
+    <RecQty>1272</RecQty>
+    <PreMonthROB>500</PreMonthROB>
+    <CurrMonthConsumpQty>150</CurrMonthConsumpQty>
+    <CurrMonthROB>350</CurrMonthROB>
+    <Description>April Lube Consumption for 2024</Description>
+    <Master_Name>Master</Master_Name>
+    <CE_Name>Master</CE_Name>
+    <Status>false</Status>
+    <AddedBy>Master</AddedBy>
+    <AddedOn>2024-05-23T17:51:00+05:30</AddedOn>
+    <ExportedBy>MASTER</ExportedBy>
+    <ExportedOn>2024-05-24T11:04:00+05:30</ExportedOn>
+    <OfficeVerifiedBy>emadmin</OfficeVerifiedBy>
+    <OfficedVerifiedOn>2024-06-03T13:25:00+05:30</OfficedVerifiedOn>
+    <OfficeRemark>Ok verified.</OfficeRemark>
+  </POS_OrderReceiptDetails_Consumption>
+  <POS_OrderReceiptDetails_Consumption>
+    <VesselCode>PRG</VesselCode>
+    <BidId>2237</BidId>
+    <BidItemID>13304</BidItemID>
+    <Recid>5484</Recid>
+    <ConsumpMonth>4</ConsumpMonth>
+    <ConsumpYear>2024</ConsumpYear>
+    <RecQty>5000</RecQty>
+    <PreMonthROB>1500</PreMonthROB>
+    <CurrMonthConsumpQty>200</CurrMonthConsumpQty>
+    <CurrMonthROB>1300</CurrMonthROB>
+    <Description>April Lube Consumption for 2024</Description>
+    <Master_Name>Master</Master_Name>
+    <CE_Name>Master</CE_Name>
+    <Status>false</Status>
+    <AddedBy>Master</AddedBy>
+    <AddedOn>2024-05-23T17:51:00+05:30</AddedOn>
+    <ExportedBy>MASTER</ExportedBy>
+    <ExportedOn>2024-05-24T11:04:00+05:30</ExportedOn>
+    <OfficeVerifiedBy>emadmin</OfficeVerifiedBy>
+    <OfficedVerifiedOn>2024-06-03T13:25:00+05:30</OfficedVerifiedOn>
+    <OfficeRemark>Ok verified.</OfficeRemark>
+  </POS_OrderReceiptDetails_Consumption>
+  <POS_OrderReceiptDetails_Consumption>
+    <VesselCode>PRG</VesselCode>
+    <BidId>2237</BidId>
+    <BidItemID>13303</BidItemID>
+    <Recid>5485</Recid>
+    <ConsumpMonth>4</ConsumpMonth>
+    <ConsumpYear>2024</ConsumpYear>
+    <RecQty>2500</RecQty>
+    <PreMonthROB>1000</PreMonthROB>
+    <CurrMonthConsumpQty>200</CurrMonthConsumpQty>
+    <CurrMonthROB>800</CurrMonthROB>
+    <Description>April Lube Consumption for 2024</Description>
+    <Master_Name>Master</Master_Name>
+    <CE_Name>Master</CE_Name>
+    <Status>false</Status>
+    <AddedBy>Master</AddedBy>
+    <AddedOn>2024-05-23T17:51:00+05:30</AddedOn>
+    <ExportedBy>MASTER</ExportedBy>
+    <ExportedOn>2024-05-24T11:04:00+05:30</ExportedOn>
+    <OfficeVerifiedBy>emadmin</OfficeVerifiedBy>
+    <OfficedVerifiedOn>2024-06-03T13:25:00+05:30</OfficedVerifiedOn>
+    <OfficeRemark>Ok verified.</OfficeRemark>
+  </POS_OrderReceiptDetails_Consumption>
+  <POS_OrderReceiptDetails_Consumption>
+    <VesselCode>PRG</VesselCode>
+    <BidId>2237</BidId>
+    <BidItemID>13302</BidItemID>
+    <Recid>5486</Recid>
+    <ConsumpMonth>4</ConsumpMonth>
+    <ConsumpYear>2024</ConsumpYear>
+    <RecQty>3000</RecQty>
+    <PreMonthROB>1300</PreMonthROB>
+    <CurrMonthConsumpQty>200</CurrMonthConsumpQty>
+    <CurrMonthROB>1100</CurrMonthROB>
+    <Description>April Lube Consumption for 2024</Description>
+    <Master_Name>Master</Master_Name>
+    <CE_Name>Master</CE_Name>
+    <Status>false</Status>
+    <AddedBy>Master</AddedBy>
+    <AddedOn>2024-05-23T17:51:00+05:30</AddedOn>
+    <ExportedBy>MASTER</ExportedBy>
+    <ExportedOn>2024-05-24T11:04:00+05:30</ExportedOn>
+    <OfficeVerifiedBy>emadmin</OfficeVerifiedBy>
+    <OfficedVerifiedOn>2024-06-03T13:25:00+05:30</OfficedVerifiedOn>
+    <OfficeRemark>Ok verified.</OfficeRemark>
+  </POS_OrderReceiptDetails_Consumption>
+  <POS_OrderReceiptDetails_Consumption>
+    <VesselCode>PRG</VesselCode>
+    <BidId>2237</BidId>
+    <BidItemID>13300</BidItemID>
+    <Recid>5488</Recid>
+    <ConsumpMonth>4</ConsumpMonth>
+    <ConsumpYear>2024</ConsumpYear>
+    <RecQty>1200</RecQty>
+    <PreMonthROB>400</PreMonthROB>
+    <CurrMonthConsumpQty>100</CurrMonthConsumpQty>
+    <CurrMonthROB>300</CurrMonthROB>
+    <Description>April Lube Consumption for 2024</Description>
+    <Master_Name>Master</Master_Name>
+    <CE_Name>Master</CE_Name>
+    <Status>false</Status>
+    <AddedBy>Master</AddedBy>
+    <AddedOn>2024-05-23T17:51:00+05:30</AddedOn>
+    <ExportedBy>MASTER</ExportedBy>
+    <ExportedOn>2024-05-24T11:04:00+05:30</ExportedOn>
+    <OfficeVerifiedBy>emadmin</OfficeVerifiedBy>
+    <OfficedVerifiedOn>2024-06-03T13:25:00+05:30</OfficedVerifiedOn>
+    <OfficeRemark>Ok verified.</OfficeRemark>
+  </POS_OrderReceiptDetails_Consumption>
+  <POS_OrderReceiptDetails_Consumption>
+    <VesselCode>PRG</VesselCode>
+    <BidId>2237</BidId>
+    <BidItemID>13299</BidItemID>
+    <Recid>5489</Recid>
+    <ConsumpMonth>4</ConsumpMonth>
+    <ConsumpYear>2024</ConsumpYear>
+    <RecQty>54</RecQty>
+    <PreMonthROB>20</PreMonthROB>
+    <CurrMonthConsumpQty>5</CurrMonthConsumpQty>
+    <CurrMonthROB>15</CurrMonthROB>
+    <Description>April Lube Consumption for 2024</Description>
+    <Master_Name>Master</Master_Name>
+    <CE_Name>Master</CE_Name>
+    <Status>false</Status>
+    <AddedBy>Master</AddedBy>
+    <AddedOn>2024-05-23T17:51:00+05:30</AddedOn>
+    <ExportedBy>MASTER</ExportedBy>
+    <ExportedOn>2024-05-24T11:04:00+05:30</ExportedOn>
+    <OfficeVerifiedBy>emadmin</OfficeVerifiedBy>
+    <OfficedVerifiedOn>2024-06-03T13:25:00+05:30</OfficedVerifiedOn>
+    <OfficeRemark>Ok verified.</OfficeRemark>
+  </POS_OrderReceiptDetails_Consumption>
+  <POS_OrderReceiptDetails_Consumption>
+    <VesselCode>PRG</VesselCode>
+    <BidId>184</BidId>
+    <BidItemID>2909</BidItemID>
+    <Recid>597</Recid>
+    <ConsumpMonth>4</ConsumpMonth>
+    <ConsumpYear>2024</ConsumpYear>
+    <RecQty>1600</RecQty>
+    <PreMonthROB>650</PreMonthROB>
+    <CurrMonthConsumpQty>150</CurrMonthConsumpQty>
+    <CurrMonthROB>500</CurrMonthROB>
+    <Description>April Lube Consumption for 2024</Description>
+    <Master_Name>Master</Master_Name>
+    <CE_Name>Master</CE_Name>
+    <Status>false</Status>
+    <AddedBy>Master</AddedBy>
+    <AddedOn>2024-05-23T17:51:00+05:30</AddedOn>
+    <ExportedBy>MASTER</ExportedBy>
+    <ExportedOn>2024-05-24T11:04:00+05:30</ExportedOn>
+    <OfficeVerifiedBy>emadmin</OfficeVerifiedBy>
+    <OfficedVerifiedOn>2024-06-03T13:25:00+05:30</OfficedVerifiedOn>
+    <OfficeRemark>Ok verified.</OfficeRemark>
+  </POS_OrderReceiptDetails_Consumption>
+</NewDataSet>

@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ShirtSizeData>
+  <Shirt>
+    <ShirtNo>3</ShirtNo>
+    <ShirtSize>L</ShirtSize>
+  </Shirt>
+  <Shirt>
+    <ShirtNo>2</ShirtNo>
+    <ShirtSize>M</ShirtSize>
+  </Shirt>
+  <Shirt>
+    <ShirtNo>1</ShirtNo>
+    <ShirtSize>S</ShirtSize>
+  </Shirt>
+  <Shirt>
+    <ShirtNo>4</ShirtNo>
+    <ShirtSize>XL</ShirtSize>
+  </Shirt>
+  <Shirt>
+    <ShirtNo>5</ShirtNo>
+    <ShirtSize>XL2</ShirtSize>
+  </Shirt>
+  <Shirt>
+    <ShirtNo>6</ShirtNo>
+    <ShirtSize>XL3</ShirtSize>
+  </Shirt>
+  <Shirt>
+    <ShirtNo>0</ShirtNo>
+    <ShirtSize>NotSet</ShirtSize>
+  </Shirt>
+</ShirtSizeData>

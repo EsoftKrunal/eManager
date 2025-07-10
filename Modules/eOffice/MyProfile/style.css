@@ -1,0 +1,59 @@
+﻿body {
+    margin:0px;
+    font-family:Calibri;
+    font-size:14px;
+}
+*{
+    box-sizing:border-box;
+    font-size:14px;
+}
+.gridheader tr td
+{
+    background-color:#424040;
+    color:WHITE;
+    padding:6px;
+    font-size:14px;
+    border:solid 1px #c2c2c2;
+}
+
+
+.gridrow tr td
+{
+    padding:6px;
+    font-size:13px;
+    border:solid 1px #c2c2c2;
+}
+
+.tabmenu
+{
+    border:none;
+    background-color:#edeaea;
+    color:#333;
+    font-size:14px;
+    padding:5px 15px 5px 15px;
+}
+.active
+{
+    background-color:#ff6a00;
+    color:white;
+            
+}
+    
+.btn
+{
+    border:none;
+    background-color:#ff6a00;
+    color:white;
+    font-size:14px;
+    padding:5px 15px 5px 15px;
+}
+
+.cls_I
+{
+    background-color:#a3fcbb;
+}
+
+.cls_D
+{
+    background-color:#ffc0c0;
+}

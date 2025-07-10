@@ -1,0 +1,42 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <MP_VSL_ShipStaffMaster>
+    <ShipStaffId>2</ShipStaffId>
+    <VesselCode>LIG</VesselCode>
+    <Month>2</Month>
+    <Year>2015</Year>
+    <UpdatedBy>DDD21322</UpdatedBy>
+    <UpdatedOn>2015-03-19T10:46:00+05:30</UpdatedOn>
+    <Updated>true</Updated>
+  </MP_VSL_ShipStaffMaster>
+  <MP_VSL_ShipStaffDetails>
+    <ShipStaffDetailId>2</ShipStaffDetailId>
+    <ShipStaffId>2</ShipStaffId>
+    <VesselCode>LIG</VesselCode>
+    <Name>7</Name>
+    <Rank>1</Rank>
+    <Nationality>1</Nationality>
+    <FromDay>7</FromDay>
+    <ToDay>7</ToDay>
+  </MP_VSL_ShipStaffDetails>
+  <MP_VSL_ShipStaffDetails>
+    <ShipStaffDetailId>3</ShipStaffDetailId>
+    <ShipStaffId>2</ShipStaffId>
+    <VesselCode>LIG</VesselCode>
+    <Name>8</Name>
+    <Rank>1</Rank>
+    <Nationality>1</Nationality>
+    <FromDay>8</FromDay>
+    <ToDay>8</ToDay>
+  </MP_VSL_ShipStaffDetails>
+  <MP_VSL_ShipStaffDetails>
+    <ShipStaffDetailId>4</ShipStaffDetailId>
+    <ShipStaffId>2</ShipStaffId>
+    <VesselCode>LIG</VesselCode>
+    <Name>9</Name>
+    <Rank>2</Rank>
+    <Nationality>2</Nationality>
+    <FromDay>9</FromDay>
+    <ToDay>9</ToDay>
+  </MP_VSL_ShipStaffDetails>
+</NewDataSet>

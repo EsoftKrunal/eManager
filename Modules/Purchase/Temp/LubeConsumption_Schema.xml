@@ -1,0 +1,38 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="POS_OrderReceiptDetails_Consumption">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="BidId" type="xs:int" minOccurs="0" />
+              <xs:element name="BidItemID" type="xs:int" minOccurs="0" />
+              <xs:element name="Recid" type="xs:int" minOccurs="0" />
+              <xs:element name="ConsumpMonth" type="xs:int" minOccurs="0" />
+              <xs:element name="ConsumpYear" type="xs:int" minOccurs="0" />
+              <xs:element name="RecQty" type="xs:double" minOccurs="0" />
+              <xs:element name="PreMonthROB" type="xs:double" minOccurs="0" />
+              <xs:element name="CurrMonthConsumpQty" type="xs:double" minOccurs="0" />
+              <xs:element name="CurrMonthROB" type="xs:double" minOccurs="0" />
+              <xs:element name="Description" type="xs:string" minOccurs="0" />
+              <xs:element name="Master_Name" type="xs:string" minOccurs="0" />
+              <xs:element name="CE_Name" type="xs:string" minOccurs="0" />
+              <xs:element name="Status" type="xs:boolean" minOccurs="0" />
+              <xs:element name="AddedBy" type="xs:string" minOccurs="0" />
+              <xs:element name="AddedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ModifiedBy" type="xs:string" minOccurs="0" />
+              <xs:element name="ModifiedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ExportedBy" type="xs:string" minOccurs="0" />
+              <xs:element name="ExportedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OfficeVerifiedBy" type="xs:string" minOccurs="0" />
+              <xs:element name="OfficedVerifiedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OfficeRemark" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

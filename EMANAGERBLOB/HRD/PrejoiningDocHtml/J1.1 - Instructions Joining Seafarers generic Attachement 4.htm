@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- <link href="print_style.css" rel="stylesheet"> -->
+    <meta charset="utf-8">
+    <title>Pdf Job-Card</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/dashboard.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Load paper.css for happy printing -->
+    <!-- <link rel="stylesheet" href="paper.css"> -->
+    <!-- <link rel="stylesheet" href="normalize.css"> -->
+
+    <!-- Set page size here: A5, A4 or A3 -->
+    <!-- Set also "landscape" if you need -->
+    <style>
+        @page {
+            size: A4 portrait;
+            margin-top: 8px;
+            margin-bottom: 10px;
+            margin-left: 20px;
+        }
+    </style>
+    <style>
+        /* Three image containers (use 25% for four, and 50% for two, etc) */
+        
+        .column {
+            float: left;
+            padding: 5px;
+        }
+        /* Clear floats after image containers */
+        
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+        
+        html {
+            font-family: sans-serif;
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+        }
+        
+        h6,
+        {
+            font-size: 17px;
+            font-weight: 400;
+        }
+        
+        li {
+            font-size: 16px;
+        }
+        
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+        
+        table,
+        th,
+        td {
+            font-size: 15px;
+        }
+        
+        table tbody tr td {
+            padding: 2px !important;
+            line-height: 1.35 !important;
+            font-weight: 500;
+        }
+        
+        table tfoot tr td {
+            font-weight: 500;
+        }
+        
+        @media print {
+            .box-body {
+                margin-top: 10px !important;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+
+
+
+    <a href="javascript:void(0);" onclick="printPageArea('printableArea')" class="btn btn-create">Print</a>
+</head>
+<!-- Set "A5", "A4" or "A3" for class name -->
+<!-- Set also "landscape" if you need -->
+
+<body class="A4 portrait">
+
+    <div id="printableArea">
+
+        <!-- Each sheet element should have the class "sheet" -->
+        <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
+        <section class="sheet" id="content-print">
+
+
+            <div class="box-body" id="box_data" style="padding: 40px 0 20px 0px;">
+                <div class="container-fluid" style="width: 85%;margin: 0 auto;">
+                    <div style="margin-bottom: 20px;">
+                        <h3 style="font-weight: 700;color:#2f5497;">Instructions to Joining Seafarers </h3>
+                        <h6 style="font-weight: 400;">(Nationality: Ukrainian / Russians / Latvian / Filipino) </h6>
+                    </div>
+                    <div>
+                        <p>You are now lined-up to join a vessel. Due to Covid19 pandemic this joining will be different from your previous joining and travel as there are additional instructions and information which are to fully understood by you and which
+                            you have to strictly comply with. </p>
+                    </div>
+                    <div>
+                        <p style="font-weight: 700;text-align: center;font-size: 18px;">Rules of Social Distancing, self-isolation (self-quarantine) you need to know and to keep at least 14 days from before starting travelling to the vessel </p>
+                        <h6 style="font-weight: 700;text-decoration: underline;">Social Distancing </h6>
+                        <p>COVID-19 spreads mainly among people who are in close contact (within about 1 meter) for a prolonged period. Spread happens when an infected person coughs, sneezes, or talks, and droplets from their mouth or nose are launched into
+                            the air and land in the mouths or noses of people nearby. The droplets can also be inhaled into the lungs. Recent studies indicate that people who are infected but do not have symptoms likely also play a role in the spread
+                            of COVID-19. </p>
+                        <p>It may be possible that a person can get COVID-19 by touching a surface or object that has the virus on it and then touching their own mouth, nose, or eyes. However, this is not thought to be the main way the virus spreads. COVID-19
+                            can live for hours or days on a surface, depending on factors such as sunlight, humidity, and the type of surface. Social distancing helps limit opportunities to come in contact with contaminated surfaces and infected people
+                            outside the home. </p>
+                        <p>Although the risk of severe illness may be different for everyone, anyone can get and spread COVID-19. Everyone has a role to play in slowing the spread and protecting themselves, their family, and their community. </p>
+                        <p>Social distancing, also called “physical distancing,” means keeping space between yourself and other people outside of your home. To practice social or physical distancing: </p>
+                        <ul>
+                            <li>Stay at least 2 meters (about 2 arms’ length) from other people </li>
+                            <li>Do not gather in groups </li>
+                            <li>Stay out of crowded places and avoid mass gatherings </li>
+                        </ul>
+                        <p>Limit close contact with others outside your household in indoor and outdoor spaces. Since people can spread the virus before they know they are sick, it is important to stay away from others when possible, even if you—or they—have
+                            no symptoms. </p>
+                    </div>
+                    <div>
+                        <h6 style="font-weight: 700;text-decoration: underline;">Self-quarantine </h6>
+                        <p>Steps for Self-Quarantine for COVID-19 is recommended for individuals who planned to travel and to the vessel particularly. Follow the steps below for self-quarantine. </p>
+                        <ul>
+                            <li> Stay home except to get medical care or Medical Examination as agreed with $ManningAgent$ and Medical Centre you are recommended to visit for Medical Examination. </li>
+                            <li>Monitor your symptoms: Fever, cough, shortness of breath. </li>
+                            <li>Before seeking care or visiting Medical Centres for examination, Tests put on a facemask before you enter the healthcare facility. These steps will help the healthcare provider’s office to keep you and other people from getting
+                                infected or exposed. </li>
+                            <li> Restrict activities outside your home, except for getting medical care. Do not go to work, school, or public areas. Avoid using public transportation or taxis. </li>
+                            <li>Clean your hands often.
+                                <ul>
+                                    <li>Wash your hands often with soap and water for at least 20 seconds or clean your hands with an alcohol-based hand sanitizer that contains 60-95% alcohol, covering all surfaces of your hands and rubbing them together
+                                        until they feel dry. Soap and water should be used preferentially if hands are visibly dirty. Avoid touching your eyes, nose, and mouth with unwashed hands</li>
+                                </ul>
+                            </li>
+                            <li> Clean all “high-touch” surfaces every day.</li>
+                            <li>High touch surfaces include counters, tabletops, doorknobs, bathroom fixtures, toilets, phones, keyboards, tablets, and bedside tables.</li>
+                        </ul>
+                        <p>All your business steps should be agreed and known to Crew managers</p>
+                    </div>
+                    <div>
+                        <p>You are requested to follow the Ukrainian local regulations accordingly: <br> https://zakon.rada.gov.ua/laws/show/211-2020-%D0%BF</p>
+                        <p>
+                            By my signature below I confirm that I have understood all the above and that I will strictly comply with same. In case of any questions or if I for whatever reason is not able or did not comply then I will immediately contact
+                            $ManningAgent$.
+                        </p>
+
+                    </div>
+
+
+                    <div style="margin-top: 40px;">
+
+                        <div style="display: flex;">
+                            <h6 style="font-weight: 400;margin-bottom: 15px;width: 20%;">Name of Seafarer :</h6>
+                            <span style="text-decoration: underline;font-weight: 400;"> $Seafarer$ </span>
+                        </div>
+                        <div style="display: flex;">
+                            <h6 style="font-weight: 400;margin-bottom: 15px;width: 20%;">Seamans-ID number : </h6>
+                            <span style="text-decoration: underline;font-weight: 400;">	$SeamansID$ </span>
+                        </div>
+                        <div style="display: flex;">
+                            <h6 style="font-weight: 400;margin-bottom: 15px;width: 20%;">Vessel : </h6>
+                            <span style="text-decoration: underline;font-weight: 400;"> $Vessel$ </span>
+                        </div>
+                        <div style="display: flex;">
+                            <h6 style="font-weight: 400;margin-bottom: 15px;width: 20%;">Date : </h6>
+                            <span style="text-decoration: underline;font-weight: 400;"> $CurrentDate$ </span>
+                        </div>
+                        <div style="display: flex;">
+                            <h6 style="font-weight: 400;margin-bottom: 15px;width: 20%;">Signature : </h6>
+                            <span style="text-decoration: underline;font-weight: 400;">  _______________________________________</span>
+                        </div>
+
+
+
+
+
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+        </section>
+    </div>
+
+    <script>
+        function printPageArea(areaID) {
+            var printContent = document.getElementById(areaID).innerHTML;
+            var originalContent = document.body.innerHTML;
+            document.body.innerHTML = printContent;
+            window.print();
+            document.body.innerHTML = originalContent;
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js "></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js "></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js "></script>
+</body>
+
+</html>

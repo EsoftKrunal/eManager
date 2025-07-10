@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<visadetail>
+  <visa>
+    <VisaId>1</VisaId>
+    <VisaName>H1-Visa</VisaName>
+  </visa>
+  <visa>
+    <VisaId>2</VisaId>
+    <VisaName>Working</VisaName>
+  </visa>
+</visadetail>

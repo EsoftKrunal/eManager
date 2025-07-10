@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- <link href="print_style.css" rel="stylesheet"> -->
+    <meta charset="utf-8">
+    <title>J3 - Instructions to seafarers travelling to a vessel</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/dashboard.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Load paper.css for happy printing -->
+    <!-- <link rel="stylesheet" href="paper.css"> -->
+    <!-- <link rel="stylesheet" href="normalize.css"> -->
+
+    <!-- Set page size here: A5, A4 or A3 -->
+    <!-- Set also "landscape" if you need -->
+    <style>
+        @page {
+            size: A4 portrait;
+            margin-top: 8px;
+            margin-bottom: 10px;
+            margin-left: 20px;
+        }
+    </style>
+    <style>
+        /* Three image containers (use 25% for four, and 50% for two, etc) */
+        
+        .column {
+            float: left;
+            padding: 5px;
+        }
+        /* Clear floats after image containers */
+        
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+        
+        html {
+            font-family: sans-serif;
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+        }
+        
+        h6
+        {
+            font-size: 17px;
+            font-weight: 400;
+        }
+        
+        li {
+            font-size: 16px;
+        }
+
+        ol {
+    counter-reset: item;
+    padding-left: 10px;
+}
+.counter-list li {
+    display: block
+}
+.counter-list li:before {
+    content: counters(item, ".") " ";
+    counter-increment: item
+}
+        
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+        
+        table,
+        th,
+        td {
+            font-size: 15px;
+        }
+        
+        table tbody tr td {
+            padding: 2px !important;
+            line-height: 1.35 !important;
+            font-weight: 500;
+        }
+        
+        table tfoot tr td {
+            font-weight: 500;
+        }
+        
+        @media print {
+            .box-body {
+                margin-top: 10px !important;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+
+
+
+    <a href="javascript:void(0);" onclick="printPageArea('printableArea')" class="btn btn-create">Print</a>
+</head>
+<!-- Set "A5", "A4" or "A3" for class name -->
+<!-- Set also "landscape" if you need -->
+
+<body class="A4 portrait">
+
+    <div id="printableArea">
+
+        <!-- Each sheet element should have the class "sheet" -->
+        <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
+        <section class="sheet" id="content-print">
+
+
+            <div class="box-body" id="box_data" style="padding: 40px 0 20px 0px;">
+                <div class="container-fluid" style="width: 85%;margin: 0 auto;">
+                    <div style="margin-bottom: 20px;">
+                        <h3 style="font-weight: 700;color:#2f5497;">Instructions to Seafarers Travelling to a Vessel </h3>
+                        <h6 style="font-weight: 400;">(Nationality: Ukrainian / Russians / Latvian / Filipino) </h6>
+                    </div>
+
+                    <div>
+                        <p>In all cases: </p>
+                        <ul">
+                            <li>Contact your Crewing Officer at $ManningAgent$ in case you are in doubt about your travel arrangement or precautions to be taken. </li>
+                            <li>Before leaving home contact your $ManningAgent$ Crewing Officer to confirm you start travelling and receive last minute updates (if any) </li>
+                        </ul>
+                    </div>
+
+
+                    <div class="counter-list">
+
+                        
+
+                        <ol style="padding-left: 15px;">
+                            <li style="font-weight: 700;margin-bottom: 10px;">Transport to Airport
+                                <p style="margin-bottom: 5px;margin-top:10px;font-weight: 400;"> During transport to the departure airport we require you to:
+                                </p>
+                                <ol style="padding-left: 15px;font-weight: 400;">
+                                    <li>Comply with the standard infection protection and control precautions as listed in Attachment 1 </li>
+                                    <li>Keep social distance of at least 1 meter </li>
+                                    <li>Avoid close contacts with person who are or appear unwell or show any COVID-19 symptoms </li>
+                                    <li>Wear mask and gloves </li>
+                                    <li>You must at all times carry your own luggage </li>
+                                    <li>Keep all documents listed in Attachment 2 in separate bag or compartment that can be easily accessed and
+                                        disinfected later </li>
+                                    <li>Show all documents for inspection and verification when requested by authorities </li>
+                                    <li>Follow the travel instructions as advised by your Crewing Officer and only use the taxis, buses etc. as
+                                        advised by the Crewing Officer </li>
+                                    <li>Depending on the duration of the transfer continue to twice daily check and record your temperature
+                                        using
+                                        attachment 3 (Form J8 - Daily Crew Temperature Check Records During Travel) </li>
+                                </ol>
+                            </li>
+                        
+                            <li style="font-weight: 700;margin-bottom: 10px;margin-top: 15px;">Departure Airport
+                                <p style="margin-bottom: 5px;font-weight: 400;margin-top:10px;"> During your stay at the departure airport we require you to:
+                                </p>
+                                <ol style="padding-left: 15px;font-weight: 400;">
+                                    <li>Comply with the standard infection protection and control precautions as listed in Attachment 1 </li>
+                                    <li>Keep social distance of at least 1 meter </li>
+                                    <li>Avoid close contacts with person who are or appear unwell or show any COVID-19 symptoms </li>
+                                    <li>Wear mask and gloves </li>
+                                    <li>You must at all times carry your own luggage </li>
+                                    <li>Keep all documents listed in Attachment 2 in separate bag or compartment that can be easily accessed and
+                                        disinfected later </li>
+                                    <li>Show all documents for inspection and verification when requested by authorities </li>
+                                    <li>Depending on the duration of the stay at the airport to twice daily check and record your temperature
+                                        using
+                                        attachment 3. </li>
+                                    <li>Follow the any specific instructions as advised by your Crewing Officer </li>
+                                </ol>
+                            </li>
+                        
+                        
+                            <li style="font-weight: 700;margin-bottom: 10px;margin-top: 15px;">During Flight
+                                <p style="margin-bottom: 5px;font-weight: 400;margin-top:10px;"> During your flight we require you to: </p>
+                                <ol style="padding-left: 15px;font-weight: 400;">
+                                    <li>Comply with the instructions and procedures of the airline and cabin crew of the aircraft </li>
+                                    <li>Keep social distancing to the extent possible from other passengers on the flight and sit with
+                                        appropriate
+                                        seat spacing as maybe arranged by the airline or cabin crew onboard the aircraft. </li>
+                                    <li>Comply with the standard infection protection and control precautions as listed in Attachment 1 </li>
+                                    <li>Avoid close contacts with person who are or appear unwell or show any COVID-19 symptoms </li>
+                                    <li>Wear mask and gloves </li>
+                                    <li>Limit exposure to the extent possible to aircraft crew during in-flight service and other passengers
+                                        when
+                                        using toilets. </li>
+                                    <li>Handle your own luggage on board the aircraft </li>
+                                    <li>Depending on the duration of the flight continue to twice daily check and record your temperature using
+                                        attachment 3. </li>
+                                </ol>
+                            </li>
+                        
+                            <li style="font-weight: 700;margin-bottom: 10px;margin-top: 15px;">Arrival Airport
+                                <p style="margin-bottom: 5px;font-weight: 400;margin-top:10px;"> During your stay at the arrival airport we require you to: </p>
+                                <ol style="padding-left: 15px;font-weight: 400;">
+                                    <li>Comply with the instructions and procedures of the airport and relevant local authorities, including any
+                                        health screening requirements such as temperature checks </li>
+                                    <li>Comply with the standard infection protection and control precautions as listed in Attachment 1 </li>
+                                    <li>Keep social distance of at least 1 meter </li>
+                                    <li>Avoid close contacts with person who are or appear unwell or show any COVID-19 symptoms </li>
+                                    <li>Wear mask and gloves </li>
+                                    <li>Depending on the duration of the stay at the airport continue to twice daily check and record your
+                                        temperature using attachment 3. </li>
+                                </ol>
+                            </li>
+                        
+                            <li style="font-weight: 700;margin-bottom: 10px;margin-top: 15px;">Hotel Stay and transfer to/from hotel (if included in
+                                your travel arrangements)
+                                <p style="margin-bottom: 10px;font-weight: 400;margin-top:10px;">If your travel at any point include a stay in a hotel then we require you to: </p>
+                                <ol style="padding-left: 0px">
+                                    <li>
+                                        Transfer to/from hotel 
+                                        <ol style="font-weight: 400;margin-top:10px;margin-bottom: 10px;">
+                                            <li>Comply with instructions and procedures from relevant local or national authorities which might potential include the need to comply with instructions regarding self-isolation or quarantine in a hotel, or another place of accommodation that might be determined by local and national authorities </li>
+                                            <li>Depending on the duration of the transfer continue to twice daily check and record your temperature using attachment 3. </li>
+                                            <li>Comply with the standard infection protection and control precautions as listed in Attachment 1 </li>
+                                            <li>Keep social distance of at least 1 meter </li>
+                                            <li>Avoid close contacts with person who are or appear unwell or show any COVID-19 symptoms </li>
+                                            <li>Wear mask and gloves </li>
+                                            <li>You must at all times carry your own luggage</li>
+                                            <li>Keep all documents listed in Attachment 2 in separate bag or compartment that can be easily accessed and disinfected later </li>
+                                            <li>Show all documents for inspection and verification when requested by authorities </li>
+                                            <li>Follow the travel instructions as advised by your Crewing Officer and only use the taxis, buses etc. as advised by the Crewing Officer</li>
+                                        </ol>
+                                    </li>
+
+                                    <li>
+                                        During Hotel Stay 
+                                        <ol style="font-weight: 400;margin-top:10px;">
+                                            <li>Comply with all procedures of the hotel as well as national or local authorities paying special attention to social distancing, hygiene and PPE requirements </li>
+                                            <li>Only leave you room for meals, visits to $ManningAgent$ office, medical center or other strictly required reason</li>
+                                            <li>Comply with the standard infection protection and control precautions as listed in Attachment 1  </li>
+                                            <li>Avoid close contacts with person who are or appear unwell or show any COVID-19 symptoms </li>
+                                            <li>Depending on the duration of the transfer continue to twice daily  check and record your temperature using attachment 3. </li>
+                                            <li>Inform $ManningAgent$ if you show any Covid-19 symptoms.</li>
+                                            <li>Follow the any specific instructions as advised by your Crewing Officer </li>
+                                        </ol>
+                                    </li>
+                                </ol>
+                            </li>
+
+                            <li style="font-weight: 700;margin-bottom: 10px;margin-top: 15px;">Transit to Joining Port 
+                                <p style="margin-bottom: 5px;font-weight: 400;margin-top:10px;">During transit to the port we require you to:  </p>
+                                <ol style="padding-left: 15px;font-weight: 400;">
+                                    <li>Comply with instructions and procedures from relevant local or national authorities which might potential include the need to comply with instructions regarding self-isolation or quarantine in a hotel, or another place of accommodation that might be determined by local and national authorities  </li>
+                                    <li>Comply with the standard infection protection and control precautions as listed in Attachment 1 </li>
+                                    <li>Keep social distance of at least 1 meter </li>
+                                    <li>Avoid close contacts with person who are or appear unwell or show any COVID-19 symptoms </li>
+                                    <li>Wear mask and gloves </li>
+                                    <li>You must at all times carry your own luggage </li>
+                                    <li>Keep all documents listed in Attachment 2 in separate bag or compartment that can be easily accessed and disinfected later </li>
+                                    <li>Show all documents for inspection and verification when requested by authorities </li>
+                                    <li>Follow the travel instructions as advised by your Crewing Officer and only use the taxis, buses etc. as advised by the Crewing Officer </li>
+                                    <li>Depending on the duration of the transfer continue to twice daily check and record your temperature using attachment 3. </li>
+                                </ol>
+                            </li>
+
+                            <li style="font-weight: 700;margin-bottom: 10px;margin-top: 15px;">At the Joining Port  
+                                <p style="margin-bottom: 5px;font-weight: 400;margin-top:10px;">During your stay and movement ashore at the joining port we instruct you to: </p>
+                                <ol style="padding-left: 15px;font-weight: 400;">
+                                    <li>Comply with the standard infection protection and control precautions as listed in Attachment 1 </li>
+                                    <li>Keep social distance of at least 1 meter </li>
+                                    <li>Avoid close contacts with person who are or appear unwell or show any COVID-19 symptoms </li>
+                                    <li>Wear mask and gloves </li>
+                                    <li>You must at all times carry your own luggage </li>
+                                    <li>Keep all documents listed in Attachment 2 in separate bag or compartment that can be easily accessed and disinfected later </li>
+                                    <li>Show all documents for inspection and verification when requested by authorities </li>
+                                    <li>Depending on the duration of the transfer continue to twice daily check and record your temperature using attachment 3. </li>
+                                </ol>
+                            </li>
+
+                            <li style="font-weight: 700;margin-bottom: 10px;margin-top: 15px;">Embarkation   
+                                <p style="margin-bottom: 5px;font-weight: 400;margin-top:10px;">When you embark the ship then we require you to: </p>
+                                <ol style="padding-left: 15px;font-weight: 400;">
+                                    <li>Avoid close contact and non-essential interaction with other personnel on the quayside, on the gangway or in the launch boat, including other seafarer </li>
+                                    <li>Keep social distance of at least 1 meter </li>
+                                    <li>Avoid close contacts with person who are or appear unwell or show any COVID-19 symptoms </li>
+                                    <li>Wear mask and gloves </li>
+                                    <li>You must at all times carry your own luggage </li>
+                                    <li>Keep all documents listed in Attachment 2 in separate bag or compartment that can be easily accessed and disinfected later </li>
+                                    <li>Show all documents for inspection and verification when requested by authorities </li>
+                                    <li>Depending on the duration of the transfer continue to twice daily check and record your temperature using attachment 3. </li>
+                                    <li>Follow owners/operators Covid-19 onboard plans and instructions given by the vessels Master </li>
+                                </ol>
+                            </li>
+
+                            <li style="font-weight: 700;margin-bottom: 10px;margin-top: 15px;">After Embarkation / The First Period Onboard    
+                                <ol style="padding-left: 15px;font-weight: 400;">
+                                    <li>Follow owners/operators Covid-19 onboard plans and instructions given by the vessels Master </li>
+                                </ol>
+                            </li>
+                        </ol>
+                    </div>
+
+                    <div style="margin-top: 40px;">
+
+                        <div style="display: flex;">
+                            <h6 style="font-weight: 400;margin-bottom: 15px;width: 20%;">Name of Seafarer:</h6>
+                            <span style="text-decoration: underline;font-weight: 400;"> $Seafarer$ </span>
+                        </div>
+                        <div style="display: flex;">
+                            <h6 style="font-weight: 400;margin-bottom: 15px;width: 20%;">Seamans-ID number:</h6>
+                            <span style="text-decoration: underline;font-weight: 400;"> $SeamansID$ </span>
+                        </div>
+                        <div style="display: flex;">
+                            <h6 style="font-weight: 400;margin-bottom: 15px;width: 20%;">Vessel: </h6>
+                            <span style="text-decoration: underline;font-weight: 400;"> $Vessel$ </span>
+                        </div>
+                        <div style="display: flex;">
+                            <h6 style="font-weight: 400;margin-bottom: 15px;width: 20%;">Date: </h6>
+                            <span style="text-decoration: underline;font-weight: 400;"> $CurrentDate$ </span>
+                        </div>
+                        <div style="display: flex;flex-direction: column;">
+                            <h6 style="font-weight: 400;margin-bottom: 20px;width: 20%;">Signature: </h6>
+                            <span style="text-decoration: underline;font-weight: 400;">  _______________________________________</span>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 40px">
+                        <h6 style="font-weight: 500;">Contact person in $ManningAgent$: </h6>
+                        <div style="display: flex;">
+                            <h6 style="font-weight: 400;margin-bottom: 15px;width: 20%;">Name: </h6>
+                            <h6>Mr. Y.K. MISRA</h6>
+                        </div>
+                        <div style="display: flex;">
+                            <h6 style="font-weight: 400;margin-bottom: 15px;width: 20%;">Telephone: </h6>
+                            <h6>+91 7738034201 </h6>
+                        </div>
+                        <div style="display: flex;">
+                            <h6 style="font-weight: 400;margin-bottom: 15px;width: 20%;">Email: </h6>
+                            <h6>ykmisra@energiosmaritime.com</h6>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+        </section>
+    </div>
+
+    <script>
+        function printPageArea(areaID) {
+            var printContent = document.getElementById(areaID).innerHTML;
+            var originalContent = document.body.innerHTML;
+            document.body.innerHTML = printContent;
+            window.print();
+            document.body.innerHTML = originalContent;
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js "></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js "></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js "></script>
+</body>
+
+</html>

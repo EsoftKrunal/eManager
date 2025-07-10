@@ -1,0 +1,101 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="VSL_VPRArrivalReport">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ReportsPK" type="xs:long" minOccurs="0" />
+              <xs:element name="ArrivalID" type="xs:long" minOccurs="0" />
+              <xs:element name="VesselID" type="xs:string" minOccurs="0" />
+              <xs:element name="ReportDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="VoyageNo" type="xs:string" minOccurs="0" />
+              <xs:element name="SteamingHrs" type="xs:int" minOccurs="0" />
+              <xs:element name="SteamingMin" type="xs:int" minOccurs="0" />
+              <xs:element name="DistanceMadeGood" type="xs:decimal" minOccurs="0" />
+              <xs:element name="AvgSpeed" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Stoppages" type="xs:int" minOccurs="0" />
+              <xs:element name="StoppagesHH" type="xs:int" minOccurs="0" />
+              <xs:element name="StoppagesMM" type="xs:int" minOccurs="0" />
+              <xs:element name="Remarks" type="xs:string" minOccurs="0" />
+              <xs:element name="VoyCondition" type="xs:string" minOccurs="0" />
+              <xs:element name="DepPort" type="xs:string" minOccurs="0" />
+              <xs:element name="DepArrivalPort" type="xs:string" minOccurs="0" />
+              <xs:element name="EOSPDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="EOSPHrs" type="xs:int" minOccurs="0" />
+              <xs:element name="EOSPMin" type="xs:int" minOccurs="0" />
+              <xs:element name="DraftFwd" type="xs:decimal" minOccurs="0" />
+              <xs:element name="DraftAft" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ArrivalPortAgent" type="xs:string" minOccurs="0" />
+              <xs:element name="PersonalIncharge" type="xs:string" minOccurs="0" />
+              <xs:element name="AddressContactDetails" type="xs:string" minOccurs="0" />
+              <xs:element name="CourceT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="WindDirectionT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="WindForce" type="xs:int" minOccurs="0" />
+              <xs:element name="SeaDirection" type="xs:decimal" minOccurs="0" />
+              <xs:element name="SeaState" type="xs:int" minOccurs="0" />
+              <xs:element name="CurrentDirection" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CurrentStrength" type="xs:decimal" minOccurs="0" />
+              <xs:element name="WeatherRemarks" type="xs:string" minOccurs="0" />
+              <xs:element name="Lattitude1" type="xs:int" minOccurs="0" />
+              <xs:element name="Lattitude2" type="xs:int" minOccurs="0" />
+              <xs:element name="Lattitude3" type="xs:int" minOccurs="0" />
+              <xs:element name="Longitude1" type="xs:int" minOccurs="0" />
+              <xs:element name="Longitud2" type="xs:int" minOccurs="0" />
+              <xs:element name="Longitud3" type="xs:int" minOccurs="0" />
+              <xs:element name="LocationDescription" type="xs:string" minOccurs="0" />
+              <xs:element name="ROBIFO45Fuel" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ROBIFO1Fuel" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ROBMGO5Fuel" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ROBMGO1Fuel" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ROBMDOFuel" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ROBIFO45Lube" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ROBIFO1Lube" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ROBMGO5Lube" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ROBMGO1Lube" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ROBMDOLube" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ROBFreshWater" type="xs:decimal" minOccurs="0" />
+              <xs:element name="MEIFO45" type="xs:decimal" minOccurs="0" />
+              <xs:element name="MEIFO1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="MEMGO5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="MEMGO1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="MEMDO" type="xs:decimal" minOccurs="0" />
+              <xs:element name="AEIFO45" type="xs:decimal" minOccurs="0" />
+              <xs:element name="AEIFO1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="AEMGO5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="AEMGO1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="AEMDO" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CargoHeatingIFO45" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CargoHeatingIFO1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CargoHeatingMGO5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CargoHeatingMGO1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CargoHeatingMDO" type="xs:decimal" minOccurs="0" />
+              <xs:element name="MECCLube" type="xs:decimal" minOccurs="0" />
+              <xs:element name="MECYLLube" type="xs:decimal" minOccurs="0" />
+              <xs:element name="AECCLube" type="xs:decimal" minOccurs="0" />
+              <xs:element name="HYDLube" type="xs:decimal" minOccurs="0" />
+              <xs:element name="MDOLube" type="xs:decimal" minOccurs="0" />
+              <xs:element name="GeneratedFreshWater" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ConsumedFreshWater" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TCW" type="xs:string" minOccurs="0" />
+              <xs:element name="BW" type="xs:string" minOccurs="0" />
+              <xs:element name="TCU20L" type="xs:string" minOccurs="0" />
+              <xs:element name="TCU40L" type="xs:string" minOccurs="0" />
+              <xs:element name="TCU45L" type="xs:string" minOccurs="0" />
+              <xs:element name="TCU20E" type="xs:string" minOccurs="0" />
+              <xs:element name="TCU40E" type="xs:string" minOccurs="0" />
+              <xs:element name="TCU45E" type="xs:string" minOccurs="0" />
+              <xs:element name="NextActivity" type="xs:string" minOccurs="0" />
+              <xs:element name="ETBDATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ETBHrs" type="xs:int" minOccurs="0" />
+              <xs:element name="ETBMin" type="xs:int" minOccurs="0" />
+              <xs:element name="TotalCargoWeight" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BallastWeight" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

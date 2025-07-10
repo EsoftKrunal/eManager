@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CivilStatusData>
+  <CivilStatus>
+    <CivilStatusId>D</CivilStatusId>
+    <CivilStatusName>Divorced</CivilStatusName>
+  </CivilStatus>
+  <CivilStatus>
+    <CivilStatusId>M</CivilStatusId>
+    <CivilStatusName>Married</CivilStatusName>
+  </CivilStatus>
+  <CivilStatus>
+    <CivilStatusId>S</CivilStatusId>
+    <CivilStatusName>Single</CivilStatusName>
+  </CivilStatus>
+  <CivilStatus>
+    <CivilStatusId>W</CivilStatusId>
+    <CivilStatusName>Widow</CivilStatusName>
+  </CivilStatus>
+</CivilStatusData>

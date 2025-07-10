@@ -1,0 +1,233 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="CMS.aspx.cs" Inherits="CMS" %>
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
+<%@ Register Src="~/Modules/PMS/UserControls/Footer.ascx" TagName="footer" TagPrefix="mtm" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+     <link href="CSS/style.css" rel="stylesheet" type="text/css" />
+     <script type="text/javascript" src="eReports/JS/jquery.min.js"></script>
+     <style type="text/css" >
+    .btnNormal
+    {
+        font-family: Arial, Helvetica, sans-serifl;
+	    cursor: pointer;
+	    font-size: 12px;
+	    font-weight: bold;
+	    background-color:#A3C8EC;
+	    height: 25px;	        
+	    border:none;	    
+	    color:#000000;
+    }
+    
+    .btnSelected
+    {
+        font-family: Arial, Helvetica, sans-serifl;
+	    cursor: pointer;
+	    font-size: 12px;	    
+	    background-color:#007ACC;
+	    color:White;
+	    font-weight: bold;
+	    height: 25px;	    
+	    border:none;	    
+    }
+    
+    .color_tab{
+      background: #3498db;
+      background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+      background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+      background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+      background-image: -o-linear-gradient(top, #3498db, #2980b9);
+      background-image: linear-gradient(to bottom, #3498db, #2980b9);
+      -webkit-border-radius: 0;
+      -moz-border-radius: 0;
+      border-radius: 0px;
+      font-family: Arial;
+      color: #ffffff;
+      font-size: 12px;
+      padding: 5px 9px 5px 9px;
+      text-decoration: none;
+    }
+
+    .color_tab:hover {
+     background: #3cb0fd;
+      background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+      background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+      background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+      background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+      background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+      text-decoration: none;
+    }
+
+    .color_tab_sel{
+      background: #facc8c;
+      background-image: -webkit-linear-gradient(top, #f7af51, #facc8c);
+      background-image: -moz-linear-gradient(top, #f7af51, #facc8c);
+      background-image: -ms-linear-gradient(top, #f7af51, #facc8c);
+      background-image: -o-linear-gradient(top, #f7af51, #facc8c);
+      background-image: linear-gradient(to bottom, #f7af51, #facc8c);
+      font-family: Arial;
+      color: black;
+      font-size: 12px;
+      padding: 5px 9px 5px 9px;
+      text-decoration: none;
+      border-bottom:solid 1px #facc8c;
+    }
+</style>
+<script type="text/javascript">
+
+    function ShowModal() {
+        $("#dvModal").css('display','');
+    }
+    function HideModel() {
+        $("#dvModal").css('display', 'none');
+    }
+    
+</script>
+</head>
+<body style='font-size:12px;' >
+    <form id="form1" runat="server" defaultbutton="btnSearch">
+    <div>
+
+     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
+
+         <div style="display:none; "  id="dvModal">
+            <div style="position:absolute;top:0px; left:0px; width:100%; height:100%; z-index:50; background-color:black; opacity: .5;filter: alpha(opacity=50);" ></div>
+            <div style="position : absolute; top:170px;left:0px; width:100%; z-index:100;  text-align :center; color :Blue;z-index:52; ">
+            <center>
+            <div style="border:solid 2px orange; width :200px;background-color :White;opacity: 1.0;filter: alpha(opacity=100); padding:20px; overflow:auto; " >
+            <div style='font-size:17px; color:Gray;'>Processing... Please Wait !</div>
+            <br />
+            <img src="Images/loading.gif" alt="loading">
+            <br />
+                <input type="button" value="Close" onclick="HideModel();" style=" background-color:orange; color:White; border:none; padding:4px; width:120px" />
+            </div>
+            </center>
+            </div>
+        </div>
+
+        <table style="width :100%; border-collapse:collapse;" cellpadding="0" cellspacing="0">
+        <tr>
+        <td >
+        <table style="width :100%" cellpadding="0" cellspacing="0">
+        <tr>
+        <td style="vertical-align: top; position :relative;">
+        <table border="0" cellpadding="0" cellspacing="0" style="border: #4371a5 1px solid; text-align:center" width="100%">
+        <tr>
+          <td  style=" background-color:#FFA366;">
+             <table style="width:100%; text-align : center " cellpadding="0" cellspacing="0" border="0">
+                <tr >
+                    <td id="tdBackup" runat="server" style="border-right: 1px solid #000000;width:100px;">
+                        <asp:Button ID="btnCrewList" CssClass="btnNormal"  Text=" Crew List " Width="100%" runat="server" CausesValidation="false" OnClick="menu_Click" CommandArgument="1" />
+                    </td>
+                    <td class="btnNormal">&nbsp;</td>
+                </tr>
+            </table>
+          </td>
+        </tr>
+        
+        <tr>                    
+            <td style="border-top: solid 5px #007ACC;">
+               <asp:Panel ID="pnlCrewList" runat="server" Visible="false">
+               <div style="height:430px; vertical-align:middle;">
+                   <table border="0" cellpadding="4" cellspacing="0" style="border: #e6dcdc 1px solid; text-align: center" width="100%">
+                <col width="220px" />
+                <col width="110px" />
+                <col width="270px"  />
+                       <col width="50px" />
+                       <col width="220px" />
+                <col width="60px" />
+                <col  />
+                <col width="120px" />
+                <tr>
+                    <td>
+                        <asp:RadioButtonList ID="rdoOnBoardOnLeave" runat="server" RepeatDirection="Horizontal" CellPadding="0" CellSpacing="0">
+                            <asp:ListItem Value="1" Text="On Board" Selected="True"></asp:ListItem>
+                            <asp:ListItem Value="2" Text="Signed Off"></asp:ListItem>
+                        </asp:RadioButtonList>
+                    </td>
+                    <td style="text-align:left;">
+                        Crew# / Name :
+                    </td>
+                    <td style="text-align:left;">
+                        <asp:TextBox ID="txtCrewNoName" runat="server" Width="200px"></asp:TextBox>
+                    </td>
+                    <td style="text-align:left;">Rank :</td>
+                    <td style="text-align:left;">
+                        <asp:DropDownList ID="ddlRank" runat="server" Width="140px"></asp:DropDownList>
+                    </td>
+                    <td style="text-align:left;"> Period : </td>
+                    <td style="text-align:left;">
+                        <asp:TextBox ID="txtSignOnFrom" runat="server" Width="80px"></asp:TextBox> :
+                        <asp:TextBox ID="txtSignOnTo" runat="server" Width="80px"></asp:TextBox>
+
+                        <asp:CalendarExtender runat="server" ID="CalendarExtender1" TargetControlID="txtSignOnFrom" Format="dd-MMM-yyyy"></asp:CalendarExtender>
+                        <asp:CalendarExtender runat="server" ID="CalendarExtender2" TargetControlID="txtSignOnTo"  Format="dd-MMM-yyyy"></asp:CalendarExtender>
+                    </td>
+                    <td style="text-align:right;padding-right:20px;">
+                        <asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_OnClick" />
+                    </td>
+                    
+                </tr>
+            </table>
+
+        <div style="height: 25px; overflow-y: scroll; overflow-x: hidden; border: solid 1px #00ABE1;">
+            <table width="100%" border="1" cellpadding="3" cellspacing="0" style="background-color: #00ABE1; border-collapse: collapse;" bordercolor="white">
+                <thead>
+                    <tr style='color: White; height: 25px;'>
+                        <td style="width: 70px; color: White;text-align:center;"><b>Crew#</b></td>
+                        <td style="color: White;text-align:left;"><b>Crew Name</b></td>
+                        <td style="width: 180px;text-align:left;color: White;"><b>Rank</b></td>
+                        <td style="width: 100px; color: White;"><b>DJC</b></td>
+                        <td style="width: 100px; color: White;"><b>Sign On Dt.</b></td>
+                        <td style="width: 110px; color: White;"><b>Relief Due Dt.</b></td>
+                        <td style="width: 100px; color: White;"><b>Sign Off Dt.</b></td>
+                        <td style="width:25px;">&nbsp;</td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div style="height: 360px; border-bottom: none; border: solid 1px #00ABE1; overflow-x: hidden; overflow-y: scroll;" class='ScrollAutoReset' id='dv_FocusCamp_List'>
+            <table width="100%" border="1" cellpadding="3" cellspacing="0" style="background-color: #F5FCFE; border-collapse: collapse;" class='newformat'>
+                <tbody>
+                    <asp:Repeater runat="server" ID="rptCrewList">
+                        <ItemTemplate>
+                            <tr>
+                                <td style="width: 70px; text-align: center;"><a target="_blank" href='VIMS/RestHourEntry.aspx?CrewNumber=<%#Eval("CrewNumber")%>'><%#Eval("CrewNumber")%></a></td>
+                                <td style="text-align:left;"><%#Eval("CrewName")%></td>
+                                <td style="width: 180px;text-align:left;"><%#Eval("RankName")%></td>
+                                <td style="width: 100px;"><%#Common.ToDateString(Eval("DJC"))%></td>
+                                <td style="width: 100px;"><%#Common.ToDateString(Eval("SignOnDate"))%></td>
+                                <td style="width: 110px;"><%#Common.ToDateString(Eval("ReliefDuedate"))%></td>
+                                <td style="width: 100px;"><%#Common.ToDateString(Eval("SignOffDate"))%></td>
+                                <td style="width:25px;">&nbsp;</td>
+                            </tr>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </tbody>
+            </table>
+        </div>
+               </div>
+               </asp:Panel>
+               
+               <div style="padding:5px; background-color:#FFFFCC; text-align:left;" runat="server" id="dvMSG">
+               &nbsp;<asp:Label ID="lblMsg" runat="server" ForeColor="Red"></asp:Label>
+               </div>
+            </td>
+        </tr>
+        </table>
+        </td>
+        </tr>
+        </table>
+        </td>
+        </tr>
+     </table>
+     <div>
+     </div>
+     <mtm:footer ID="footer1" runat ="server" />
+     </div>
+    </form>
+</body>
+</html>

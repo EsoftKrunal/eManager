@@ -1,0 +1,86 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="VettingMasterPage.master.cs" Inherits="VettingMasterPage" %>
+<%@ Register Src="~/ModuleMenu.ascx" TagName="menu" TagPrefix="mtm"  %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="Head1" runat="server">
+    <title>Untitled Page</title>
+    <link href="Styles/style.css" rel="stylesheet" type="text/css" />
+    <link href="Styles/tabs.css" rel="stylesheet" type="text/css" />
+
+    <link href="Vetting/VettingStyle.css" rel="stylesheet" type="text/css" />
+    <script src="../js/jquery-1.4.2.min.js" type="text/javascript"></script>
+    <script src="VettingScript.js" type="text/javascript"></script>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div style="text-align: center">
+        <ajaxToolkit:ToolkitScriptManager ID="ScriptManager1" runat="server"></ajaxToolkit:ToolkitScriptManager>
+        <div style="background-color:Black; opacity:0.4;filter:alpha(opacity=40); width:100%; z-index:50; min-height:100%; position:absolute; top:0px; left:0px; display:none;" class='dv_ModalBox' onclick="HideGuidanceModel();HideComments();"></div>
+        <table style="width :100%" cellpadding="0" cellspacing="0">
+        <tr>
+        <td style="width:150px; text-align :left; vertical-align : top;">
+            <mtm:menu runat="server" ID="menu2" />  
+        </td>
+        <td style=" text-align :left; vertical-align : top;" >
+        <table border="0" cellpadding="0" cellspacing="0" style="border-right: #4371a5 1px solid;border-top: #4371a5 1px solid; border-left: #4371a5 1px solid; border-bottom: #4371a5 1px solid; text-align:center; background-color:#f9f9f9 " width="100%">
+            <tr>
+                <td align="center" style="background-color:#4371a5; height:23px;text-align :center;" class="text" >
+                    <img runat="server" id="imgHelp" moduleid="12" style ="cursor:pointer;float :right; padding-right :5px;" src="images/help.png" alt="Help ?"/> 
+                    Vetting Management
+                </td>
+            </tr>
+            <tr>
+                <td style="height:485px; background-color:#f9f9f9; vertical-align:top;" valign="top">
+                    <table  border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <%--<tr>
+                            <td style="padding-right:10px; padding-left:11px;">
+                                <div id="header">
+                                  <ul>
+                                    <li><a href="VIQ.aspx"><span>VIQ</span></a></li>
+                                    <li><a href="VIQPreparation.aspx"><span>VIQ Preparation</span></a></li>
+                                  </ul>
+                                </div>
+                                <script>
+                                function tabing(){
+	                                 var strHref = window.location.href;
+	                                 var strQueryString = strHref.split(".aspx");
+	                                 var aQueryString = strQueryString[0].split("/");
+	                                 var curpage =unescape(aQueryString[aQueryString.length-1]).toLowerCase();
+	                                 //alert(curpage); 
+	                                 //alert(document.getElementById('navigation1').getElementsByTagName('li').length);
+	                                 var menunum=document.getElementById('header').getElementsByTagName('li').length;
+	                                 var menu = document.getElementById('header').getElementsByTagName('li')
+	                                 if(curpage=='viq'){
+	                                     menu[0].className='current';
+	                                 }else{
+	                                 for(x=0; x<menunum; x++){
+	                                 //alert(unescape(menu[x].childNodes[0]).toLowerCase());
+	 	                               
+	 	                                if(unescape(menu[x].childNodes[0]).toLowerCase().indexOf(curpage) > -1 ){
+	 	                                //alert(menu[x].childNodes[0])
+		                                menu[x].className='current';
+		                                }
+		                                
+	                                    }
+	                                 }
+                                }
+                                tabing();
+                                </script>
+                            </td>
+                        </tr>--%>
+                        <tr>
+                            <td colspan="2">
+                                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" EnableViewState="true"></asp:ContentPlaceHolder>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+         </td> 
+    </tr></table> 
+        
+     </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="VSL_BreakDownRemarks">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="BreakDownNo" type="xs:string" minOccurs="0" />
+              <xs:element name="Classification" type="xs:int" minOccurs="0" />
+              <xs:element name="RCARequired" type="xs:boolean" minOccurs="0" />
+              <xs:element name="RCANo" type="xs:string" minOccurs="0" />
+              <xs:element name="FocalPoint" type="xs:string" minOccurs="0" />
+              <xs:element name="TargetClosureDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Stage" type="xs:int" minOccurs="0" />
+              <xs:element name="TeamLeader" type="xs:long" minOccurs="0" />
+              <xs:element name="FwdByApproval" type="xs:string" minOccurs="0" />
+              <xs:element name="FwdByApprovalOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ApprovedBy" type="xs:string" minOccurs="0" />
+              <xs:element name="ApprovedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="RCADocument" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="InitiatedBy" type="xs:string" minOccurs="0" />
+              <xs:element name="InitiatedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="PdfCreatedBy" type="xs:string" minOccurs="0" />
+              <xs:element name="PdfCreatedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ExportedBy" type="xs:string" minOccurs="0" />
+              <xs:element name="ExportedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="iS_Closed" type="xs:string" minOccurs="0" />
+              <xs:element name="Is_Closure_Notified" type="xs:string" minOccurs="0" />
+              <xs:element name="AccidentSeverity" type="xs:int" minOccurs="0" />
+              <xs:element name="filesize" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

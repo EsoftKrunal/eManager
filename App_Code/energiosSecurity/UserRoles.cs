@@ -1,0 +1,93 @@
+﻿
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
+using Microsoft.ApplicationBlocks.Data;
+namespace energiosSecurity
+{
+
+/// <summary>
+/// Summary description for User
+/// </summary>
+    public class UserRole
+{
+       
+        public UserRole()
+	{
+		//
+		// TODO: Add constructor logic here
+		//
+	}
+   
+    public System.Data.DataTable GetUserRoles(int uid)
+    {
+        System.Data.DataTable dt = new System.Data.DataTable();
+        SqlParameter[] parameters =
+            {   new SqlParameter( "@userid"		, uid   ) 
+              
+            };
+        ESqlHelper.FillDataTable(ECommon.ConString, CommandType.StoredProcedure, "usp_GetUserRoles_ByUserID", dt,parameters);
+        return dt;
+    }
+   
+    public bool IsAlreadyExists(int roleid,int uid)
+    {
+        //@result
+        
+        System.Data.DataTable dt = new System.Data.DataTable();
+        SqlParameter[] parameters =
+            {   new SqlParameter( "@userid"		, uid   ) ,
+                new SqlParameter( "@roleid"		,roleid) ,
+                new SqlParameter( "@result",false)
+                
+            };
+       parameters[2].Direction=ParameterDirection.Output;
+       ESqlHelper.ExecuteNonQuery(ECommon.ConString, CommandType.StoredProcedure, "usp_IsUserRoleAlreadyExists", parameters);
+       if ((bool)parameters[2].Value==true){
+           return true;
+       }
+
+
+        
+        return false;
+    }
+   
+    public System.Data.DataTable GetDetails_ById(int rid)
+    {
+        System.Data.DataTable dt = new System.Data.DataTable();
+        SqlParameter[] parameters =
+            {   new SqlParameter( "@urid"		, rid   ) 
+            };
+
+
+        ESqlHelper.FillDataTable(ECommon.ConString, CommandType.StoredProcedure, "usp_GetUserRoleDetails_ByUserRoleId", dt, parameters);
+        return dt;
+    }
+   
+    
+    public int Insert(SqlParameter[] parameters)
+    {
+        
+        ESqlHelper.ExecuteNonQuery(ECommon.ConString, CommandType.StoredProcedure, "usp_UserRoleInsert", parameters);
+        return 1;
+    }
+    public int Update(SqlParameter[] parameters)
+    {
+        try
+        {
+        ESqlHelper.ExecuteNonQuery(ECommon.ConString, CommandType.StoredProcedure, "usp_UserRoleUpdate", parameters);
+        return 1;
+        }
+        catch(Exception ex)
+        {
+            throw ex;
+        }
+      
+    }
+}
+}

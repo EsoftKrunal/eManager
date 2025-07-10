@@ -1,0 +1,269 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <MWUC_MASTER>
+    <VESSELCODE>MGB</VESSELCODE>
+    <TABLEID>33</TABLEID>
+    <FORDATE>2015-10-11T00:00:00+08:00</FORDATE>
+    <MASTERCREWNO>Y01491</MASTERCREWNO>
+    <MASTERNAME>Capt.Kyaw Win</MASTERNAME>
+    <CREATEDON>2015-10-11T06:34:00+08:00</CREATEDON>
+    <OFFICERECDON>2015-10-12T14:05:00+08:00</OFFICERECDON>
+    <MGMTVISIT>Yes</MGMTVISIT>
+  </MWUC_MASTER>
+  <MWUC_DETAILS>
+    <VESSELCODE>MGB</VESSELCODE>
+    <TABLEID>33</TABLEID>
+    <CATID>1</CATID>
+    <SHIPCOMMENT>M/E is working in order.Maintenance carried out as per RH and PMS.
+Done No 6 unit overhaul on 07.10.15 .
+Exchanged ME Exhaust valve no 2 &amp; 4 with stand by spare on 06.10.15.
+Exchangeed fuel valves 1,2,4, 5 &amp; 7 units due RH on 07.10.15</SHIPCOMMENT>
+    <SHIPCOMMENTON>2015-10-12T14:05:00+08:00</SHIPCOMMENTON>
+    <OFFICECOMMENT>Noted and pls update in PMS.</OFFICECOMMENT>
+    <OFFICECOMMENTBY>Sanjeev Singh</OFFICECOMMENTBY>
+    <OFFICECOMMENTPOSITION>FM</OFFICECOMMENTPOSITION>
+    <OFFICECOMMENTON>2015-10-12T00:00:00+08:00</OFFICECOMMENTON>
+  </MWUC_DETAILS>
+  <MWUC_DETAILS>
+    <VESSELCODE>MGB</VESSELCODE>
+    <TABLEID>33</TABLEID>
+    <CATID>2</CATID>
+    <SHIPCOMMENT>Aux; generators and performance are good in order. maintenance carried out as PMS &amp; RH.
+To overhaul AE 2 Fuel injection pumps as per RH. (Dep. USA)
+No 1 AE turbocharger to be overhaul (Kit 2) as RH. (Dep. USA)</SHIPCOMMENT>
+    <SHIPCOMMENTON>2015-10-12T14:05:00+08:00</SHIPCOMMENTON>
+    <OFFICECOMMENT>Noted</OFFICECOMMENT>
+    <OFFICECOMMENTBY>Sanjeev Singh</OFFICECOMMENTBY>
+    <OFFICECOMMENTPOSITION>FM</OFFICECOMMENTPOSITION>
+    <OFFICECOMMENTON>2015-10-12T00:00:00+08:00</OFFICECOMMENTON>
+  </MWUC_DETAILS>
+  <MWUC_DETAILS>
+    <VESSELCODE>MGB</VESSELCODE>
+    <TABLEID>33</TABLEID>
+    <CATID>3</CATID>
+    <SHIPCOMMENT>E/R pumps performance are satisfactory. Maintenance was done as per PMS.
+All Stand-by pumps are good in order. Changed over service monthly basic.
+All compressors and purifiers are operational.
+All heat exchanger performance are satisfactory.</SHIPCOMMENT>
+    <SHIPCOMMENTON>2015-10-12T14:05:00+08:00</SHIPCOMMENTON>
+    <OFFICECOMMENT>Noted</OFFICECOMMENT>
+    <OFFICECOMMENTBY>Sanjeev Singh</OFFICECOMMENTBY>
+    <OFFICECOMMENTPOSITION>FM</OFFICECOMMENTPOSITION>
+    <OFFICECOMMENTON>2015-10-12T00:00:00+08:00</OFFICECOMMENTON>
+  </MWUC_DETAILS>
+  <MWUC_DETAILS>
+    <VESSELCODE>MGB</VESSELCODE>
+    <TABLEID>33</TABLEID>
+    <CATID>4</CATID>
+    <SHIPCOMMENT>Boiler performance was satisfactory.
+EGE steam production is satisfactory. 
+Boiler water condition(Chloride, alkalinity) within normal.
+To clean EGB at USA last port.</SHIPCOMMENT>
+    <SHIPCOMMENTON>2015-10-12T14:05:00+08:00</SHIPCOMMENTON>
+    <OFFICECOMMENT>Noted</OFFICECOMMENT>
+    <OFFICECOMMENTBY>Sanjeev Singh</OFFICECOMMENTBY>
+    <OFFICECOMMENTPOSITION>FM</OFFICECOMMENTPOSITION>
+    <OFFICECOMMENTON>2015-10-12T00:00:00+08:00</OFFICECOMMENTON>
+  </MWUC_DETAILS>
+  <MWUC_DETAILS>
+    <VESSELCODE>MGB</VESSELCODE>
+    <TABLEID>33</TABLEID>
+    <CATID>5</CATID>
+    <SHIPCOMMENT>All cargo pumps are working in order except COT 1P.
+Noted Vibration appear at HYD system while COT 1P operation.</SHIPCOMMENT>
+    <SHIPCOMMENTON>2015-10-12T14:05:00+08:00</SHIPCOMMENTON>
+    <OFFICECOMMENT>Noted and pls provide more feedback on COT 1P vibration issue in details.</OFFICECOMMENT>
+    <OFFICECOMMENTBY>Sanjeev Singh</OFFICECOMMENTBY>
+    <OFFICECOMMENTPOSITION>FM</OFFICECOMMENTPOSITION>
+    <OFFICECOMMENTON>2015-10-12T00:00:00+08:00</OFFICECOMMENTON>
+  </MWUC_DETAILS>
+  <MWUC_DETAILS>
+    <VESSELCODE>MGB</VESSELCODE>
+    <TABLEID>33</TABLEID>
+    <CATID>6</CATID>
+    <SHIPCOMMENT>Windlass &amp; mooring winches are working in order. No oil leakage.
+Cargo handling crane &amp; provision crane are  working in order.
+Power pack HYD system is working in order.</SHIPCOMMENT>
+    <SHIPCOMMENTON>2015-10-12T14:05:00+08:00</SHIPCOMMENTON>
+    <OFFICECOMMENT>Noted</OFFICECOMMENT>
+    <OFFICECOMMENTBY>Sanjeev Singh</OFFICECOMMENTBY>
+    <OFFICECOMMENTPOSITION>FM</OFFICECOMMENTPOSITION>
+    <OFFICECOMMENTON>2015-10-12T00:00:00+08:00</OFFICECOMMENTON>
+  </MWUC_DETAILS>
+  <MWUC_DETAILS>
+    <VESSELCODE>MGB</VESSELCODE>
+    <TABLEID>33</TABLEID>
+    <CATID>7</CATID>
+    <SHIPCOMMENT>Electrical installation are regular maintenance as per PMS.
+No deficiency in this time.
+Free of earth fault at 110/440 system.</SHIPCOMMENT>
+    <SHIPCOMMENTON>2015-10-12T14:05:00+08:00</SHIPCOMMENTON>
+    <OFFICECOMMENT>Noted</OFFICECOMMENT>
+    <OFFICECOMMENTBY>Sanjeev Singh</OFFICECOMMENTBY>
+    <OFFICECOMMENTPOSITION>FM</OFFICECOMMENTPOSITION>
+    <OFFICECOMMENTON>2015-10-12T00:00:00+08:00</OFFICECOMMENTON>
+  </MWUC_DETAILS>
+  <MWUC_DETAILS>
+    <VESSELCODE>MGB</VESSELCODE>
+    <TABLEID>33</TABLEID>
+    <CATID>8</CATID>
+    <SHIPCOMMENT>COT monitoring and alarm system are working in order.
+E/R alarm &amp; monitoring system are good in order.
+Tested as per schedule.</SHIPCOMMENT>
+    <SHIPCOMMENTON>2015-10-12T14:05:00+08:00</SHIPCOMMENTON>
+    <OFFICECOMMENT>Noted</OFFICECOMMENT>
+    <OFFICECOMMENTBY>Sanjeev Singh</OFFICECOMMENTBY>
+    <OFFICECOMMENTPOSITION>FM</OFFICECOMMENTPOSITION>
+    <OFFICECOMMENTON>2015-10-12T00:00:00+08:00</OFFICECOMMENTON>
+  </MWUC_DETAILS>
+  <MWUC_DETAILS>
+    <VESSELCODE>MGB</VESSELCODE>
+    <TABLEID>33</TABLEID>
+    <CATID>9</CATID>
+    <SHIPCOMMENT>General appearance of hull is good. Draft marks are clear visual.
+All main deck and super structure cleaning &amp; painting in progress</SHIPCOMMENT>
+    <SHIPCOMMENTON>2015-10-12T14:05:00+08:00</SHIPCOMMENTON>
+    <OFFICECOMMENT>Noted and pls update us along with pictures</OFFICECOMMENT>
+    <OFFICECOMMENTBY>Sanjeev Singh</OFFICECOMMENTBY>
+    <OFFICECOMMENTPOSITION>FM</OFFICECOMMENTPOSITION>
+    <OFFICECOMMENTON>2015-10-12T00:00:00+08:00</OFFICECOMMENTON>
+  </MWUC_DETAILS>
+  <MWUC_DETAILS>
+    <VESSELCODE>MGB</VESSELCODE>
+    <TABLEID>33</TABLEID>
+    <CATID>10</CATID>
+    <SHIPCOMMENT>Accommodation regular cleaning and painting as necessary.
+Acc: air con performance is satisfactory</SHIPCOMMENT>
+    <SHIPCOMMENTON>2015-10-12T14:05:00+08:00</SHIPCOMMENTON>
+    <OFFICECOMMENT>Noted</OFFICECOMMENT>
+    <OFFICECOMMENTBY>Sanjeev Singh</OFFICECOMMENTBY>
+    <OFFICECOMMENTPOSITION>FM</OFFICECOMMENTPOSITION>
+    <OFFICECOMMENTON>2015-10-12T00:00:00+08:00</OFFICECOMMENTON>
+  </MWUC_DETAILS>
+  <MWUC_DETAILS>
+    <VESSELCODE>MGB</VESSELCODE>
+    <TABLEID>33</TABLEID>
+    <CATID>11</CATID>
+    <SHIPCOMMENT>Steering system are good working condition. 
+Exchanged no 1 steering gear base of solenoid valveO' ring on 28.10.2015.
+But slight oil leakage was not stop.</SHIPCOMMENT>
+    <SHIPCOMMENTON>2015-10-12T14:05:00+08:00</SHIPCOMMENTON>
+    <OFFICECOMMENT>Noted, Pls revert with RFQ for required spare parts to sort out this issue.</OFFICECOMMENT>
+    <OFFICECOMMENTBY>Sanjeev Singh</OFFICECOMMENTBY>
+    <OFFICECOMMENTPOSITION>FM</OFFICECOMMENTPOSITION>
+    <OFFICECOMMENTON>2015-10-12T00:00:00+08:00</OFFICECOMMENTON>
+  </MWUC_DETAILS>
+  <MWUC_DETAILS>
+    <VESSELCODE>MGB</VESSELCODE>
+    <TABLEID>33</TABLEID>
+    <CATID>12</CATID>
+    <SHIPCOMMENT>All communication equipment are working in order.Quarterly Communication test was done on 18th Sept 2015, E.mail/Voice/Sat C/SSAS test had been conducted.VDR down load exercise was done on 21st Sept 15.</SHIPCOMMENT>
+    <SHIPCOMMENTON>2015-10-12T14:05:00+08:00</SHIPCOMMENTON>
+    <OFFICECOMMENT>Noted</OFFICECOMMENT>
+    <OFFICECOMMENTBY>Sanjeev Singh</OFFICECOMMENTBY>
+    <OFFICECOMMENTPOSITION>FM</OFFICECOMMENTPOSITION>
+    <OFFICECOMMENTON>2015-10-12T00:00:00+08:00</OFFICECOMMENTON>
+  </MWUC_DETAILS>
+  <MWUC_DETAILS>
+    <VESSELCODE>MGB</VESSELCODE>
+    <TABLEID>33</TABLEID>
+    <CATID>13</CATID>
+    <SHIPCOMMENT>Navigation equipments are working in order.</SHIPCOMMENT>
+    <SHIPCOMMENTON>2015-10-12T14:05:00+08:00</SHIPCOMMENTON>
+    <OFFICECOMMENT>Noted</OFFICECOMMENT>
+    <OFFICECOMMENTBY>Sanjeev Singh</OFFICECOMMENTBY>
+    <OFFICECOMMENTPOSITION>FM</OFFICECOMMENTPOSITION>
+    <OFFICECOMMENTON>2015-10-12T00:00:00+08:00</OFFICECOMMENTON>
+  </MWUC_DETAILS>
+  <MWUC_DETAILS>
+    <VESSELCODE>MGB</VESSELCODE>
+    <TABLEID>33</TABLEID>
+    <CATID>14</CATID>
+    <SHIPCOMMENT>Emergency generator is working in order. (Last test 10.Oct.2015)
+Emergency fire pump is working in order. (Last test  on 10.Oct.2015)
+Emergency steering is working in order. (Last test with 08.Oct.2015)
+Emergency lighting is working in order. (Last test on 10.Oct.2015)
+LSA and FFE are good condition and working in order.( Checked and test by service at 
+CALLAO 13/june/2015)
+ Regular inspection and check are carried out as per schedule.
+Lifeboat hook latch ease up (17/Aug/2015)
+RFQ sent for Parachutes to be supplied at Charleston 
+VDR, We have renewed 6 out of 12 batteries  recently.RFQ raised for 6 more batteries. VDR at present functioning normal.
+USCG COC Annual examination was conducted in Charleston on 29th Sept'15.Rescue boat was launched onto water and engine/sprinkler tested by USCG.Emergency fire pump tested with two fire hoses.
+Two Foam Tarrets have been tested with sea water running and reaching overboard.</SHIPCOMMENT>
+    <SHIPCOMMENTON>2015-10-12T14:05:00+08:00</SHIPCOMMENTON>
+    <OFFICECOMMENT>Noted</OFFICECOMMENT>
+    <OFFICECOMMENTBY>Sanjeev Singh</OFFICECOMMENTBY>
+    <OFFICECOMMENTPOSITION>FM</OFFICECOMMENTPOSITION>
+    <OFFICECOMMENTON>2015-10-12T00:00:00+08:00</OFFICECOMMENTON>
+  </MWUC_DETAILS>
+  <MWUC_DETAILS>
+    <VESSELCODE>MGB</VESSELCODE>
+    <TABLEID>33</TABLEID>
+    <CATID>15</CATID>
+    <SHIPCOMMENT>Weekly test of 15ppm Alarm and function test of 3-way valve, Solenoid valve 1 &amp; 2. 
+Found operational. Last tested (10.Oct.2015)
+Opened, Checked OWS and renewed Coalescer filter (19.09.15)
+Incinerator is in normal working condition. Alarm tested with on 26.Sep.2015.
+Fan motor bearing was renewed due notice noise. (09.Oct.15) 
+ODM; Onboard function test carried out on   09/Oct/2015 .
+Test and calibration by Altis Calserv Pte.Ltd. at Singapore@ 30.05.2013
+Sewage plant; Opertional and maintenance as per schedule.
+Bilge wells and bilge tank are clean condition.</SHIPCOMMENT>
+    <SHIPCOMMENTON>2015-10-12T14:05:00+08:00</SHIPCOMMENTON>
+    <OFFICECOMMENT>Noted</OFFICECOMMENT>
+    <OFFICECOMMENTBY>Sanjeev Singh</OFFICECOMMENTBY>
+    <OFFICECOMMENTPOSITION>FM</OFFICECOMMENTPOSITION>
+    <OFFICECOMMENTON>2015-10-12T00:00:00+08:00</OFFICECOMMENTON>
+  </MWUC_DETAILS>
+  <MWUC_DETAILS>
+    <VESSELCODE>MGB</VESSELCODE>
+    <TABLEID>33</TABLEID>
+    <CATID>16</CATID>
+    <SHIPCOMMENT>Boiler performance was satisfactory.
+Done chemical dosed at regular intervals and maintained the record daily.
+Tested alarms and trip (27.09.15)
+Daily inspected water level indicator.</SHIPCOMMENT>
+    <SHIPCOMMENTON>2015-10-12T14:05:00+08:00</SHIPCOMMENTON>
+    <OFFICECOMMENT>Noted</OFFICECOMMENT>
+    <OFFICECOMMENTBY>Sanjeev Singh</OFFICECOMMENTBY>
+    <OFFICECOMMENTPOSITION>FM</OFFICECOMMENTPOSITION>
+    <OFFICECOMMENTON>2015-10-12T00:00:00+08:00</OFFICECOMMENTON>
+  </MWUC_DETAILS>
+  <MWUC_DETAILS>
+    <VESSELCODE>MGB</VESSELCODE>
+    <TABLEID>33</TABLEID>
+    <CATID>17</CATID>
+    <SHIPCOMMENT>AE 1 Turbocharger. (service kit 2)
+To be done departure USA.</SHIPCOMMENT>
+    <SHIPCOMMENTON>2015-10-12T14:05:00+08:00</SHIPCOMMENTON>
+    <OFFICECOMMENT>Noted</OFFICECOMMENT>
+    <OFFICECOMMENTBY>Sanjeev Singh</OFFICECOMMENTBY>
+    <OFFICECOMMENTPOSITION>FM</OFFICECOMMENTPOSITION>
+    <OFFICECOMMENTON>2015-10-12T00:00:00+08:00</OFFICECOMMENTON>
+  </MWUC_DETAILS>
+  <MWUC_DETAILS>
+    <VESSELCODE>MGB</VESSELCODE>
+    <TABLEID>33</TABLEID>
+    <CATID>18</CATID>
+    <SHIPCOMMENT>Fixed Deck Foam Fire Exting System.
+HP Breathing Air Compressor.
+UTI Closed Sampler Tape.</SHIPCOMMENT>
+    <SHIPCOMMENTON>2015-10-12T14:05:00+08:00</SHIPCOMMENTON>
+    <OFFICECOMMENT>Noted, Pls clarify on these defects in details, understand foam monitor valves already repaired?</OFFICECOMMENT>
+    <OFFICECOMMENTBY>Sanjeev Singh</OFFICECOMMENTBY>
+    <OFFICECOMMENTPOSITION>FM</OFFICECOMMENTPOSITION>
+    <OFFICECOMMENTON>2015-10-12T00:00:00+08:00</OFFICECOMMENTON>
+  </MWUC_DETAILS>
+  <MWUC_DETAILS>
+    <VESSELCODE>MGB</VESSELCODE>
+    <TABLEID>33</TABLEID>
+    <CATID>19</CATID>
+    <SHIPCOMMENT>No violation of rest hours.</SHIPCOMMENT>
+    <SHIPCOMMENTON>2015-10-12T14:05:00+08:00</SHIPCOMMENTON>
+    <OFFICECOMMENT>Noted</OFFICECOMMENT>
+    <OFFICECOMMENTBY>Sanjeev Singh</OFFICECOMMENTBY>
+    <OFFICECOMMENTPOSITION>FM</OFFICECOMMENTPOSITION>
+    <OFFICECOMMENTON>2015-10-12T00:00:00+08:00</OFFICECOMMENTON>
+  </MWUC_DETAILS>
+</NewDataSet>

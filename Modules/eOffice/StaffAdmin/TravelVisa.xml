@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<TravelVisa>
+  <Visa>
+    <srno>1</srno>
+    <visaname>H1-Visa</visaname>
+    <visatype>valid</visatype>
+    <issuedate>09-Sep-2011</issuedate>
+    <expirydate>30-Oct-2025</expirydate>
+    <placeofissue>singapore</placeofissue>
+  </Visa>
+  <Visa>
+    <srno>2</srno>
+    <visaname>Working Visa</visaname>
+    <visatype>Unauthorize</visatype>
+    <issuedate>12-Sep-2011</issuedate>
+    <expirydate>25-Nov-2026</expirydate>
+    <placeofissue>Mumbai</placeofissue>
+  </Visa>
+  <Visa>
+    <srno>3</srno>
+    <visaname>Tourist Visa</visaname>
+    <visatype>Permitted</visatype>
+    <issuedate>09-Sep-2011</issuedate>
+    <expirydate>10-Oct-2011</expirydate>
+    <placeofissue>Lucknow</placeofissue>
+  </Visa>
+</TravelVisa>

@@ -1,0 +1,202 @@
+body
+	{
+		font-family:  Verdana, Arial, Helvetica, sans-serif;
+		font-size: 12px;
+		margin:0 0 0 0;
+		padding:0 0 0 0;  
+		text-align: left;  
+        margin-bottom:120px;      
+	}
+*{
+    box-sizing:border-box;
+}
+input[type=text]
+{
+	 font-family: Verdana, Arial, Helvetica, sans-serif;
+	 font-size: 11px;
+	 color: #003399;
+	 border:1px solid #9abcd7;
+	 
+}
+input[required=yes]
+{
+	 font-family: Verdana, Arial, Helvetica, sans-serif;
+	 font-size: 11px;
+	 background-color : #FFFBC9;
+	 border:1px solid #9abcd7;
+}
+input[type=password]
+{
+	 font-family: Verdana, Arial, Helvetica, sans-serif;
+	 font-size: 11px;
+	 color: #003399;
+	 border:1px solid #9abcd7;
+}
+textarea
+{
+	 font-family: Verdana, Arial, Helvetica, sans-serif;
+	 font-size: 11px;
+	 color: #003399;
+	 border:1px solid #9abcd7;
+}
+textarea[required=yes]
+{
+	 background-color : #FFFBC9;
+	 font-family: Verdana, Arial, Helvetica, sans-serif;
+	 font-size: 11px;
+	 color: #003399;
+	 border:1px solid #9abcd7;
+
+}
+.scrollbox
+{
+	 border:1px solid #9abcd7;
+}
+.dottedscrollbox
+{
+	 border:dotted 1px #9abcd7;
+	 background-color:#EEEEEE; 
+}
+.treeselectednode
+{
+	  color:#FF6600;
+	  font-weight:bold ; 
+	  border :dotted 1px red;
+	  margin-left :5px;
+	  margin-right :5px;
+}
+.treehovernoder
+{
+	 font-size :11px;
+	 font-style :italic; 
+}
+/*.treenode
+{
+	color:blue;
+}*/
+
+select
+	{
+		 font-family: Verdana, Arial, Helvetica, sans-serif;
+		 font-size: 11px;
+		 color: #003399;
+		 border:1px solid #9abcd7;
+		 width: 240px;
+	}
+select[required=yes]
+{
+	 background-color : #FFFBC9;
+	 font-family: Verdana, Arial, Helvetica, sans-serif;
+	 font-size: 11px;
+	 color: #003399;
+	 border:1px solid #9abcd7;
+	 width: 240px;
+}
+.btn
+{
+	font-family: Arial, Helvetica, sans-serifl;
+	cursor: pointer;
+	font-size: 11px;
+	
+	
+	width: 60px;
+	font-weight: bold;
+	height: 25px;
+}
+	.btnorange
+{
+	font-family: Arial, Helvetica, sans-serifl;
+	cursor: pointer;
+	font-size: 11px;
+	width: 60px;
+	font-weight: bold;
+	height: 25px;
+}
+
+.blueheader
+{
+	background-color:#5b8fc9;
+	height: 19px; 
+	text-align :center;
+	color :White ;
+	font-weight :normal;
+	font-family :Verdana;
+	height:20px;
+}
+.orangeheader
+{
+	background-color:#236B8E;
+	height: 19px; 
+	text-align :center;
+	color : White ;
+	font-family :Verdana;
+	font-size:11px; 
+	height:20px;
+}
+
+.gridheader
+{
+	background-color:#4371a5;
+	height: 19px; 
+	text-align :center;
+	color :White ;
+	font-weight :normal ;
+	font-family :Verdana;
+	height:15px;
+	padding-top :5px;
+}
+td
+{
+	vertical-align:top;  
+}
+.row
+{
+	color :Black;
+	
+}
+.alternaterow
+{
+	color :Black;
+}
+.selectedrow
+{
+	background-color : #de7f04;
+	color :White; 
+	cursor:pointer;
+}
+.highlightrow
+{
+	background-color : #FFCCCC;
+	color :Black; 
+	cursor:pointer;
+}
+.YellowBox
+{
+	background-color:#FEED77;
+}
+.FixedHeader {
+    position:fixed;
+    border:solid 0px red;
+    width:100%;
+    background-color:white;
+    z-index:100;
+    
+}
+.content {
+    position:absolute;
+top:0px;
+overflow-y:scroll;
+overflow-x:hidden;	
+	bottom:164px;
+    width:100%;
+    z-index:50;    
+}
+.footer {
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    background-color:#8c8c8c;
+    border-top:solid 1px #ada2a2;
+    z-index:300;
+}

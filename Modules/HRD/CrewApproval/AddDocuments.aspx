@@ -1,0 +1,118 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="AddDocuments.aspx.cs" Inherits="CrewApproval_AddDocuments" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>Untitled Page</title>
+    <link href="../styles/style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../styles/sddm.css" />
+    <link rel="stylesheet" type="text/css" href="../Styles/StyleSheet.css" />
+    <style type="text/css">
+    td
+    {
+        vertical-align:top;
+        text-align:left;
+        padding-left:3px;
+    }
+    
+    </style>
+    <script type="text/javascript">
+        function SelectAll(v,self) {
+            var parent = document.getElementById("d" + v); 
+            var CTLS=parent.getElementsByTagName("input");
+            for (i = 0; i <= CTLS.length - 1; i++) {
+                CTLS[i].checked = self.checked;
+            }
+    }
+    </script>
+</head>
+<body style="margin: 0 0 0 0">
+    <form id="form1" runat="server">
+    <div style="text-align: center">
+        <table border="0" cellpadding="0" cellspacing="0" width='100%'>
+            <tr>
+                <td style="background-color:#4371a5;text-align:center; color:White; padding:6px; font-size:16px;"  >Add Documents</td>
+            </tr>
+            <tr>
+                <td style="text-align:left; "><asp:Label runat="server" ID="lblRType" Font-Size="Large" ForeColor="Purple"></asp:Label>
+                <hr />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table cellpadding="0" cellspacing="0" width="100%">
+                        <tr style="font-size:16px; font-family:Calibri; color:Gray;">
+                            <td><input type="checkbox" onclick='SelectAll(1,this);' id='chk1' /><lable for='chk1'>Licenses</lable>
+                            </td>
+                             <td><input type="checkbox" onclick='SelectAll(2,this);' id='chk2' /><lable for='chk2'>Course & Certificates</lable>
+                            </td>
+                            <td><input type="checkbox" onclick='SelectAll(3,this);' id='chk3' /><lable for='chk3'>Endorsements</lable>
+                            </td>
+                             <td><input type="checkbox" onclick='SelectAll(4,this);' id='chk4' /><lable for='chk4'>Travel Documents</lable>
+                            </td>
+                            <td><input type="checkbox" onclick='SelectAll(5,this);' id='chk5' /><lable for='chk5'>Medical Documents</lable>
+                            </td>
+                        </tr>
+                        <tr >
+                            <td>
+                            <div style="overflow-y:scroll; height:600px; border:solid 1px #d2d2d2;" id="d1">
+                            <asp:Repeater runat="server" ID="rptL">
+                            <ItemTemplate>
+                                <div><asp:CheckBox runat="server" ID="ckh_L" Checked='<%#Common.CastAsInt32(Eval("RVID")) > 0 %>' ToolTip='<%#Eval("VesselDocumentTypeId") %>' /><%#Eval("VesselDocumentName") %></div>
+                            </ItemTemplate>
+                            </asp:Repeater>
+                            </div>
+                            </td>
+                            <td>
+                            <div style="overflow-y:scroll; height:600px; border:solid 1px #d2d2d2;" id="d2">
+                            <asp:Repeater runat="server" ID="rptC">
+                            <ItemTemplate>
+                                <div><asp:CheckBox runat="server" ID="ckh_L" Checked='<%#Common.CastAsInt32(Eval("RVID")) > 0 %>'  ToolTip='<%#Eval("VesselDocumentTypeId") %>' /><%#Eval("VesselDocumentName")%></div>
+                            </ItemTemplate>
+                            </asp:Repeater>
+                             </div>
+                            </td>
+                            <td>
+                            <div style="overflow-y:scroll; height:600px; border:solid 1px #d2d2d2;" id="d3">
+                            <asp:Repeater runat="server" ID="rptE">
+                            <ItemTemplate>
+                                <div><asp:CheckBox runat="server" ID="ckh_L" Checked='<%#Common.CastAsInt32(Eval("RVID")) > 0 %>'  ToolTip='<%#Eval("VesselDocumentTypeId") %>' /><%#Eval("VesselDocumentName")%></div>
+                            </ItemTemplate>
+                            </asp:Repeater>
+                             </div>
+                            </td>
+                            <td>
+                            <div style="overflow-y:scroll; height:600px; border:solid 1px #d2d2d2;" id="d4">
+                            <asp:Repeater runat="server" ID="rptT">
+                            <ItemTemplate>
+                                <div><asp:CheckBox runat="server" ID="ckh_L" Checked='<%#Common.CastAsInt32(Eval("RVID")) > 0 %>'  ToolTip='<%#Eval("VesselDocumentTypeId") %>' /><%#Eval("VesselDocumentName")%></div>
+                            </ItemTemplate>
+                            </asp:Repeater>
+                             </div>
+                            </td>
+                            <td>
+                            <div style="overflow-y:scroll; height:600px; border:solid 1px #d2d2d2;" id="d5">
+                            <asp:Repeater runat="server" ID="rptM">
+                            <ItemTemplate>
+                                <div><asp:CheckBox runat="server" ID="ckh_L" Checked='<%#Common.CastAsInt32(Eval("RVID")) > 0 %>'  ToolTip='<%#Eval("VesselDocumentTypeId") %>' /><%#Eval("VesselDocumentName")%></div>
+                            </ItemTemplate>
+                            </asp:Repeater>
+                             </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <center>
+                    <br />
+                    <asp:Button ID="btnSave" runat="server" Text="Save" 
+                            style="padding:4px; width:100px" Font-Size="15px" BackColor="Orange" 
+                            BorderColor="Gray" BorderWidth="1" onclick="btnSave_Click" />
+                    <asp:Button ID="btnCancel" runat="server" Text="Close" style="padding:4px; width:100px" Font-Size="15px" BackColor="Orange" BorderColor="Gray" BorderWidth="1" OnClientClick="window.close();" />
+                    </center>
+                </td>
+            </tr>
+        </table>
+    </div>
+    </form>
+</body>
+</html>

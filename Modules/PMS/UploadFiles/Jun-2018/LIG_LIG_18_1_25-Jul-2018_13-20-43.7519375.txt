@@ -1,0 +1,5 @@
+1. EXEC [dbo].[sp_IE_CreatePacket] 'O','CKP'  
+2. EXEC dbo.sp_IE_getDataForExport_3 @Location,@VesselCode,'D'  
+3. ALTER PROCEDURE [dbo].[sp_IE_VSL_VesselComponentJobMaster]
+4. CREATE PROCEDURE [dbo].[sp_IE_VSL_VesselComponentJobMaster_Spares]
+ 

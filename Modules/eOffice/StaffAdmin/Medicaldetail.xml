@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Medicaldetail>
+  <Medical>
+    <srno>1</srno>
+    <documentname>DrugAlcohal</documentname>
+    <document>1-doc</document>
+    <issuedate>01-mar-1980</issuedate>
+    <expirydate>01-Dec-1980</expirydate>
+    <placeofissue>India</placeofissue>
+  </Medical>
+  <Medical>
+    <srno>2</srno>
+    <documentname>Vaccination</documentname>
+    <document>2-doc</document>
+    <issuedate>01-Apr-1981</issuedate>
+    <expirydate>01-dec-1981</expirydate>
+    <placeofissue>Japan</placeofissue>
+  </Medical>
+    <Medical>
+    <srno>3</srno>
+    <documentname>Neuro Medical</documentname>
+    <document>3-doc</document>
+    <issuedate>01-may-1982</issuedate>
+    <expirydate>01-dec-1982</expirydate>
+    <placeofissue>America</placeofissue>
+  </Medical>
+</Medicaldetail>
+

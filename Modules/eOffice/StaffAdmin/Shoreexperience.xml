@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Shorexperience>
+  <experience>
+    <srno>1</srno>
+    <officename>Mumbai</officename>
+    <designation>Project Manager</designation>
+    <fromdate>01-jan-1980</fromdate>
+    <todate>30-Dec-1980</todate>
+  </experience>
+  <experience>
+    <srno>2</srno>
+    <officename>Lucknow</officename>
+    <designation>Software Engineer</designation>
+    <fromdate>01-mar-1981</fromdate>
+    <todate>01-Dec-1981</todate>
+  </experience>
+  <experience>
+    <srno>3</srno>
+    <officename>Noida</officename>
+    <designation>Team Leader</designation>
+    <fromdate>01-mar-1982</fromdate>
+    <todate>01-Dec-1982</todate>
+  </experience>
+</Shorexperience>

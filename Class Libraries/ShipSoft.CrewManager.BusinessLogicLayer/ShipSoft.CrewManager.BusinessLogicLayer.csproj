@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{685DF9DD-38DE-4FAA-B9E6-9854117E0E0D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ShipSoft.CrewManager.BusinessLogicLayer</RootNamespace>
+    <AssemblyName>ShipSoft.CrewManager.BusinessLogicLayer</AssemblyName>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ShipSoft.CrewManager.BusinessObjects, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ShipSoft.CrewManager.BusinessObjects\bin\Debug\ShipSoft.CrewManager.BusinessObjects.dll</HintPath>
+    </Reference>
+    <Reference Include="ShipSoft.CrewManager.DataAccessLayer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ShipSoft.CrewManager.DataAccessLayer\bin\Debug\ShipSoft.CrewManager.DataAccessLayer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AuthenticationManager.cs" />
+    <Compile Include="Common.cs" />
+    <Compile Include="MyParameter.cs" />
+    <Compile Include="Parameter_Mappings.cs" />
+    <Compile Include="ProcessCrewMemberAppraisalSelectData.cs" />
+    <Compile Include="ProcessCrewMemberApprasialDetailsInsertData.cs" />
+    <Compile Include="ProcessDeleteCrewApprasialDetails.cs" />
+    <Compile Include="ProcessDeleteCRMDetails.cs" />
+    <Compile Include="ProcessGetApprasialOccasion.cs" />
+    <Compile Include="ProcessGetBloodGroup.cs" />
+    <Compile Include="ProcessGetCRMCategory.cs" />
+    <Compile Include="ProcessSelectFlagState.cs" />
+    <Compile Include="ProcessAddCrewMemberDangerousCargoDetails.cs" />
+    <Compile Include="ProcessAddCrewMemberFamilyVisaDetails.cs" />
+    <Compile Include="ProcessAddCrewMemberMedicalCaseHistory.cs" />
+    <Compile Include="ProcessAddCrewMemberMedicalDocumentDetails.cs" />
+    <Compile Include="ProcessAddCrewMemberOtherDocumentDetails.cs" />
+    <Compile Include="ProcessAddCrewMemberTravelDocumentDetails.cs" />
+    <Compile Include="ProcessAddCRMDetails.cs" />
+    <Compile Include="ProcessCrewCourseCertificateInsertData.cs" />
+    <Compile Include="ProcessCrewLicenseInsertData .cs" />
+    <Compile Include="ProcessCrewLicenseSelectData.cs" />
+    <Compile Include="ProcessCrewMemberCourseCrtificateDetailsSelectData.cs" />
+    <Compile Include="ProcessCrewMemberMedicalDetailsSelectData.cs" />
+    <Compile Include="ProcessCrewMemberOtherDocumentSelectData.cs" />
+    <Compile Include="ProcessCrewTrainingRequirementInsertData.cs" />
+    <Compile Include="ProcessDeleteCrewCourseCertificateDetails.cs" />
+    <Compile Include="ProcessDeleteCrewLicenceDetails.cs" />
+    <Compile Include="ProcessDeleteCrewMemberAcademicDetailsById.cs" />
+    <Compile Include="ProcessAddCrewMemberAcademicDetails.cs" />
+    <Compile Include="ProcessDeleteCrewMemberByDangerousCargoId.cs" />
+    <Compile Include="ProcessDeleteCrewMemberMedicalDetailsById.cs" />
+    <Compile Include="ProcessDeleteCrewMemberOtherDocuments.cs" />
+    <Compile Include="ProcessDeleteCrewMembersMedicalHistoryData.cs" />
+    <Compile Include="ProcessDeleteCrewTrainingRequirement.cs" />
+    <Compile Include="ProcessDeleteFamilyDetails.cs" />
+    <Compile Include="ProcessDeleteVisaDetails.cs" />
+    <Compile Include="ProcessGetCrewLicence.cs" />
+    <Compile Include="ProcessGetCrewMemberCourses.cs" />
+    <Compile Include="ProcessGetDocumentSubType.cs" />
+    <Compile Include="ProcessGetMedicalDocumentType.cs" />
+    <Compile Include="ProcessGetOtherDocumentsByCrewId.cs" />
+    <Compile Include="ProcessGetPort.cs" />
+    <Compile Include="ProcessGetTrainingIdName.cs" />
+    <Compile Include="ProcessGetTravelDocumentDetailsinGrid.cs" />
+    <Compile Include="ProcessGetTravelDocumentSubType.cs" />
+    <Compile Include="ProcessGetTravelDocumentType.cs" />
+    <Compile Include="ProcessGetVesselPool.cs" />
+    <Compile Include="ProcessSelectCargoName.cs" />
+    <Compile Include="ProcessSelectCDCDetails.cs" />
+    <Compile Include="ProcessSelectCDCDetailsByFamilyDocumentId.cs" />
+    <Compile Include="ProcessSelectCrewMemberAcademicDetails.cs" />
+    <Compile Include="ProcessSelectCountryCode.cs" />
+    <Compile Include="ProcessSelectCrewMemberDangerousCargoDetails.cs" />
+    <Compile Include="ProcessSelectCrewTrainingRequirementData.cs" />
+    <Compile Include="ProcessSelectCRMDetails.cs" />
+    <Compile Include="ProcessSelectMedicalDocumentDetails.cs" />
+    <Compile Include="ProcessSelectNearestAirportById.cs" />
+    <Compile Include="DocumentDetailsSelectDataById.cs" />
+    <Compile Include="ProcessCheckAuthority.cs" />
+    <Compile Include="ProcessDeleteCrewMemberExperienceDetailsById.cs" />
+    <Compile Include="ProcessDeleteCrewMemberTravelDetailsById.cs" />
+    <Compile Include="ProcessGetVessel.cs" />
+    <Compile Include="ProcessAddCrewMemberFamilyDetails.cs" />
+    <Compile Include="ProcessGetDocumentDetailsinGrid.cs" />
+    <Compile Include="ProcessGetDocumentType.cs" />
+    <Compile Include="ProcessSelectCrewMemberExperienceDetailsByID.cs" />
+    <Compile Include="ProcessSelectCrewMemberExperienceDetails_MTMSM.cs" />
+    <Compile Include="ProcessSelectDocumentDetailsById.cs" />
+    <Compile Include="ProcessSelectQualification.cs" />
+    <Compile Include="ProcessAddCrewMemberContactDetails.cs" />
+    <Compile Include="ProcessAddCrewMemberDocumentDetails.cs" />
+    <Compile Include="ProcessAddCrewMemberExperienceDetails.cs" />
+    <Compile Include="ProcessAddCrewMemberPersonalDetails.cs" />
+    <Compile Include="ProcessCheckLogin.cs" />
+    <Compile Include="ProcessAddCrewMemberQualificationDetails.cs" />
+    <Compile Include="IBusinessLogic.cs" />
+    <Compile Include="ProcessGetCountry.cs" />
+    <Compile Include="ProcessGetCourse.cs" />
+    <Compile Include="ProcessGetManningPool.cs" />
+    <Compile Include="ProcessGetOwnerPool.cs" />
+    <Compile Include="ProcessGetRankApplied.cs" />
+    <Compile Include="ProcessGetRecruitingOffice.cs" />
+    <Compile Include="ProcessSelectCrewMemberContactDetailsById.cs" />
+    <Compile Include="ProcessSelectCrewMemberExperienceDetails.cs" />
+    <Compile Include="ProcessSelectCrewMemberPersonalDetailsById.cs" />
+    <Compile Include="ProcessSelectCrewMemberPrimaryDetails_Search.cs" />
+    <Compile Include="ProcessSelectCrewMemberQualificationById.cs" />
+    <Compile Include="ProcessSelectCrewMemberQualificationDetails.cs" />
+    <Compile Include="ProcessSelectCrewStatus.cs" />
+    <Compile Include="ProcessSelectFamilyDetails.cs" />
+    <Compile Include="ProcessSelectFamilyDetailsByFamilyId.cs" />
+    <Compile Include="ProcessSelectNationality.cs" />
+    <Compile Include="ProcessSelectRank.cs" />
+    <Compile Include="ProcessSelectSignOffReason.cs" />
+    <Compile Include="ProcessSelectTravelDocumentDetailsById.cs" />
+    <Compile Include="ProcessSelectVesselType.cs" />
+    <Compile Include="ProcessSelectVisaDetails.cs" />
+    <Compile Include="ProcessSelectVisaDetailsByFamilyDocumentId.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

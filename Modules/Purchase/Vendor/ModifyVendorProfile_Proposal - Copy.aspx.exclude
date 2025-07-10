@@ -1,0 +1,1824 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ModifyVendorProfile_Proposal - Copy.aspx.cs" Inherits="Docket_ModifyVendorProfile" Async="true"%>
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
+<%@ Register assembly="CrystalDecisions.Web, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" namespace="CrystalDecisions.Web" tagprefix="CR" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>EMANAGER</title>  
+    <link href="../../HRD/Styles/StyleSheet.css" rel="stylesheet" type="text/css" />
+    <script src="../JS/JQuery.js" type="text/javascript"></script>
+    <script src="../JS/Common.js" type="text/javascript"></script>   
+    <script type="text/javascript">
+        function Validate(sender, args) {
+            var repeator = document.getElementById("tblVendors");
+            var checkBoxes = repeator.getElementsByTagName("input");
+            for (var i = 0; i < checkBoxes.length; i++) {
+                if (checkBoxes[i].type == "checkbox" && checkBoxes[i].checked) {
+                    args.IsValid = true;
+                    return;
+                }
+            }
+            args.IsValid = false;
+        }
+</script>
+    <style type="text/css">
+    body
+    {
+        font-family:Calibri;
+        font-size:14px;
+        margin:0px;
+        padding:0px;
+    }
+    *
+    {
+        box-sizing:border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        color:#555;
+    }
+     h1
+    {
+        font-size:22px;
+        background-color: #35356f;
+        border-bottom: 5px solid #00001f;
+        color:#fff;
+        padding:10px;
+        margin:0px;
+    }
+    
+    h2 {
+      background-color: #00b359;
+      color: white;
+      font-size: 17px;
+      margin: 0;
+      padding: 10px;
+      text-align: left;
+    }
+
+    .center
+    {
+        text-align:center;
+    }
+    .center div
+    {
+        margin:0 auto;
+    }
+    .left
+    {
+        text-align:left;
+    }
+    .right
+    {
+        text-align:left;
+    }
+   
+   .activecell  h2 
+   {
+      background-color: #7cb02c;
+      color:white;
+      font-size: 17px;
+      margin: 0;
+      padding: 10px;
+      text-align: left;
+    }
+    .activecell
+    {
+        background-color:#f1f7e9;
+    }
+     h2.active:after {
+      content:"action im progress";
+    }
+    
+.label
+{display:inline-block; text-align:left; float:left; width:400px; color:#222 }
+.label:after
+{content:":"; text-align:right; width:100px; padding-right:5px; display:inline; float:right; position:absolute; right:5px;top:0px;}
+.controlarea
+{display:inline; text-align:left;  empty-cells:show; }
+
+.row
+{
+    padding:4px;
+    text-align:left;
+    border-bottom:solid 1px #eee;
+}
+.control
+{
+    border:solid 1px #ddd;
+    padding:5px;
+    line-height:14px;
+}
+  
+.actionbox
+{
+    text-align:center;
+    padding:5px;
+    position:fixed;
+    bottom:0px;
+    background-color:#eeeeee;
+    width:100%;
+    border-top:solid 1px #999;
+}
+
+.info
+{
+    color:Maroon;
+    font-style:italic;
+    font-size:11px;
+}
+    .bold
+    {
+    font-weight:800;
+    
+    }
+.circle
+{
+    border-radius:8px;
+    width:18px;
+    height:18px;
+    line-height:18px;
+    color:#7cb02c;
+    font-size:12px;
+    display:inline-block;
+    float:left;
+    background-color:#fff;
+    margin-right:10px;
+}
+.bgmodal
+{
+    background-color:Black;
+    opacity: 0.6;
+    filter: alpha(opacity=60);
+    position:fixed;
+    top:0px;
+    left:0px;
+    height:100%;
+    width:100%;
+    z-index:5;
+}
+.modalframe
+{
+    position:fixed;
+    top:0px;
+    left:0px;
+    height:100%;
+    width:100%;
+    z-index:6;
+    text-align:center;
+    margin:0px auto;
+    padding-top:5%;    
+}
+.modalborder
+{
+    background:rgba(0,0,0,0.3);
+    width:80%;
+    margin:0px auto;
+    padding:0px;
+    border:solid 10px grey;
+}
+.modalcontainer
+{
+    height:100%;
+    background-color:White;
+    padding:10px;
+}
+
+.btn {
+  background-color: #66C266;
+  border: 1px solid #f0f0f0;
+  border-radius: 4px;
+  color: #fff;
+  text-align:center;
+  width:150px;
+  padding: 5px 0px 7px 0px;
+}
+.btnpn {
+  background-color: #eee;
+  border: 1px solid green;
+  border-radius: 4px;
+  color: green;
+  text-align:center;
+  width:150px;
+  padding: 3px 0px 3px 0px;
+}
+.close
+{
+    background-color:#FF6262;
+    border: 1px solid #FF6262;
+    color:#fff;
+}
+.btn:hover, .btn:focus {
+  background-color: #5CAF5C;
+  border-color: #35356f;
+  color: #fff;
+}
+.close:hover,.close:focus
+{
+   background-color:#FF7373;
+   border: 1px solid #FF7373;
+}
+hr
+{
+    margin-bottom:0px;
+    padding-bottom:0px;
+}
+
+.alternate_table 
+{
+    border:solid 1px #f1f1f1;
+}
+.alternate_table tr:nth-child(even)
+{
+    background-color:#f1f1f1;
+}
+.alternate_table tr:nth-child(odd)
+{
+    background-color:white;
+}
+
+.msgbox
+{
+    padding:5px 5px 7px 5px;
+    border:solid 1px #eee;
+    text-align:center;
+    margin-left:10px;
+    margin-right:10px;
+}
+
+</style>
+    <style type="text/css">
+ul
+{
+    padding:0px;
+    margin:0px;
+}
+
+.topmenu
+{
+    list-style:none;
+    padding-left:0px;
+}
+.topmenu li
+{
+    display:inline-block;
+    float:left;
+    width:200px;
+    padding-left:0px;
+    margin-left:0px;
+    margin-right:3px;
+    text-align:left
+}
+.topmenu li a
+{
+    background-color:#f0f5f5;
+    color:#222;
+    margin-right:2px;
+    padding:6px;
+    display:block;
+    text-decoration:none;
+}
+.topmenu li a:hover
+{
+    background-color:#00803f;
+    color:#fff;
+    cursor:pointer;
+}
+.topmenu .activemenu
+{
+    background-color:#00b359;
+    color:white;
+    cursor:pointer;
+}
+.done
+{
+    background-image:url('./Images/check_white.png');
+    background-repeat:no-repeat;
+    background-position:205px center;
+}
+
+
+.leftmenu
+{
+    list-style:none;
+    padding-left:0px;
+}
+
+.leftmenu li a
+{
+    background-color:#f0f5f5;
+    color:#666;
+    margin-bottom:2px;
+    padding:12px;
+    display:block;
+    text-decoration:none;
+}
+.leftmenu li a:hover
+{
+    background-color:#00803f;
+    color:white;
+    cursor:pointer;
+}
+
+.leftmenu .activemenu
+{
+    background-color:#00b359;
+    color:white;
+    cursor:pointer;
+}
+.mark1
+{
+    background-color:#35356f;
+    padding:12px;
+    
+}
+.mark1 > span
+{
+    color:White;
+}
+.msgbox
+{
+    padding:5px;
+}
+.success
+{
+    color:#009933;
+    background-color:#ccffdd;
+}
+.error
+{
+    color:Red;
+    background-color:#ffcccc;
+}
+</style>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div class="bgmodal" runat="server" id="modalBox" visible="false">2</div>
+    <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
+    <asp:HiddenField ID="hfSID" runat="server" />
+        <div class="text headerband">
+             Vendor / Supplier Profile Management
+        </div>
+    
+    <div class="center">
+    <div style="width:95%; text-align:center;">
+       <div style="padding: 3px;color:#333;border-bottom:solid 2px #c2f0c2; text-align:center; font-family:Arial Black; text-align:left">
+        <asp:Label ID="lblCompanyname" runat="server" Font-Bold="true" Font-Size="X-Large" ></asp:Label>
+        <asp:Label ID="lblBlackList" runat="server" Font-Bold="true" Font-Size="X-Large" ForeColor="Red" ></asp:Label>
+
+        </div>
+        <table cellpadding="0" cellspacing="0" width="100%" style="margin-top:5px">
+        <tr>
+        <td style="width:200px; text-align:left; vertical-align:top; border-right:solid 5px #00b359; ">
+            <ul class="leftmenu">
+            <li><a href="#" onclick="GoToPage(1);">Company Profile</a></li>
+            <li><a href="#" onclick="GoToPage(2);">Description</a></li>
+            <li><a href="#" onclick="GoToPage(3);">Size Of Company</a></li>
+            <li><a href="#" onclick="GoToPage(4);">Financial Status</a></li>
+            <li><a href="#" onclick="GoToPage(5);">Company Documents</a></li>
+            <li><a href="#" onclick="GoToPage(6);">Company Reputation</a></li>
+            <li><a href="#" onclick="GoToPage(7);">Bank Details</a></li>
+            <li><a href="#" onclick="GoToPage(8);">Business Summary</a></li>
+            <li><a href="#" onclick="GoToPage(9);">Feedback / Comments</a></li>
+            <li><a href="#" onclick="GoToPage(10);">Proposal & Approval </a></li>
+            <li runat="server" visible="false" id="liEvaluation"><a href="#" onclick="GoToPage(17);">Evaluation </a></li>
+            <li><a href="#" onclick="GoToPage(18);">Documents </a></li>
+            </ul>
+        </td>
+        <td style="padding-left:3px;"> 
+
+        <asp:UpdatePanel runat="server" ID="fd1" OnPreRender="fd1_OnPreRender">
+        <ContentTemplate>
+
+        <div class="msgbox" runat="server" id="lblMessage"></div>
+
+        <asp:Button runat="server" ID="btnPageNo" OnClick="btnPageNo_Click" CausesValidation="false" style="display:none" />
+        <asp:HiddenField runat="server" ID="hid_PageNo" />
+        <div style="height:550px; overflow-x:hidden; overflow-y:scroll; border:solid 1px #eee">
+        <!-- First Page (profile) -->
+
+        <div class="pageframe" id="dv_Page_1" runat="server"> 
+         <div class="formcontainer">
+          <div class="row center mark1">
+            <span>Company Details</span>            
+        </div>
+        
+        <div class="row">
+            <span class="label">Name of Company</span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_NoC"  ></asp:Label></span>
+        </div>
+        <div class="row">
+            <span class="label">Address Line 1</span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_address1"   ></asp:Label></span>
+        </div>
+        <div class="row">
+            <span class="label">Address Line 2</span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_address2"    ></asp:Label></span>
+        </div>
+        <div class="row">
+            <span class="label">City / State</span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_city_state"   ></asp:Label></span>
+        </div>
+        <div class="row">
+            <span class="label">ZIP Code / Postal Code </span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_zipcode"    ></asp:Label></span>
+        </div>
+        <div class="row">
+            <span class="label">Country</span>
+            <span class="controlarea">&nbsp;<asp:Label ID="lblCompanyCountry"  runat="server" ></asp:Label></span>
+        </div>
+        <div class="row">
+            <span class="label">Phone No. </span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_phone_no"  Width="250px"   ></asp:Label></span>                                  
+        </div>
+        <div class="row">
+            <span class="label">Fax No. </span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_fax_no" Width="250px"   ></asp:Label></span>           
+        </div>
+        <div class="row">
+            <span class="label">Email Address </span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_email"></asp:Label></span>
+        </div>
+        <div class="row">
+            <span class="label">Web Site </span>
+            <span class="controlarea">&nbsp;<a href="#" onclick="window.open( $(this).children().first().html(),'');" ><asp:Label runat="server" ID="txt_website"></asp:Label></a></span>
+        </div>
+        <div class="row">
+            <span class="label">Company Reg No.</span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_company_reg_no" ></asp:Label></span>
+        </div>
+        <div class="row">
+            <span class="label">Tax Reg No.</span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_tax_reg_no"></asp:Label></span>
+        </div>
+        <div class="row">
+            <span class="label">Number of Years in Business (Subject Office)</span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_no_of_year_business"></asp:Label></span>
+        </div>
+        <div class="row center mark1">
+            <span>Contact Person Details</span>            
+        </div>
+        
+        <div class="row">
+            <span class="label">Contact Person Name</span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_Contact_Person"   ></asp:Label></span>
+        </div>
+        <div class="row">
+            <span class="label">Position</span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_Contact_Person_Position"   ></asp:Label></span>
+        </div>
+        <div class="row">
+            <span class="label">Direct Phone No.</span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_Contact_Person_DirectPhone" Width="250px"  ></asp:Label></span>            
+        </div>
+        <div class="row">
+            <span class="label">Mobile No.</span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_cp_mobile"  Width="250px"   ></asp:Label></span>       
+        </div>
+         <div class="row">
+            <span class="label">Fax No.</span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_Contact_Person_FaxNo" Width="250px" ></asp:Label></span>
+        </div>
+        <div class="row">
+            <span class="label">Email Address</span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_Contact_Person_Email"   ></asp:Label>
+            </span>
+        </div>
+       
+        <div class="row">
+            <span class="label">Head of Subject Company, Title (Mr / Ms) </span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_head_of_company"    ></asp:Label>               
+            </span>
+        </div>
+        <div class="row">
+            <span class="label">Position</span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_head_of_company_postion"    ></asp:Label>            
+            </span>
+        </div>
+        <div class="row">
+            <span class="label">Phone No.</span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_head_of_company_no" Width="250px" ></asp:Label></span>        
+        </div>
+        <div class="row">
+            <span class="label">Email Address</span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_head_of_company_email"    ></asp:Label>            
+            </span>
+        </div>
+       
+        <div class="row">
+            <span class="label">Head of Finance / Accounts (Mr /Ms)</span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_head_of_finance"     ></asp:Label></span>
+        </div>
+         <div class="row">
+            <span class="label">Phone No.</span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_head_of_finance_no"  Width="250px"  ></asp:Label></span>        
+        </div>
+
+        <div class="row">
+            <span class="label">Email Address</span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_head_of_finance_email"    ></asp:Label>            
+            </span>
+        </div>
+       
+        <div class="row">
+            <span class="label">Head of  Quality Management/Equivalent(Mr / Ms) </span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_head_of_quality"   ></asp:Label></span>
+        </div>
+        <div class="row">
+            <span class="label">Phone No.</span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_head_of_quality_no"   Width="250px"   ></asp:Label></span>       
+        </div>
+
+        <div class="row">
+            <span class="label">Email Address</span>
+            <span class="controlarea">&nbsp;
+            <asp:Label runat="server" ID="txt_head_of_quality_email"     ></asp:Label>
+            
+            </span>
+        </div>
+      
+        <div class="row">
+            <span class="label">Name of Head Office (or Parent Company)</span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_head_office_name"   ></asp:Label></span>
+        </div>
+             <div class="row">
+            <span class="label">City / State</span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_HO_City_State"    ></asp:Label>
+            </span>
+        </div>
+         <div class="row">
+            <span class="label">ZIP Code / Postal Code </span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_HO_Zip_Postal_Code"    ></asp:Label>           
+            </span>
+        </div>
+         <div class="row">
+            <span class="label">Country</span>
+            <span class="controlarea">&nbsp;
+            <asp:Label runat="server" ID="lbl_HO_Country"   ></asp:Label>
+            </span>
+        </div>
+          <div class="row">
+            <span class="label">Phone No. </span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_HO_PhoneNo"  Width="250px"   ></asp:Label></span>         
+        </div>
+        <div class="row">
+            <span class="label">Fax No. </span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_HO_FaxNo"  Width="250px"  ></asp:Label></span>
+        </div>
+        <div class="row">
+            <span class="label">Email Address </span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_HO_Email"     ></asp:Label>
+            </span>
+        </div>
+        <div class="row">
+            <span class="label">Web Site </span>
+            <span class="controlarea">&nbsp;<a href="#" onclick="window.open($(this).children().first().html(),'');" ><asp:Label runat="server" ID="txt_HO_WebSite"></asp:Label></a></span>
+            
+        </div>
+        <div class="row">
+            <span class="label">Number of Years in Business (HQ / Parent Co.)</span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_no_of_year_business_HQPC"    ></asp:Label>
+            </span>
+        </div>
+         <div class="row">
+            <span class="label">Company OwnerShip Structure</span>
+            <span class="controlarea">&nbsp;
+            <asp:Label runat="server" ID="txt_CompanyOwnerStruct"   TextMode="MultiLine" Rows="8"  MaxLength="500"></asp:Label>
+            </span>
+        </div>
+        </div>
+       </div>
+        <!-- Second Page (Description)-->
+        <div class="pageframe"  id="dv_Page_2" runat="server" visible="false"> 
+            <div class="formcontainer"> 
+              <div class="row center mark1">
+            <span>Please tick as applicable (multiple selection) and provide additional description</span>
+        </div>     
+           <div class="row">
+            <span class="label">Short Description of Business </span>
+            <span class="controlarea">&nbsp;
+            <asp:CheckBoxList id="chkVendorbusinesseslist" Enabled="false" runat="server" RepeatColumns="4" ></asp:CheckBoxList>               
+            </span>
+            </div>
+              <div class="row">
+            <span class="label">Services (Specify)</span>
+            <span class="controlarea">&nbsp;
+            <asp:Label runat="server" ID="txt_Services_Specify"    MaxLength="500" TextMode="MultiLine" Rows="5"></asp:Label>
+            </span>
+        </div>
+        <div class="row">
+            <span class="label">Additional Description</span>
+            <span class="controlarea">&nbsp;
+            <asp:Label runat="server" ID="txt_Add_Description"    MaxLength="500" TextMode="MultiLine" Rows="5"></asp:Label>
+            </span>
+        </div>
+        <div class="row">
+            <span class="label">Other Services (Specify)</span>
+            <span class="controlarea">&nbsp;
+            <asp:Label runat="server" ID="txt_description_other"    MaxLength="500"  TextMode="MultiLine" Rows="5"></asp:Label>
+            </span>
+        </div>
+      
+        </div>
+        </div>
+        <!-- Third Page (Size)-->       
+        <div class="pageframe"  id="dv_Page_3" runat="server" visible="false">
+         <div class="formcontainer">
+            <div class="row center mark1">
+            <span>Permanent Employees (Number)</span>
+        </div>
+        <div class="row">
+            <span class="label">Management </span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_management"   ></asp:Label>
+            </span>
+        </div>
+         <div class="row">
+            <span class="label">Administrative </span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_administrative"     ></asp:Label>
+            </span>
+        </div>
+         <div class="row">
+            <span class="label">Professionals </span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_professional"    ></asp:Label>
+            </span>
+        </div>
+         <div class="row">
+            <span class="label">Skilled Workers, with Certificates </span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_skilled_worker_with_c"    ></asp:Label>
+            </span>
+        </div>
+         <div class="row">
+            <span class="label">Skilled Workers, without Certificates </span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_skilled_worker_without_c"     ></asp:Label>
+            </span>
+        </div>
+         <div class="row">
+            <span class="label">Unskilled Labor </span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_unskilled_worker"    ></asp:Label>
+            </span>
+        </div> 
+         <div class="row center mark1">
+            <span>Areas (M<sup>2</sup>)</span>
+        </div>
+        <div class="row">
+            <span class="label">Office  </span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_office"     ></asp:Label>
+            </span>
+        </div>  
+         <div class="row">
+            <span class="label">Workshop  </span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_workshop"   ></asp:Label>
+            </span>
+        </div> 
+         <div class="row">
+            <span class="label">Warehouse  </span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_wharehouse"    ></asp:Label>
+            </span>
+        </div> 
+         <div class="row">
+            <span class="label">Other(Specify)  </span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_other_area"     ></asp:Label>
+            </span>
+        </div> 
+         <div class="row center mark1">
+            <span>Number of Offices World-wide (If applicable)</span>
+        </div>
+        <div class="row">
+            <span class="label">Own  </span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_own"     ></asp:Label>
+            </span>
+        </div> 
+         <div class="row">
+            <span class="label">Agents / Partners  </span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_agents_partners"     ></asp:Label>
+            </span>
+        </div> 
+         <div class="row">
+            <span class="label">Number of  Permanent Employees - Worldwide  </span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_permanent_emp_worldwide"    ></asp:Label>
+            </span>
+        </div> 
+         <div class="row center mark1">
+            <span>SPC (Single-Point-of-Contact)</span>
+        </div>
+         <div class="row">
+            <span class="label">Is the Company able to transact through SPC ? (Y/N)  </span>
+            <span class="controlarea">&nbsp;
+           <asp:Label ID="lbl_IsCompany_transact" runat="server" ></asp:Label>
+            </span>
+        </div> 
+         <div class="row center mark1">
+            <span>Are there any plans for expansion? (Please provide details)</span>
+        </div>
+         <div class="row">
+            <span class="label">Locally (Office Space, Warehouse, Workshop, Staff etc.) </span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_locally"     ></asp:Label></span>
+        </div> 
+        <div class="row">
+            <span class="label">Geographically (Please provide details) </span>
+            <span class="controlarea">&nbsp;<asp:Label runat="server" ID="txt_geographically"     ></asp:Label></span>
+        </div>       
+        </div>
+        </div>
+        <!-- Fourth Page (Financial status)-->
+        <div class="pageframe" id="dv_Page_4" runat="server" visible="false">
+         <div class="formcontainer">
+          <div class="row center mark1">
+            <span>Annual Revenue in Mil. USD</span>
+        </div>
+         <div>
+         <table cellpadding="3" cellspacing="0" width="100%" class="alternate_table">
+          <tr style="background-color:#fef6cd; font-weight:bold; height:30px;">
+           <td style="text-align:left">Year Name</td>          
+           <td style="text-align:left">Revenue ( US$ )</td>
+           </tr> 
+            <asp:Repeater ID="rpt_financial_status" runat="server">
+                <ItemTemplate>
+                <tr>
+                   <td style="text-align:left"><asp:HiddenField ID="hdn_FinancialStatus_id" runat="server"  Value='<%#Eval("TableID") %>' />Year - <%#Eval("fyear")%></td>          
+                   <td style="text-align:left"><asp:Label ID="txt_FinancialStatus_amount" runat="server" style="text-align:right" Text='<%#Eval("Revenue") %>'/>
+                   </td>
+                </tr>
+                </ItemTemplate> 
+           </asp:Repeater>
+           </table>   
+         </div>
+                  
+         <div class="row center mark1">
+            <span>Customer References</span>
+        </div>
+         <%--<div class="row">
+        <asp:Button runat="server" ID="btn_adbuyers" OnClick="btn_adbuyers_Click" CssClass="btn" Text=" + Add References Buyers"  />
+        </div>--%>
+        <div>
+         <table cellpadding="5" cellspacing="0" width="100%" class="alternate_table">
+           <tr style="background-color:#fef6cd; font-weight:bold; height:30px;">
+           <td style="text-align:left">SrNo.</td>
+           <td style="text-align:left">Company Name</td>          
+           <td style="text-align:left">Contact Person</td>
+           <td style="text-align:left">Position</td>
+           <td style="text-align:left">Phone No.</td>
+           <td style="text-align:left">Mobile No.</td>          
+           </tr>  
+           <asp:Repeater ID="rpt_ReferencesBuyers" runat="server">    
+           <ItemTemplate>
+           <tr>
+           <td style="text-align:left"><%#Eval("Srno")%>.</td>          
+           <td style="text-align:left"><%#Eval("CompanyName")%></td>          
+           <td style="text-align:left"><%#Eval("ContactPerson")%></td>
+           <td style="text-align:left"><%#Eval("Position")%></td>
+           <td style="text-align:left"><%#Eval("PhoneNo").ToString().Replace("--","-")%></td>
+           <td style="text-align:left"><%#Eval("MobileNo").ToString().Replace("--", "-")%></td>          
+           </tr>
+           </ItemTemplate>
+           </asp:Repeater>
+        </table> 
+        </div>
+        </div>
+        </div>
+        <!-- fifth Page (Documents)-->
+        <div class="pageframe" id="dv_Page_5" runat="server" visible="false">
+        <div class="formcontainer">
+         <%--<div class="row">
+         <asp:Button runat="server" ID="btn_UploadNow" OnClick="btn_UploadNow_Click" CssClass="btn" Text=" + Upload Documents"  />        
+         </div>--%>
+         <div class="row center mark1">
+         <span>Certificates (ISO)</span>
+        </div>
+         <div class="row">
+           <asp:Repeater ID="rpt_ISO_Certificate" runat="server">
+           <ItemTemplate>
+           <div class="row">
+           <span style="color:Maroon"><%#Eval("FileText")%></span>
+           <span style="float:right; color:Blue;"><%#Eval("FileName")%>
+           <span style="width:30px"> <asp:ImageButton runat="server" id="btnDownload" ImageUrl="~/Images/paperclipx12.png" CommandArgument='<%#Eval("TableId")%>' OnClick="btnDownload_Click" /> </span>
+           </span>
+           </div>
+<span style='clear:both' ></span>
+           </ItemTemplate>
+           </asp:Repeater>
+        </div>
+         <div class="row center mark1">
+            <span>Makers/Class Approval</span>
+        </div>
+       
+         <div class="row">
+           <asp:Repeater ID="rpt_Marks_approval" runat="server">
+            <ItemTemplate>
+           <div class="row">
+           <span style="color:Maroon"><%#Eval("FileText")%></span>
+           <span style="float:right; color:Blue;"><%#Eval("FileName")%>
+           <span style="width:30px"> <asp:ImageButton runat="server" id="btnDownload" ImageUrl="~/Images/paperclipx12.png" CommandArgument='<%#Eval("TableId")%>' OnClick="btnDownload_Click" /> </span>
+           </span>
+           </div>
+<span style='clear:both' ></span>
+           </ItemTemplate>
+           </asp:Repeater>
+        </div>
+         <div class="row center mark1">
+            <span>Industry Memberships (ISA, IMPA etc.)</span>
+        </div>
+         <div class="row">
+           <asp:Repeater ID="rpt_industry_membership" runat="server">
+            <ItemTemplate>
+           <div class="row">
+           <span style="color:Maroon"><%#Eval("FileText")%></span>
+           <span style="float:right; color:Blue;"><%#Eval("FileName")%>
+           <span style="width:30px"> <asp:ImageButton runat="server" id="btnDownload" ImageUrl="~/Images/paperclipx12.png" CommandArgument='<%#Eval("TableId")%>' OnClick="btnDownload_Click" /> </span>
+           </span>
+           </div>
+<span style='clear:both' ></span>
+           </ItemTemplate>
+           </asp:Repeater>
+        </div>
+          <div class="row center mark1">
+            <span>Documents ( Other )</span>
+        </div>
+         <div class="row">
+           <asp:Repeater ID="rpt_documents" runat="server">
+            <ItemTemplate>
+           <div class="row">
+           <span style="color:Maroon"><%#Eval("FileText")%></span>
+           <span style="float:right; color:Blue;"><%#Eval("FileName")%>
+           <span style="width:30px"> <asp:ImageButton runat="server" id="btnDownload" ImageUrl="~/Images/paperclipx12.png" CommandArgument='<%#Eval("TableId")%>' OnClick="btnDownload_Click" /> </span>
+           </span>
+           </div>
+<span style='clear:both' ></span>
+           </ItemTemplate>
+           </asp:Repeater>
+        </div>
+         <div class="row center mark1">
+            <span>Company Registration</span>
+        </div>       
+         <div class="row">
+           <asp:Repeater ID="rpt_Company_registraion" runat="server">
+            <ItemTemplate>
+           <div class="row">
+           <span style="color:Maroon"><%#Eval("FileText")%></span>
+           <span style="float:right; color:Blue;"><%#Eval("FileName")%>
+           <span style="width:30px"> <asp:ImageButton runat="server" id="btnDownload" ImageUrl="~/Images/paperclipx12.png" CommandArgument='<%#Eval("TableId")%>' OnClick="btnDownload_Click" /> </span>
+           </span>
+           </div>
+<span style='clear:both' ></span>
+           </ItemTemplate>
+           </asp:Repeater>
+        </div>
+          <div class="row center mark1">
+            <span>Organisation Chart</span>
+        </div>
+       
+         <div class="row">
+           <asp:Repeater ID="rpt_Organization_chart" runat="server">
+            <ItemTemplate>
+           <div class="row">
+           <span style="color:Maroon"><%#Eval("FileText")%></span>
+           <span style="float:right; color:Blue;"><%#Eval("FileName")%>
+           <span style="width:30px"> <asp:ImageButton runat="server" id="btnDownload" ImageUrl="~/Modules/HRD/Images/paperclipx12.png" CommandArgument='<%#Eval("TableId")%>' OnClick="btnDownload_Click" /> </span>
+           </span>
+           </div>
+<span style='clear:both' ></span>
+           </ItemTemplate>
+           </asp:Repeater>
+        </div>
+        </div>
+        </div>
+        <!-- Sixth Page (Reputation)-->
+        <div class="pageframe"  id="dv_Page_6" runat="server" visible="false">
+        <div class="formcontainer">
+        <div class="row center mark1">
+            <span>Compliance</span>
+        </div>
+
+        <table cellpadding="4" cellspacing="0" width="100%">
+        <colgroup>
+        <col align="left" width="60%" />
+        <col align="left" />
+        </colgroup>
+        <tr>
+        <td>Has the Company been investigated by any Government Agency within last five years?</td>
+        <td>&nbsp;<asp:Label ID="lbl_CompanyHasCompliance" runat="server" ></asp:Label></td>
+        </tr>
+        <tr id="div_outcome_complaince" runat="server" visible="false">
+        <td>If yes, please advise the outcome (Separate page if necessary)</td>
+        <td>&nbsp;<asp:Label runat="server" ID="txt_outcome"></asp:Label></td>
+        </tr>
+        <tr>
+        <td>Does the Company comply with FCPA(Foreign Corrupt Practices Act) requirements?</td>
+        <td>&nbsp;<asp:Label ID="lbl_FCPA_requirements" runat="server"></asp:Label></td>
+        </tr>
+        </table>
+        <div class="row center mark1">
+            <span>Liability Insurance</span>
+        </div>
+        
+        <table cellpadding="4" cellspacing="0" width="100%">
+        <colgroup>
+        <col align="left" width="60%" />
+        <col align="left" />
+        </colgroup>
+        <tr>
+        <td>Product Liability</td>
+        <td>&nbsp;<asp:Label ID="lbl_product_liability" runat="server" ></asp:Label></td>
+        </tr>
+        <tr id="div_insurance_company_name_Pliability" runat="server" visible="false" >
+        <td>If yes (Insurance Company)</td>
+        <td>&nbsp;<asp:Label runat="server" ID="txt_insurance_company_name" MaxLength="500"></asp:Label></td>
+        </tr>
+        <tr id="div_insurance_company_amount_Pliability" runat="server" visible="false">
+        <td>Amount (US$)</td>
+        <td>&nbsp;<asp:Label runat="server" ID="txt_insurance_company_amount"    MaxLength="500"></asp:Label></td>
+        </tr>
+         <tr>
+        <td>Service Liability</td>
+        <td>&nbsp;<asp:Label ID="lbl_service_liability" runat="server"></asp:Label> </td>
+        </tr>
+        <tr id="div_insurance_company_name_service" runat="server" visible="false" >
+        <td>If yes (Insurance Company)</td>
+        <td>&nbsp;<asp:Label runat="server" ID="txt_insurance_company_name_service"    MaxLength="500"></asp:Label></td>
+        </tr>
+         <tr id="div_insurance_company_amount_service" runat="server" visible="false">
+        <td>Amount (US$)</td>
+        <td>&nbsp;
+           <asp:Label runat="server" ID="txt_insurance_company_amount_service"     MaxLength="500"></asp:Label></td>
+        </tr>
+         <tr>
+        <td>Insurance of your employee attending Ships</td>
+        <td>&nbsp;
+            <asp:Label ID="lbl_emp_attending" runat="server" >S</asp:Label></td>
+        </tr>
+        </table>
+        </div>
+        </div>
+        <!-- Seven Page (Bank Details)-->
+        <div class="pageframe"  id="dv_Page_7" runat="server" visible="false">
+          <div class="formcontainer">  
+        <div class="row">
+            <span class="label">Bank Name </span>
+            <span class="controlarea">&nbsp;
+           <asp:Label runat="server" ID="txt_bank_name"     MaxLength="500"></asp:Label>
+            </span>
+        </div>
+         <div class="row">
+            <span class="label">Address 1</span>
+            <span class="controlarea">&nbsp;
+           <asp:Label runat="server" ID="txt_bank_address1"      MaxLength="500"></asp:Label>
+            </span>
+        </div>
+        <div class="row">
+            <span class="label">Address 2</span>
+            <span class="controlarea">&nbsp;
+           <asp:Label runat="server" ID="txt_bank_address2"      MaxLength="500"></asp:Label>
+            </span>
+        </div>
+        <div class="row">
+            <span class="label">Post Code</span>
+            <span class="controlarea">&nbsp;
+           <asp:Label runat="server" ID="txt_bank_postcode"      MaxLength="500"></asp:Label>
+            </span>
+        </div>
+         <div class="row">
+            <span class="label">City</span>
+            <span class="controlarea">&nbsp;
+           <asp:Label runat="server" ID="txt_bank_city"      MaxLength="500"></asp:Label>
+            </span>
+        </div>
+         <div class="row">
+            <span class="label">Country</span>
+            <span class="controlarea">&nbsp;
+           <asp:Label ID="lbl_bankCountry" runat="server" ></asp:Label>
+            </span>
+        </div>
+         <div class="row">
+            <span class="label">Account No</span>
+            <span class="controlarea">&nbsp;
+           <asp:Label runat="server" ID="txt_bank_account_no"      MaxLength="500"></asp:Label>
+            </span>
+        </div>
+         <div class="row">
+            <span class="label">SWIFT Code</span>
+            <span class="controlarea">&nbsp;
+           <asp:Label runat="server" ID="txt_bank_swift_code"      MaxLength="500"></asp:Label>
+            </span>
+        </div>
+      <div class="row">
+            <span class="label">IBAN</span>
+            <span class="controlarea">&nbsp;
+           <asp:Label runat="server" ID="txt_bank_IBAN"      MaxLength="500"></asp:Label>
+            </span>
+        </div>
+        <div class="row">
+            <span class="label">Preferred Single Currency</span>
+            <span class="controlarea">&nbsp;
+           <asp:Label runat="server" ID="txt_pref_single"      MaxLength="500"></asp:Label>
+            </span>
+        </div>       
+          <div class="row">
+            <span class="label">Company Data Protection Policy</span>
+            <span class="controlarea">&nbsp;
+                ( <asp:Label runat="server" ID="lblaccepted"></asp:Label>  )
+                <br />
+                <a href="http://192.168.1.18/Purchase/Vendor/dpp.html" target="_blank">Company Data Protection Policy</a>
+            </span>
+        </div>          
+      
+        </div>
+        </div>
+        <!-- 11th Page *******Business summary -->
+        <div class="pageframe"  id="dv_Page_8" runat="server" visible="false">
+            <div class="row center mark1">
+            <span>Total Business in Last 5 Years (US$)</span>
+            </div>
+
+            <div class="formcontainer">
+            <div >
+            <div style="height:480px;width:100%; overflow:hidden; text-align:left; position:relative; ">
+                  <CR:CrystalReportViewer DisplayToolbar="False" ID="CrystalReportViewer1" runat="server" AutoDataBind="true" HasToggleGroupTreeButton="false" HasCrystalLogo="False" HasDrilldownTabs="False" HasToggleParameterPanelButton="false" HasZoomFactorList="False" ToolPanelView="None" CssClass="fsf" />
+            </div>
+            </div>
+            </div>
+        </div>
+        <!-- 12th Page *******Feed Back / Comments-->
+        <div class="pageframe"  id="dv_Page_9" runat="server" visible="false">
+            <div class="row center mark1">
+            <span>Feedback / Comments</span>
+            </div>
+            <table cellpadding="5" cellspacing="0" border="1" width="100%" style="border-collapse:collapse; text-align:center; color:#00478F " bordercolor="#0099CC">
+            <tr id="ratingctl">
+            <td style="width:20%; background-color:#FF5C33;cursor:pointer; color:White;" onclick="SetRating(-2,this)"><img src="Images/check_white.png" style="float:left;visibility:hidden;" class="check" />Poor</td>
+            <td style="width:20%; background-color:#FFB84D;cursor:pointer;" onclick="SetRating(-1,this)"><img src="Images/check_white.png" style="float:left;visibility:hidden;" class="check" />Below Avg.</td>
+            <td style="width:20%; background-color:#E6E6E6;cursor:pointer;" onclick="SetRating(0,this)"><img src="Images/check_white.png" style="float:left;visibility:hidden;" class="check" />Average</td>
+            <td style="width:20%; background-color:#99E699;cursor:pointer;" onclick="SetRating(1,this)"><img src="Images/check_white.png" style="float:left;visibility:hidden;" class="check" />Good</td>
+            <td style="width:20%; background-color:#19A347;cursor:pointer;color:White;" onclick="SetRating(2,this)"><img src="Images/check_white.png" style="float:left;visibility:hidden;" class="check" />Outstanding</td>
+            </tr>
+            <tr>
+            <td><asp:Label Text="" ID="Label_2" runat="server"></asp:Label></td>
+            <td><asp:Label Text="" ID="Label_1" runat="server"></asp:Label></td>
+            <td><asp:Label Text="" ID="Label0" runat="server"></asp:Label></td>
+            <td><asp:Label Text="" ID="Label1" runat="server"></asp:Label></td>
+            <td><asp:Label Text="" ID="Label2" runat="server"></asp:Label></td>
+            </tr>
+            </table>
+            <table cellpadding="5" cellspacing="0" width="100%" class="alternate_table">
+            <tr style="background-color:#fef6cd; font-weight:bold; height:30px;">
+            <td style="text-align:left;width:250px;">Comment By / On</td>
+            <td style="text-align:left">Comments</td>
+            <td style="width:150px;">Rating</td>
+            </tr>
+            <asp:Repeater runat="server" ID="rptComments">
+            <ItemTemplate>
+            <tr>
+            <td style="text-align:left"><%#Eval("CommentBy")%> / <%#Common.ToDateString(Eval("CommentOn"))%></td>
+            <td style="text-align:left;"><%#Eval("Comments")%></td>
+            <td style="text-align:center;"><%#Eval("RatingText")%></td>
+            </tr>
+            </ItemTemplate>
+            </asp:Repeater>
+            </table>
+        </div>
+        <div class="pageframe"  id="dv_Page_10" runat="server" visible="false">
+        <div style="padding:5px">
+        <div style="border-bottom:solid 5px #00b359; overflow:auto; margin-bottom:5px; ">
+            <ul class="topmenu">
+            <li><a class="activemenu" onclick="GoToPage2(1);">1. Submit for Approval</a></li>
+            <%--<li><a onclick="GoToPage2(2);">2. IInd Proposor Details</a></li>--%>
+            <li><a onclick="GoToPage2(2);">2. Ist Approval</a></li>
+            <li><a onclick="GoToPage2(3);">3. IInd Approval</a></li>
+            <li runat="server" id="liaccount"><a onclick="GoToPage2(4);">4. Accounts</a></li>
+            </ul>
+        </div>
+        <asp:Button runat="server" ID="btnTabNo" OnClick="btnTabNo_Click" CausesValidation="false" style="display:none" />
+        <asp:HiddenField runat="server" ID="hid_TabNo" Value="1" />
+        <asp:Panel runat="server" ID="pnlA1">
+        <div class="formcontainer">
+        <table cellpadding="3" cellspacing="0" width="99%" class="alternate_table" border="0">
+        <tr>
+        <td style="text-align:left;">
+            <b>Justificaton for new vendor.</b>
+            <asp:CheckBoxList ID="chk_justificationVendors" runat="server">
+            <asp:ListItem Text="Vendor in this location not available" Value="1"></asp:ListItem>
+            <asp:ListItem Text="Approved vendor's can not supply" Value="2"></asp:ListItem>
+            <asp:ListItem Text="Introduce better vendor" Value="3"></asp:ListItem>
+            <asp:ListItem Text="New product/service" Value="4"></asp:ListItem>
+            <asp:ListItem Text="Maker Approved" Value="5"></asp:ListItem>
+            </asp:CheckBoxList>
+              <table cellpadding="3" cellspacing="0" width="100%" class="alternate_table" border="0">
+             <colgroup>
+             <col style="text-align:left" />
+             <col style="text-align:left" />
+             </colgroup>
+             <tr><td colspan="2">Remarks</td></tr>
+             <tr>
+                <td colspan="2"><asp:TextBox runat="server" ID="txtPropRemarks" MaxLength="500" TextMode="MultiLine" Rows="6" Width="98%" ></asp:TextBox></td>
+             </tr>
+             <tr>
+                <td style="width:100px">Proposed By</td>
+                <td><asp:Label runat="server" ID="txt_ProposedBy" MaxLength="500" ></asp:Label></td>
+             </tr>
+             <tr>
+             <td>Position</td>
+             <td><asp:Label runat="server" ID="txt_proposedPosition"   MaxLength="500"></asp:Label></td>
+             </tr>
+             <tr>
+             <td>Date</td>
+             <td><asp:Label runat="server" ID="txt_ProposedOn" MaxLength="500"></asp:Label></td>
+             </tr>
+             <tr>
+             <td>First App.</td>
+             <td>
+               <asp:DropDownList runat="server" ID="ddlFwdAppTo" ValidationGroup="vp1" Width="300px"></asp:DropDownList>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ErrorMessage="*" ControlToValidate="ddlFwdAppTo" InitialValue="0" ValidationGroup="vp1"></asp:RequiredFieldValidator>
+            
+             </td>
+             </tr>
+             <tr>
+             <td>Second App.</td>
+             <td>
+             <asp:DropDownList runat="server" ID="ddlFwdApp2" ValidationGroup="vp1" Width="300px"></asp:DropDownList>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="*" ControlToValidate="ddlFwdApp2" InitialValue="0" ValidationGroup="vp1"></asp:RequiredFieldValidator>
+             </td>
+             </tr>
+             
+             <tr>
+             <td>Vendor Descr.</td>
+             <td>
+                <asp:LinkButton Text="( Select Services )" ID="lnkbtnSelectServices" OnClick="lnkbtnSelectServices_Click" runat="server" style="color:Red; float:right;" ></asp:LinkButton>
+                <asp:Label runat="server" ID="lblServices"></asp:Label>
+             </td>
+             </tr>
+             <%--<tr>
+             <td>Select IInd Proposer</td>
+             <td><asp:DropDownList ID="ddl_SecondedTo" runat="server" ValidationGroup="vp1"></asp:DropDownList>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="*" ControlToValidate="ddl_SecondedTo" InitialValue="0" ValidationGroup="vp1"></asp:RequiredFieldValidator></td>
+             </tr>--%>
+             </table>           
+             <div style="text-align:right; padding:4px;">
+                <asp:Button runat="server" ID="btnSubmit" CssClass="btn" Text="Save" onclick="btnSubmit_Click" ValidationGroup="vp1" />
+                <asp:Button runat="server" ID="btnNotifyByProposar" CssClass="btn" Text="Notify" OnClick="btnNotifyByProposar_Click" Visible="false" OnClientClick="this.value='Processing..';" />
+             </div>
+        </td>
+        <td style="vertical-align:top">
+        <div class="bold">&nbsp;<span>Select approved vendors whome you have tried for similier services.</span>( <asp:LinkButton ID="btn_selctvendors" runat="server"  Text="Select" OnClick="btn_selectvendors_Click" /> )</div>
+        <div class="row">
+         <table cellpadding="3" cellspacing="0" width="99%" class="alternate_table">
+          <tr style="background-color:#fef6cd; font-weight:bold; height:30px;">
+            <td style="text-align:left">Vendor Name</td> 
+            <td style="text-align:left">Email</td>              
+            <td></td>
+           </tr> 
+            <asp:Repeater ID="rpt_VendorsNameForJustification" runat="server" OnItemCommand="rpt_VendorsNameForJustification_ItemCommand">
+                <ItemTemplate>
+                <tr>
+                   <td style="text-align:left"><%#Eval("SupplierName")%><asp:HiddenField ID="hdn_SupplierID" Value='<%#Eval("SupplierID") %>' runat="server"></asp:HiddenField></td>                            
+                    <td><%#Eval("SupplierEmail")%></td>                    
+                   <td>
+                       <asp:HiddenField ID="hdn_SecondedToValue" runat="server"></asp:HiddenField>
+                       <asp:ImageButton ToolTip="Delete a record."  OnClientClick="javascript:return confirm('Are you sure to delete record?')" ID="imgBtnDelete" CommandName="Delete" CommandArgument='<%#Eval("SupplierID") %>' runat="server" ImageUrl="~/Modules/HRD/Images/Delete.jpg"></asp:ImageButton>
+                   </td>
+                </tr>
+                </ItemTemplate> 
+           </asp:Repeater>
+           </table>   
+         </div>
+        </td>
+        </tr>
+        </table>
+         </div>
+        </asp:Panel>
+       <%-- <asp:Panel runat="server" ID="pnlA2" Visible="false">
+        <div class="formcontainer">
+            <table cellpadding="3" cellspacing="0" width="100%" class="alternate_table">
+             <colgroup>
+             <col style="text-align:left" />
+             <col style="text-align:left" />
+             </colgroup>
+              <tr><td colspan="2">Remarks</td></tr>
+             <tr>
+                <td colspan="2"><asp:TextBox runat="server" ID="txtSecRemarks" MaxLength="500" TextMode="MultiLine" Rows="4" Width="98%" ></asp:TextBox></td>
+             </tr>
+             <tr>
+             <td  style="width:100px">IInd Proposer</td>
+             <td><asp:CheckBox ID="chk_SecondedTo_save" runat="server" Text="I Agree with proposer"  /></td>
+             </tr>
+             <tr>
+             <td>Name</td>
+             <td><asp:Label runat="server" ID="lblSecondedBy" ></asp:Label></td>
+             </tr>
+             <tr>
+             <td>Position</td>
+             <td><asp:Label runat="server" ID="lblSecondedByPos" ></asp:Label></td>
+             </tr>
+             <tr>
+             <td>Date</td>
+             <td><asp:Label runat="server" ID="lblSecondedOn" ></asp:Label></td>
+             </tr>
+             </table>
+
+             <div style="text-align:right; padding:4px;">
+               <asp:Button runat="server" ID="btnSave_IIndProposer" onclick="btnSave_IIndProposer_Click" CssClass="btn" Text="Save" />
+               
+            </div>
+         </div>
+        </asp:Panel>--%>
+        <asp:Panel runat="server" ID="pnlA2" Visible="false">
+        <div class="formcontainer" style="text-align:left">
+        <div>
+                <asp:HiddenField ID="hdn_VRID" runat="server" />
+                <asp:HiddenField ID="hdn_RequestStatus" runat="server" />
+                <asp:RadioButtonList ID="rd_ApprovalAcrion" runat="server"  AutoPostBack="true" RepeatDirection="Horizontal" onselectedindexchanged="rd_ApprovalAcrion_SelectedIndexChanged">
+                <asp:ListItem Text="Approved" Value="A"></asp:ListItem>
+                <asp:ListItem Text="Reject" Value="R"></asp:ListItem>
+                </asp:RadioButtonList>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*" ControlToValidate="rd_ApprovalAcrion" InitialValue="" ValidationGroup="vg1"></asp:RequiredFieldValidator>
+            </div>
+        <table cellpadding="3" cellspacing="0" width="100%" class="alternate_table">
+         <colgroup>
+         <col style="text-align:left" />
+         <col style="text-align:left" />
+         </colgroup>
+         <tr>
+            <td style="width:100px">Name</td>
+            <td><asp:Label runat="server" ID="txt_ApprovedBy" Width="90%" MaxLength="250" ValidationGroup="vg1" ></asp:Label></td>
+         </tr>
+         <tr>
+         <td>Position</td>
+         <td><asp:Label runat="server" ID="txt_ApprovedPosition" Width="90%" MaxLength="250" ValidationGroup="vg1" ></asp:Label></td>
+         </tr>
+         <tr id="tr_apprvalType" runat="server">
+         <td>Approval Type</td>
+         <td>  <asp:DropDownList ID="ddlApprovalType" runat="server" Width="150px" AutoPostBack="true" OnSelectedIndexChanged="ddlApprovalType_OnSelectedIndexChanged"> 
+                <asp:ListItem Text="Approval Type" Value="0"></asp:ListItem>
+                <asp:ListItem Text="Nominated / Contracted" Value="1"></asp:ListItem>
+                <asp:ListItem Text="OTA" Value="2"></asp:ListItem>
+                <asp:ListItem Text="Other" Value="3"></asp:ListItem>
+                <asp:ListItem Text="Owner's Recommendation" Value="6"></asp:ListItem>
+		<asp:ListItem Text="Maker" Value="7"></asp:ListItem>               
+            </asp:DropDownList>   
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="*" InitialValue="0" ValidationGroup="vg1" ControlToValidate="ddlApprovalType"></asp:RequiredFieldValidator>       
+                <asp:LinkButton Text="Select Fleet/Vessel" ID="lnkApp1" runat="server" Visible="false" OnClick="lnkApp1_Click"></asp:LinkButton>
+          </td>
+         </tr>
+         <tr id="tr_Validity1" runat="server">
+         <td>Valid Till Date</td>
+         <td>    <asp:TextBox ID="txt_ValidityDate" runat="server" MaxLength="11" Width="100px" ValidationGroup="vg1"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="*" ControlToValidate="txt_ValidityDate" ValidationGroup="vg1"></asp:RequiredFieldValidator>
+                <asp:CalendarExtender runat="server" ID="c1" Format="dd-MMM-yyyy" TargetControlID="txt_ValidityDate" ></asp:CalendarExtender>
+         </td>
+         </tr>
+         <tr>
+         <td>Remarks</td>
+         <td>  <asp:TextBox runat="server" ID="txt_ApprovedRemakrs" CssClass="control" Width="90%"  TextMode="MultiLine" Rows="3" MaxLength="250" ValidationGroup="vg1"></asp:TextBox>  
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="*" ControlToValidate="txt_ApprovedRemakrs" ValidationGroup="vg1"></asp:RequiredFieldValidator>         
+        </td>
+         </tr>
+        </table>
+        <div style="padding:5px">
+            <b>Please select list of service which can be approved from vendor selection.</b>
+            <div>
+                <asp:CheckBoxList id="chkAppServices" runat="server" RepeatColumns="4" ></asp:CheckBoxList>               
+            </div>
+        </div>
+         <div style="padding:5px">
+            <div><b>Services (Specify) : </b><asp:Label runat="server" ID="lbl_services_specify"></asp:Label></div>
+            <div><b>Additional Description : </b><asp:Label runat="server" ID="lbl_services_add"></asp:Label></div>
+            <div><b>Other Services : </b><asp:Label runat="server" ID="lbl_services_other"></asp:Label></div>            
+         </div>
+        <div style="text-align:right; padding:4px;">
+              <asp:Button runat="server" ID="btnSave_IstApproval"  OnClick="btnSave_IstApproval_Click" CssClass="btn" Text="Save" ValidationGroup="vg1" />       
+              <asp:Button runat="server" ID="btnNotifyByApprover1" CssClass="btn" Text="Notify" OnClick="btnNotifyByApprover1_Click" Visible="false"  OnClientClick="this.value='Processing..';"/>
+        </div>
+        </div>
+        </asp:Panel>
+        <asp:Panel runat="server" ID="pnlA3" Visible="false">
+        <div class="formcontainer"  style="text-align:left">
+        <div>           
+                    <asp:RadioButtonList ID="rd_ApprovalAcrion_2" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" onselectedindexchanged="rd_ApprovalAcrion_2_SelectedIndexChanged" >
+                    <asp:ListItem Text="Approved" Value="A" ></asp:ListItem>
+                    <asp:ListItem Text="Reject" Value="R"></asp:ListItem>
+                    </asp:RadioButtonList>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="*" InitialValue="" ValidationGroup="vg2" ControlToValidate="rd_ApprovalAcrion_2"></asp:RequiredFieldValidator>       
+                    
+            </div>  
+        <table cellpadding="3" cellspacing="0" width="100%" class="alternate_table">
+         <colgroup>
+         <col style="text-align:left" />
+         <col style="text-align:left" />
+         </colgroup>
+         
+         <tr id="tr_apprvalType_2" runat="server">
+         <td>Approval Type</td>
+         <td><asp:DropDownList ID="ddlApprovalType_2" runat="server" Width="150px" ValidationGroup="vg2" AutoPostBack="true" OnSelectedIndexChanged="ddlApprovalType_2_OnSelectedIndexChanged"> 
+                <asp:ListItem Text="Approval Type" Value="0"></asp:ListItem>
+                <asp:ListItem Text="Nominated / Contracted" Value="1"></asp:ListItem>
+                <asp:ListItem Text="OTA" Value="2"></asp:ListItem>
+                <asp:ListItem Text="Other" Value="3"></asp:ListItem>               
+                <asp:ListItem Text="Owner's Recommendation" Value="6"></asp:ListItem>  
+		<asp:ListItem Text="Maker" Value="7"></asp:ListItem>              
+            </asp:DropDownList>   
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ErrorMessage="*" InitialValue="0" ControlToValidate="ddlApprovalType_2" ValidationGroup="vg2" Display="Static"></asp:RequiredFieldValidator>       
+            <asp:LinkButton Text="Select Fleet/Vessel" ID="lnkApp2" runat="server" Visible="false" OnClick="lnkApp2_Click"></asp:LinkButton>
+             </td>
+         </tr>
+        <tr id="tr_validity_2" runat="server">
+         <td>Valid Till Date</td>
+         <td>       <asp:TextBox ID="txt_ValidityDate_2" runat="server" MaxLength="11" Width="100px"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ErrorMessage="*" ControlToValidate="txt_ValidityDate_2" ValidationGroup="vg2" Display="Static"></asp:RequiredFieldValidator>
+                <asp:CalendarExtender runat="server" ID="CalendarExtender1" Format="dd-MMM-yyyy" TargetControlID="txt_ValidityDate_2"></asp:CalendarExtender>
+      </td>
+         </tr>
+         <tr>
+         <td>Remarks</td>
+         <td>    <asp:TextBox runat="server" ID="txt_ApprovedRemakrs_2" CssClass="control" Width="90%"  TextMode="MultiLine" Rows="3" MaxLength="250" ValidationGroup="vg2" ></asp:TextBox>  
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ErrorMessage="*" ControlToValidate="txt_ApprovedRemakrs_2" ValidationGroup="vg2" Display="Static"></asp:RequiredFieldValidator>         
+       </td>
+         </tr>
+         <tr>
+            <td style="width:100px">Name</td>
+            <td><asp:Label runat="server" ID="txt_ApprovedBy_2" Width="90%" MaxLength="250" ></asp:Label></td>
+         </tr>
+         <tr>
+         <td>Position</td>
+         <td><asp:Label runat="server" ID="txt_ApprovedPosition_2"  Width="90%" MaxLength="250" ></asp:Label> </td>
+         </tr>
+         </table>
+        <div style="text-align:right; padding:4px;">
+        <asp:Button runat="server" ID="btnSave_IIndApproval"  OnClick="btnSave_IIndApproval_Click" CssClass="btn" Text="Save" ValidationGroup="vg2" />       
+        <asp:Button runat="server" ID="btnNotifyByApprover2" CssClass="btn" Text="Notify" OnClick="btnNotifyByApprover2_Click" Visible="false"  OnClientClick="this.value='Processing..';"/>
+        </div>
+        </div>
+        </asp:Panel>
+        <asp:Panel runat="server" ID="pnlA4" Visible="false">
+         <div class="formcontainer"> 
+            <div class="row" >           
+            <span class="label">Vendor Name </span>
+             <span class="controlarea">&nbsp;
+                <asp:Label runat="server" ID="lblVendorName" ></asp:Label>
+                </span>
+            </div>
+            <div class="row" >           
+            <span class="label">Accts System Code</span>
+             <span class="controlarea">&nbsp;
+                 <asp:TextBox ID="txtTravCode" runat="server" MaxLength="10" Width="300px" ></asp:TextBox>
+                 <asp:RequiredFieldValidator ID="RequiredFieldValidator25" runat="server" ErrorMessage="*" ControlToValidate="txtTravCode" InitialValue="" ValidationGroup="v45"></asp:RequiredFieldValidator>
+             </span>
+            </div>
+            <%--<div class="row">
+                <span class="label">Traverse Vendor</span>
+                <span class="controlarea">&nbsp;
+                    <asp:DropDownList ID="ddlTravVendor" runat="server"  Width="300px" AutoPostBack="true" OnSelectedIndexChanged="ddlTravVendor_OnSelectedIndexChanged"></asp:DropDownList>
+                    <asp:Label runat="server" ID="lblVenCode" Font-Bold="true" ForeColor="Blue" Font-Size="Large"></asp:Label>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator14" runat="server" ErrorMessage="*" ControlToValidate="ddlTravVendor" InitialValue="0" ValidationGroup="v45"></asp:RequiredFieldValidator>
+                </span>
+            </div>--%>
+            <div class="row">
+                <span class="label"> Multi Currency </span>
+                <span class="controlarea">&nbsp;
+                <asp:DropDownList ID="ddlMultiCurr" runat="server" Width="300px" >
+                    <asp:ListItem Value="" Text="< Select >"></asp:ListItem>
+                    <asp:ListItem Value="1" Text="Yes" Selected="true"></asp:ListItem>
+                    <asp:ListItem Value="0" Text="No"></asp:ListItem>
+                </asp:DropDownList>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator13" runat="server" ErrorMessage="*" ControlToValidate="ddlMultiCurr" InitialValue="" ValidationGroup="v45"></asp:RequiredFieldValidator>
+                </span> 
+            </div>
+            <div class="row" >           
+            <span class="label"> Country </span>
+             <span class="controlarea">&nbsp;
+                 <asp:DropDownList ID="ddlCountry" runat="server" Width="300px" ></asp:DropDownList>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator19" runat="server" ErrorMessage="*" ControlToValidate="ddlCountry" InitialValue="" ValidationGroup="v45"></asp:RequiredFieldValidator>
+             </span>
+            </div>
+             
+            <div class="row" >           
+            <span class="label"> Terms Code </span>
+             <span class="controlarea">&nbsp;
+                 <asp:DropDownList ID="ddlTermsCode" runat="server" Width="300px" ></asp:DropDownList>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator20" runat="server" ErrorMessage="*" ControlToValidate="ddlTermsCode" InitialValue="" ValidationGroup="v45"></asp:RequiredFieldValidator>
+             </span>
+            </div>
+             
+              <div class="row" >           
+            <span class="label"> Distribution Code </span>
+             <span class="controlarea">&nbsp;
+                 <asp:DropDownList ID="ddlDistributionCode" runat="server" Width="300px" ></asp:DropDownList>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator22" runat="server" ErrorMessage="*" ControlToValidate="ddlDistributionCode" InitialValue="" ValidationGroup="v45"></asp:RequiredFieldValidator>
+             </span>
+            </div>
+
+            <div class="row" >           
+            <span class="label"> Tax Group </span>
+             <span class="controlarea">&nbsp;
+                 <asp:DropDownList ID="ddlTaxGroupCode" runat="server" Width="300px" ></asp:DropDownList>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator14" runat="server" ErrorMessage="*" ControlToValidate="ddlTaxGroupCode" InitialValue="" ValidationGroup="v45"></asp:RequiredFieldValidator>
+             </span>
+            </div>
+
+              <div class="row" >           
+            <span class="label"> Currency Id </span>
+             <span class="controlarea">&nbsp;
+                 <asp:DropDownList ID="ddlCurrencyId" runat="server" Width="300px" ></asp:DropDownList>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator23" runat="server" ErrorMessage="*" ControlToValidate="ddlCurrencyId" InitialValue="" ValidationGroup="v45"></asp:RequiredFieldValidator>
+             </span>
+            </div>
+
+          
+            <div class="row" >           
+            <span class="label"> Telephone </span>
+             <span class="controlarea">&nbsp;
+                <asp:Label runat="server" ID="lblTelephone"></asp:Label>
+             </span>
+            </div>
+            <div class="row" >           
+            <span class="label"> Fax </span>
+             <span class="controlarea">&nbsp;
+                <asp:Label runat="server" ID="lblFax"></asp:Label>
+             </span>
+            </div>
+            <div class="row" >           
+            <span class="label"> Contact </span>
+             <span class="controlarea">&nbsp;
+                <asp:Label runat="server" ID="lblContact"></asp:Label>
+             </span>
+            </div>
+             <div class="row" >           
+            <span class="label"> E-mail Address </span>
+             <span class="controlarea">&nbsp;
+                <asp:Label runat="server" ID="lblEmailAddress"></asp:Label>
+                </span>
+            </div>
+            <div class="row" >           
+            <span class="label"> Approval Type </span>
+             <span class="controlarea">&nbsp;
+                <asp:Label runat="server" ID="lblApprovalType"></asp:Label>
+             </span>
+            </div>
+            </div>
+            <div style="text-align:center; padding:5px">
+                <asp:Button runat="server" ID="btnSave_Account" onclick="btn_MoveTraverse_Click" CssClass="btn" Text="Save" Visible="false" ValidationGroup="v45"/>
+            </div>
+        </asp:Panel>
+        </div>
+        </div>
+
+
+        <!-- Eight Page *******(Proposal) added by laxmi on 8oct2015-->
+        <div class="pageframe"  id="dv_Page_15" runat="server" visible="false">
+        <iframe runat="server" src="ModifyVendorProfile_Approval.aspx" id="appfrm" width="100%" height="550px" frameborder="0"></iframe>
+        
+        </div>
+        <!-- Nineth Page *******(for Account)added by laxmi on 8oct2015-->        
+        <div class="pageframe"  id="dv_Page_16" runat="server" visible="false">
+         <div class="left mark1"><span>Traverse & Account Details</span></div>
+           
+          </div>
+        <!-- 10th Page *******(Proposal) added by laxmi on 8oct2015-->
+        <div class="pageframe"  id="dv_Page_17" runat="server" visible="false" >
+         <table width="100%" cellpadding="0" cellspacing="0" border="0" height="550px">
+         <tr>
+         <td style="text-align:left;vertical-align:top;">
+         <div class="row center mark1">
+            <span>Evaluation by Manager</span>
+            </div>
+         <asp:UpdatePanel runat="server" ID="UpdatePanel1">
+         <ContentTemplate>
+         <table width="99%" cellpadding="3" cellspacing="0" border="0">
+         <colgroup>
+         <col align="left" width="150px" />
+         <col align="left" />
+         </colgroup>
+         <tr>
+            <td>Allow to continue :</td>
+            <td>
+             <asp:DropDownList runat="server" ID="radEval1" ValidationGroup="v90" AutoPostBack="true" OnSelectedIndexChanged="radEval1_OnSelectIndexChanged">
+                    <asp:ListItem Text="" Value=""></asp:ListItem>
+                    <asp:ListItem Text="Yes" Value="A"></asp:ListItem>
+                    <asp:ListItem Text="No" Value="I"></asp:ListItem>
+                </asp:DropDownList>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator15" runat="server" ErrorMessage="*" ControlToValidate="radEval1" ValidationGroup="v90"></asp:RequiredFieldValidator>
+            </td>
+         </tr>
+         
+          <tr runat="server" id="tr11" visible="false">
+        <td>Approval Type</td>
+          <td><asp:DropDownList ID="ddlEvalType_1" runat="server" Width="150px" ValidationGroup="vg2" AutoPostBack="true" OnSelectedIndexChanged="ddlEvalType_1_OnSelectedIndexChanged"> 
+                <asp:ListItem Text="Approval Type" Value="0"></asp:ListItem>
+                <asp:ListItem Text="Nominated / Contracted" Value="1"></asp:ListItem>
+                <asp:ListItem Text="Other" Value="3"></asp:ListItem>               
+                <asp:ListItem Text="Owner's Recommendation" Value="6"></asp:ListItem>
+		<asp:ListItem Text="Maker" Value="7"></asp:ListItem>                
+            </asp:DropDownList>   
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator12" runat="server" ErrorMessage="*" InitialValue="0" ControlToValidate="ddlEvalType_2" ValidationGroup="vg2" Display="Static"></asp:RequiredFieldValidator>       
+            <asp:LinkButton Text="Select Fleet/Vessel" ID="lnkEval1" runat="server" Visible="false" OnClick="lnkEval1_Click" CausesValidation="false"></asp:LinkButton>
+             </td>
+        </tr>
+         <tr runat="server" id="tr1" visible="false">
+            <td>Valid Till Date: </td>
+            <td>
+                  <asp:TextBox runat="server" ID="txtValidTillDate1" Width="100" MaxLength="15" ValidationGroup="v90"></asp:TextBox>
+                  <asp:CalendarExtender runat="server" ID="CalendarExtender2" Format="dd-MMM-yyyy" TargetControlID="txtValidTillDate1"></asp:CalendarExtender>
+            </td>
+         </tr>
+
+             <tr id="trBlackList1" runat="server" visible="false">
+                 <td>Blacklist</td>
+                 <td>
+                     <asp:CheckBox ID="chkBlackList1" runat="server" />
+                 </td>
+             </tr>
+         <tr>
+            <td style="vertical-align:top">Remarks : </td>
+            <td>
+                <asp:TextBox runat="server" ID="txtEvalRemarks1" TextMode="MultiLine" Rows="6" Width="90%" ValidationGroup="v90"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator16" runat="server" ErrorMessage="*" ControlToValidate="txtEvalRemarks1" InitialValue="" ValidationGroup="v90"></asp:RequiredFieldValidator>
+            </td>
+         </tr>
+          <tr>
+            <td>Evaluated By : </td>
+            <td>
+                <asp:Label runat="server" ID="lblEval1BY" Width="90%"></asp:Label>
+            </td>
+         </tr>
+         <tr>
+            <td>Evaluated On : </td>
+            <td>
+                <asp:Label runat="server" ID="lblEval1On" Width="90%"></asp:Label>
+            </td>
+         </tr>
+         </table>
+         <div style="padding:5px">
+            <%--<b>Please select list of service which can be approved from vendor selection.</b>--%>
+            <div>
+                <asp:CheckBoxList id="chkAppServices1" runat="server" RepeatColumns="3" ></asp:CheckBoxList>               
+            </div>
+        </div>
+         </ContentTemplate>
+         </asp:UpdatePanel>
+         <div style="text-align:right; padding:5px;padding-right:20px">
+                <asp:Button runat="server" ID="btnEvaluate1" onclick="btnEvaluate1_Click" CssClass="btn" Text="Save" ValidationGroup="v90"/>
+         </div>
+         </td>
+         <td style="width:1px; background-color:#eeeeee;">&nbsp;</td>
+         <td style="text-align:left;width:50%; vertical-align:top; ">
+         <div class="row center mark1">
+            <span>Evaluation by Management</span>
+            </div>
+         <asp:UpdatePanel runat="server" ID="re">
+         <ContentTemplate>
+         <table width="99%" cellpadding="3" cellspacing="0" border="0">
+         <colgroup>
+         <col align="left" width="150px" />
+         <col align="left" />
+         <tr>
+            <td>Allow to continue :</td>
+            <td><asp:DropDownList runat="server" ID="radEval2" ValidationGroup="v90" AutoPostBack="true" OnSelectedIndexChanged="radEval2_OnSelectIndexChanged">
+                    <asp:ListItem Text="" Value=""></asp:ListItem>
+                    <asp:ListItem Text="Yes" Value="A"></asp:ListItem>
+                    <asp:ListItem Text="No" Value="I"></asp:ListItem>
+                </asp:DropDownList>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator18" runat="server" ErrorMessage="*" ControlToValidate="radEval2" ValidationGroup="v91"></asp:RequiredFieldValidator></td>
+         </tr>
+        <tr runat="server" id="tr22" visible="false">
+        <td>Approval Type</td>
+          <td><asp:DropDownList ID="ddlEvalType_2" runat="server" Width="150px" ValidationGroup="vg2" AutoPostBack="true" OnSelectedIndexChanged="ddlEvalType_2_OnSelectedIndexChanged"> 
+                <asp:ListItem Text="Approval Type" Value="0"></asp:ListItem>
+                <asp:ListItem Text="Nominated / Contracted" Value="1"></asp:ListItem>
+                <asp:ListItem Text="Other" Value="3"></asp:ListItem>               
+                <asp:ListItem Text="Owner's Recommendation" Value="6"></asp:ListItem>  
+<asp:ListItem Text="Maker" Value="7"></asp:ListItem>              
+            </asp:DropDownList>   
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ErrorMessage="*" InitialValue="0" ControlToValidate="ddlEvalType_2" ValidationGroup="vg2" Display="Static"></asp:RequiredFieldValidator>       
+            <asp:LinkButton Text="Select Fleet/Vessel" ID="lnkEval2" runat="server" Visible="false" OnClick="lnkEval2_Click" CausesValidation="false"></asp:LinkButton>
+             </td>
+        </tr>
+         <tr runat="server" id="tr2" visible="false">
+
+            <td>Valid Till Date: </td>
+            <td>
+                  <asp:TextBox runat="server" ID="txtValidTillDate2" Width="100" MaxLength="15" ValidationGroup="v91"></asp:TextBox>
+                  <asp:CalendarExtender runat="server" ID="CalendarExtender3" Format="dd-MMM-yyyy" TargetControlID="txtValidTillDate2"></asp:CalendarExtender>
+            </td>
+         </tr>
+             <tr id="trBlacklist2" runat="server" visible="false">
+                 <td>Blacklist</td>
+                 <td>
+                     <asp:CheckBox ID="chkBlacklist2" runat="server" />
+                 </td>
+             </tr>
+         <tr>
+            <td style="vertical-align:top">Remarks : </td>
+            <td>
+                <asp:TextBox runat="server" ID="txtEvalRemarks2" TextMode="MultiLine" Rows="6" Width="90%"  ValidationGroup="v91"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator17" runat="server" ErrorMessage="*" ControlToValidate="txtEvalRemarks2" ValidationGroup="v91"></asp:RequiredFieldValidator>
+
+            </td>
+         </tr>
+          <tr>
+            <td>Evaluated By : </td>
+            <td>
+                <asp:Label runat="server" ID="lblEval2By" Width="90%"></asp:Label>
+            </td>
+         </tr>
+         <tr>
+            <td>Evaluated On : </td>
+            <td>
+                <asp:Label runat="server" ID="lblEval2On" Width="90%"></asp:Label>
+            </td>
+         </tr>
+         </table>
+         </ContentTemplate>
+         <Triggers>
+         <asp:PostBackTrigger ControlID="lnkEval1" />
+         <asp:PostBackTrigger ControlID="lnkEval2" />
+         </Triggers>
+         </asp:UpdatePanel>
+            <div style="text-align:right; padding:5px; padding-right:20px">
+                <asp:Button runat="server" ID="btnEvaluate2" onclick="btnEvaluate2_Click" CssClass="btn" Text="Save" ValidationGroup="v91"/>
+            </div>
+         </td>
+         </tr>
+         </table>
+        </div>
+        <div class="pageframe"  id="dv_Page_18" runat="server" visible="false" >
+            <h1>Documents</h1>
+            <iframe runat="server" width="100%" height="400px" src="" frameborder="0" scrolling="auto" id="frmdoc" name="frmdoc"></iframe>
+        </div>
+        </div>
+        <div class="modalframe" runat="server" id="dvSelectVendors" visible="false">
+        <div class="modalborder">
+            <div class="modalcontainer">
+             <table width="100%" cellpadding="4">
+             <tr style="font-weight:bold; font-size:16px;">
+             <td>Select Businesses</td>
+             </tr>
+             <tr>
+             <td style="text-align:left">
+                <asp:CheckBoxList runat="server" ID="chkBusiness" RepeatColumns="4" Width="100%" ValidationGroup="v49"></asp:CheckBoxList>
+             </td>
+             </tr>
+             <tr><td>
+                Other Business ( if any ) 
+                <asp:TextBox runat="server" ID="txtOtherName" Width="100%"></asp:TextBox>
+             </td></tr>
+             </table>
+            <div style="padding:5px">
+              
+              <asp:Button runat="server" ID="btnSaveBus" OnClick="btnSaveBusiness_Click" CssClass="btn" Text="Save" ValidationGroup="v49"/>
+              <asp:Button runat="server" ID="btnCloseBus" OnClick="btnCloseBusiness_Click" CssClass="btn close" Text="Close" CausesValidation="false"/>
+            </div>
+             </div>
+            
+        
+            </div>
+            </div>
+        </ContentTemplate>
+        <Triggers>
+        <asp:PostBackTrigger ControlID="btn_selctvendors" />
+        <asp:PostBackTrigger ControlID="lnkApp1" />
+        <asp:PostBackTrigger ControlID="lnkApp2" />
+        <asp:PostBackTrigger ControlID="lnkbtnSelectServices" />
+        
+        </Triggers>
+        </asp:UpdatePanel>
+        </td>
+        </tr>
+        <tr>
+        <td style="width:200px; text-align:left; vertical-align:top; border-right:solid 5px #00b359; ">&nbsp;</td>
+        <td style="padding-left:3px;">&nbsp;</td>
+        </tr>
+        </table>
+        </div>
+    </div>
+    <div class="actionbox">
+        <table cellpadding="3" cellspacing="0" border="0" width="100%">
+        <tr>
+        <td style="text-align:right; padding-right:15px;">
+            <%--<asp:Button runat="server" ID="btnApproval" Text="Vendor Approval" CssClass="btn" OnClientClick="GoToPage(15); return false;"  Visible="false"/>
+            <asp:Button runat="server" ID="btnAccount" Text="Traverse & Accounts " CssClass="btn" OnClientClick="GoToPage(16); return false;"  Visible="false"/>
+            <asp:Button runat="server" ID="btnEvaluation" Text="Vendor Evaluation" CssClass="btn" OnClientClick="GoToPage(17); return false;" Visible="false"/>--%>
+            <asp:Button runat="server" ID="btnClose" Text="Close"  CssClass="btn close" OnClientClick="window.close(); return false;"/>
+        </td>
+        </tr>
+        </table>
+    </div>
+        
+    <%--for proposal select vendors--%>
+    <div class="modalframe" runat="server" id="modalframe_SelectVendors" visible="false">
+        <div class="modalborder">
+            <div class="modalcontainer" style="overflow-y: hidden;height: 500px;">
+            <h2>Vendors for justification</h2>
+             <div style="height:420px; OVERFLOW-Y: scroll; OVERFLOW-X:hidden ;">  
+             <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="Please select at least one record." ClientValidationFunction="Validate" ForeColor="Red"></asp:CustomValidator>
+             <table cellpadding="3"  id="tblVendors" cellspacing="0"  border="1" rules="rows" width="100%" class="alternate_table" style="border-collapse:collapse" >
+                    <colgroup>
+                    <col width="50px" />
+                    <col width="50px" />  
+                    <col   />
+                    <col width="100px" />  
+                    <col width="200px" /> 
+                    </colgroup>
+                <asp:Repeater ID="rpt_VendorList" runat="server"  >
+                    <ItemTemplate>
+                             <tr>
+                                <td><asp:CheckBox ID="chk_VendorList" Text="" runat="server" /></td>
+                                <td align="center"> <%#Eval("srno")%>.</td>
+                                <td align="left">
+                                    <asp:HiddenField ID="hdn_SupplierID" runat="server"  Value='<%#Eval("SupplierID")%>'></asp:HiddenField>
+                                     <asp:Label ID="lblSupplierName" runat="server" Text='<%#Eval("SupplierName")%>'></asp:Label>
+                                </td>
+                                <td align="left"> <%#Eval("TravID")%> </td>
+                                <td align="left"> <%#Eval("SupplierEmail")%> </td>                                
+                            </tr>
+                    </ItemTemplate>
+                </asp:Repeater>
+            </table>
+            
+            </div>           
+           <div>            
+              <asp:Button runat="server" ID="btn_SaveVendors" OnClick="btn_savemodel3_Click" CssClass="btn" Text="Save"  />       
+              <asp:Button runat="server" ID="btn_CloseVendors" OnClick="btnCloseModal3_Click" CssClass="btn close" Text="Close" CausesValidation="false"/>
+            </div>
+       
+            </div>
+         </div>
+     </div>
+    <%--for select nomination--%>
+    <div class="modalframe" runat="server" id="dvNomination" visible="false">
+        <div class="modalborder">
+            <div class="modalcontainer">
+             <table width="100%" cellpadding="4">
+             <tr style="font-weight:bold; font-size:16px;">
+             <td>Select Fleet</td>
+             <td>Select Vessel</td>
+             </tr>
+             <tr>
+             <td style="text-align:left; width:30%;">
+                <div style="height:500px; overflow-x:hidden; overflow-y:scroll; text-align:left; border:solid 1px #e2e2e2">
+                    <asp:CheckBoxList runat="server" ID="chkFleets"></asp:CheckBoxList>
+                </div>
+             </td>
+             <td>
+                <div style="height:500px; overflow-x:hidden; overflow-y:scroll;text-align:left; border:solid 1px #e2e2e2">
+                    <asp:CheckBoxList runat="server" ID="chkVessels" RepeatColumns="3" Width="100%"></asp:CheckBoxList></td>
+             </tr>
+             </table>
+            <div style="padding:5px">
+              <asp:HiddenField runat="server" ID="hfdNominationStage" />
+
+              <asp:Button runat="server" ID="btnSaveNomination" OnClick="btnSaveNomination_Click" CssClass="btn" Text="Save" ValidationGroup="v45"/>
+              <asp:Button runat="server" ID="btnCloseNomination" OnClick="btnCloseNomination_Click" CssClass="btn close" Text="Close" CausesValidation="false"/>
+            </div>
+             </div>
+            
+        
+            </div>
+            </div>
+
+    </div>
+    <script type="text/javascript">
+    if($(".leftmenu")!=null)
+        $(".leftmenu li:nth-child(<%=PageNo%>) > a").addClass("activemenu");
+    </script>
+    <script type="text/javascript" language="javascript">
+
+        function SetActiveStageTab(MaxStage) {
+            var i = 1;
+            if ($(".topmenu").length > 0) {
+                $(".topmenu li").each(function (i, o) {
+                    if (i < MaxStage)
+                        $(this).find("a").addClass("done");
+                    i++;
+                });
+            }
+        }
+        function GoToPage(pageno) {
+                $(".leftmenu li > a").removeClass("activemenu");
+                $(".leftmenu li:nth-child(" + pageno + ") > a").addClass("activemenu");
+                $("#hid_PageNo").val(pageno);
+                $("#btnPageNo").click();
+               
+         }
+         function SetTab2() {
+             if ($(".topmenu").length>0) {
+                 $(".topmenu li > a").removeClass("activemenu");
+                 $(".topmenu li:nth-child(" + $("#hid_TabNo").val() + ") > a").addClass("activemenu");
+                 SetActiveStageTab(<%=ApprovalStageDone%>);
+             }
+         }
+         SetActiveStageTab();
+         function GoToPage2(pageno) {
+             SetTab2();
+             $("#hid_TabNo").val(pageno);
+             $("#btnTabNo").click();
+         }
+
+    </script>
+    <script type="text/javascript">
+        function OpenProposal() {
+            $("#hid_TabNo").val("1");
+            GoToPage(10);
+        }
+        OpenProposal();
+    </script>
+    </form>
+</body>
+</html>

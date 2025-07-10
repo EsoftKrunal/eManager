@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Compansation>
+  <Detail>
+    <srno>1</srno>
+    <employeeno>E0001</employeeno>
+    <BasePay>4000</BasePay>
+    <Commissions>10%</Commissions>
+    <Overtimepay>200</Overtimepay>
+    <Bonuses>600</Bonuses>
+    <TravelAllowance>250</TravelAllowance>
+    <Benefits>500</Benefits>
+  </Detail>
+</Compansation>

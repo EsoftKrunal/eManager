@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Employeedetail>
+  <Detail>
+    <srno>1</srno>
+    <employeeno>E0001</employeeno>
+    <firstname>Demo Data</firstname>
+    <secondname>Demo Data</secondname>
+    <familyname>DemoFamily</familyname>
+    <dateofbirth>20-april-1985</dateofbirth>
+    <signondate>20-Sep-2011</signondate>
+    <signoffdate>25-Dec-2011</signoffdate>
+    <gender>Male</gender>
+    <nationality>Singapore</nationality>
+    <age>25</age>
+    <status>Working</status>
+    <height>6'.2''</height>
+  </Detail>
+ </Employeedetail>

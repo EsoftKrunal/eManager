@@ -1,0 +1,453 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using System.IO;
+using System.Configuration;
+
+public partial class Invoice_InvoiceEntry : System.Web.UI.Page
+{
+    Random r = new Random();
+    public DataTable PoNos
+    {
+        set
+        {ViewState["PoNos"] = value;}
+        get 
+        {
+            if (ViewState["PoNos"] == null)
+            {
+                DataTable dt=new DataTable();
+                dt.Columns.Add(new DataColumn("PONO",typeof (string)));
+                dt.Columns.Add(new DataColumn("BIDID", typeof(string)));
+                //dt.Columns.Add(new DataColumn("OTHEROTHERINVID", typeof(string)));
+                //dt.Columns.Add(new DataColumn("OTHERREFNO", typeof(string)));
+                ViewState["PoNos"] =dt;
+            }
+
+            return (DataTable)ViewState["PoNos"];
+        }
+    }
+    public int AdvancePaymentId
+    {
+        get { return Convert.ToInt32(ViewState["AdvancePaymentId"]); }
+        set { ViewState["AdvancePaymentId"] = value; }
+    }
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        //---------------------------------------
+        ProjectCommon.SessionCheck();
+        //---------------------------------------
+        if (!Page.IsPostBack)
+        {
+           // txt_DueDate.Text = DateTime.Today.AddMonths(1).ToString("dd-MMM-yyyy");
+
+            bindVesselNameddl();
+            bindCurrencyddl();
+            bindForwardToddl();
+          //  ViewState["TempFilePath"] = "";
+            if (Request.QueryString["AdvancePaymentId"] != null && Request.QueryString["AdvancePaymentId"].ToString() != "")
+            {
+                AdvancePaymentId =  Common.CastAsInt32(Request.QueryString["AdvancePaymentId"].ToString());
+                ShowInvoiceDetails();
+            }
+
+            if (Request.QueryString["Mode"] != null && Request.QueryString["Mode"].ToString() == "1")
+            {
+                btn_Save.Visible = false;
+                btnForwardTo.Visible = false;
+            }
+
+        }
+        //  tab_Upload.Visible = (AdvancePaymentId <= 0);
+    }
+    public void ShowInvoiceDetails()
+    {
+        btnClip.Visible = false;
+        btnClipText.Visible = false;
+
+        string SQL = "SELECT * FROM dbo.vw_POS_Invoices_AdvancePayment WHERE [AdvPaymentId] = " + AdvancePaymentId;
+        DataTable dt = Common.Execute_Procedures_Select_ByQuery(SQL);
+
+        if (dt.Rows.Count > 0)
+        {
+            lblRefNo.Text = dt.Rows[0]["RefNo"].ToString();
+            txtSupplier.Text = dt.Rows[0]["Vendor"].ToString();
+            hfdSupplier.Value = dt.Rows[0]["SupplierId"].ToString();
+            txt_InvNo.Text = dt.Rows[0]["PerfromaInvNo"].ToString();
+            txt_InvDate.Text = Common.ToDateString(dt.Rows[0]["PerfromaInvDate"]);
+           // txt_DueDate.Text = Common.ToDateString(dt.Rows[0]["DueDate"]);
+            txt_InvAmount.Text = dt.Rows[0]["InvAmount"].ToString();
+            ddCurrency.SelectedValue = dt.Rows[0]["Currency"].ToString();
+            ddl_Vessel.SelectedValue = dt.Rows[0]["VesselCode"].ToString();
+            //txtPoNo.Text = dt.Rows[0]["PONo"].ToString();
+            if (dt.Rows[0]["AttachmentName"].ToString().Trim() != "")
+            {
+                btnClip.Visible = true;
+                btnClipText.Visible = true;
+                btnClipText.Text = dt.Rows[0]["AttachmentName"].ToString();
+            }
+
+            txtEntryComments.Text = dt.Rows[0]["EntryComments"].ToString();
+            ddlForwardTo.SelectedValue = dt.Rows[0]["ApprovalFwdTo"].ToString();
+
+            //---------
+            tblSaveInv.Visible = true;
+            tblForwardTo.Visible = true;
+            //---------
+            string sql="SELECT PONO,BidId " +
+                       "FROM " +
+                       "DBO.POS_Invoice_AdvancePayment I " +
+                       "WHERE I.AdvPaymentId=" + AdvancePaymentId;
+            PoNos = Common.Execute_Procedures_Select_ByQuery(sql);
+            BindPoList();
+        }
+
+    }
+    protected void bindVesselNameddl()
+    {
+        string sql = "SELECT shipid,shipid + ' - ' + SHIPNAME AS SHIPNAME from VW_ACTIVEVESSELS  where VesselNo in (Select VesselId from UserVesselRelation with(nolock) where Loginid = "+ Convert.ToInt32(Session["loginid"].ToString())+")  ORDER BY SHIPNAME";
+        DataTable dt = Common.Execute_Procedures_Select_ByQuery(sql);
+        ddl_Vessel.DataSource = dt;
+        ddl_Vessel.DataValueField = "shipid";
+        ddl_Vessel.DataTextField = "SHIPNAME";
+        ddl_Vessel.DataBind();
+        ddl_Vessel.Items.Insert(0, new ListItem("< Select Vessel >", "0"));
+    }
+    protected void bindCurrencyddl()
+    {
+        DataTable dt = Common.Execute_Procedures_Select_ByQuery("SELECT Curr FROM [dbo].[VW_tblWebCurr]");
+        this.ddCurrency.DataValueField = "Curr";
+        this.ddCurrency.DataTextField = "Curr";
+        this.ddCurrency.DataSource = dt;
+        this.ddCurrency.DataBind();
+        ddCurrency.Items.Insert(0, new ListItem("< Select Currency >", "0"));
+    }
+    protected void bindForwardToddl()
+    {
+        //string SQL = "select (FirstName + ' ' + LastName ) AS UserName, LoginId  from shipsoft_admin.dbo.usermaster where loginid in (select userid from pos_invoice_mgmt where Approval=1) AND statusId='A' Order By UserName";
+        string SQL = "select (FirstName + ' ' + LastName ) AS UserName, LoginId  from dbo.usermaster where statusId='A' Order By UserName";
+
+        DataTable dt1 = Common.Execute_Procedures_Select_ByQuery(SQL);
+        this.ddlForwardTo.DataValueField = "LoginId";
+        this.ddlForwardTo.DataTextField = "UserName";
+        this.ddlForwardTo.DataSource = dt1;
+        this.ddlForwardTo.DataBind();
+        ddlForwardTo.Items.Insert(0, new ListItem("< Select Purchaser >", "0"));
+    }
+
+    protected void btnPO_delete_Click(object sender, EventArgs e)
+    {
+        int BIDID = Common.CastAsInt32(((ImageButton)sender).CommandArgument);
+        DataRow[] drs=PoNos.Select("BIDID='" + BIDID + "'");
+        foreach (DataRow dr in drs)
+        {
+            PoNos.Rows.Remove(dr);
+        }
+        
+        if(PoNos.Rows.Count==0)
+            ddl_Vessel.Enabled = true; 
+
+        BindPoList();
+        
+    }
+    protected void btnAddPO_Click(object sender, EventArgs e)
+    {
+        
+        if (txtPoNo.Text.Trim() != "")
+        {
+            string povsl = txtPoNo.Text.Substring(0,3);
+            if (Common.CastAsInt32(povsl)==0)
+            {
+                if (ddl_Vessel.SelectedItem.Text.Substring(0,3) != povsl)
+                {
+                    lbl_inv_Message.Text = "PO vessel not matching with invoice vessel.";
+                    txtPoNo.Focus();
+                    return;
+                }
+            }
+
+            if (PoNos.Select("PONO='" + txtPoNo.Text.Trim() + "'").Length <= 0)
+            {
+                int BidId=Common.CastAsInt32(hfdbidid.Value);
+
+                if (BidId<=0)
+                {
+                    lbl_inv_Message.Text = "Invalid PO#.";
+                    txtPoNo.Focus();
+                    return;
+                }
+
+                PoNos.Rows.Add(PoNos.NewRow());
+                PoNos.Rows[PoNos.Rows.Count - 1]["PONO"] = txtPoNo.Text;
+                PoNos.Rows[PoNos.Rows.Count - 1]["BIDID"] = BidId.ToString();
+                //string InvoiceRefNo = "";
+                //string OTHEROTHERINVID = "";
+                //if(BidId>0)
+                //{
+                //    DataTable dt = Common.Execute_Procedures_Select_ByQuery("SELECT InvoiceId,RefNo FROM [dbo].[POS_Invoice] I WHERE I.InvoiceId IN ( SELECT INVOICEID FROM POS_Invoice_Payment_PO WHERE BIDID=" + BidId + " AND INVOICEID<>" + AdvancePaymentId + ")");
+                //    if (dt.Rows.Count > 0)
+                //    {
+                //        OTHEROTHERINVID = dt.Rows[0][0].ToString();
+                //        InvoiceRefNo = dt.Rows[0][1].ToString();
+                //    }
+                //}
+
+                //PoNos.Rows[PoNos.Rows.Count - 1]["OTHEROTHERINVID"] = OTHEROTHERINVID;
+                //PoNos.Rows[PoNos.Rows.Count - 1]["OTHERREFNO"] = InvoiceRefNo;
+
+                txtPoNo.Text = "";
+                hfdbidid.Value = "0";
+                BindPoList();
+                ddl_Vessel.Enabled = false; 
+            }
+        }
+    }
+    public void BindPoList()
+    {
+        rptPo.DataSource = PoNos;
+        rptPo.DataBind();
+    }
+    protected void btn_Save_Click(object sender, EventArgs e)
+    {
+        string SupplierName = txtSupplier.Text.Trim().Replace("'","`");
+        if (Common.CastAsInt32(hfdSupplier.Value) <= 0)
+        {
+            lbl_inv_Message.Text = "Please select vendor";
+            txtSupplier.Focus();
+            return;
+        }
+
+        DataTable dt = Common.Execute_Procedures_Select_ByQuery("SELECT SupplierName FROM [dbo].[VW_tblSMDSuppliers] WHERE SupplierName='" + SupplierName + "'");
+        if (dt.Rows.Count <= 0)
+        {
+            lbl_inv_Message.Text = "Please select valid vendor";
+            txtSupplier.Focus();
+            return;
+        }
+
+        dt = Common.Execute_Procedures_Select_ByQuery("SELECT AdvPaymentId, RefNo FROM [dbo].[POS_Invoice_AdvancePayment] WHERE SupplierId=" + hfdSupplier.Value.Trim() + " AND LTRIM(RTRIM(PerfromaInvNo)) = '" + txt_InvNo.Text.Trim() + "' AND AdvPaymentId <> " + AdvancePaymentId);
+        if (dt.Rows.Count > 0)
+        {
+            lbl_inv_Message.Text = "Duplicate Perfoma invoice. Already entered with Ref#: <a target='_blank' href='ViewInvoice.aspx?InvoiceId=" + dt.Rows[0]["AdvPaymentId"].ToString() + "' >" + dt.Rows[0]["RefNo"].ToString() + "</a>";
+            txt_InvNo.Focus();
+            return;
+        }
+
+        //if (rptPo.Items.Count>0)
+        //{
+        //    if (!fuAttachment.HasFile)
+        //    {
+        //        lbl_inv_Message.Text = "To continue please attach the invoice pdf file for linked purchase orders.";
+        //        fuAttachment.Focus();
+        //        return;
+        //    }
+        //}
+
+        //string fileName = "";
+        //byte[] file = new byte[0];
+
+        //if (ViewState["TempFilePath"].ToString().Trim() != "")
+        //{
+        //    fileName = ViewState["TempFilePath"].ToString().Trim();
+        //    string appname = ConfigurationManager.AppSettings["AppName"].ToString();
+        //    file = File.ReadAllBytes(Server.MapPath("/" + appname + "/EMANAGERBLOB/Purchase/Invoice/" + ViewState["TempFilePath"].ToString()));
+        //   //  file = File.ReadAllBytes(Server.MapPath("/EMANAGERBLOB/Purchase/Invoice/" + ViewState["TempFilePath"].ToString()));
+        //}
+
+
+        if (fuAttachment.HasFile)
+        {
+
+            if (fuAttachment.PostedFile.ContentLength > (1024 * 1024 * 0.2))
+            {
+                lbl_inv_Message.Text = "File Size is Too big! Maximum Allowed is 200KB...";
+                fuAttachment.Focus();
+                return;
+            }
+            string FileName = Path.GetFileName(fuAttachment.PostedFile.FileName);
+            string fileContent = fuAttachment.PostedFile.ContentType;
+            Stream fs = fuAttachment.PostedFile.InputStream;
+            BinaryReader br = new BinaryReader(fs);
+            byte[] bytes = br.ReadBytes((Int32)fs.Length);
+            string bids = "";
+            foreach (DataRow dr in PoNos.Rows)
+            {
+                bids += "," + dr["BIDID"].ToString();
+            }
+           
+            if (bids.StartsWith(","))
+                bids = bids.Substring(1);
+            string pono = "";
+            foreach (DataRow dr in PoNos.Rows)
+            {
+                pono += "," + dr["PONO"].ToString();
+            }
+            if (pono.StartsWith(","))
+                pono = pono.Substring(1);
+            try
+            {
+                Common.Set_Procedures("Insert_AdvancePayment");
+                Common.Set_ParameterLength(14);
+                Common.Set_Parameters(
+                    new MyParameter("@AdvPaymentId", AdvancePaymentId),
+                    new MyParameter("@SupplierId", hfdSupplier.Value.Trim()),
+                    new MyParameter("@VesselCode", ddl_Vessel.SelectedValue.Trim()),
+                    new MyParameter("@PerfromaInvNo", txt_InvNo.Text.Trim()),
+                    new MyParameter("@PerfromaInvDate", txt_InvDate.Text.Trim()),
+                    //  new MyParameter("@DueDate", txt_DueDate.Text.Trim()),
+                    new MyParameter("@InvoiceAmount", txt_InvAmount.Text.Trim()),
+                    new MyParameter("@Currency", ddCurrency.SelectedValue.Trim()),
+                    new MyParameter("@PONo", pono),
+                    new MyParameter("@EntertedBy", Session["Loginid"].ToString()),
+                    new MyParameter("@EntryComments", txtEntryComments.Text.Trim()),
+                    new MyParameter("@AttachmentName", FileName),
+                    new MyParameter("@BIDID", bids),
+                    new MyParameter("@Attachment", bytes),
+                    new MyParameter("@ContentType", fileContent)
+                    );
+
+                DataSet ds = new DataSet();
+                ds.Clear();
+                Boolean res;
+                res = Common.Execute_Procedures_IUD(ds);
+                if (res)
+                {
+                    AdvancePaymentId = Common.CastAsInt32(ds.Tables[0].Rows[0][0].ToString());
+                    lblRefNo.Text = ds.Tables[0].Rows[0][1].ToString();
+                    lbl_inv_Message.Text = "Record Successfully Saved.";
+                    tblSaveInv.Visible = false;
+                    tblForwardTo.Visible = true;
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "", "Refresh();", true);
+                }
+                else
+                {
+                    lbl_inv_Message.Text = "Unable to save record." + Common.getLastError();
+                }
+            }
+            catch (Exception ex)
+            {
+                lbl_inv_Message.Text = "Unable to save record." + ex.Message + Common.getLastError();
+            }
+        }
+        else
+        {
+            lbl_inv_Message.Text = "Please upload payment document.";
+            fuAttachment.Focus();
+            return;
+        }
+
+        
+    }
+    protected void btnForwardTo_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            string ft_SQL = "UPDATE POS_Invoice_AdvancePayment SET ApprovalFwdTo=" + ddlForwardTo.SelectedValue.Trim() + " , Stage = 1  WHERE AdvPaymentId=" + AdvancePaymentId;
+            Common.Execute_Procedures_Select_ByQuery(ft_SQL);
+            lbl_inv_Message.Text = "Forwarded Successfully.";
+            btnForwardTo.Visible = false;
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "", "Refresh();", true);
+        }
+        catch (Exception ex)
+        {
+            lbl_inv_Message.Text = "Unable to forward. Error :" + ex.Message;
+        }
+
+    }
+    protected void txt_InvDate_TextChanged(object sender, EventArgs e)
+    {
+        //try
+        //{
+        //    //DateTime dt = Convert.ToDateTime(txt_InvDate.Text);
+        //    //txt_DueDate.Text = dt.AddMonths(1).ToString("dd-MMM-yyyy");
+            
+        //}
+        //catch
+        //{
+        //}
+    }
+    protected void ddl_Vessel_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (ddl_Vessel.SelectedIndex > 0)
+            txtPoNo.Text = ddl_Vessel.SelectedItem.Text.Substring(0, 3) + "-";
+        else
+            txtPoNo.Text = "";
+
+        hfdbidid.Value = "0";
+    }
+    protected void btnClip_Click(object sender, ImageClickEventArgs e)
+    {
+        // DownloadFile();
+        DownloadDocument();
+    }
+    protected void btnClipText_Click(object sender, EventArgs e)
+    {
+        // DownloadFile();
+        DownloadDocument();
+
+    }
+
+    protected void DownloadDocument()
+    {
+        ScriptManager.RegisterStartupScript(this, this.GetType(), "fas", "OpenDocument(" + AdvancePaymentId + ");", true);
+    }
+    protected void DownloadFile()
+    {
+        DataTable dt = Common.Execute_Procedures_Select_ByQuery("SELECT top 1 AttachmentName,Attachment,AttachmentType FROM [POS_Invoice_AdvancePayment] with(nolock) WHERE  AdvPaymentId =" + AdvancePaymentId);
+        if (dt.Rows.Count > 0)
+        {
+            string contentType = "";
+            string FileName = "";
+            if (!string.IsNullOrWhiteSpace(dt.Rows[0]["AttachmentType"].ToString()))
+            {
+                contentType = dt.Rows[0]["AttachmentType"].ToString();
+            }
+            if (!string.IsNullOrWhiteSpace(dt.Rows[0]["AttachmentName"].ToString()))
+            {
+                FileName = dt.Rows[0]["AttachmentName"].ToString();
+            }
+            if (!string.IsNullOrWhiteSpace(contentType))
+            {
+
+                byte[] latestFileContent = (byte[])dt.Rows[0]["Attachment"];
+                Response.Clear();
+                Response.Buffer = true;
+                Response.Charset = "";
+                Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                Response.ContentType = contentType;
+                Response.AppendHeader("Content-Disposition", "attachment; filename=" + FileName);
+                Response.BinaryWrite(latestFileContent);
+                Response.Flush();
+                // HttpContext.Current.Response.End();
+            }
+        }
+    }
+    protected void btn_Upload_Click(object sender, EventArgs e)
+    {
+        if (fuAttachment.HasFile)
+        {
+            string fileName = Path.GetFileName(fuAttachment.PostedFile.FileName);
+            if (fuAttachment.HasFile)
+            {
+                if (fileName != String.Empty)
+                {
+                    Stream fileStream = fuAttachment.PostedFile.InputStream;
+                    int fileLength = fuAttachment.PostedFile.ContentLength;
+                    string appname = ConfigurationManager.AppSettings["AppName"].ToString();
+                    fuAttachment.SaveAs(Server.MapPath("/"+ appname + "/EMANAGERBLOB/Purchase/Invoice/" + fileName));
+                    
+                   // fuAttachment.SaveAs(Server.MapPath("/EMANAGERBLOB/Purchase/Invoice/" + fileName));
+                  //  tr_Frm.Visible = true;
+                  //  frmInvoice.Attributes.Add("src", "/" + appname + "/EMANAGERBLOB/Purchase/Invoice/" + fileName + "?" + r.NextDouble().ToString());
+                   //frmInvoice.Attributes.Add("src", "/EMANAGERBLOB/Purchase/Invoice/" + fileName + "?" + r.NextDouble().ToString());
+                    ViewState["TempFilePath"] = fileName;
+                }
+            }
+        }
+    }
+
+   
+}

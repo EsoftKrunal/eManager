@@ -1,0 +1,405 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Data;
+using System.Web.UI.WebControls;
+
+public partial class ViewUpdateBudgetComments : System.Web.UI.Page
+{
+    #region Properties *******************************************************
+    public int CommYear
+    {
+        set { ViewState["CommYear"] = value; }
+        get { return int.Parse("0" + ViewState["CommYear"]); }
+    }
+    public int CommMonth
+    {
+        set { ViewState["CommMonth"] = value; }
+        get { return int.Parse("0" + ViewState["CommMonth"]); }
+    }
+    public string CommCo
+    {
+        set { ViewState["CommCo"] = value; }
+        get { return (ViewState["CommCo"]).ToString(); }
+    }
+    public string CommShipID
+    {
+        set { ViewState["CommShipID"] = value; }
+        get { return (ViewState["CommShipID"]).ToString(); }
+    }
+    public int CommMajID
+    {
+        set { ViewState["CommMajID"] = value; }
+        get { return int.Parse("0" + ViewState["CommMajID"]); }
+    }
+    public int CommMidID
+    {
+        set { ViewState["CommMidID"] = value; }
+        get { return int.Parse("0" + ViewState["CommMidID"]); }
+    }
+    public int CommentID
+    {
+        set { ViewState["CommentID"] = value; }
+        get
+        {
+            return Common.CastAsInt32(ViewState["CommentID"]);
+        }
+    }
+    #endregion
+    AuthenticationManager authRecInv;
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        //---------------------------------------
+        Common.SessionCheck();
+        //---------------------------------------
+        #region --------- USER RIGHTS MANAGEMENT -----------
+        try
+        {
+            authRecInv = new AuthenticationManager(270, int.Parse(Session["UID"].ToString()), ObjectType.Page);
+            if (!(authRecInv.IsView))
+            {
+                Response.Redirect("~/NoPermissionBudget.aspx", false);
+            }
+        }
+        catch (Exception ex)
+        {
+            Response.Redirect("~/NoPermissionBudget.aspx?Message=" + ex.Message);
+        }
+         
+        #endregion ----------------------------------------
+        if (!Page.IsPostBack)
+        {
+            if (Page.Request.QueryString["Query"] != null)
+            {
+                string[] val = Page.Request.QueryString["Query"].Split(',');
+                CommYear = Common.CastAsInt32(val[0]);
+                CommCo = val[1].ToString();
+                CommShipID = val[2].ToString();
+                CommMajID = Common.CastAsInt32(val[3]);
+                CommMidID = Common.CastAsInt32(val[4]);
+                CommMonth = Common.CastAsInt32(val[5]);
+
+                 DataTable dt_Comment = Common.Execute_Procedures_Select_ByQuery("select COMMENTID,Comment from mtmm2000sql.dbo.tblbudgetlevelcomments where COMMCO='" + CommCo + "' AND COMMYEAR=" + CommYear.ToString() + " AND COMMPER=" + CommMonth.ToString() + " AND COMMSHIPID='" + CommShipID.ToString() + "' AND CommMajID=" + CommMajID.ToString() + " AND CommMidID=" + CommMidID.ToString());
+                if (dt_Comment.Rows.Count > 0)
+                {
+                    CommentID = Common.CastAsInt32(dt_Comment.Rows[0][0]);
+                }
+        
+                lblMonthName.Text = ProjectCommon.GetMonthName(CommMonth.ToString());
+                lblYear.Text = CommYear.ToString();
+                lblCommDetails.Text = CommCo + " - " + CommShipID + " - " + ProjectCommon.GetMajCat(CommMajID)+ " - " +ProjectCommon.GetMinCat(CommMidID);
+                SetBudgetDetails(CommMonth);
+            }
+            if (Page.Request.QueryString["IsEdit"] != null)
+            {
+                if (Common.CastAsInt32(Page.Request.QueryString["IsEdit"]) == 1)
+                {
+                    imgSave.Visible = true && (authRecInv.IsAdd || authRecInv.IsUpdate);
+                    imgSaveAndLock.Visible = true && (authRecInv.IsAdd || authRecInv.IsUpdate);
+                }
+                else if (Common.CastAsInt32(Page.Request.QueryString["IsEdit"]) == 0)
+                {
+                    imgSave.Visible = false;
+                    imgSaveAndLock.Visible = false;
+                }
+            }
+            getItems1();
+            //set------
+            try
+            {
+                string DBComments="";
+                DataTable dt_Comment = Common.Execute_Procedures_Select_ByQuery("select Comment from mtmm2000sql.dbo.tblbudgetlevelcomments where COMMCO='" + CommCo + "' AND COMMYEAR=" + CommYear.ToString() + " AND COMMPER=" + CommMonth.ToString() + " AND COMMSHIPID='" + CommShipID.ToString() + "' AND CommMajID=" + CommMajID.ToString() + " AND CommMidID=" + CommMidID.ToString());
+                if (dt_Comment.Rows.Count > 0)
+                {
+                    DBComments= dt_Comment.Rows[0][0].ToString();
+                }
+
+                string[] AllComments = DBComments.Split('`');
+                txtYTDcomm.Text = AllComments[0].ToString();
+                int Counter = 1;
+                foreach (RepeaterItem Rpt in rptComments.Items)
+                {
+                    TextBox txtYTDcommRpt = (TextBox)Rpt.FindControl("txtYTDcomm");
+                    txtYTDcommRpt.Text = AllComments[Counter].ToString();
+                    Counter = Counter + 1;
+                }
+            }
+            catch { };
+            SetUpdatedBy();
+        }
+
+        ac_1.Attributes.Add("href", "ViewUpdateBudgetComments.aspx?Query=" + CommYear.ToString() + "," + CommCo + "," + CommShipID.ToString() + "," + CommMajID.ToString() + "," + CommMidID.ToString() + ",1&NoFollow=1");
+        ac_2.Attributes.Add("href", "ViewUpdateBudgetComments.aspx?Query=" + CommYear.ToString() + "," + CommCo + "," + CommShipID.ToString() + "," + CommMajID.ToString() + "," + CommMidID.ToString() + ",2&NoFollow=1");
+        ac_3.Attributes.Add("href", "ViewUpdateBudgetComments.aspx?Query=" + CommYear.ToString() + "," + CommCo + "," + CommShipID.ToString() + "," + CommMajID.ToString() + "," + CommMidID.ToString() + ",3&NoFollow=1");
+        ac_4.Attributes.Add("href", "ViewUpdateBudgetComments.aspx?Query=" + CommYear.ToString() + "," + CommCo + "," + CommShipID.ToString() + "," + CommMajID.ToString() + "," + CommMidID.ToString() + ",4&NoFollow=1");
+        ac_5.Attributes.Add("href", "ViewUpdateBudgetComments.aspx?Query=" + CommYear.ToString() + "," + CommCo + "," + CommShipID.ToString() + "," + CommMajID.ToString() + "," + CommMidID.ToString() + ",5&NoFollow=1");
+        ac_6.Attributes.Add("href", "ViewUpdateBudgetComments.aspx?Query=" + CommYear.ToString() + "," + CommCo + "," + CommShipID.ToString() + "," + CommMajID.ToString() + "," + CommMidID.ToString() + ",6&NoFollow=1");
+        ac_7.Attributes.Add("href", "ViewUpdateBudgetComments.aspx?Query=" + CommYear.ToString() + "," + CommCo + "," + CommShipID.ToString() + "," + CommMajID.ToString() + "," + CommMidID.ToString() + ",7&NoFollow=1");
+        ac_8.Attributes.Add("href", "ViewUpdateBudgetComments.aspx?Query=" + CommYear.ToString() + "," + CommCo + "," + CommShipID.ToString() + "," + CommMajID.ToString() + "," + CommMidID.ToString() + ",8&NoFollow=1");
+        ac_9.Attributes.Add("href", "ViewUpdateBudgetComments.aspx?Query=" + CommYear.ToString() + "," + CommCo + "," + CommShipID.ToString() + "," + CommMajID.ToString() + "," + CommMidID.ToString() + ",9&NoFollow=1");
+        ac_10.Attributes.Add("href", "ViewUpdateBudgetComments.aspx?Query=" + CommYear.ToString() + "," + CommCo + "," + CommShipID.ToString() + "," + CommMajID.ToString() + "," + CommMidID.ToString() + ",10&NoFollow=1");
+        ac_11.Attributes.Add("href", "ViewUpdateBudgetComments.aspx?Query=" + CommYear.ToString() + "," + CommCo + "," + CommShipID.ToString() + "," + CommMajID.ToString() + "," + CommMidID.ToString() + ",11&NoFollow=1");
+        ac_12.Attributes.Add("href", "ViewUpdateBudgetComments.aspx?Query=" + CommYear.ToString() + "," + CommCo + "," + CommShipID.ToString() + "," + CommMajID.ToString() + "," + CommMidID.ToString() + ",12&NoFollow=1");
+
+        if (Common.CastAsInt32(Request.QueryString["NoFollow"]) >= 1)
+            trMonth.Visible = false; 
+    }
+    protected void OpenPOList(object sender,EventArgs e)
+    {
+        //--------------
+        dv_Packaging.Visible = true;
+        Common.Set_Procedures("sp_NewPR_GetCommentPerAccount");
+        Common.Set_ParameterLength(6);
+        Common.Set_Parameters(
+                new MyParameter("@CommYear", CommYear),
+                new MyParameter("@CommCo", CommCo),
+                new MyParameter("@CommShipID", CommShipID),
+                new MyParameter("@CommMajID", CommMajID),
+                new MyParameter("@CommMidID", CommMidID),
+                new MyParameter("@CommMonth", CommMonth)   //CommMonth
+            );
+        DataSet Dsdata = Common.Execute_Procedures_Select();
+        if (Dsdata != null)
+        {
+            rptCommPerAcc.DataSource = Dsdata;
+            //lblRecCount.Text = Dsdata.Tables[0].Rows.Count.ToString() + " record(s) found.";
+            rptCommPerAcc.DataBind();
+        }
+        //--------------
+    }
+    protected void btnClose_Click(object sender, EventArgs e)
+    {
+        dv_Packaging.Visible = false;
+    }
+    protected void imgSave_OnClick(object sender, ImageClickEventArgs e)
+    {
+        DateTime AllowMonthDate=new DateTime( DateTime.Today.Year,DateTime.Today.Month,1);
+        AllowMonthDate=AllowMonthDate.AddMonths(-1);
+
+        //DateTime SelectMonthDate=new DateTime(Common.CastAsInt32(lblYear.Text), CommMonth ,1);
+        
+        //if (SelectMonthDate < AllowMonthDate)
+        //{
+        //    lblmsg.Text = "Can not save data for this period ( it is locked ).";
+        //    txtYTDcomm.Focus();
+        //    return;
+        //}
+
+        if (txtYTDcomm.Text.Trim() == "")
+        {
+            lblmsg.Text = "Enter general comments.";
+            txtYTDcomm.Focus();
+            return;
+        }
+
+        string strComments = txtYTDcomm.Text.Trim();
+        string txtComments = "";
+        foreach (RepeaterItem Rpt in rptComments.Items)
+        {
+            TextBox txtYTDcommRpt = (TextBox)Rpt.FindControl("txtYTDcomm");
+            txtComments = txtYTDcommRpt.Text;
+            strComments = strComments + "`" + txtComments;
+        }
+
+        Common.Set_Procedures("sp_NewPR_InsertUpdateBudgetLevelComments");
+        Common.Set_ParameterLength(14);
+        Common.Set_Parameters(
+                new MyParameter("@CommentID", CommentID),
+                new MyParameter("@CommCo", CommCo),
+                new MyParameter("@CommYear", CommYear),
+                new MyParameter("@CommPer", CommMonth),//CommMonth
+                new MyParameter("@CommShipID", CommShipID),
+                new MyParameter("@CommMajID", CommMajID),
+                new MyParameter("@CommMidID", CommMidID),
+                new MyParameter("@Actual", Common.CastAsDecimal(lblActual.Text)),  //-------------------------------------------------------
+                new MyParameter("@Comm", Common.CastAsDecimal(ViewState["Committed"].ToString())),//-------------------------------------------------------
+                new MyParameter("@Budget", Common.CastAsDecimal(lblBudget.Text)),//-------------------------------------------------------
+                new MyParameter("@Comment", strComments),
+                new MyParameter("@UserName", Session["UserName"].ToString()),
+                new MyParameter("@CommentDate", System.DateTime.Now),
+                new MyParameter("@Lock", "0")
+            );
+        DataSet Dsdata = new DataSet();
+        Boolean Res;
+        Res = Common.Execute_Procedures_IUD(Dsdata);
+        if (Res)
+        {
+            if (CommentID == 0)
+                lblmsg.Text = "Record saved successfully.";
+            else
+                lblmsg.Text = "Record updated successfully.";
+
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "dialog", "window.opener.ReloadPage();window.opener.opener.ReloadPage()", true); //window.parent.tb_remove();
+        }
+        else
+        {
+
+        }
+    }
+    protected void imgSaveAndLock_OnClick(object sender, ImageClickEventArgs e)
+    {
+        if (txtYTDcomm.Text.Trim() == "")
+        {
+            lblmsg.Text = "Enter general comments.";
+            txtYTDcomm.Focus();
+            return;
+        }
+
+        string strComments = txtYTDcomm.Text.Trim();
+        string txtComments = "";
+        foreach (RepeaterItem Rpt in rptComments.Items)
+        {
+            TextBox txtYTDcommRpt = (TextBox)Rpt.FindControl("txtYTDcomm");
+            txtComments = txtYTDcommRpt.Text;
+            strComments = strComments + "`" + txtComments;
+        }
+
+        Common.Set_Procedures("sp_NewPR_InsertUpdateBudgetLevelComments");
+        Common.Set_ParameterLength(14);
+        Common.Set_Parameters(
+                new MyParameter("@CommentID", CommentID),
+                new MyParameter("@CommCo", CommCo),
+                new MyParameter("@CommYear", CommYear),
+                new MyParameter("@CommPer", CommMonth),//CommMonth
+                new MyParameter("@CommShipID", CommShipID),
+                new MyParameter("@CommMajID", CommMajID),
+                new MyParameter("@CommMidID", CommMidID),
+                new MyParameter("@Actual", Common.CastAsDecimal(lblActual.Text)),  //-------------------------------------------------------
+                new MyParameter("@Comm", Common.CastAsDecimal(ViewState["Committed"].ToString())),//-------------------------------------------------------
+                new MyParameter("@Budget", Common.CastAsDecimal(lblBudget.Text)),//-------------------------------------------------------
+                new MyParameter("@Comment", strComments),
+                new MyParameter("@UserName", Session["UserName"].ToString()),
+                new MyParameter("@CommentDate", System.DateTime.Now),
+                new MyParameter("@Lock", "1")
+            );
+        DataSet Dsdata = new DataSet();
+        Boolean Res;
+        Res = Common.Execute_Procedures_IUD(Dsdata);
+        if (Res)
+        {
+            CommentID = 0;
+            if (CommentID == 0)
+                lblmsg.Text = "Record saved successfully.";
+            else
+                lblmsg.Text = "Record updated successfully.";
+
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "dialog", "window.opener.ReloadPage();", true); //window.parent.tb_remove();
+        }
+        else
+        {
+
+        }
+    }
+    protected void imgPrint_OnClick(object sender, EventArgs e)
+    {
+        DataTable DtAccount = new DataTable();
+        DtAccount.Columns.Add("Account");
+        DtAccount.Columns.Add("Comments");
+
+        DataRow dr = DtAccount.NewRow();
+        foreach (RepeaterItem rpt in rptComments.Items)
+        {
+           
+            Label lblChildAccount = (Label)rpt.FindControl("lblChildAccount"); 
+            TextBox txtYTDcomm = (TextBox)rpt.FindControl("txtYTDcomm");
+            dr["Account"] = lblChildAccount.Text;
+            dr["Comments"] = txtYTDcomm.Text;
+            DtAccount.Rows.Add(dr);
+            dr = DtAccount.NewRow();
+        }
+        Session.Add("sDtAccount",DtAccount);
+
+        ScriptManager.RegisterStartupScript(this, this.GetType(), "Print", " window.open('print.aspx')", true);
+    }
+    // Function ------
+    public void SetBudgetDetails(int _Month)
+    {
+        //Common.Set_Procedures("sp_NEW_GETCMBUDGETACTUAL");
+        //Common.Set_ParameterLength(5);
+        //Common.Set_Parameters(
+        //                    new MyParameter("@COMPCODE ", CommCo),
+        //                    new MyParameter("@MNTH", _Month),
+        //                    new MyParameter("@YR", CommYear),
+        //                    new MyParameter("@VSLCODE", CommShipID),
+        //                    new MyParameter("@MidCatID", CommMidID)
+                            
+        //    );
+       
+        //DataSet DsValue = Common.Execute_Procedures_Select();
+        //if (DsValue != null)
+        //{
+        //    if (DsValue.Tables[0].Rows.Count>0)
+        //    {
+        //        lblActual.Text = DsValue.Tables[0].Rows[0][6].ToString();
+        //        ViewState.Add("Committed", DsValue.Tables[0].Rows[0][7].ToString());
+        //        lblConsumed.Text = DsValue.Tables[0].Rows[0][8].ToString();
+        //        lblBudget.Text = DsValue.Tables[0].Rows[0][9].ToString();
+        //        lblYear.Text = CommYear.ToString();
+        //        lblVariance.Text = (Common.CastAsDecimal(DsValue.Tables[0].Rows[0][8]) - Common.CastAsDecimal(DsValue.Tables[0].Rows[0][9])).ToString();
+                
+        //        if (Common.CastAsDecimal(lblBudget.Text) != 0)
+        //            lblVariancePer.Text = Math.Round(((Common.CastAsDecimal(lblVariance.Text) * 100) / Common.CastAsDecimal(lblBudget.Text)),2).ToString() + " %";
+        //        else
+        //            lblVariancePer.Text = "100 %";
+        //    }
+        //}
+
+        // NEW CODE --------------------------------------
+        DataTable DT = Common.Execute_Procedures_Select_ByQuery("select SUM(Actual)AS Actual,SUM(Budget)AS Budget,SUM(Comm) AS Comm,SUM(ACTUAL+COMM) AS CONS from mtmm2000sql.dbo.tblbudgetlevelcomments where COMMCO='" + CommCo + "' AND COMMYEAR=" + CommYear.ToString() + " AND COMMPER=" + _Month.ToString() + " AND COMMSHIPID='" + CommShipID.ToString() + "' AND CommMajID=" + CommMajID.ToString() + " AND CommMidID=" + CommMidID.ToString());
+        if (DT.Rows.Count > 0)
+        {
+            
+            lblBudget.Text = Math.Round(Common.CastAsDecimal(DT.Rows[0]["Budget"]),0).ToString();
+            lblConsumed.Text = Math.Round(Common.CastAsDecimal(DT.Rows[0]["CONS"]),0).ToString();
+            lblActual.Text = Math.Round(Common.CastAsDecimal(DT.Rows[0]["Actual"]), 0).ToString();
+
+            ViewState.Add("Committed", DT.Rows[0]["Comm"].ToString());
+            
+            lblYear.Text = CommYear.ToString();
+            lblVariance.Text = (Common.CastAsDecimal(lblConsumed.Text) - Common.CastAsDecimal(lblBudget.Text)).ToString();
+
+            if (Common.CastAsDecimal(lblBudget.Text) != 0)
+                lblVariancePer.Text = Math.Round(((Common.CastAsDecimal(lblVariance.Text) * 100) / Common.CastAsDecimal(lblBudget.Text)), 2).ToString() + " %";
+            else
+                lblVariancePer.Text = "100 %";
+        }
+    }
+    public void  getItems1()
+    {
+       DataTable DsValue = Common.Execute_Procedures_Select_ByQuery("SELECT distinct (select minorcat from VW_tblAccountsMinor b where b.mincatid=a.mincatid) as ChildAccounts FROM vw_sql_tblSMDPRAccounts a WHERE MidCatID =" + CommMidID.ToString());
+       rptComments.DataSource = DsValue;
+       rptComments.DataBind();
+    }
+    protected void SetUpdatedBy()
+    {
+        string sql = "SELECT RESULT AS MONTH ,* FROM (select * from dbo.csvTOtable('" + CommMonth + "',',')) MNTH " +
+                       "LEFT JOIN  " +
+                       "( " +
+                       "SELECT tblBudgetLevelComments.*,replace(convert(varchar(15),CommentDate,106),' ','-' )as CommentDateFormated,datename(mm,convert(datetime, " +
+                       "CONVERT(VARCHAR,tblBudgetLevelComments.Commper)+'-'+'1'+'-'+convert(varchar,CommYear))) as CommMonth  " +
+                       "FROM [mtmm2000sql].[dbo].tblBudgetLevelComments  " +
+                       "WHERE tblBudgetLevelComments.CommYear=" + CommYear + "" +
+                       "AND tblBudgetLevelComments.CommCo='" + CommCo + "'  " +
+                       "AND tblBudgetLevelComments.CommShipID='" + CommShipID + "' " +
+                       "AND tblBudgetLevelComments.CommMajID=" + CommMajID + "  " +
+                       "AND tblBudgetLevelComments.CommMidID=" + CommMidID + " " +
+                       ")  " +
+                       "SRC ON SRC.COMMPER=MNTH.RESULT  " +
+                       "ORDER BY MNTH.result ";
+        //SRC.CommYear, SRC.CommPer 
+
+        DataTable DTData = Common.Execute_Procedures_Select_ByQuery(sql);
+        if (DTData != null)
+        {
+            if (DTData.Rows.Count > 0)
+            {
+                lblCommBy.Text = DTData.Rows[0]["UserName"].ToString();
+                lblCommOn.Text = DTData.Rows[0]["CommentDateFormated"].ToString();
+            }
+        }
+    }
+
+}
+

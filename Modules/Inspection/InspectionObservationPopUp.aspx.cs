@@ -1,0 +1,1964 @@
+using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using ShipSoft.CrewManager.BusinessObjects;
+using ShipSoft.CrewManager.BusinessLogicLayer;
+using ShipSoft.CrewManager.Operational;
+using System.Data.SqlClient;
+
+public partial class Transactions_InspectionObservation : System.Web.UI.Page
+{
+    /// <summary>
+    /// Page Name            : InspectionObservation.aspx
+    /// Purpose              : This is the Observation page
+    /// Author               : krishna
+    /// Developed on         : 23-oct-2009
+    /// </summary>
+    //Public Properties
+
+    int temp = 0;
+    int recptr = 0;
+    DataSet ds = new DataSet();
+    DataTable dt = new DataTable();
+    DataRow dr;
+    Authority Auth;
+    string strInsp_Status = "";
+    public Boolean GridStatus = true;
+   //public string strQueNo;
+
+    #region "Page_Load"
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        //------------------------------------
+        ProjectCommon.SessionCheck_New();
+        //------------------------------------
+        //--------------------------------- PAGE ACCESS AUTHORITY ----------------------------------------------------
+        int chpageauth = UserPageRelation.CheckUserPageAuthority(Convert.ToInt32(Session["loginid"].ToString()), 1053);
+        if (chpageauth <= 0)
+            Response.Redirect("blank.aspx");
+        //------------------------------------------------------------------------------------------------------------
+        //this.Form.DefaultButton = this.Button1.UniqueID.ToString();
+        lblmessage.Text = "";
+        if ((Session["loginid"] == null) || (Session["UserName"] == null))
+        {
+            Page.ClientScript.RegisterStartupScript(Page.GetType(), "logout", "alert('Your Session is Expired. Please Login Again.');window.parent.parent.location='../Login.aspx';", true);
+        }
+        else
+        {
+            Login_Id = Convert.ToInt32(Session["loginid"].ToString());
+        }
+        if ((Session["Insp_Id"] == null) && (Page.Request.QueryString["HMID"] == null))
+        {
+            Session.Add("PgFlag", 1); Response.Redirect("InspectionSearch.aspx");
+        }
+        else
+        {
+            if (Page.Request.QueryString["HMID"] != null)
+            {
+                int Inspection_Id = int.Parse(Page.Request.QueryString["HMID"].ToString());
+                Session.Add("Insp_Id", Inspection_Id.ToString());
+            }
+        }
+        HiddenField_InspId.Value = Session["Insp_Id"].ToString();
+        if (Session["loginid"] != null)
+        {
+            ProcessCheckAuthority OBJ = new ProcessCheckAuthority(Convert.ToInt32(Session["loginid"].ToString()), 7);
+            OBJ.Invoke();
+            Session["Authority"] = OBJ.Authority;
+            Auth = OBJ.Authority;
+        }
+        if (!Page.IsPostBack)
+        {
+            BindPscCode();
+            try
+            {
+                Button Button1 = new Button();
+                Button btn_UpdateCrew = new Button();
+                Alerts.HANDLE_AUTHORITY(9, lnkadd, Button1, btnsave, btn_Print, Auth);
+                Alerts.HANDLE_AUTHORITY(9, lnkadd, btn_UpdateCrew, btnsave, btn_Print, Auth);
+            }
+            catch
+            {
+                Page.ClientScript.RegisterStartupScript(Page.GetType(), "logout", "alert('Your Session is Expired. Please Login Again.');window.parent.parent.location='../Login.aspx';", true);
+            }
+            btn_Edit.Enabled = Auth.isEdit;
+            ImageButton4.Enabled = Auth.isDelete;
+            if (Session["Insp_Id"] != null)
+            {
+                DataTable dt88 = Inspection_Planning.CheckInspectionStatus(int.Parse(Session["Insp_Id"].ToString()));
+                if (dt88.Rows.Count > 0)
+                {
+                    strInsp_Status = dt88.Rows[0]["Status"].ToString();
+                }
+                if ((strInsp_Status != "Planned") && (strInsp_Status != "Executed") && (strInsp_Status != "Observation"))
+                {
+                    //Button1.Enabled = false;
+                    //btn_UpdateCrew.Enabled = false;
+                    btnsave.Enabled = false;
+                    btn_Edit.Enabled = false;
+                    ImageButton4.Enabled = false;
+                    lnkadd.Enabled = false;
+                }
+                else
+                {
+                    //Button1.Enabled = true;
+                    //btn_UpdateCrew.Enabled = true;
+                    btnsave.Enabled = true;
+                    btn_Edit.Enabled = true;
+                    ImageButton4.Enabled = true;
+                    lnkadd.Enabled = true;
+                }
+            }
+            //****Code To Whether Inspection is External or Internal
+            string strInspType = "";
+            if (Session["Insp_Id"] != null)
+            {
+                DataTable dt56 = Inspection_Observation.CheckInspType(int.Parse(Session["Insp_Id"].ToString()));
+                if (dt56.Rows.Count > 0)
+                {
+                    strInspType = dt56.Rows[0]["InspectionType"].ToString();
+                }
+                //if (strInspType == "External")
+                    //txtinspector.ReadOnly = false;
+                //else
+                    //txtinspector.ReadOnly = true;
+            }
+            //******************************************************
+
+            //*********************************************
+            Session["ds"] = null;
+            Login_Id = 0;
+            Inspection_Id = 0;
+            InspectionNo = "";
+            ID = 0;
+            Master = 0;
+            ChiefOfficer = 0;
+            SecondOffice = 0;
+            ChiefEngineer = 0;
+            AssistantEngineer = 0;
+            firstassistant = 0;
+            Inspector = "";
+            ResponseDueDate = DateTime.Now.ToShortDateString();
+            ActualDate = DateTime.Now.ToShortDateString();
+            ActualLocation = "";
+            QuestionId = 0;
+            Deficiency = "";
+            Comment = "";
+            HighRisk = 0;
+            NCR = 0;
+            IsObservation = 0;
+            TransType = "";
+            try
+            {
+                if (ddlyesno.SelectedValue == "Yes")
+                {
+                    chkncr.Enabled = false;
+                    //chkhighrisk.Enabled = false;
+                    chkObs.Enabled = false;
+                    txtdeficiency.ReadOnly = true;
+                }
+                else if (ddlyesno.SelectedValue == "NO")
+                {
+                    chkncr.Enabled = true;
+                    //chkhighrisk.Enabled = true;
+                    chkObs.Enabled = false;
+                    txtdeficiency.ReadOnly = false;
+                }
+                else
+                {
+                    chkncr.Enabled = true;
+                    //chkhighrisk.Enabled = true;
+                    chkObs.Enabled = true;
+                    txtdeficiency.ReadOnly = true;
+                }
+                if (Session["Insp_Id"] != null)
+                {
+                    Inspection_Id = int.Parse(Session["Insp_Id"].ToString());
+                    if (ddlyesno.SelectedValue == "Yes")
+                    {
+                        chkncr.Enabled = false;
+                        //chkhighrisk.Enabled = false;
+                        chkObs.Enabled = false;
+                        txtdeficiency.ReadOnly = true;
+                    }
+                    else if (ddlyesno.SelectedValue == "NO")
+                    {
+                        chkncr.Enabled = true;
+                        //chkhighrisk.Enabled = true;
+                        chkObs.Enabled = true;
+                        txtdeficiency.ReadOnly = false;
+                    }
+                    else
+                    {
+                        chkncr.Enabled = true;
+                        //chkhighrisk.Enabled = true;
+                        chkObs.Enabled = true;
+                        txtdeficiency.ReadOnly = true;
+                    }
+                    Show_Header_Record(Inspection_Id);
+                    if (Session["DueMode"] != null)
+                    {
+                        if (Session["DueMode"].ToString() == "ShowFull")
+                        {
+                            Show_Header_Record1(Inspection_Id);
+                            BindGrid(sender, e);
+                            //****Code To Check Whether Observation has Response or Not
+                            if (HiddenField_ObId.Value != "")
+                            {
+                                DataTable dtInsp1 = Inspection_Observation.UpdateInspectionObservation(int.Parse(HiddenField_ObId.Value), DateTime.Now.ToShortDateString(), "", 0, 0, 0, 0, 0, "", "", "", "", 0, "", "", 0, 0, "CHKRESP", 0, 0, "", 0);
+                                if (dtInsp1.Rows.Count > 0)
+                                {
+                                    if (dtInsp1.Rows[0][0].ToString() == "NO")
+                                    {
+                                        //Button1.Enabled = false;
+                                        //btn_UpdateCrew.Enabled = false;
+                                        lnkadd.Enabled = false;
+                                        btn_Edit.Enabled = false;
+                                        btnsave.Enabled = false;
+                                        ImageButton4.Enabled = false;
+                                    }
+                                    else
+                                    {
+                                        //Button1.Enabled = true;
+                                        //btn_UpdateCrew.Enabled = true;
+                                        lnkadd.Enabled = true;
+                                        btn_Edit.Enabled = true;
+                                        btnsave.Enabled = true;
+                                        ImageButton4.Enabled = true;
+                                    }
+                                }
+                            }
+                            //*********************************************************
+                        }
+                        if (Session["DueMode"].ToString() == "ShowId")
+                        {
+                            //Button1.Enabled = true;
+                            //btn_UpdateCrew.Enabled = true;
+                            lnkadd.Enabled = true;
+                            btn_Edit.Enabled = true;
+                            btnsave.Enabled = true;
+                            ImageButton4.Enabled = true;
+                            //Button1.Enabled = Auth.isEdit;
+                            //btn_UpdateCrew.Enabled = Auth.isEdit;
+                            lnkadd.Enabled = Auth.isEdit; ;
+                            btn_Edit.Enabled = Auth.isEdit; ;
+                            btnsave.Enabled = Auth.isEdit; ;
+                            ImageButton4.Enabled = Auth.isDelete; ;
+                        }
+                        if ((strInsp_Status == "Planned") || (strInsp_Status == "Executed") || (strInsp_Status == "Observation"))
+                        {
+                            try
+                            {
+                                Button Button1 = new Button();
+                                Button btn_UpdateCrew = new Button();
+                                Alerts.HANDLE_AUTHORITY(9, lnkadd, Button1, btnsave, btn_Print, Auth);
+                                Alerts.HANDLE_AUTHORITY(9, lnkadd, btn_UpdateCrew, btnsave, btn_Print, Auth);
+                                //******Accessing UserOnBehalf/Subordinate Right******
+                                try
+                                {
+                                    if (Session["Insp_Id"] != null)
+                                    {
+                                        int useronbehalfauth = Alerts.UserOnBehalfRight(Convert.ToInt32(Session["loginid"].ToString()), Convert.ToInt32(Session["Insp_Id"].ToString()));
+                                        if (useronbehalfauth <= 0)
+                                        {
+                                            //Button1.Enabled = false;
+                                            //btn_UpdateCrew.Enabled = false;
+                                            lnkadd.Enabled = false;
+                                            btn_Edit.Enabled = false;
+                                            btnsave.Enabled = false;
+                                            ImageButton4.Enabled = false;
+                                        }
+                                        else
+                                        {
+                                            if ((strInsp_Status != "Closed") && (strInsp_Status != "Due"))
+                                            {
+                                                //Button1.Enabled = true;
+                                                //btn_UpdateCrew.Enabled = true;
+                                                lnkadd.Enabled = true;
+                                                btn_Edit.Enabled = true;
+                                                btnsave.Enabled = true;
+                                                ImageButton4.Enabled = true;
+                                            }
+                                        }
+                                    }
+                                }
+                                catch
+                                {
+                                    Page.ClientScript.RegisterStartupScript(Page.GetType(), "logout", "alert('Your Session is Expired. Please Login Again.');window.parent.parent.location='../Login.aspx';", true);
+                                }
+                                //****************************************************
+                            }
+                            catch
+                            {
+                                Page.ClientScript.RegisterStartupScript(Page.GetType(), "logout", "alert('Your Session is Expired. Please Login Again.');window.parent.parent.location='../Login.aspx';", true);
+                            }
+                            btn_Edit.Enabled = Auth.isEdit;
+                            ImageButton4.Enabled = Auth.isDelete;
+                            //******Accessing UserOnBehalf/Subordinate Right******
+                            try
+                            {
+                                if (Session["Insp_Id"] != null)
+                                {
+                                    int useronbehalfauth = Alerts.UserOnBehalfRight(Convert.ToInt32(Session["loginid"].ToString()), Convert.ToInt32(Session["Insp_Id"].ToString()));
+                                    if (useronbehalfauth <= 0)
+                                    {
+                                        //Button1.Enabled = false;
+                                        //btn_UpdateCrew.Enabled = false;
+                                        lnkadd.Enabled = false;
+                                        btn_Edit.Enabled = false;
+                                        btnsave.Enabled = false;
+                                        ImageButton4.Enabled = false;
+                                    }
+                                    else
+                                    {
+                                        if ((strInsp_Status != "Closed") && (strInsp_Status != "Due"))
+                                        {
+                                            //Button1.Enabled = true;
+                                            //btn_UpdateCrew.Enabled = true;
+                                            lnkadd.Enabled = true;
+                                            btn_Edit.Enabled = true;
+                                            btnsave.Enabled = true;
+                                            ImageButton4.Enabled = true;
+                                        }
+                                    }
+                                }
+                            }
+                            catch
+                            {
+                                Page.ClientScript.RegisterStartupScript(Page.GetType(), "logout", "alert('Your Session is Expired. Please Login Again.');window.parent.parent.location='../Login.aspx';", true);
+                            }
+                            //****************************************************
+                        }
+                    }
+                    else
+                    {
+                        Show_Header_Record1(Inspection_Id);
+                        BindGrid(sender, e);
+                        //****Code To Check Whether Observation has Response or Not
+                        if (HiddenField_ObId.Value != "")
+                        {
+                            DataTable dtInsp1 = Inspection_Observation.UpdateInspectionObservation(int.Parse(HiddenField_ObId.Value), DateTime.Now.ToShortDateString(), "", 0, 0, 0, 0, 0, "", "", "", "", 0, "", "", 0, 0, "CHKRESP", 0, 0, "", 0);
+                            if (dtInsp1.Rows.Count > 0)
+                            {
+                                if (dtInsp1.Rows[0][0].ToString() == "NO")
+                                {
+                                    //Button1.Enabled = false;
+                                    //btn_UpdateCrew.Enabled = false;
+                                    lnkadd.Enabled = false;
+                                    btn_Edit.Enabled = false;
+                                    btnsave.Enabled = false;
+                                    ImageButton4.Enabled = false;
+                                }
+                                else
+                                {
+                                    //Button1.Enabled = true;
+                                    //btn_UpdateCrew.Enabled = true;
+                                    lnkadd.Enabled = true;
+                                    btn_Edit.Enabled = true;
+                                    btnsave.Enabled = true;
+                                    ImageButton4.Enabled = true;
+                                }
+                            }
+                        }
+                        //*********************************************************
+                    }
+                }
+                if ((strInsp_Status == "Closed") || (strInsp_Status == "Due"))
+                {
+                    //Button1.Enabled = false;
+                    //btn_UpdateCrew.Enabled = false;
+                    lnkadd.Enabled = false;
+                    btn_Edit.Enabled = false;
+                    btnsave.Enabled = false;
+                    ImageButton4.Enabled = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                lblmessage.Text = ex.Message.ToString();
+            }
+            //***Check whether Inspection is On Hold or not*******
+            DataTable dtchk = Inspection_TravelSchedule.CheckInspectionOnHold(Convert.ToInt32(Session["Insp_Id"].ToString()));
+            if (dtchk.Rows.Count > 0)
+            {
+                if (dtchk.Rows[0][0].ToString() == "Y")
+                {
+                    //Button1.Enabled = false;
+                    //btn_UpdateCrew.Enabled = false;
+                    lnkadd.Enabled = false;
+                    btn_Edit.Enabled = false;
+                    btnsave.Enabled = false;
+                    ImageButton4.Enabled = false;
+                }
+            }
+            this.Button1.Enabled = (strInsp_Status != "Closed");
+
+            //****************************************************
+            
+        }
+    }
+    #endregion
+
+    #region "User defined Properties"
+    public int Login_Id
+    {
+        get
+        {
+            return int.Parse(ViewState["_Login_Id"].ToString());
+        }
+        set
+        {
+            ViewState["_Login_Id"] = value;
+        }
+    }
+    public int Inspection_Id
+    {
+        get
+        {
+            return int.Parse(ViewState["_Inspection_Id"].ToString());
+        }
+        set
+        {
+            ViewState["_Inspection_Id"] = value;
+        }
+    }
+    public int ID
+    {
+        get
+        {
+            return int.Parse(ViewState["_ID"].ToString());
+        }
+        set
+        {
+            ViewState["_ID"] = value;
+        }
+    }
+    public string InspectionNo
+    {
+        get
+        {
+            return ViewState["_InspectionNo"].ToString();
+        }
+        set
+        {
+            ViewState["_InspectionNo"] = value;
+        }
+    }
+    public int Master
+    {
+        get
+        {
+            return int.Parse(ViewState["_Master"].ToString());
+        }
+        set
+        {
+            ViewState["_Master"] = value;
+        }
+    }
+    public int ChiefOfficer
+    {
+        get
+        {
+            return int.Parse(ViewState["_ChiefOfficer"].ToString());
+        }
+        set
+        {
+            ViewState["_ChiefOfficer"] = value;
+        }
+    }
+    public int SecondOffice
+    {
+        get
+        {
+            return int.Parse(ViewState["_SecondOffice"].ToString());
+        }
+        set
+        {
+            ViewState["_SecondOffice"] = value;
+        }
+    }
+    public int ChiefEngineer
+    {
+        get
+        {
+            return int.Parse(ViewState["_ChiefEngineer"].ToString());
+        }
+        set
+        {
+            ViewState["_ChiefEngineer"] = value;
+        }
+    }
+    public int AssistantEngineer
+    {
+        get
+        {
+            return int.Parse(ViewState["_AssistantEngineer"].ToString());
+        }
+        set
+        {
+            ViewState["_AssistantEngineer"] = value;
+        }
+    }
+    public int firstassistant
+    {
+        get
+        {
+            return int.Parse(ViewState["_firstassistant"].ToString());
+        }
+        set
+        {
+            ViewState["_firstassistant"] = value;
+        }
+    }
+    public string Inspector
+    {
+        get
+        {
+            return ViewState["_Inspector"].ToString();
+        }
+        set
+        {
+            ViewState["_Inspector"] = value;
+        }
+    }
+    public string  ResponseDueDate
+    {
+        get
+        {
+            return ViewState["_ResponseDueDate"].ToString();
+        }
+        set
+        {
+            ViewState["_ResponseDueDate"] = value;
+        }
+    }
+    public string  ActualDate
+    {
+        get
+        {
+            return ViewState["_ActualDate"].ToString();
+        }
+        set
+        {
+            ViewState["_ActualDate"] = value;
+        }
+    }
+    public string ActualLocation
+    {
+        get
+        {
+            return ViewState["_ActualLocation"].ToString();
+        }
+        set
+        {
+            ViewState["_ActualLocation"] = value;
+        }
+    }
+    public int QuestionId
+    {
+        get
+        {
+            return int.Parse(ViewState["_QuestionId"].ToString());
+        }
+        set
+        {
+            ViewState["_QuestionId"] = value;
+        }
+    }
+    public string Deficiency
+    {
+        get
+        {
+            return ViewState["_Deficiency"].ToString();
+        }
+        set
+        {
+            ViewState["_Deficiency"] = value;
+        }
+    }
+    public string Comment
+    {
+        get
+        {
+            return ViewState["_Comment"].ToString();
+        }
+        set
+        {
+            ViewState["_Comment"] = value;
+        }
+    }
+    public int HighRisk
+    {
+        get
+        {
+            return int.Parse(ViewState["_HighRisk"].ToString());
+        }
+        set
+        {
+            ViewState["_HighRisk"] = value;
+        }
+    }
+    public int NCR
+    {
+        get
+        {
+            return int.Parse(ViewState["_NCR"].ToString());
+        }
+        set
+        {
+            ViewState["_NCR"] = value;
+        }
+    }
+    public string TransType
+    {
+        get
+        {
+            return ViewState["_TransType"].ToString();
+        }
+        set
+        {
+            ViewState["_TransType"] = value;
+        }
+    }
+    public int IsObservation
+    {
+        get
+        {
+            return int.Parse(ViewState["_IsObsv"].ToString());
+        }
+        set
+        {
+            ViewState["_IsObsv"] = value;
+        }
+    }
+    #endregion
+
+    #region "Events"   
+    protected void btnsave_Click(object sender, EventArgs e)
+    {
+        if (Session["Insp_Id"] == null) { lblmessage.Text = "Please save Planning first."; return; }
+        try
+        {           
+            if (ddlyesno.SelectedValue == "Yes")
+            {
+                chkncr.Enabled = false;
+                //chkhighrisk.Enabled = false;
+                chkObs.Enabled = false;
+                //txtdeficiency.Enabled = false;
+                txtdeficiency.ReadOnly = true;
+            }
+            else if (ddlyesno.SelectedValue == "NO")
+            {
+                chkncr.Enabled = true;
+                chkhighrisk.Enabled = true;
+                chkObs.Enabled = true;
+                //txtdeficiency.Enabled = true;
+                txtdeficiency.ReadOnly = false;
+                if (txtdeficiency.Text == "")
+                {
+                    lblmessage.Text = "Please enter Deficiency";
+                    txtdeficiency.Focus();
+                    return;
+                }
+            }
+            else
+            {
+                chkncr.Enabled = true;
+                chkhighrisk.Enabled = true;
+                chkObs.Enabled = true;
+                //txtdeficiency.Enabled = false;
+                txtdeficiency.ReadOnly = true;
+            }
+
+            //DataTable dt3 = Inspection_Planning.AddInspectors(0, int.Parse(Session["Insp_Id"].ToString()), 0, 0, DateTime.Now, 0, 0, DateTime.Now, "", 0, 0, "CHKATT");
+            //if (dt3.Rows.Count > 0)
+            //{
+            //    if (dt3.Rows[0][0].ToString() == "YES")
+            //    {
+            //        DataTable dt23 = Inspection_Observation.UpdateInspectionObservation(Convert.ToInt32(Session["Insp_Id"].ToString()), DateTime.Now.ToShortDateString(), "", 0, 0, 0, 0, 0, "", "", "", "", 0, "", "", 0, 0, "CHKTRAV", 0, 0, "", 0);
+            //        if (dt23.Rows[0][0].ToString() != "1")
+            //        {
+            //            lblmessage.Text = "Please save Travel Schedule first.";
+            //            return;
+            //        }
+            //    }
+            //}
+
+            //if (btnsave.Text != "Edit")
+            if (btnsave.Text != "Update")
+            {
+                if (txtquestion.Text.Trim() == "")
+                {
+                    lblmessage.Text = "Please enter Question#.";
+                    return;
+                }
+                
+                if (chkhighrisk.Checked == true)
+                {
+                    HighRisk = 1;
+                }
+                if (chkncr.Checked == true)
+                {
+                    NCR = 1;
+                }
+                if (chkObs.Checked == true)
+                {
+                    IsObservation = 1;
+                }
+                Deficiency = txtdeficiency.Text;
+                Comment = txtcomment.Text;
+                ID = Inspection_Id;
+                Master = Login_Id;
+                TransType = "ADD";
+                Inspection_Observation.UpdateInspectionObservation(ID, DateTime.Now.ToShortDateString(), InspectionNo, Master, ChiefOfficer, SecondOffice, ChiefEngineer, AssistantEngineer, Inspector, ResponseDueDate, ActualLocation, ActualDate, QuestionId, Deficiency, Comment, HighRisk, NCR, TransType, Login_Id, Login_Id, ddlyesno.SelectedValue, IsObservation);
+
+                //---------------------------------------------------
+                DataTable dtID = Common.Execute_Procedures_Select_ByQuery("select Max(ID)as ID from t_Observations ");
+
+                string InsID = dtID.Rows[0]["ID"].ToString();
+                 string sql = "Update dbo.t_Observations set PscCode='" + ddlPscCode.SelectedValue + "' Where ID=" + InsID.ToString();
+                 Common.Execute_Procedures_Select_ByQuery(sql);
+
+                //--------------------------------------------------------
+                lblmessage.Text = "Observation Added Sucessfully.";
+                txtcomment.Text = "";
+                txtdeficiency.Text = "";
+                txtquestionno.Text = "";
+                txtquestion.Text = "";
+                //grdobservation.Visible = true;
+                //txtquestionno.Enabled = false;    
+                txtquestionno.ReadOnly = true;
+                lnkadd.Text = "Add";
+
+                temp = 1;
+                BindGrid(sender,e);
+                
+                lnkadd.Enabled = true;
+                ImageButton4.Enabled = true;
+                btnsave.Enabled = false;
+                btn_Edit.Enabled = true;
+            }
+            else
+            {
+                if (txtquestion.Text.Trim() == "")
+                {
+                    lblmessage.Text = "Please enter Question#.";
+                    return;
+                }
+                if (chkhighrisk.Checked == true)
+                {
+                    HighRisk = 1;
+                }
+                else
+                {
+                    HighRisk = 0;
+                }
+                if (chkncr.Checked == true)
+                {
+                    NCR = 1;
+                }
+                else
+                {
+                    NCR = 0; 
+                }
+                if (chkObs.Checked == true)
+                {
+                    IsObservation = 1;
+                }
+                else
+                {
+                    IsObservation = 0;
+                }
+                Deficiency = txtdeficiency.Text;
+                Comment = txtcomment.Text;
+                ID = int.Parse(Session["Ob_Id"].ToString());
+                HiddenField_ObsId.Value = ID.ToString();
+                Master = Login_Id;
+                TransType = "MODIFY";
+                //*************
+                int intQuesId = 0;
+                DataTable Dt11 = Inspection_FollowUp.InspectionObservation(ID, "", "", "", "", 0, "", "SELECT", "", 0, 0, 0);
+                if (Dt11.Rows.Count > 0)
+                {
+                    intQuesId = int.Parse(Dt11.Rows[0]["QuestionId"].ToString());
+                }
+                //*************
+                DataTable dtInsp = Inspection_Observation.UpdateInspectionObservation(ID, DateTime.Now.ToShortDateString(), InspectionNo, Master, ChiefOfficer, SecondOffice, ChiefEngineer, AssistantEngineer, Inspector, ResponseDueDate, ActualLocation, ActualDate, intQuesId, Deficiency, Comment, HighRisk, NCR, TransType, Login_Id, Login_Id, ddlyesno.SelectedValue, IsObservation);
+               if (dtInsp.Rows.Count > 0)
+               {
+                   if (dtInsp.Rows[0][0].ToString() == "NO")
+                   {
+                       lblmessage.Text = "Response has been already created for this Observation. You can not Update.";
+                       ImageButton4.Enabled = true;
+                       btnsave.Enabled = false;
+                       btn_Edit.Enabled = true;
+                       return;
+                   }
+               }
+
+               //---------------------------------------------------
+               string sql = "Update dbo.t_Observations set PscCode='" + ddlPscCode.SelectedValue + "' Where ID=" + ID.ToString();
+               Common.Execute_Procedures_Select_ByQuery(sql);
+               //--------------------------------------------------------
+               lblmessage.Text = "Observation Updated Sucessfully.";
+               txtcomment.Text = "";
+               txtdeficiency.Text = "";
+               txtquestionno.Text = "";
+               txtquestion.Text = "";
+                chkhighrisk.Checked = false;
+                chkncr.Checked = false;
+                chkObs.Checked = false;
+                lnkadd.Text = "Add"; 
+               // btnsave.Text = "Save";
+                BindGrid(sender,e);
+                lnkadd.Enabled = true;
+                ImageButton4.Enabled = true;
+                btnsave.Enabled = false;
+                btn_Edit.Enabled = true;
+            }
+            //SendMail.Mail("Observation","UpdateObservation","Observation is Updated"); 
+            btnNotify.Enabled = true;
+        }
+        catch (Exception ex)
+        {
+            lblmessage.Text = ex.StackTrace.ToString();
+        }
+    }
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        //if (Session["Insp_Id"] == null) { lblmessage.Text = "Please save Planning first."; return; }
+        //try
+        //{
+        //    DataTable dt3 = Inspection_Planning.AddInspectors(0, int.Parse(Session["Insp_Id"].ToString()), 0, 0, DateTime.Now, 0, 0, DateTime.Now, "", 0, 0, "CHKATT");
+        //    if (dt3.Rows.Count > 0)
+        //    {
+        //        if (dt3.Rows[0][0].ToString() == "YES")
+        //        {
+        //            DataTable dt23 = Inspection_Observation.UpdateInspectionObservation(Convert.ToInt32(Session["Insp_Id"].ToString()), DateTime.Now.ToShortDateString(), "", 0, 0, 0, 0, 0, "", "", "", "", 0, "", "", 0, 0, "CHKTRAV", 0, 0, "", 0);
+        //            if (dt23.Rows[0][0].ToString() != "1")
+        //            {
+        //                lblmessage.Text = "Please save Travel Schedule first.";
+        //                return;
+        //            }
+        //        }
+        //    }
+        //    if (txtportdone.Text.Trim() != "")
+        //    {
+        //        DataTable dt1 = Inspection_Planning.CheckPort(txtportdone.Text);
+        //        if (dt1.Rows[0][0].ToString() == "0")
+        //        {
+        //            lblmessage.Text = "Please enter correct Port Name.";
+        //            return;
+        //        }
+        //        else
+        //        {
+        //            ActualLocation = txtportdone.Text;
+        //        }
+        //    }
+        //    if (Master == 0)
+        //    {
+        //        lblmessage.Text  = "Enter correct Master.";
+        //        return; 
+        //    }
+
+        //    //if (ChiefOfficer == 0)
+        //    //{
+        //    //    lblmessage.Text = "Enter correct Chief Officer.";
+        //    //    return;
+        //    //}
+        //    //if (SecondOffice == 0)
+        //    //{
+        //    //    lblmessage.Text = "Enter correct 2nd Officer.";
+        //    //    return;
+        //    //}
+        //    if (txtchiefofficer.Text == "")
+        //        ChiefOfficer = 0;
+        //    if (txtsecofficer.Text == "")
+        //        SecondOffice = 0;
+
+        //    if(ChiefEngineer==0)
+        //    {
+        //        lblmessage.Text  = "Enter correct Chief Engineer(C/E).";
+        //        return; 
+        //    }
+
+        //    //if (AssistantEngineer == 0)
+        //    //{
+        //    //    lblmessage.Text = "Enter correct Assistant Engineer(1st A/E).";
+        //    //    return;
+        //    //}
+        //    //if (Inspector == "")
+        //    //{
+        //    //    lblmessage.Text = "Enter correct Inspector !";
+        //    //    return;
+        //    //}
+
+        //    if (txtfirstassistant.Text=="")
+        //        AssistantEngineer = 0; ;
+        //    if (txtinspector.Text == "")
+        //        Inspector = "";
+
+        //    if (ActualLocation == "")
+        //    {
+        //        lblmessage.Text  = "Enter correct Actual Location.";
+        //        return; 
+        //    }
+        //    //if (DateTime.Parse(txtstartdate.Text) > DateTime.Parse(txtdonedt.Text))
+        //    //{
+        //    //    lblmessage.Text = "Done Date cannot be less than Start Date.";
+        //    //    return;
+        //    //}
+        //    //if (txtresponseduedt.Text != "")
+        //    //{
+        //    //    if (DateTime.Parse(txtdonedt.Text) > DateTime.Parse(txtresponseduedt.Text))
+        //    //    {
+        //    //        lblmessage.Text = "Response Due Date cannot be less than Done Date.";
+        //    //        return;
+        //    //    }
+        //    //}
+        //    TransType = "UPDATE";
+        //    //Inspector = txtinspector.Text;
+        //    ResponseDueDate = txtresponseduedt.Text;
+        //    //ActualLocation = txtportdone.Text;
+        //    ActualDate = txtdonedt.Text;
+        //    ID = Inspection_Id;
+        //    Inspection_Observation.UpdateInspectionObservation(ID,txtstartdate.Text.ToString(),InspectionNo, Master, ChiefOfficer, SecondOffice, ChiefEngineer, AssistantEngineer,txtinspector.Text, ResponseDueDate, ActualLocation, ActualDate, QuestionId, Deficiency, Comment, HighRisk, NCR, TransType,Login_Id,Login_Id,"", IsObservation);
+        //    lblmessage.Text = "Officer Details Updated Sucessfully.";
+        //    //SendMail.Mail("Observation", "UpdateObservation", "Observation is Updated");   
+        //    btnNotify.Enabled = true;
+        //    flp_CheckList.Enabled = true;
+        //    btn_ImportCheckList.Enabled = true;
+        //    btn_ImportCheckList.Enabled = Auth.isEdit;
+        //}
+        //catch (Exception ex)
+        //{
+        //    lblmessage.Text = ex.StackTrace.ToString();  
+        //}
+    }
+    protected void btnfordesc_Click(object sender, EventArgs e)
+    {
+        if (Session["Insp_Id"] == null)
+        {
+            lblmessage.Text = "Please select Inspection.";
+            return;
+        }
+        if (txtquestionno.Text.Trim() == "")
+        {
+            lblmessage.Text = "Please enter Question#.";
+            txtquestionno.Focus();
+            return;
+        }
+        //if (Session["ds"] != null)
+        //{
+        //    DataTable Dt2 = Inspection_Observation.GetQuestion(txtquestionno.Text, Inspection_Id);
+        //    if (Dt2.Rows.Count > 0)
+        //    {
+        //        if (Dt2.Rows[0][0].ToString() == "0")
+        //        {
+
+        //        }
+        //        else
+        //        {
+        //            txtquestion.Text = Dt2.Rows[0]["Question"].ToString();
+        //            QuestionId = int.Parse(Dt2.Rows[0]["QuestionId"].ToString());
+        //            HiddenField1.Value = QuestionId.ToString();
+        //        }
+        //    }
+        //}
+    }
+   #endregion
+
+    #region"User Defined Functions"
+    //Show Observation Records By InspectionDueId
+    protected void Show_Header_Record1(int intInspectionId)
+    {
+        DataTable dt1 = Inspection_TravelSchedule.SelectInspectionDetailsByInspId(intInspectionId);
+        if (dt1.Rows.Count > 0)
+        {
+            foreach (DataRow dr in dt1.Rows)
+            {
+                //txtinspno.Text = dr["InspectionNo"].ToString();
+                //txtvessel.Text = dr["VesselName"].ToString();
+                //txtinspector.Text = dr["InspectorName"].ToString();
+                //txtplanneddate.Text = dr["Plan_Date"].ToString();
+                txtplannedport.Text = dr["Planned_Port"].ToString();
+                //txtmaster.Text = dr["MasterName"].ToString();
+                //txtchiefofficer.Text = dr["ChiefOfficerName"].ToString();
+                //txtsecofficer.Text = dr["SecondOfficeName"].ToString();
+                //txtchiefengg.Text = dr["ChiefEngineerName"].ToString();
+                //txtfirstassistant.Text = dr["FirstAssistantEnggName"].ToString();
+                //DataTable dt3 = Inspection_Planning.AddInspectors(0, int.Parse(Session["Insp_Id"].ToString()), 0, 0, DateTime.Now, 0, 0, DateTime.Now, "", 0, 0, "CHKATT");
+                //if (dt3.Rows.Count > 0)
+                //{
+                //    if (dt3.Rows[0][0].ToString() == "NO")
+                //    {
+                //        txtmtmsupt.ReadOnly = true;
+                //        txtmtmsupt.Text = "";
+                //    }
+                //    else
+                //    {
+                //        //txtmtmsupt.ReadOnly = false;
+                //        txtmtmsupt.Text = dr["Supt"].ToString();
+                //    }
+                //}
+                //HiddenField_MTMSupt.Value = txtmtmsupt.Text;
+                //txtmtmsupt.Text = dr["Supt"].ToString();// Session["UserName"].ToString();
+                if ((strInsp_Status != "Planned") && (strInsp_Status != "Executed"))
+                {
+                    txtdonedt.Text = dr["DoneDt"].ToString();
+                }
+                if ((strInsp_Status != "Planned") && (strInsp_Status != "Executed"))
+                {
+                    txtportdone.Text = dr["PortDone"].ToString();
+                }
+                ViewState["ActLoc"]=txtportdone.Text; 
+                txtresponseduedt.Text = dr["Responsedt"].ToString();
+                txtstartdate.Text = dr["StartDate1"].ToString();
+                //if (dr["Master"].ToString() != "")
+                //    Master = int.Parse(dr["Master"].ToString());
+                //if (dr["ChiefEngineer"].ToString() != "")
+                //    ChiefEngineer = int.Parse(dr["ChiefEngineer"].ToString());
+                //if (dr["AssistantEngineer"].ToString() != "")
+                //    AssistantEngineer = int.Parse(dr["AssistantEngineer"].ToString());
+                //if (dr["ChiefOfficer"].ToString() != "")
+                //    ChiefOfficer = int.Parse(dr["ChiefOfficer"].ToString());
+                //if (dr["SecondOffice"].ToString() != "")
+                //    SecondOffice = int.Parse(dr["SecondOffice"].ToString());
+                //Inspector = dr["Inspector"].ToString();
+                //txtCreatedBy_TravelShd.Text = dr["Created_By"].ToString();
+                //txtCreatedOn_TravelShd.Text = dr["Created_On"].ToString();
+                //txtModifiedBy_TravelShd.Text = dr["Modified_By"].ToString();
+                //txtModifiedOn_TravelShd.Text = dr["Modified_On"].ToString();
+            }
+        }
+        DataTable dt11 = Inspection_Observation.UpdateInspectionObservation(Inspection_Id,DateTime.Now.ToShortDateString(), InspectionNo, Master, ChiefOfficer, SecondOffice, ChiefEngineer, AssistantEngineer, Inspector, ResponseDueDate, ActualLocation, ActualDate, QuestionId, Deficiency, Comment, HighRisk, NCR, "SELECT", Login_Id, Login_Id,"",IsObservation);
+        if (dt11.Rows.Count > 0)
+        {
+            foreach (DataRow dr1 in dt11.Rows)
+            {
+                txtCreatedBy_DocumentType.Text = dr1["Created_By"].ToString();
+                txtCreatedOn_DocumentType.Text = dr1["Created_On"].ToString();
+                txtModifiedBy_DocumentType.Text = dr1["Modified_By"].ToString();
+                txtModifiedOn_DocumentType.Text = dr1["Modified_On"].ToString();
+               
+            }
+        }
+    }
+    protected void BindGrid(object sender, EventArgs e)
+    {
+        //try
+        //{
+        //    TransType = "SELECT";
+        //    ID = Inspection_Id;
+        //    DataTable Dt = Inspection_Observation.UpdateInspectionObservation(ID, DateTime.Now.ToShortDateString(), InspectionNo, Master, ChiefOfficer, SecondOffice, ChiefEngineer, AssistantEngineer, Inspector, ResponseDueDate, ActualLocation, ActualDate, QuestionId, Deficiency, Comment, HighRisk, NCR, TransType, Login_Id, Login_Id);
+        //    if (Dt.Rows.Count > 0)
+        //    {
+        //        grdobservation.DataSource = Dt;
+        //        grdobservation.DataBind();
+
+        //        ShowRecords(int.Parse(Dt.Rows[grdobservation.PageIndex]["Id"].ToString()));
+        //    }
+        //    else
+        //    {
+        //        grdobservation.DataSource = Dt;
+        //        grdobservation.DataBind();
+        //        txtcomment.Text = "";
+        //        txtdeficiency.Text = "";
+        //        txtquestionno.Text = "";
+        //        txtquestion.Text = "";
+        //    }
+        //    lbl_GridView_DocumentType.Text = grdobservation.Rows.Count.ToString();
+        //}
+        //catch (Exception ex) { throw ex; }
+
+        try
+        {
+            TransType = "SELECT";
+            ID = Inspection_Id;
+            DataTable Dt = Inspection_Observation.UpdateInspectionObservation(ID, DateTime.Now.ToShortDateString(), InspectionNo, Master, ChiefOfficer, SecondOffice, ChiefEngineer, AssistantEngineer, Inspector, ResponseDueDate, ActualLocation, ActualDate, QuestionId, Deficiency, Comment, HighRisk, NCR, TransType, Login_Id, Login_Id,"",IsObservation);
+            ds.Tables.Add(Dt);
+            if (Dt.Rows.Count > 0)
+            {
+                //grdobservation.DataSource = Dt;
+                //grdobservation.DataBind();
+                //btnsave.Enabled = true;
+                //ShowRecords(int.Parse(Dt.Rows[grdobservation.PageIndex]["Id"].ToString()));
+                Session.Add("ds", ds);
+                HiddenField_TotalObs.Value = ds.Tables[0].Rows.Count.ToString();
+                Session.Add("recptr", 0);
+                if (temp == 1)
+                    display(ds.Tables[0].Rows.Count - 1,sender,e);
+                //else if (temp == 2)
+                //    display(int.Parse(HiddenField_ObsId.Value));
+                else
+                    display(0,sender,e);
+                //Button2.Enabled = true;
+            }
+            else
+            {
+                //grdobservation.DataSource = Dt;
+                //grdobservation.DataBind();
+                //btnsave.Enabled = false;
+                txtcomment.Text = "";
+                txtdeficiency.Text = "";
+                txtquestionno.Text = "";
+                txtquestion.Text = "";
+                HiddenField_TotalObs.Value = "0";
+                //Button2.Enabled = false;
+            }
+            //lbl_GridView_DocumentType.Text = grdobservation.Rows.Count.ToString();
+            lbl_GridView_DocumentType.Text = HiddenField_TotalObs.Value;
+        }
+        catch (Exception ex) { throw ex; }
+    }
+    //Show Header Records By InspectionDueId
+    protected void ShowRecords(int ObId, object sender, EventArgs e)
+    {
+        TransType = "SELECTID";
+        ID = ObId;
+        Session["Ob_Id"] = ID;
+        DataTable Dt = Inspection_Observation.UpdateInspectionObservation(ID, DateTime.Now.ToShortDateString(), InspectionNo, Master, ChiefOfficer, SecondOffice, ChiefEngineer, AssistantEngineer, Inspector, ResponseDueDate, ActualLocation, ActualDate, QuestionId, Deficiency, Comment, HighRisk, NCR, TransType, Login_Id, Login_Id,"",IsObservation);
+
+        txtdeficiency.Text = Dt.Rows[0]["deficiency"].ToString();
+        Session.Add("ObsDef", Dt.Rows[0]["deficiency"].ToString());
+        txtcomment.Text = Dt.Rows[0]["Comment"].ToString();
+        Session.Add("ObsComment", Dt.Rows[0]["Comment"].ToString());
+        txtquestion.Text = Dt.Rows[0]["Question"].ToString();
+        txtquestionno.Text = Dt.Rows[0]["QuestionNo"].ToString();
+        txtquestion.Text = Dt.Rows[0]["Question"].ToString();
+        if (Dt.Rows[0]["HighRisk"].ToString() == "True")
+        {
+            chkhighrisk.Checked = true;
+        }
+        else
+        {
+            chkhighrisk.Checked = false;
+        }
+        //------------
+        string chkSql = "select Count(*) from (select * from t_InspectionDue Where InspectionID in (Select ID from m_Inspection where InspectionGroup=4) )a where a.ID=" + Session["Insp_Id"].ToString();
+        DataTable chkDt = Common.Execute_Procedures_Select_ByQuery(chkSql);
+        if (Common.CastAsInt32(chkDt.Rows[0][0]) == 0)
+        {
+            ddlPscCode.Visible = false;
+            lblPscCodeLabel.Visible = false;
+        }
+        else
+        {
+            ddlPscCode.Visible = true;
+            lblPscCodeLabel.Visible = true;
+            ddlPscCode.SelectedValue = Dt.Rows[0]["PscCode"].ToString();
+        }
+        //------------
+        if (Dt.Rows[0]["NCR"].ToString() == "True")
+        {
+            chkncr.Checked = true;
+        }
+        else
+        {
+            chkncr.Checked = false;
+        }
+        if (Dt.Rows[0]["IsObservation"].ToString() == "True")
+        {
+            chkObs.Checked = true;
+        }
+        else
+        {
+            chkObs.Checked = false;
+        }
+        ddlyesno.SelectedValue = Dt.Rows[0]["ObservationStatus"].ToString();
+        ddlyesno_SelectedIndexChanged(sender, e);
+        HiddenField_ObId.Value = Dt.Rows[0]["Id"].ToString();
+        btnsave.Text = "Update";
+        //btnsave.Text = "Edit";
+    }
+    protected void Show_Header_Record(int InspectionId)
+    {
+        int intInsGrp=0;        
+        try
+        {
+            DataTable dt1 = Inspection_TravelSchedule.SelectInspectionDetailsByInspId(InspectionId);
+            foreach (DataRow dr in dt1.Rows)
+            {
+                txtinspno.Text = dr["InspectionNo"].ToString();
+                txtvessel.Text = dr["VesselName"].ToString();
+                txtinspname.Text = dr["Name"].ToString();
+                txtlastdone.Text = dr["DoneDt"].ToString();
+                txtnextdue.Text = dr["InspectionValidityDt"].ToString();
+                txtplannedport.Text = dr["Planned_Port"].ToString();
+                txtplanneddate.Text = dr["Plan_Date"].ToString();
+                txt_Status.Text = dr["Status"].ToString();
+                intInsGrp = int.Parse (dr["InspectionGroup"].ToString());
+                ViewState["VersionId"] = dr["VersionId"].ToString();
+            }
+            dt = Budget.getTable("SELECT INSPECTIONTYPE FROM m_InspectionGroup WHERE ID=" + intInsGrp.ToString()).Tables[0];
+            if (dt.Rows.Count > 0)
+            {
+                btnAddQuest.Enabled = dt.Rows[0][0].ToString().ToLower() == "internal";   
+            }
+            else
+            {
+                btnAddQuest.Enabled = false; 
+            }
+  
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
+
+    protected void BindPscCode()
+    {
+        string sql = "Select ID,PscCode from dbo.m_PscCode";
+        DataTable Dt= Common.Execute_Procedures_Select_ByQuery(sql);
+
+        ddlPscCode.DataSource = Dt;
+        ddlPscCode.DataTextField = "PscCode";
+        ddlPscCode.DataValueField = "ID";
+        ddlPscCode.DataBind();
+        ddlPscCode.Items.Insert(0, new ListItem("< Select >", ""));
+    }
+    #endregion
+
+    #region "Text Change Event"    
+    //protected void txtmaster_TextChanged(object sender, EventArgs e)
+    //{
+    //    if (txtmaster.Text.Trim() != "")
+    //    {
+    //        DataTable dt1 = Inspection_Observation.CheckUserName(txtmaster.Text, "MSTR");
+    //        if (dt1.Rows[0][0].ToString() == "0")
+    //        {
+    //            lblmessage.Text = "Please enter correct Master Name.";
+    //            return;
+    //        }
+    //        else
+    //        {
+    //            Master = int.Parse(dt1.Rows[0][0].ToString());
+    //            txtmaster.Text = dt1.Rows[0][1].ToString();
+    //        }
+    //        //**** Code To Check Duplicate Entry in Officer TextBoxes
+    //        if ((txtmaster.Text == txtchiefofficer.Text) || (txtmaster.Text == txtsecofficer.Text) || (txtmaster.Text == txtchiefengg.Text) || (txtmaster.Text == txtfirstassistant.Text))
+    //        {
+    //            lblmessage.Text = "Duplicate Crew entry is not permitted.";
+    //            txtmaster.Text = "";
+    //            txtmaster.Focus();
+    //            Button1.Enabled = false;
+    //            return;
+    //        }
+    //        else
+    //            Button1.Enabled = true;
+    //        //*******************************************************
+    //    }
+    //}
+    //protected void txtchiefofficer_TextChanged(object sender, EventArgs e)
+    //{
+    //    if (txtchiefofficer.Text.Trim() != "")
+    //    {
+    //        DataTable dt1 = Inspection_Observation.CheckUserName(txtchiefofficer.Text,"C/O");
+    //        if (dt1.Rows[0][0].ToString() == "0")
+    //        {
+    //            lblmessage.Text = "Please enter correct Chief Officer Name.";
+    //            return;
+    //        }
+    //        else
+    //        {
+    //            ChiefOfficer = int.Parse(dt1.Rows[0][0].ToString());
+    //            txtchiefofficer.Text = dt1.Rows[0][1].ToString();
+    //        }
+    //        //**** Code To Check Duplicate Entry in Officer TextBoxes
+    //        if ((txtchiefofficer.Text == txtmaster.Text) || (txtchiefofficer.Text == txtsecofficer.Text) || (txtchiefofficer.Text == txtchiefengg.Text) || (txtchiefofficer.Text == txtfirstassistant.Text))
+    //        {
+    //            lblmessage.Text = "Duplicate Crew entry is not permitted.";
+    //            txtchiefofficer.Text = "";
+    //            txtchiefofficer.Focus();
+    //            Button1.Enabled = false;
+    //            return;
+    //        }
+    //        else
+    //            Button1.Enabled = true;
+    //        //*******************************************************
+    //    }
+    //}
+    //protected void txtsecofficer_TextChanged(object sender, EventArgs e)
+    //{
+    //    if (txtsecofficer.Text.Trim() != "")
+    //    {
+    //        DataTable dt1 = Inspection_Observation.CheckUserName(txtsecofficer.Text.Trim(),"2/O");
+    //        if (dt1.Rows[0][0].ToString() == "0")
+    //        {
+    //            lblmessage.Text = "Please enter correct 2nd Officer Name.";
+    //            return;
+    //        }
+    //        else
+    //        {
+    //            SecondOffice = int.Parse(dt1.Rows[0][0].ToString());
+    //            txtsecofficer.Text = dt1.Rows[0][1].ToString();
+    //        }
+    //    }
+    //    //**** Code To Check Duplicate Entry in Officer TextBoxes
+    //    if ((txtsecofficer.Text == txtmaster.Text) || (txtsecofficer.Text == txtchiefofficer.Text) || (txtsecofficer.Text == txtchiefengg.Text) || (txtsecofficer.Text == txtfirstassistant.Text))
+    //    {
+    //        lblmessage.Text = "Duplicate Crew entry is not permitted.";
+    //        txtsecofficer.Text = "";
+    //        txtsecofficer.Focus();
+    //        Button1.Enabled = false;
+    //        return;
+    //    }
+    //    else
+    //        Button1.Enabled = true;
+    //    //*******************************************************
+    //}
+    //protected void txtchiefengg_TextChanged(object sender, EventArgs e)
+    //{
+    //    if (txtchiefengg.Text.Trim() != "")
+    //    {
+    //        DataTable dt1 = Inspection_Observation.CheckUserName(txtchiefengg.Text, "C/E");
+    //        if (dt1.Rows[0][0].ToString() == "0")
+    //        {
+    //            lblmessage.Text = "Please enter correct Chief Engg Name.";
+    //            return;
+    //        }
+    //        else
+    //        {
+    //            ChiefEngineer = int.Parse(dt1.Rows[0][0].ToString());
+    //            txtchiefengg.Text = dt1.Rows[0][1].ToString();
+    //        }
+    //        //**** Code To Check Duplicate Entry in Officer TextBoxes
+    //        if ((txtchiefengg.Text == txtmaster.Text) || (txtchiefengg.Text == txtchiefofficer.Text) || (txtchiefengg.Text == txtsecofficer.Text) || (txtchiefengg.Text == txtfirstassistant.Text))
+    //        {
+    //            lblmessage.Text = "Duplicate Crew entry is not permitted.";
+    //            txtchiefengg.Text = "";
+    //            txtchiefengg.Focus();
+    //            Button1.Enabled = false;
+    //            return;
+    //        }
+    //        else
+    //            Button1.Enabled = true;
+    //        //*******************************************************
+    //    }
+    //}
+    //protected void txtfirstassistant_TextChanged(object sender, EventArgs e)
+    //{
+    //    if (txtfirstassistant.Text.Trim() != "")
+    //    {
+    //        DataTable dt1 = Inspection_Observation.CheckUserName(txtfirstassistant.Text, "1 A/E");
+    //        if (dt1.Rows[0][0].ToString() == "0")
+    //        {
+    //            lblmessage.Text = "Please enter correct First Assistant Name.";
+    //            return;
+    //        }
+    //        else
+    //        {
+    //            AssistantEngineer = int.Parse(dt1.Rows[0][0].ToString());
+    //            txtfirstassistant.Text = dt1.Rows[0][1].ToString();
+    //        }
+    //        //**** Code To Check Duplicate Entry in Officer TextBoxes
+    //        if ((txtfirstassistant.Text == txtmaster.Text) || (txtfirstassistant.Text == txtchiefofficer.Text) || (txtfirstassistant.Text == txtsecofficer.Text) || (txtfirstassistant.Text == txtchiefengg.Text))
+    //        {
+    //            lblmessage.Text = "Duplicate Crew entry is not permitted.";
+    //            txtfirstassistant.Text = "";
+    //            txtfirstassistant.Focus();
+    //            Button1.Enabled = false;
+    //            return;
+    //        }
+    //        else
+    //            Button1.Enabled = true;
+    //        //*******************************************************
+    //    }
+    //}
+    ////protected void txtinspector_TextChanged(object sender, EventArgs e)
+    ////{
+    ////    if (txtinspector.Text.Trim() != "")
+    ////    {
+    ////        DataTable dt1 = Inspection_Observation.CheckUserName(txtinspector.Text,"");
+    ////        if (dt1.Rows[0][0].ToString() == "0")
+    ////        {
+    ////            lblmessage.Text = "Please Enter Correct Inspector!";
+    ////            return;
+    ////        }
+    ////        else
+    ////        {
+    ////            Inspector = txtinspector.Text;
+    ////            txtinspector.Text = dt1.Rows[0][1].ToString();
+    ////        }
+    ////    }
+    ////}
+    //protected void txtportdone_TextChanged(object sender, EventArgs e)
+    //{
+    //    if (txtportdone.Text.Trim() != "")
+    //    {
+    //        DataTable dt1 = Inspection_Planning.CheckPort(txtportdone.Text);
+    //        if (dt1.Rows[0][0].ToString() == "0")
+    //        {
+    //            lblmessage.Text = "Please enter correct Port Name.";
+    //            return;
+    //        }
+    //        else
+    //        {
+    //            ActualLocation = txtportdone.Text;
+    //        }
+    //    }
+    //}
+    protected void txtquestion_check(object sender, EventArgs e)
+    {
+        if (txtquestionno.Text.Trim() != "")
+        {
+            DataTable Dt = Inspection_Observation.GetQuestion(txtquestionno.Text, Inspection_Id);
+
+            if (Dt.Rows.Count > 0)
+            {
+                if (Dt.Rows[0][0].ToString() == "0")
+                {   
+                    lblmessage.Text = "Question# already exist in this Inspection.";
+                    return;
+                }
+                else
+                {
+                    txtquestion.Text = Dt.Rows[0]["Question"].ToString();
+                    QuestionId = int.Parse(Dt.Rows[0]["QuestionId"].ToString());
+                    //HiddenField1.Value = QuestionId.ToString();
+                    HiddenField_ObId.Value = QuestionId.ToString();
+                }
+            }
+            else
+            {
+                lblmessage.Text = "Invalid Question#.";
+                txtquestion.Text = "";
+                QuestionId = 0;
+            }
+        }
+    }
+    #endregion
+
+    #region "GridEvent"   
+    protected void grdobservation_RowPaging(object sender, GridViewPageEventArgs e)
+    {
+        //grdobservation.PageIndex = e.NewPageIndex; 
+        //BindGrid(); 
+    }
+    protected void grdobservation_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    {
+        //TransType = "DELETE";
+        ////ID = int.Parse(grdobservation.DataKeys[e.RowIndex].Value.ToString());
+        //ID = Convert.ToInt32(HiddenField_ObId.Value);
+        //DataTable dtInsp=Inspection_Observation.UpdateInspectionObservation(ID, DateTime.Now.ToShortDateString(), InspectionNo, Master, ChiefOfficer, SecondOffice, ChiefEngineer, AssistantEngineer, Inspector, ResponseDueDate, ActualLocation, ActualDate, QuestionId, Deficiency, Comment, HighRisk, NCR, TransType, Login_Id, Login_Id);
+        //if (dtInsp.Rows.Count > 0)
+        //{
+        //    if (dtInsp.Rows[0][0].ToString() == "NO")
+        //    {
+        //        lblmessage.Text = "Response has been already created for this Observation. You can not Delete.";
+        //        return;
+        //    }
+        //}
+        //lblmessage.Text = "Observation Deleted Sucessfully.";
+        //BindGrid();
+        //Session["ds"] = ds;
+    }
+    protected void grdobservation_RowEditing(object sender, GridViewEditEventArgs e)
+    {
+        //TransType = "SELECTID";
+        //ID = int.Parse(grdobservation.DataKeys[e.NewEditIndex].Value.ToString());
+        //Session["Ob_Id"] = ID;
+        //DataTable Dt = Inspection_Observation.UpdateInspectionObservation(ID,DateTime.Now.ToShortDateString(),InspectionNo, Master, ChiefOfficer, SecondOffice, ChiefEngineer, AssistantEngineer, Inspector, ResponseDueDate, ActualLocation, ActualDate, QuestionId, Deficiency, Comment, HighRisk, NCR, TransType, Login_Id, Login_Id);
+        //txtdeficiency.Text = Dt.Rows[0]["deficiency"].ToString();
+        //txtcomment.Text = Dt.Rows[0]["Comment"].ToString();
+        //txtquestion.Text = Dt.Rows[0]["Question"].ToString();
+        //txtquestionno.Text = Dt.Rows[0]["QuestionNo"].ToString();
+        //txtquestion.Text = Dt.Rows[0]["Question"].ToString();
+        //if (Dt.Rows[0]["HighRisk"].ToString() == "True")
+        //{
+        //    chkhighrisk.Checked = true;
+        //}
+        //else
+        //{
+        //    chkhighrisk.Checked = false;
+        //}
+        //if (Dt.Rows[0]["NCR"].ToString() == "True")
+        //{
+        //    chkncr.Checked = true;
+        //}
+        //else
+        //{
+        //    chkncr.Checked = false;
+        //}
+        //btnsave.Text = "Update";
+    }
+    #endregion
+
+    protected void lnkadd_Click(object sender, EventArgs e)
+    {
+        if (lnkadd.Text != "Cancel")
+        {
+            txtquestionno.Focus();
+            //txtquestionno.Enabled = true;
+            txtquestionno.ReadOnly = false;
+            btnsave.Text = "Save";
+            txtcomment.Text = "";
+            txtdeficiency.Text = "";
+            txtquestionno.Text = "";
+            txtquestion.Text = "";
+            chkhighrisk.Checked = false;
+            chkncr.Checked = false;
+            chkObs.Checked = false;
+            //grdobservation.Visible = false;
+          lnkadd.Text = "Cancel";
+          btnsave.Enabled = true;
+          ImageButton4.Enabled = false;
+          btn_Edit.Enabled = false;
+          if (Session["ObsDef"] != null)
+              Session["ObsDef"] = null;
+          if (Session["ObsComment"] != null)
+              Session["ObsComment"] = null;
+        }
+        else
+        {
+            //grdobservation.Visible = true;
+            //txtquestionno.Enabled = false;
+            txtquestionno.ReadOnly = true;
+            if (Session["DueMode"].ToString() == "ShowFull")
+            {
+                BindGrid(sender,e);
+            }
+            lnkadd.Text = "Add";
+            btnsave.Enabled = true;
+            ImageButton4.Enabled = true;
+            btn_Edit.Enabled = true;
+        }
+        if (ddlyesno.SelectedValue == "Yes")
+        {
+            chkncr.Enabled = false;
+            //chkhighrisk.Enabled = false;
+            chkObs.Enabled = false;
+            //txtdeficiency.Enabled = false;
+            txtdeficiency.ReadOnly = true;
+        }
+        else if (ddlyesno.SelectedValue == "NO")
+        {
+            chkncr.Enabled = true;
+            chkhighrisk.Enabled = true;
+            chkObs.Enabled = true;
+            //txtdeficiency.Enabled = true;
+            txtdeficiency.ReadOnly = false;
+        }
+        else
+        {
+            chkncr.Enabled = true;
+            chkhighrisk.Enabled = true;
+            chkObs.Enabled = true;
+            //txtdeficiency.Enabled = false;
+            txtdeficiency.ReadOnly = true;
+        }
+    }
+
+    protected void ddlyesno_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (ddlyesno.SelectedValue=="Yes")
+        {
+            chkncr.Enabled = false;
+            chkhighrisk.Enabled = false;
+            chkObs.Enabled = false;
+            //txtdeficiency.Enabled = false;    
+            txtdeficiency.ReadOnly = true; 
+        }
+        else if (ddlyesno.SelectedValue=="NO")
+        {
+            chkncr.Enabled = true;
+            chkhighrisk.Enabled = true;
+            chkObs.Enabled = true;
+            //txtdeficiency.Enabled = true; 
+            txtdeficiency.ReadOnly = false; 
+        }         
+        else
+        {
+            chkncr.Enabled = true;
+            chkhighrisk.Enabled = true;
+            chkObs.Enabled = true;
+            //txtdeficiency.Enabled = false;    
+            txtdeficiency.ReadOnly = true; 
+        }
+
+        
+        
+    }
+    protected void btnFirst_Click(object sender, EventArgs e)
+    {
+        if (Session["ds"] != null)
+        {
+            recptr = 0;
+            Session["recptr"] = 0;
+            display(recptr,sender,e);
+        }
+    }
+    protected void btnNext_Click(object sender, EventArgs e)
+    {
+        if (Session["ds"] != null)
+        {
+            recptr = Convert.ToInt32(Session["recptr"]) + 1;
+            Session["recptr"] = recptr;
+            display(recptr,sender,e);
+        }
+    }
+    protected void btnPrev_Click(object sender, EventArgs e)
+    {
+        if (Session["ds"] != null)
+        {
+            recptr = Convert.ToInt32(Session["recptr"]) - 1;
+            Session["recptr"] = recptr;
+            display(recptr,sender,e);
+        }
+    }
+    protected void btnLast_Click(object sender, EventArgs e)
+    {
+        if (Session["ds"] != null)
+        {
+            ds = Session["ds"] as DataSet;
+            recptr = ds.Tables[0].Rows.Count - 1;
+            Session["recptr"] = recptr;
+            display(recptr,sender,e);
+        }
+    }
+    private void display(int rowPosition, object sender, EventArgs e)
+    {
+        if (rowPosition < 0)
+        {
+            rowPosition = 0;
+        }
+        ds = Session["ds"] as DataSet;
+        if (rowPosition > ds.Tables[0].Rows.Count - 1)
+        {
+            rowPosition = ds.Tables[0].Rows.Count - 1;
+        }
+        txtRow.Text = (rowPosition + 1).ToString() + " of " + ds.Tables[0].Rows.Count;
+
+        Session["recptr"] = rowPosition;
+        dr = ds.Tables[0].Rows[rowPosition];
+        //txtCode.Text = dr[0].ToString();
+        //txtName.Text = dr[1].ToString();
+        //BindGrid();
+        ShowRecords(Convert.ToInt32(dr["Id"].ToString()),sender,e);
+    }
+    protected void ImageButton4_Click(object sender, EventArgs e)
+    {
+        TransType = "DELETE";
+        //ID = int.Parse(grdobservation.DataKeys[e.RowIndex].Value.ToString());
+        ID = Convert.ToInt32(HiddenField_ObId.Value);
+        DataTable dtInsp = Inspection_Observation.UpdateInspectionObservation(ID, DateTime.Now.ToShortDateString(), InspectionNo, Master, ChiefOfficer, SecondOffice, ChiefEngineer, AssistantEngineer, Inspector, ResponseDueDate, ActualLocation, ActualDate, QuestionId, Deficiency, Comment, HighRisk, NCR, TransType, Login_Id, Login_Id,"",IsObservation);
+        if (dtInsp.Rows.Count > 0)
+        {
+            if (dtInsp.Rows[0][0].ToString() == "NO")
+            {
+                lblmessage.Text = "Response has been already created for this Observation. You can not Delete.";
+                return;
+            }
+        }
+        lblmessage.Text = "Observation Deleted Sucessfully.";
+        BindGrid(sender,e);
+        Session["ds"] = ds;
+    }
+    protected void btn_Edit_Click(object sender, EventArgs e)
+    {
+        btnsave.Enabled = true;
+        btn_Edit.Enabled = false;
+        ImageButton4.Enabled = true;
+        btnsave.Enabled = Auth.isEdit;
+        ImageButton4.Enabled = Auth.isDelete;
+    }
+    protected void btn_UpdateCrew_Click(object sender, EventArgs e)
+    {
+        //DataSet ds122 = Inspection_Observation.UpdateCrew(int.Parse(Session["Insp_Id"].ToString()));
+        //if (ds122.Tables["Table"].Rows.Count > 0)
+        //{
+        //    txtmaster.Text = ds122.Tables["Table"].Rows[0]["MasterName"].ToString();
+        //    txtmaster_TextChanged(sender, e);
+        //}
+        //if (ds122.Tables["Table1"].Rows.Count > 0)
+        //{
+        //    txtchiefengg.Text = ds122.Tables["Table1"].Rows[0]["ChiefEngineerName"].ToString();
+        //    txtchiefengg_TextChanged(sender, e);
+        //}
+        //if (ds122.Tables["Table2"].Rows.Count > 0)
+        //{
+        //    txtchiefofficer.Text = ds122.Tables["Table2"].Rows[0]["ChiefOfficerName"].ToString();
+        //    txtchiefofficer_TextChanged(sender, e);
+        //}
+        //if (ds122.Tables["Table3"].Rows.Count > 0)
+        //{
+        //    txtfirstassistant.Text = ds122.Tables["Table3"].Rows[0]["FirstAssistantName"].ToString();
+        //    txtfirstassistant_TextChanged(sender, e);
+        //}
+        //if (ds122.Tables["Table4"].Rows.Count > 0)
+        //{
+        //    txtsecofficer.Text = ds122.Tables["Table4"].Rows[0]["SecondOfficerName"].ToString();
+        //    txtsecofficer_TextChanged(sender, e);
+        //}
+    }
+    protected void btnNotify_Click(object sender, EventArgs e)
+    {
+        string strInspNum = "", strDoneDt = "", strPortDone = "";
+        DataTable dtmail = Inspection_TravelSchedule.SelectInspectionDetailsByInspId(int.Parse(Session["Insp_Id"].ToString()));
+        if(dtmail.Rows.Count>0)
+        {
+            strInspNum = dtmail.Rows[0]["InspectionNo"].ToString();
+            strDoneDt = dtmail.Rows[0]["DoneDt"].ToString();
+            strPortDone = dtmail.Rows[0]["PortDone"].ToString();
+            try
+            {
+                string Message="";
+                DataTable dt = ObservationReport.SelectObservationDetails(int.Parse(Session["Insp_Id"].ToString()));
+                Message = Message + "<b>Following are the list of observations of Inspection # : " + strInspNum + " , Done Date : " + strDoneDt + ", Port Done : " + strPortDone + "<br/>";
+                Message = Message + "Total Observations : " + dt.Rows.Count  + " </b><br/><br/>";
+                Message = Message + "Kindly compare these with the condition on board your vessel and please confirm to your superintendent that these observations do not exist or have been rectified.<br/><br/>";
+                Message = Message + "<table width='100%' border='1' cellspacing='0'>";
+                Message = Message + "<tr><td><b>Question #</b></td><td><b>Observation</b></td></tr>";
+                foreach (DataRow dr in dt.Rows)
+                {
+                    Message = Message +  "<tr><td width='200px'>" + dr["QuestionNo"].ToString() + "</td><td>" + dr["DEFICIENCY"].ToString() + "</td></tr>";
+                }
+                Message = Message + "</table><br/><br/>";
+                Message = Message + "Best regards,<br/>";
+                Message = Message + "HSQE Department";
+
+                SendMail.ObservationNotifyMail(int.Parse(Session["Insp_Id"].ToString()), "Inspection # : " + strInspNum + " : Observation List", Message);
+                lblmessage.Text = "Mail Send Successfully.";
+            }
+            catch { }
+        }
+    }
+    public DataSet getDatset(string filename)
+    {
+        DataSet DS = new DataSet();
+        System.Data.OleDb.OleDbDataAdapter MyCommand;
+        System.Data.OleDb.OleDbConnection MyConnection;
+        MyConnection = new System.Data.OleDb.OleDbConnection("provider=Microsoft.Jet.OLEDB.4.0;data source=" + Server.MapPath("..\\EMANAGERBLOB\\Inspection\\CheckLists\\") + filename + ";Extended Properties=Excel 8.0;");
+        MyCommand = new System.Data.OleDb.OleDbDataAdapter("select " + int.Parse(Session["Insp_Id"].ToString()) + " as InspectionDueId," + int.Parse(Session["loginid"].ToString()) + " as SuperIntendentId,[Question Id] as QuestionId,[Complies] as ObservationStatus,[Observation] as IsObservation,[High Risk] as HighRisk,[NCR] as NCR,Deficiency,Comment," + int.Parse(Session["loginid"].ToString()) + " as CreatedBy," + int.Parse(Session["loginid"].ToString()) + " as ModifiedBy from [TemplateCheckList$]", MyConnection);
+        MyCommand.Fill(DS);
+        MyConnection.Close();
+        return DS;
+    }
+    protected void btn_ImportCheckList_Click(object sender, EventArgs e)
+    {
+        string File;
+        DataSet ds = new DataSet();
+
+        if (flp_CheckList.HasFile)
+        {
+            string str1 = flp_CheckList.PostedFile.FileName;
+            Boolean str_correct = str1.EndsWith(".xml");
+            if (str_correct == true)
+            {
+                string str2 = System.IO.Path.GetFileName(str1);
+            }
+            else
+            {
+                lblmessage.Text = "Upload only .xml files.";
+                return;
+            }
+
+            string strfile = flp_CheckList.PostedFile.FileName;
+            //strfile = strfile.Substring(strfile.LastIndexOf("\\") + 1, strfile.Length - strfile.LastIndexOf("\\") - 1);
+            //int intstrt = strfile.IndexOf("[");
+            //int intend = strfile.IndexOf("]");
+            //string strInsName = (strfile.Substring(intstrt + 1, ((intend - 1) - intstrt))).Replace("-", "/");
+            //if (strInsName != txtinspno.Text)
+            //{
+            //    lblmessage.Text = "Choosen CheckList does not belongs to this Inspection.";
+            //    return;
+            //}
+
+            try
+            {
+                File = flp_CheckList.PostedFile.FileName;
+                File = File.Substring(File.LastIndexOf("\\") + 1, File.Length - File.LastIndexOf("\\") - 1);
+                flp_CheckList.SaveAs(Server.MapPath("~/EMANAGERBLOB/Inspection/CheckLists") + "/" + File);
+                ds.ReadXml(Server.MapPath("~/EMANAGERBLOB/Inspection/CheckLists") + "/" + File);  
+
+                return; 
+                ds = getDatset(File);
+                DataView dv = ds.Tables[0].DefaultView;
+                dv.RowFilter = "((ObservationStatus is not null) or (IsObservation is not null) or (HighRisk is not null) or (NCR is not null) or (Deficiency is not null) or (Comment is not null))";
+                DataSet dss = new DataSet();
+                DataTable dtt = new DataTable();
+                dtt = dv.ToTable();
+                dss.Tables.Add(dtt.Copy());
+                Inspection_Observation.DeleteObs_Checklist(int.Parse(Session["Insp_Id"].ToString()));
+                SqlConnection MyConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["SNQ"].ToString());
+                SqlDataAdapter MyDataAdapter = new SqlDataAdapter("SELECT InspectionDueID,SuperIntendentId,QuestionId,ObservationStatus,IsObservation,HighRisk,NCR,Deficiency,Comment,CreatedBy,ModifiedBy from t_Observations", MyConnection);
+                SqlCommandBuilder MyCmd = new SqlCommandBuilder(MyDataAdapter);
+                DataSet MyDataSet = new DataSet();
+                MyDataAdapter.Fill(MyDataSet);
+                MyDataSet.Tables[0].Rows.Clear();
+                for (int i = 0; i < dss.Tables[0].Rows.Count; i++)
+                {
+                    DataRow MyRow = MyDataSet.Tables[0].NewRow();
+
+                    MyRow[0] = dss.Tables[0].Rows[i][0];
+                    MyRow[1] = dss.Tables[0].Rows[i][1];
+                    MyRow[2] = dss.Tables[0].Rows[i][2];
+                    MyRow[3] = dss.Tables[0].Rows[i][3];
+                    MyRow[4] = (dss.Tables[0].Rows[i][4].ToString() == "Yes") ? 1 : 0;
+                    MyRow[5] = (dss.Tables[0].Rows[i][5].ToString() == "Yes") ? 1 : 0;
+                    MyRow[6] = (dss.Tables[0].Rows[i][6].ToString() == "Yes") ? 1 : 0;
+                    MyRow[7] = dss.Tables[0].Rows[i][7];
+                    MyRow[8] = dss.Tables[0].Rows[i][8];
+                    MyRow[9] = dss.Tables[0].Rows[i][9];
+                    MyRow[10] = dss.Tables[0].Rows[i][10];
+
+                    MyDataSet.Tables[0].Rows.Add(MyRow);
+                }
+                MyDataAdapter.Update(MyDataSet);
+                lblmessage.Text = "CheckList Imported Successfully.";
+                BindGrid(sender, e);
+            }
+            catch
+            {
+                lblmessage.Text = "CheckList Not Imported.";
+            }
+        }
+        else
+        {
+            lblmessage.Text = "Please select a file to import.";
+            return;
+        }
+    }
+
+    //protected void GridView_InspectionCheckList_RowDataBound(object sender, GridViewRowEventArgs e)
+    //{
+    //    //if (e.Row.RowType == DataControlRowType.DataRow)
+    //    //{
+    //    //    HiddenField hdnQueNo = (HiddenField)e.Row.FindControl("hdnQueNo");
+    //    //    LinkButton lbtnQueNo = (LinkButton)e.Row.FindControl("lbtnQueNo");
+
+    //    //    lbtnQueNo.Attributes.Add("onclick", "return FillQuestionNo('" + hdnQueNo.Value + "');");
+             
+    //    //}
+    //}
+
+    protected void txtdonedt_TextChanged(object sender, EventArgs e)
+    {
+        if (txtstartdate.Text != "")
+        {
+            if (DateTime.Parse(txtstartdate.Text) > DateTime.Parse(txtdonedt.Text))
+            {
+                lblmessage.Text = "Done Date cannot be less than Start Date.";
+                txtstartdate.Focus();
+                return;
+            }
+        }
+    }
+    protected void txtresponseduedt_TextChanged(object sender, EventArgs e)
+    {
+        if (txtresponseduedt.Text != "")
+        {
+            if (DateTime.Parse(txtdonedt.Text) > DateTime.Parse(txtresponseduedt.Text))
+            {
+                lblmessage.Text = "Response Due Date cannot be less than Done Date.";
+                txtresponseduedt.Focus();
+                return;
+            }
+        }
+    }
+    protected void txtportdone_TextChanged(object sender, EventArgs e)
+    {
+        if (txtportdone.Text.Trim() != "")
+        {
+            DataTable dt1 = Inspection_Planning.CheckPort(txtportdone.Text);
+            if (dt1.Rows[0][0].ToString() == "0")
+            {
+                lblmessage.Text = "Please enter correct Port Name.";
+                txtportdone.Focus();
+                return;
+            }
+            else
+            {
+                ViewState["ActLoc"] = txtportdone.Text;
+            }
+        }
+
+    }
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+        if (Session["Insp_Id"] == null) { lblmessage.Text = "Please save Planning first."; return; }
+        try
+        {
+            DataTable dt3 = Inspection_Planning.AddInspectors(0, int.Parse(Session["Insp_Id"].ToString()), 0, 0, DateTime.Now, 0, 0, DateTime.Now, "", 0, 0, "CHKATT");
+            if (dt3.Rows.Count > 0)
+            {
+                if (dt3.Rows[0][0].ToString() == "YES")
+                {
+                    DataTable dt23 = Inspection_Observation.UpdateInspectionObservation(Convert.ToInt32(Session["Insp_Id"].ToString()), DateTime.Now.ToShortDateString(), "", 0, 0, 0, 0, 0, "", "", "", "", 0, "", "", 0, 0, "CHKTRAV", 0, 0, "", 0);
+                    if (dt23.Rows[0][0].ToString() != "1")
+                    {
+                        lblmessage.Text = "Please save Travel Schedule first.";
+                        return;
+                    }
+                }
+            }
+            if (txtportdone.Text.Trim() != "")
+            {
+                DataTable dt1 = Inspection_Planning.CheckPort(txtportdone.Text);
+                if (dt1.Rows[0][0].ToString() == "0")
+                {
+                    lblmessage.Text = "Please enter correct Port Name.";
+                    return;
+                }
+                else
+                {
+                    ActualLocation = txtportdone.Text;
+                }
+            }
+            //if (Master == 0)
+            //{
+            //    lblmessage.Text = "Enter correct Master.";
+            //    return;
+            //}
+            Master = 0; // CODE ADDED
+
+            //if (txtchiefofficer.Text == "")
+                ChiefOfficer = 0;
+            ///if (txtsecofficer.Text == "")
+                SecondOffice = 0;
+
+            //if (ChiefEngineer == 0)
+            //{
+            //    lblmessage.Text = "Enter correct Chief Engineer(C/E).";
+            //    return;
+            //}
+            ChiefEngineer = 0; // CODE ADDED
+
+            //if (txtfirstassistant.Text == "")
+                AssistantEngineer = 0; ;
+            //if (txtinspector.Text == "")
+                Inspector = "";
+
+            //if (ActualLocation == "")
+            //{
+            //    lblmessage.Text = "Enter correct Actual Location.";
+            //    return;
+            //}
+                ActualLocation = ""; // CODE ADDED
+
+            TransType = "UPDATEOB";
+            ResponseDueDate = txtresponseduedt.Text;
+            ActualDate = txtdonedt.Text;
+            ID = Inspection_Id;
+            Inspection_Observation.UpdateInspectionObservation(ID, txtstartdate.Text.ToString(), InspectionNo, Master, ChiefOfficer, SecondOffice, ChiefEngineer, AssistantEngineer, "", ResponseDueDate,(""+ ViewState["ActLoc"].ToString()), ActualDate, QuestionId, Deficiency, Comment, HighRisk, NCR, TransType, Login_Id, Login_Id, "", IsObservation);
+            //Inspection_Observation.UpdateInspectionObservation(ID, txtstartdate.Text.ToString(), InspectionNo, Master, ChiefOfficer, SecondOffice, ChiefEngineer, AssistantEngineer, txtinspector.Text, ResponseDueDate, ActualLocation, ActualDate, QuestionId, Deficiency, Comment, HighRisk, NCR, TransType, Login_Id, Login_Id, "", IsObservation);
+            lblmessage.Text = "Inspection Details Updated Sucessfully.";
+
+        }
+        catch (Exception ex)
+        {
+            lblmessage.Text = ex.StackTrace.ToString();
+        }
+
+    }
+
+   
+}

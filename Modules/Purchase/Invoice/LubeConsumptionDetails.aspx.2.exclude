@@ -1,0 +1,482 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="LubeConsumptionDetails.aspx.cs" Inherits="Purchase_InventoryConsumptionDetails"   %>
+
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+
+    <title>EMANAGER</title>
+   <%-- <link rel="stylesheet" href="../CSS/app_style.css" />--%>
+     <link rel="stylesheet" type="text/css" href="../../HRD/Styles/StyleSheet.css" />
+	 <link rel="stylesheet" type="text/css" href="./../HRD/Styles/style.css" />
+    <script type="text/javascript" src="../../HRD/JS/jquery.min.js"></script>
+     <script type="text/javascript" src="../../HRD/JS/jquery_v1.10.2.min.js"></script>
+    <script type="text/jscript">
+        $(document).on('change', '.txtCurrentMonthConsump', function (e) {
+           /* alert($(this).val());*/
+            var CurMonthConsumption = $(this).val();
+            var input_id = $(this).attr("id");
+            var id = input_id.replace("txtCurrentMonthConsump", ""); //it will remove postfix
+            var previousMonthROB = $("#" + id + "lblPrevMonthROB").html();
+            if (parseInt(previousMonthROB) == 0) {
+                alert('Please update previous month ROB first.');
+                return;
+            }
+
+            if (parseInt(CurMonthConsumption) > parseInt(previousMonthROB)) {
+                alert('System should not allow current month consumption greater than previous month ROB.');
+                $(this).val("0").focus();
+                return;
+            }
+
+            var currentMonthROB = parseFloat(previousMonthROB) - parseFloat(CurMonthConsumption);
+            $("#" + id + "lblCurrentMonthROB").html(parseInt(currentMonthROB));
+        });
+    </script>
+    <style type="text/css">
+    body
+    {
+        font-family:Verdana;
+        font-size:12px;
+        margin:0px;
+    }
+    
+        .input_box
+        {}
+    .error
+    {
+        background-color:Red;
+        color:White;
+    }
+    </style>
+  
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div style="text-align: center">
+        <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" ></asp:ToolkitScriptManager>
+    <div id="log" style="display:none"></div>
+    <div>
+    <center>
+       <%-- <table cellpadding="6" cellspacing="0" width="100%">
+         <tr>
+         <td style="  padding:10px;" class="text headerband">
+             <strong>Lube Consumption</strong>
+         </td>
+         </tr>
+         </table>--%>
+    <table cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+    <td style=" vertical-align:top; padding-top:10px;padding-left:5px;padding-right:5px;">
+    <div style="border:solid 1px #008AE6;font-family:Arial, Helvetica, sans-serif;font-size:12px; " >
+  <%--  <asp:UpdatePanel runat="server" id="up1">
+    <ContentTemplate>--%>
+         <table cellpadding="6" cellspacing="0" width="100%">
+           <tr>
+               <td style=" background-color:#FFFFCC">
+                 <asp:Label ID="lblMessage" runat="server" ForeColor="#C00000"></asp:Label>
+               </td>
+           </tr>
+         <tr>
+           <td>
+           <table border="1" cellpadding="0" cellspacing="0" style="text-align: center; border-collapse:collapse; width:100%;">
+           <tr>
+           <td>
+            
+              <table border="0" bordercolor="#F0F5F5" cellpadding="6" cellspacing="0" style="height: 100px; text-align: center; border-collapse:collapse; width:100%;">
+                      <tr style="background-color:#E6F3FC">
+                          <td align="right" style="text-align: right; padding-right:10px; width: 110px; ">
+                              Vessel :</td>
+                          <td style="text-align: left;padding-left:10px;" >
+
+                            <%-- <asp:Label ID="lblVessel" runat="server" > </asp:Label>--%>
+                              <asp:DropDownList runat="server"  ID="ddlVessel" CssClass="input_box" Width="90%" AutoPostBack="True" OnSelectedIndexChanged="ddlVessel_SelectedIndexChanged"></asp:DropDownList>
+                          </td>
+                           <td align="right" style="text-align: right; padding-right:10px; width: 110px; ">
+                              Month :</td>
+                          <td style="text-align: left; padding-left:10px; " >
+                             <asp:DropDownList ID="ddlMonth" runat="server" Width="75px" AutoPostBack="true" OnSelectedIndexChanged="ddlMonth_SelectedIndexChanged">
+                                        <asp:ListItem Text="Jan" Value="1"></asp:ListItem>
+                                        <asp:ListItem Text="Feb" Value="2"></asp:ListItem>
+                                        <asp:ListItem Text="Mar" Value="3"></asp:ListItem>
+                                        <asp:ListItem Text="Apr" Value="4"></asp:ListItem>
+                                        <asp:ListItem Text="May" Value="5"></asp:ListItem>
+                                        <asp:ListItem Text="Jun" Value="6"></asp:ListItem>
+                                        <asp:ListItem Text="Jul" Value="7"></asp:ListItem>
+                                        <asp:ListItem Text="Aug" Value="8"></asp:ListItem>
+                                        <asp:ListItem Text="Sep" Value="9"></asp:ListItem>
+                                        <asp:ListItem Text="Oct" Value="10"></asp:ListItem>
+                                        <asp:ListItem Text="Nov" Value="11"></asp:ListItem>
+                                        <asp:ListItem Text="Dec" Value="12"></asp:ListItem>
+                              </asp:DropDownList>
+                          </td>
+                          <td align="right" style="text-align: right; padding-right:10px; width: 110px; ">
+                              Year :
+                          </td>
+                          <td style="text-align: left;width: 175px;" >
+                             <asp:DropDownList ID="ddlYear" runat="server" Width="100px" AutoPostBack="true" OnSelectedIndexChanged="ddlYear_SelectedIndexChanged">
+                              </asp:DropDownList>
+                          </td>
+                          <td align="right" style="text-align: right; padding-right:10px; width: 110px; "> <asp:LinkButton ID="lbOpenBalance" runat="server" Text="Add Opening Balance" OnClick="lblOpenBalance_Click"></asp:LinkButton></td>
+                         
+                      </tr>
+                    
+                      <tr style="background-color:#E6F3FC">
+                             <td colspan="7">
+                                <%-- <div style="text-align:left;padding-left:20px;height:25px;vertical-align:central;">
+                                     <b> Purchase Order Details : </b>
+                                 </div>--%>
+                                 <div class="table-responsive">
+                                   <div style="OVERFLOW-Y: scroll; OVERFLOW-X: hidden;HEIGHT: 30px ; text-align:center; border-bottom:none;">
+                                           <table border="1" bordercolor="white" cellpadding="4" cellspacing="0" rules="all" style="width:100%; height:30px;  border-collapse:collapse;">
+                                            <colgroup>
+                                                <col style="width:10%;"/>
+                                                <col style="width:28%;"/>
+                                                <col style="width:8%;text-align:center;" />
+                                                <col style="width:8%;text-align:center;" />
+                                                <col style="width:8%;text-align:center;" />
+                                                <col style="width:6%;text-align:center;" />
+                                                <col style="width:10%;text-align:center;" />
+                                                <col style="width:10%;text-align:center;" />
+                                                <col style="width:10%;text-align:center;" />
+                                                <col style="width:2%;"/>
+                                                <tr class= "headerstylegrid" >
+                                                    <td>PO #</td>
+                                                    <td>Lube Type</td>
+                                                    <td style="text-align:center;">Supply Port</td>
+                                                    <td style="text-align:center;">Supply Date</td>
+                                                    <td style="text-align:center;">Supply Qty</td>
+                                                    <td style="text-align:center;">UOM</td>
+                                                    <td style="text-align:center;"><asp:Label ID="lblPreviousMonthROB" runat="server"> </asp:Label> </td>
+                                                    <td style="text-align:center;"><asp:Label ID="lblCurrMonthConsumption" runat="server" > </asp:Label></td>
+                                                    <td style="text-align:center;"><asp:Label ID="lblCurrMonthROB" runat="server" > </asp:Label></td> 
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                            </colgroup>
+                                        </table>
+                                        </div>
+                               <div id="divPayment" runat="server" class="scrollbox" style="OVERFLOW-Y: scroll; OVERFLOW-X: hidden; HEIGHT: 275px; text-align:center;">
+                                            <table border="1" bordercolor="#F0F5F5" cellpadding="4" cellspacing="0" style=" text-align: center; border-collapse:collapse; width:100%;">
+                                                <colgroup>
+                                                <col style="width:10%;"/>
+                                                <col style="width:28%;"/>
+                                                <col style="width:8%;" />
+                                                <col style="width:8%;text-align:center;" />
+                                                <col style="width:8%;text-align:center;" />
+                                                <col style="width:6%;text-align:center;" />
+                                                <col style="width:10%;text-align:center;" />
+                                                <col style="width:10%;text-align:center;" />
+                                                <col style="width:10%;text-align:center;" />
+                                                <col style="width:2%;"/>
+                                                    </colgroup>
+                                            <asp:Repeater ID="RptPOConsumption" runat="server">
+                                                <ItemTemplate>
+                                                    <tr style="background-color:#E6F3FC" >
+                                                        <td align="left"><%#Eval("Bidponum")%></td>
+                                                        <td align="left"><%#Eval("description")%>
+                                                            <asp:HiddenField ID="hdnBidId" runat="server" Value='<%#Eval("BidId")%>' />
+                                                            <asp:HiddenField ID="hdnPOId" runat="server" Value='<%#Eval("Poid")%>' />
+                                                            <asp:HiddenField ID="hdnBidItemID" runat="server" Value='<%#Eval("BidItemID")%>' />    
+                                                            <asp:HiddenField ID="hdnRecid" runat="server" Value='<%#Eval("recid")%>' />
+                                                        </td>
+                                                        <td align="left"><%#Eval("DeliveryPort")%></td>
+                                                        <td align="left"><%#Common.ToDateString(Eval("DeliveryDate"))%></td>
+                                                        <td align="center"> <asp:Label ID="lblQtyRecd" runat="server" Text='<%#Common.CastAsDecimal(Eval("QtyRecd"))%>' ></asp:Label> </td>
+                                                        <td align="center"><%#Eval("uom")%></td>
+                                                        <td align="center">
+                                                             <asp:Label ID="lblPrevMonthROB" runat="server"   Text='<%#Common.CastAsDecimal(Eval("PreMonthROB"))%>' ></asp:Label>
+                                                           <%-- <asp:TextBox ID="txtPreMonthROB" runat="server"  Enabled='<%#(Convert.ToInt32(Eval("Status"))==0)%>' MaxLength="10" TextMode="Number" Width="75px" Visible='<%#Convert.ToInt32(Eval("ConsumpCount"))==0%>'></asp:TextBox>--%>
+                                                           </td>
+                                                        <td align="right" style="padding-right:5px;">
+                                                            <asp:TextBox ID="txtCurrentMonthConsump" runat="server"  Enabled='<%#(Convert.ToInt32(Eval("Status"))==0)%>' MaxLength="8" Text='<%#Common.CastAsDecimal(Eval("CurrMonthConsumpQty"))%>' TextMode="Number" Width="75px" CssClass='txtCurrentMonthConsump' > ></asp:TextBox>
+                                                               
+                                                               <%-- AutoPostBack="true" OnTextChanged="txtCurrentMonthConsump_TextChanged"--%>
+                                                        </td>
+                                                        <td align="center">
+                                                            <asp:Label ID="lblCurrentMonthROB" runat="server"   Text='<%#Common.CastAsDecimal(Eval("CurrMonthROB"))%>'></asp:Label>
+                                                        </td>
+                                                        <td>&nbsp;</td>
+                                                    </tr>
+                                                </ItemTemplate>
+                                                <AlternatingItemTemplate>
+                                                    <tr style="background-color:#E6F3FC" >
+                                                        <td align="left"><%#Eval("Bidponum")%></td>
+                                                        <td align="left"><%#Eval("description")%>
+                                                            <asp:HiddenField ID="hdnBidId" runat="server" Value='<%#Eval("BidId")%>' />
+                                                            <asp:HiddenField ID="hdnPOId" runat="server" Value='<%#Eval("Poid")%>' />
+                                                            <asp:HiddenField ID="hdnBidItemID" runat="server" Value='<%#Eval("BidItemID")%>' />    
+                                                            <asp:HiddenField ID="hdnRecid" runat="server" Value='<%#Eval("recid")%>' />
+                                                        </td>
+                                                        <td align="left"><%#Eval("DeliveryPort")%></td>
+                                                        <td align="left"><%#Common.ToDateString(Eval("DeliveryDate"))%></td>
+                                                        <td align="center"> <asp:Label ID="lblQtyRecd" runat="server" Text='<%#Common.CastAsDecimal(Eval("QtyRecd"))%>' ></asp:Label> </td>
+                                                        <td align="center"><%#Eval("uom")%></td>
+                                                        <td align="center">
+                                                             <asp:Label ID="lblPrevMonthROB" runat="server"   Text='<%#Common.CastAsDecimal(Eval("PreMonthROB"))%>' ></asp:Label>
+                                                           <%-- <asp:TextBox ID="txtPreMonthROB" runat="server"  Enabled='<%#(Convert.ToInt32(Eval("Status"))==0)%>' MaxLength="10" TextMode="Number" Width="75px" Visible='<%#Convert.ToInt32(Eval("ConsumpCount"))==0%>'></asp:TextBox>--%>
+                                                           </td>
+                                                        <td align="right" style="padding-right:5px;">
+                                                            <asp:TextBox ID="txtCurrentMonthConsump" runat="server"  Enabled='<%#(Convert.ToInt32(Eval("Status"))==0)%>' MaxLength="8"  Text='<%#Common.CastAsDecimal(Eval("CurrMonthConsumpQty"))%>' TextMode="Number" Width="75px" CssClass='txtCurrentMonthConsump' ></asp:TextBox>
+                                                               <%-- AutoPostBack="true" OnTextChanged="txtCurrentMonthConsump_TextChanged"--%>
+                                                                
+                                                        </td>
+                                                        <td align="center">
+                                                            <asp:Label ID="lblCurrentMonthROB" runat="server" alt='lblCurrentMonthROB_<%#Eval("BidItemID")%>'  Text='<%#Common.CastAsDecimal(Eval("CurrMonthROB"))%>'></asp:Label>
+                                                        </td>
+                                                        <td>&nbsp;</td>
+                                                    </tr>
+                                                </AlternatingItemTemplate>
+                                            </asp:Repeater>
+                                             </table>
+                                        </div>
+                                     </div>
+                    
+                     </td>
+                          </tr>
+                      <tr style="background-color:#E6F3FC">
+                       <td align="right" style="text-align: right; padding-right:15px; width: 110px; ">
+                                  Remark :</td>
+                        <td style="text-align: left;" width="300px" colspan="2">
+                            <asp:TextBox ID="txtConsumptionDescription" TextMode="MultiLine" runat="server" 
+                                CssClass="input_box"  Width="95%" Height="40px"  ></asp:TextBox>
+                        </td>
+                           <td style="text-align: left;"  >
+                            Master Name :
+                        </td>
+                            <td style="text-align: left;" width="150px">
+                                <asp:TextBox ID="txtMasterName"  runat="server" MaxLength="50"
+                                CssClass="input_box"  Width="95%"   ></asp:TextBox>
+                          </td>
+                           <td align="right" style="text-align: right; padding-right:10px; width: 110px; ">
+                               CE Name :  </td>
+                        <td style="text-align: left;" width="150px">
+                             <asp:TextBox ID="txtCEName"  runat="server" MaxLength="50"
+                                CssClass="input_box"  Width="95%"  ></asp:TextBox>
+                        </td>
+                        
+                        
+                    </tr>
+                  <tr>
+                       <td align="right" style="text-align: right; padding-right:10px; width: 110px; ">
+                              Updated By :   
+                       </td>
+                        <td style="text-align: left;" width="300px" colspan="2" >
+                             <asp:TextBox ID="txtAddedBy"  runat="server" MaxLength="50"
+                                CssClass="input_box"  Width="60%"   ></asp:TextBox> 
+                        </td>
+                      <td align="right" style="text-align: right; padding-right:10px; width: 110px; ">
+                             Updated On    </td>
+                        <td style="text-align: left;width: 150px;">
+                           <asp:Label ID="lblAddedon" runat="server"></asp:Label>
+                        </td>
+                      <td align="right" style="text-align: right; padding-right:10px; width: 110px; ">
+                          
+                      </td>
+                       <td style="text-align: left;">
+                            
+                           </td>
+                  </tr>
+                    <tr style="background-color:#E6F3FC">
+                       <td align="right" style="text-align: right; padding-right:10px; width: 110px; ">
+                            Office Remark :      </td>
+                        <td style="text-align: left;width: 300px;" colspan="2">
+                            <asp:TextBox ID="txtOfficeRemark" TextMode="MultiLine" runat="server" 
+                               ReadOnly="true"  Width="95%" Height="40px"  ></asp:TextBox>
+                        </td>
+                      <td align="right" style="text-align: right; padding-right:10px; width: 110px; ">
+                           Verified By :   </td>
+                        <td style="text-align: left;" colspan="2">
+                            <asp:Label ID="lblVerifiedBy" runat="server" > </asp:Label> /  <asp:Label ID="lblVerifiedOn" runat="server" ></asp:Label>
+                        </td>
+                     
+                       <td style="text-align: left;" >
+                            
+                           </td>
+                  </tr>
+                   
+                  
+                     </table>
+           </td>
+         
+           </tr>
+           </table>
+              <table id="tblSaveInv" runat="server" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td style=" padding-bottom:10px;">
+                     
+                      <asp:Button ID="btn_Save" runat="server" Text="Save" Width="80px" OnClick="btn_Save_Click" style=" border:none; padding:4px;" CssClass="btn" /> &nbsp;
+                      <asp:Button ID="btnClose" runat="server" Text="Close" Width="80px" OnClientClick="window.close()" style=" border:none; padding:4px;" CssClass="btn"  /> &nbsp;
+                      <asp:Button ID="btnExport" runat="server" Text="Export" Width="80px" Visible="false" style=" border:none; padding:4px;" CssClass="btn" OnClick="btnExport_Click"  />
+                  </td>
+                </tr>
+              </table>
+           </td>
+         </tr>
+       </table>
+     <%--  </ContentTemplate>
+       <Triggers>
+       <asp:PostBackTrigger ControlID="btn_Save"  />
+       </Triggers>
+     </asp:UpdatePanel>--%>
+    </div>
+    <div style="position:absolute;top:15px;left:0px; height :100%; width:100%;" id="dv_AddOpenBal" runat="server" visible="false">
+    <center>
+        <div style="position:fixed;top:0px;left:0px; min-height :100%; width:100%; background-color :black;z-index:1; opacity:0.6;filter:alpha(opacity=60)"></div>
+        <div style="position:relative;width:90%; padding :5px; text-align :center;background : white; z-index:2;top:15px; border:solid 10px black;">
+            <center>
+                <div class="text headerband">
+                    <strong> Lube Consumption Opening Balance </strong>
+                </div>
+                <table width="100%">
+                    <tr style="background-color:#E6F3FC">
+                          <td align="right" style="text-align: right; padding-right:10px; width: 110px; ">
+                              Vessel :</td>
+                          <td style="text-align: left;padding-left:10px;" colspan="5">
+                             <asp:Label ID="lblOpenBalVessel" runat="server" > </asp:Label>
+                               
+                          </td>
+                         <td align="right" style="text-align: right; padding-right:10px; width: 110px; ">
+                              Month :</td>
+                          <td style="text-align: left; padding-left:10px; width: 175px; ">
+                             <asp:DropDownList ID="ddlOpenBalMonth" runat="server" Width="100px" >
+                                        <asp:ListItem Text="< Select >" Value="0"></asp:ListItem> 
+                                        <asp:ListItem Text="Jan" Value="1"></asp:ListItem>
+                                        <asp:ListItem Text="Feb" Value="2"></asp:ListItem>
+                                        <asp:ListItem Text="Mar" Value="3"></asp:ListItem>
+                                        <asp:ListItem Text="Apr" Value="4"></asp:ListItem>
+                                        <asp:ListItem Text="May" Value="5"></asp:ListItem>
+                                        <asp:ListItem Text="Jun" Value="6"></asp:ListItem>
+                                        <asp:ListItem Text="Jul" Value="7"></asp:ListItem>
+                                        <asp:ListItem Text="Aug" Value="8"></asp:ListItem>
+                                        <asp:ListItem Text="Sep" Value="9"></asp:ListItem>
+                                        <asp:ListItem Text="Oct" Value="10"></asp:ListItem>
+                                        <asp:ListItem Text="Nov" Value="11"></asp:ListItem>
+                                        <asp:ListItem Text="Dec" Value="12"></asp:ListItem>
+                              </asp:DropDownList>
+                          </td>
+                          <td align="right" style="text-align: right; padding-right:10px; width: 110px; ">
+                              Year :
+                          </td>
+                          <td style="text-align: left;width: 175px;" >
+                             <asp:DropDownList ID="ddlOpenBalYear" runat="server" Width="100px" >
+                              </asp:DropDownList>
+                          </td>
+                      </tr>
+                     
+                </table>
+            
+                                 <div class="table-responsive">
+                                   <div style="OVERFLOW-Y: scroll; OVERFLOW-X: hidden;HEIGHT: 30px ; text-align:center; border-bottom:none;">
+                                           <table border="1" bordercolor="white" cellpadding="4" cellspacing="0" rules="all" style="width:100%; height:30px;  border-collapse:collapse;">
+                                            <colgroup>
+                                                <col style="width:10%;"/>
+                                                <col style="width:38%;"/>
+                                                <col style="width:8%;text-align:center;" />
+                                                <col style="width:8%;text-align:center;" />
+                                                <col style="width:8%;text-align:center;" />
+                                                <col style="width:6%;text-align:center;" />
+                                                <col style="width:10%;text-align:center;" />
+                                                <col style="width:10%;text-align:center;" />
+                                                <col style="width:2%;"/>
+                                                <tr class= "headerstylegrid" >
+                                                    <td>PO #</td>
+                                                    <td>Lube Type</td>
+                                                    <td style="text-align:center;">Supply Port</td>
+                                                    <td style="text-align:center;">Supply Date</td>
+                                                    <td style="text-align:center;">Supply Qty</td>
+                                                    <td style="text-align:center;">UOM</td>
+                                                    <td style="text-align:center;">Consumption Qty</td>
+                                                    <td style="text-align:center;">ROB</td> 
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                            </colgroup>
+                                        </table>
+                                        </div>
+                               <div id="div1" runat="server" class="scrollbox" style="OVERFLOW-Y: scroll; OVERFLOW-X: hidden; HEIGHT: 325px; text-align:center;">
+                                            <table border="1" bordercolor="#F0F5F5" cellpadding="4" cellspacing="0" style=" text-align: center; border-collapse:collapse; width:100%;">
+                                                <colgroup>
+                                                <col style="width:10%;"/>
+                                                <col style="width:38%;"/>
+                                                <col style="width:8%;" />
+                                                <col style="width:8%;text-align:center;" />
+                                                <col style="width:8%;text-align:center;" />
+                                                <col style="width:6%;text-align:center;" />
+                                                <col style="width:10%;text-align:center;" />
+                                                <col style="width:10%;text-align:center;" />
+                                                <col style="width:2%;"/>
+                                                    </colgroup>
+                                            <asp:Repeater ID="rptOpenBalLubeConsump" runat="server">
+                                                <ItemTemplate>
+                                                    <tr>
+                                                        <td align="left"><%#Eval("Bidponum")%></td>
+                                                        <td align="left"><%#Eval("description")%>
+                                                            <asp:HiddenField ID="hdnOpenBalBidId" runat="server" Value='<%#Eval("BidId")%>' />
+                                                            <asp:HiddenField ID="hdnOpenBalPOId" runat="server" Value='<%#Eval("Poid")%>' />
+                                                            <asp:HiddenField ID="hdnOpenBalBidItemID" runat="server" Value='<%#Eval("BidItemID")%>' />               <asp:HiddenField ID="hdnOpenBalRecid" runat="server" Value='<%#Eval("recid")%>' />
+                                                        </td>
+                                                        <td align="left"><%#Eval("DeliveryPort")%></td>
+                                                        <td align="left"><%#Common.ToDateString(Eval("DeliveryDate"))%></td>
+                                                        <td align="center"><asp:Label ID="lblQtyRecd" runat="server" Text='<%#Common.CastAsDecimal(Eval("QtyRecd"))%>' ></asp:Label> </td>
+                                                        <td align="center"><%#Eval("uom")%></td>
+                                                       
+                                                       <td align="right" style="padding-right:5px;">
+                                                            <asp:TextBox ID="txtOpenBalConsump" runat="server" AutoPostBack="true"  MaxLength="8" OnTextChanged="txtOpenBalConsump_TextChanged" Text='<%#Common.CastAsDecimal(Eval("CurrMonthConsumpQty"))%>' TextMode="Number" Width="75px" ></asp:TextBox>
+                                                        </td>
+                                                        <td align="center" style="padding-right:5px;">
+                                                            <asp:Label ID="lblOpenBalROB" runat="server"  Text='<%#Common.CastAsDecimal(Eval("CurrMonthROB"))%>'></asp:Label>
+                                                        </td>
+                                                        <td>&nbsp;</td>
+                                                    </tr>
+                                                </ItemTemplate>
+                                                <AlternatingItemTemplate>
+                                                    <tr style="background-color:#E6F3FC">
+                                                        <td align="left"><%#Eval("Bidponum")%></td>
+                                                        <td align="left"><%#Eval("description")%>
+                                                            <asp:HiddenField ID="hdnOpenBalBidId" runat="server" Value='<%#Eval("BidId")%>' />
+                                                            <asp:HiddenField ID="hdnOpenBalPOId" runat="server" Value='<%#Eval("Poid")%>' />
+                                                            <asp:HiddenField ID="hdnOpenBalBidItemID" runat="server" Value='<%#Eval("BidItemID")%>' />               <asp:HiddenField ID="hdnOpenBalRecid" runat="server" Value='<%#Eval("recid")%>' />
+                                                        </td>
+                                                        <td align="left"><%#Eval("DeliveryPort")%></td>
+                                                        <td align="left"><%#Common.ToDateString(Eval("DeliveryDate"))%></td>
+                                                        <td align="center"> <asp:Label ID="lblQtyRecd" runat="server" Text='<%#Common.CastAsDecimal(Eval("QtyRecd"))%>' ></asp:Label> </td>
+                                                        <td align="center"><%#Eval("uom")%></td>
+                                                        <td align="right" style="padding-right:5px;">
+                                                            <asp:TextBox ID="txtOpenBalConsump" runat="server" AutoPostBack="true"  MaxLength="8" OnTextChanged="txtOpenBalConsump_TextChanged" Text='<%#Common.CastAsDecimal(Eval("CurrMonthConsumpQty"))%>' TextMode="Number" Width="75px" ></asp:TextBox>
+                                                        </td>
+                                                        <td align="center" style="padding-right:5px;">
+                                                            <asp:Label ID="lblOpenBalROB" runat="server"  Text='<%#Common.CastAsDecimal(Eval("CurrMonthROB"))%>'></asp:Label>
+                                                        </td>
+                                                        <td>&nbsp;</td>
+                                                    </tr>
+                                                </AlternatingItemTemplate>
+                                            </asp:Repeater>
+                                             </table>
+                                        </div>
+                                     </div>  
+                 <br />
+                 <div class="searchsection-btn">
+                      <asp:Button ID="btnOpenBalSave" runat="server" Text="Save" Width="80px" OnClick="btnOpenBalSave_Click" style=" border:none; padding:4px;" CssClass="btn" /> &nbsp;
+                      <asp:Button ID="btnClose1" runat="server" Text="Close" Width="80px"  style="  border:none; padding:4px;" CssClass="btn" OnClick="btnClose1_Click" CausesValidation="false" /> &nbsp;
+                     
+                     
+                 </div>
+                <div>
+                <asp:Label runat="server" ID="lblMsgPOP" Font-Bold="true" ForeColor="Red"></asp:Label>
+                </div>
+            </center>
+        </div>
+    </center>
+    </div>
+    </td>
+    
+    </tr>
+    </table>
+    </center>
+    </div>
+    </div>
+ </form>
+</body>
+</html>
+
+

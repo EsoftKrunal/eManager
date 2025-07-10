@@ -1,0 +1,381 @@
+body,td,th 
+    {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	text-align: left;
+}
+body 
+{
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-repeat:repeat-x;background-color:#ffffff;
+}
+input
+{
+   font-family: Arial;
+	font-size: 12px;
+}
+textarea
+{
+   font-family: Arial;
+	font-size: 12px;
+}
+select
+{
+   font-family: Arial;
+	font-size: 12px;
+}
+hr { color:#8fafdb;
+	background-color:#8fafdb;
+	border-top:1px solid #8fafdb;
+	border-bottom:1px solid #8fafdb;
+	border-left:1px solid #8fafdb;
+	border-right:1px solid #8fafdb;
+}
+
+.PageHeader
+{
+     background:#4371a5;
+     padding:7px; 
+     color:White;
+     font-size:18px; 
+     text-align:center; 
+}	 
+ .newformat
+{
+    font-size:15px;
+    font-family:Sans-Serif;
+    text-align:center;
+}
+.newformat thead td
+{
+    color:white;
+    background-color:#58B0EB;
+    text-align:center;
+}
+    .newformat tfoot td
+{
+    color:white;
+    background-color:#58B0EB;
+    text-align:center;
+}
+    .newformat tbody td
+{
+    text-align:center;
+    /*background-color:#ECF1F6;*/
+    color:Black;
+}
+    .newformat tbody .tdSel
+{
+    background-color:#FFFFD6;
+    color:Black;
+}
+input[type='text']
+{
+    border : solid 1px #c2c2c2;
+    background-color:#FFFFEB;
+    padding-left:3px;
+}
+textarea
+{
+    border : solid 1px #c2c2c2;
+}
+select
+{
+    border:none;
+    background-color:#FFFFEB;
+}
+td
+{
+    word-wrap:break-word;
+    vertical-align:top;
+}
+
+td.valign_middle
+{
+    vertical-align:middle;
+}
+.Btn1{ font-family:Arial; font-weight:bold; font-size:12px; background-color:#e5e5e5; border:solid 1px DarkGray; padding:4px;  }
+.BtnSel{ font-family:Arial; font-weight:bold; font-size:12px; border:solid 1px DarkGray; padding:4px; background-color:#4371a5;color:White;}
+
+.ScrollAutoReset
+{
+    overflow-y:scroll;
+    overflow-x:hidden;
+}
+
+.rptHeading {
+    list-style: none;
+    margin:0px;
+    margin-bottom:3px;
+    padding: 0;
+    border:solid 1px #c6c1c1;
+    padding:6px;
+    width:99%;    
+}
+.rptUP {
+    list-style: none;
+    margin:0px;
+    margin-bottom:3px;
+    padding: 0;
+    border:solid 1px #c6c1c1;
+    padding:6px;
+    width:99%;    
+    background-color:white;
+}
+
+.rptUP .liRow {
+    width:30px;
+    text-align:right;
+}
+.rptUP span.hrow {
+    font-weight:bold;
+    color:#312c2c; 
+}
+.rptUP .li1 {
+    width:70px;
+}
+.rptUP .li2 {
+    width:376px;
+}
+.rptUP .li3 {
+    width:120px;
+    text-align:right;
+}
+.rptUP .li3 span{
+    margin-right:5px;
+}
+
+.rptUP li {
+    display:inline-block;
+    margin: 0px;
+    border:solid 0px green;
+    padding:3px;       
+}
+
+.neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeext {
+}
+.rptinner {
+     list-style: none;
+    margin:0px;
+    margin-left:12px;
+    padding: 0;
+    border:solid 0px red;    
+    width:1100px;
+}
+.rptinner li {
+    display:inline-block;
+    margin: 0px;
+    border:solid 0px blue;
+    padding:2px;
+}
+.rptinner .liRow {
+    width:30px;
+    text-align:right;    
+}
+.rptinner span {
+    margin-right:5px;
+}
+.rptinner li.li1 {
+width:450px;
+}
+.rptinner li.li2 {
+width:120px;
+text-align:right;
+}
+.rptinner li.li3 {
+width:120px;
+text-align:right;
+
+}
+.rptinner li.li4 {
+width:120px;
+text-align:right;
+
+}
+.rptinner li.li5 {
+width:120px;
+text-align:right;
+
+}
+.rptinner li.li6 {
+width:50px;
+text-align:right;
+}
+.nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn {
+}
+.tblHeader {
+    border-collapse: collapse;
+    border:solid 0px #c2c2c2;   
+    color:white;
+}
+.tblHeader td {
+    color:white;
+}
+.mytable {
+    border-collapse: collapse;
+    background-color:white;     
+    
+}
+
+.mytable td {
+    border: 0px solid #e5e5e5;
+    padding:2px;
+}
+.tblParent {
+    margin-bottom:5px;
+    border:solid 1px #c2c2c2;   
+}
+.tblParent span.hrow
+{
+    color:#232121;font-weight:bold;font-size:13px;margin:5px;padding:5px;
+}
+.tblChile td {
+    text-align:right;
+}
+.tblChile td span{
+    padding:5px;
+}
+
+.b-PageHeading {
+    position:fixed;left:0px;top:0px;height:104px;border:solid 0px red;margin:0px;width:100%;background-color:#add6ff;z-index:99;
+}
+.b-content {
+    border:solid 0px green;margin-top:120px;margin-bottom:50px; position:relative;
+}
+.b-PageFooter{
+    position:fixed;left:0;bottom:0;width:100%;
+}
+
+
+.rpt-table {
+    border: 0px solid #e5e5e5;    
+    border-collapse:collapse;
+}
+.rpt-table td {
+    border:solid 1px #e5e5e5;
+    padding-left:5px;
+    padding-right:5px;
+}
+
+.group-1 {
+    background:#c5c5c5;
+}
+.group-1 td{
+   height:30px;
+   line-height:30px;
+   color:#00547d;
+   font-size:11px;
+   font-weight:bold;
+}
+
+.group-2 {
+
+    background:#dedede;
+}
+.group-2 td{
+   height:26px;
+   line-height:26px;
+   color:blue;
+   font-size:11px;
+
+}
+
+.group-3 {
+    background:##f0f0f1;
+}
+.group-3 td{
+   height:22px;
+   line-height:22px;
+   color:green;
+   font-size:11px;
+}
+
+.group-4 {
+    background:#ffffff;
+}
+.group-4 td{
+   height:22px;
+   line-height:22px;
+   color:#333;
+   font-size:11px;
+}
+.group-5 {
+    background:#ffffff;
+}
+.group-5 td{
+   height:22px;
+   line-height:22px;
+   color:#333;
+   font-size:11px;
+}
+
+
+.rpt-table2 tr:hover {
+    background-color:#c5e6bf;cursor:pointer;
+}
+.rpt-table2 td {
+    text-align:right;color:green;padding-left:10px;font-size:11px;font-weight:bold;
+}
+.rpt-table3 tr1:nth-child(even) {
+    background-color:#fbf8b5;
+}
+.rpt-table3 td {
+    border:none;
+    border-right:solid 1px #e5e5e5;
+}
+.d-line {
+    border-bottom:solid 5px #e5e5e5;
+}
+.error
+{
+    font-size:14px;
+    color:red;
+}
+.bordered tr td
+{
+    border:solid 1px #dedede;
+}
+.headerdatacell
+{
+    width:90px;
+    text-align:center;
+    color:white;
+    vertical-align:middle;
+}
+
+.headerdatacell1
+{
+    width:80px;
+    text-align:center;
+    color:white;
+    vertical-align:middle;
+}
+
+.contentdatacell
+{
+    width:90px;
+    text-align:right;
+    color:white;
+    vertical-align:middle;
+}
+
+.contentdatacell1
+{
+    width:80px;
+    text-align:right;
+    color:white;
+    vertical-align:middle;
+}
+.actiondatacell
+{
+    width:28px;
+    text-align:center;
+    color:white;
+    vertical-align:middle;
+}
+.leftalign{
+text-align:left;
+}

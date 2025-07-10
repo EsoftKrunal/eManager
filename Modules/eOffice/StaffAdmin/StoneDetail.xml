@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<StoneDetail>
+  <Stone>
+    <srno>1</srno>
+    <name>stone-1</name>
+    <stonetype>stone-type-1</stonetype>
+    <occassion>occassion1</occassion>
+    <date>08-Sep-2011</date>
+  </Stone>
+  <Stone>
+    <srno>2</srno>
+    <name>stone-2</name>
+    <stonetype>stone-type-2</stonetype>
+    <occassion>occassion2</occassion>
+    <date>08-Sep-2011</date>
+  </Stone>
+  <Stone>
+   <srno>3</srno>
+    <name>stone-3</name>
+    <stonetype>stone-type-3</stonetype>
+    <occassion>occassion3</occassion>
+    <date>08-Sep-2011</date>
+  </Stone>
+</StoneDetail>
+
+

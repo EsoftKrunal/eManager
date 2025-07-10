@@ -1,0 +1,120 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="ReportsMaster.master.cs" Inherits="ReportsMaster" %>
+<%@ Register Src="~/ModuleMenu.ascx" TagName="menu" TagPrefix="mtm"  %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="Head1" runat="server">
+    <title>Untitled Page</title>
+    <link href="Styles/style.css" rel="stylesheet" type="text/css" />
+    <link href="Styles/sddm.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="Styles/StyleSheet.css" />
+     <link href="Styles/tabs.css" rel="stylesheet" type="text/css" />
+      <script language="javascript" type="text/javascript">
+        function CallPrint(strid)
+        {
+         var prtContent = document.getElementById(strid);
+         var WinPrint = window.open('','','letf=0,top=0,width=1,height=1,toolbar=0,scrollbars=0,status=0');
+         WinPrint.document.write(prtContent.innerHTML);
+         WinPrint.document.close();
+         WinPrint.focus();
+         WinPrint.print();
+         WinPrint.close();
+        // prtContent.innerHTML=strOldOne;
+        }
+</script>  
+
+ 
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div style="text-align: center">
+        <ajaxToolkit:ToolkitScriptManager ID="ScriptManager1" runat="server"></ajaxToolkit:ToolkitScriptManager>
+          <table style="width :100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+        <td style="width:150px; text-align :left; vertical-align : top;">
+            <mtm:menu runat="server" ID="menu2" />  
+        </td>
+        <td style=" text-align :left; vertical-align : top;" >
+        <table border="0" cellpadding="0" cellspacing="0" style="border-right: #4371a5 1px solid;border-top: #4371a5 1px solid; border-left: #4371a5 1px solid; border-bottom: #4371a5 1px solid; text-align:center; background-color:#f9f9f9 " width="100%">
+            <tr style=" background-color:#E2E2E2">
+                  <td align="center" style="height: 23px; text-align :center" >
+                <div style="float:left"> 
+                 <asp:RadioButtonList runat="server" ID="radMenu" RepeatDirection="Horizontal" OnSelectedIndexChanged='radMenu_OnSelectedIndexChanged' AutoPostBack="true" Font-Bold="true">
+                 <asp:ListItem Text="Search" ></asp:ListItem>
+                 <asp:ListItem Text="Reports" Selected="True"></asp:ListItem>
+                 </asp:RadioButtonList>
+                                    
+                </div>
+                    <img runat="server" id="imgHelp" moduleid="10" style ="cursor:pointer;float :right; padding-right :5px; margin-top:3px;" src="images/help.png" alt="Help ?"/> 
+                   <div style=' font-size:16px; margin-top:5px; font-family:Arial;'><b >VESSEL INSPECTION MANAGEMENT SYSTEM</b>
+                   </div>
+                   </td>
+            </tr>
+            <tr>
+                <td style="height: 485px; background-color:#f9f9f9" valign="top">
+                    <table style="background-color:#f9f9f9" border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <td style="padding-right:10px; padding-left:11px;">
+                                <div id="header"><%--tabs--%>
+                                  <ul>
+                                    <li> <a href="InspMisc_Report.aspx"><span>Inspection Miscellaneous</span></a></li>
+                                    <%--<li><a href="InspHistory_Report.aspx"><span>Inspection Status</span></a></li>--%>
+                                    <li><a href="OperatorReporting_Report.aspx"><span>Operator Reporting</span></a></li>
+                                    <%--<li><a href="ObservationReporting_Report.aspx"><span>Observation Report</span></a></li>
+                                    <li><a href="OperatorReportingSummary_Report.aspx"><span>Vetting Status Report</span></a></li>--%>
+                                    <li><a href="FIR_Report.aspx"><span>FIR Report</span></a></li>
+                                    <li><a href="Motor_Report.aspx"><span>MOTOR</span></a></li>
+                                    <li><a href="Inspection_Count_Report.aspx"><span>Inspection Count Report</span></a></li>
+                                    <li style='<%=((Session["loginid"].ToString()=="1")?"":"display:none")%>'><a href="AuditTrendAnalysisReport.aspx"><span>Audit Trend Analysis-Old</span></a></li>
+                                    <li><a href="ATA.aspx"><span>Audit Trend Analysis</span></a></li>
+                                  </ul>
+                                </div>
+                                <script>
+                                function tabing(){
+	                                 var strHref = window.location.href;
+	                                 var strQueryString = strHref.split(".aspx");
+	                                 var aQueryString = strQueryString[0].split("/");
+	                                 var curpage =unescape(aQueryString[aQueryString.length-1]).toLowerCase();
+	                                 //alert(curpage); 
+	                                 //alert(document.getElementById('navigation1').getElementsByTagName('li').length);
+	                                 var menunum=document.getElementById('header').getElementsByTagName('li').length;
+	                                 var menu=document.getElementById('header').getElementsByTagName('li')
+//	                                 if(curpage=='inspection'){
+//	                                     menu[1].className='current';
+//	                                 }else{
+	                                 for(x=0; x<menunum; x++){
+	                                 //alert(unescape(menu[x].childNodes[0]).toLowerCase());
+	 	                               
+	 	                                if(unescape(menu[x].childNodes[0]).toLowerCase().indexOf(curpage) > -1 ){
+	 	                                //alert(menu[x].childNodes[0])
+		                                menu[x].className='current';
+		                                }
+		                                
+	                                    }
+//	                                 }
+                                }
+                                tabing();
+                                </script>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="padding-right: 10px; padding-left: 10px; height:10px;">
+                                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" EnableViewState="true">
+                                </asp:ContentPlaceHolder>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table> 
+        </td> 
+       </tr> 
+       </table> 
+     </div>
+    </form>
+</body>
+<script type="text/javascript">
+    CallAfterRefresh();
+</script>
+</html>

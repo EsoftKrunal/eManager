@@ -1,0 +1,238 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class Modules_Purchase_Invoice_CreateRFP : System.Web.UI.Page
+{
+    public Int32 RFPAPId
+    {
+        get { return Common.CastAsInt32(ViewState["RFPAPId"]); }
+        set { ViewState["RFPAPId"] = value; }
+    }
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        //---------------------------------------
+        ProjectCommon.SessionCheck();
+        //---------------------------------------
+        if (!Page.IsPostBack)
+        {
+            btnAddInvoice.Visible = false;
+            RFPAPId = Common.CastAsInt32(Request.QueryString["key"]);
+            string AdvPaymentInvoices = "";
+            if (RFPAPId <= 0)
+            {
+                AdvPaymentInvoices = Session["AdvPaymentIds"].ToString();
+                btnAddInvoice.Visible = true;
+            }
+            else
+            {
+                string SQL = "SELECT ISNULL(a.RFPNO,'') AS RFPNO,b.AdvPaymentId FROM POS_Invoice_RFP_AdvPayment a with(nolock) Inner Join POS_Invoice_RFP_AdvPayment_Mapping b with(nolock) on a.RFPAPId = b.RFPAPId WHERE a.RFPAPId=" + RFPAPId;
+                DataTable dt = Common.Execute_Procedures_Select_ByQuery(SQL);
+                if (dt.Rows.Count > 0)
+                {
+                    lblRFPno.Text = dt.Rows[0]["RFPNO"].ToString();
+
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        if (AdvPaymentInvoices == "")
+                        {
+                            AdvPaymentInvoices = dr["AdvPaymentId"].ToString();
+                        }
+                        else
+                        {
+                            AdvPaymentInvoices = AdvPaymentInvoices + "," + dr["AdvPaymentId"].ToString();
+                        }
+                        //btnAddInvoice.Visible = btn_Approve.Visible;
+                    }
+                }
+            }
+            bindPayment_ForwardToddl();
+            ShowInvoiceDetails(AdvPaymentInvoices);
+        }
+    }
+    public void ShowInvoiceDetails(String AdvPaymentInvoices)
+    {
+        string SQL = "SELECT * FROM vw_POS_Invoices_AdvancePayment I WHERE AdvPaymentId IN ( 0" + AdvPaymentInvoices + " )";
+        DataTable dt = Common.Execute_Procedures_Select_ByQuery(SQL);
+
+        lblVendorName.Text = dt.Rows[0]["Vendor"].ToString();
+        ViewState["SUPPLIERID"] = dt.Rows[0]["SUPPLIERID"].ToString();
+        lblCurrency.Text = dt.Rows[0]["Currency"].ToString();
+        lblOwnerCode.Text = dt.Rows[0]["Company"].ToString();
+        lblOwnerName.Text = dt.Rows[0]["CompanyName"].ToString();
+        RptInvoices.DataSource = dt;
+        RptInvoices.DataBind();
+
+        lbltotal.Text = dt.Compute("SUM(ApprovalAmount)", "").ToString();
+        hfdSupplier.Value = dt.Rows[0]["SupplierId"].ToString();
+    }
+
+    public string getInvoices(int ExcludeId)
+    {
+        List<string> advPaymentInvoices = new List<string>();
+        foreach (RepeaterItem i in RptInvoices.Items)
+        {
+            HiddenField hfd = (HiddenField)i.FindControl("hfdAdvPaymentId");
+            if (ExcludeId != Common.CastAsInt32(hfd.Value))
+                advPaymentInvoices.Add(hfd.Value);
+        }
+        return String.Join(",", advPaymentInvoices.ToArray());
+    }
+
+    protected void btnSubmitForApproval_Click(object sender, EventArgs e)
+    {
+        if (!(rad_SGD.Checked || rad_USD.Checked || rad_INR.Checked))
+        {
+            lbl_inv_Message.Text = "Please select payment mode.";
+            return;
+        }
+
+        if (Convert.ToInt32(ddlApprovalForwardTo.SelectedValue) <= 0)
+        {
+            lbl_inv_Message.Text = "Please select Approval.";
+            ddlApprovalForwardTo.Focus();
+            return;
+        }
+        try
+        {
+            // Common.Set_Procedures("Inv_InsertPaymentDetailsforRFP");
+            Common.Set_Procedures("InsertRFPDetailsforAdvPayment");
+            Common.Set_ParameterLength(9);
+            Common.Set_Parameters(
+                new MyParameter("@RFPAPId", RFPAPId),
+                new MyParameter("@AdvpaymentIds", getInvoices(0)),
+                new MyParameter("@SupplierId", hfdSupplier.Value.Trim()),
+                new MyParameter("@Currency", lblCurrency.Text.Trim()),
+                new MyParameter("@PaymentType", ((rad_SGD.Checked) ? "S" : ((rad_USD.Checked) ? "U" : "R"))),
+                new MyParameter("@POSOwnerId", lblOwnerCode.Text),
+                new MyParameter("@Stage", 1),
+                new MyParameter("@RFPSubmittedBy", Session["loginid"].ToString()),
+                new MyParameter("@RFPSubmittedRemarks", txtComments.Text.Trim())
+
+
+                );
+            DataSet ds = new DataSet();
+            ds.Clear();
+            Boolean res;
+            res = Common.Execute_Procedures_IUD(ds);
+            if (res)
+            {
+                RFPAPId = Common.CastAsInt32(ds.Tables[0].Rows[0][0]);
+                lbl_inv_Message.Text = "Record Successfully Saved.";
+                int App1 = Common.CastAsInt32(ddlApprovalForwardTo.SelectedValue);
+                Common.Execute_Procedures_Select_ByQuery("EXEC POS_INVOICE_RFP_Advpayment_SENDFORAPPROVAL " + RFPAPId + "," + App1);
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "", "Refresh();", true);
+            }
+            else
+            {
+                lbl_inv_Message.Text = "Unable to save record. Error : " + Common.ErrMsg;
+            }
+        }
+        catch (Exception ex)
+        {
+            lbl_inv_Message.Text = "Unable to save record." + ex.Message + Common.getLastError();
+        }
+    }
+
+    protected void bindPayment_ForwardToddl()
+    {
+        DataTable dt1;
+
+        string SQL = "select (FirstName + ' ' + LastName ) AS UserName, LoginId from dbo.usermaster where loginid in (select userid from pos_invoice_mgmt where Approval4 = 1) AND statusId='A' Order By UserName";
+        dt1 = Common.Execute_Procedures_Select_ByQuery(SQL);
+        this.ddlApprovalForwardTo.DataValueField = "LoginId";
+        this.ddlApprovalForwardTo.DataTextField = "UserName";
+        this.ddlApprovalForwardTo.DataSource = dt1;
+        this.ddlApprovalForwardTo.DataBind();
+        ddlApprovalForwardTo.Items.Insert(0, new ListItem("< Select User >", "0"));
+    }
+
+    protected void btnAddInvoice_Click(object sender, EventArgs e)
+    {
+        string sql = "SELECT isnull(ClsInvoice,0) FROM dbo.[POS_Invoice_AdvancePayment] WHERE InvoiceId NOT IN (0" + getInvoices(0) + " )";
+        DataTable dt = Common.Execute_Procedures_Select_ByQuery(sql);
+        if (dt.Rows.Count > 0)
+        {
+            int ClsMode = Common.CastAsInt32(dt.Rows[0][0]);
+            dv_OtherInvoices.Visible = true;
+            RptAddInvoices.DataSource = Common.Execute_Procedures_Select_ByQuery("SELECT * FROM DBO.POS_Invoice_AdvancePayment WHERE STATUS='U' AND isnull(ClsInvoice,0)=" + ClsMode + " AND InvoiceId NOT IN (SELECT InvoiceId FROM POS_Invoice_Payment_Invoices) AND SupplierId=" + ViewState["SUPPLIERID"].ToString() + " AND Currency='" + lblCurrency.Text + "' AND InvoiceId NOT IN ( 0" + getInvoices(0) + " )");
+            RptAddInvoices.DataBind();
+        }
+    }
+
+    protected void btnCloseAddPV_Click(object sender, EventArgs e)
+    {
+        dv_OtherInvoices.Visible = false;
+    }
+
+    protected void btnDeleteRow_Click(object sender, EventArgs e)
+    {
+        if (RptInvoices.Items.Count > 1)
+        {
+            int _TableId = Common.CastAsInt32(((ImageButton)sender).CommandArgument);
+            if (RFPAPId > 0)
+            {
+                string AdvPayments = getInvoices(_TableId);
+                Common.Execute_Procedures_Select_ByQuery("EXEC Update_Pos_Invoice_RFP_AdvPayment_Mapping " + RFPAPId + ",'" + AdvPayments + "'");
+                ShowInvoiceDetails(AdvPayments);
+            }
+            else
+            {
+                string AdvPaymentIds = Session["AdvPaymentIds"].ToString();
+                char[] sep = { ',' };
+                List<string> lstd = new List<string>(AdvPaymentIds.Split(sep));
+                lstd.Remove(_TableId.ToString());
+                string AdvPayments = String.Join(",", lstd.ToArray());
+                Session["AdvPaymentIds"] = AdvPayments;
+                ShowInvoiceDetails(AdvPayments);
+            }
+        }
+        else
+        {
+            lbl_inv_Message.Text = "Can not delete this invoice. There should be at least 1 invoice in the voucher.";
+        }
+    }
+
+    protected void rad_Inv_OnCheckedChanged(object sender, EventArgs e)
+    {
+        int Invid = Common.CastAsInt32(((RadioButton)sender).CssClass);
+        string advcPayments = "";
+        if (RFPAPId > 0)
+        {
+
+            DataTable DT = Common.Execute_Procedures_Select_ByQuery("select AdvPaymentId from POS_Invoice_RFP_AdvPayment_Mapping with(nolock) WHERE RFPAPId=" + RFPAPId);
+            if (DT.Rows.Count > 0)
+            {
+                foreach (DataRow dr in DT.Rows)
+                {
+                    if (advcPayments == "")
+                    {
+                        advcPayments = dr["AdvPaymentId"].ToString();
+                    }
+                    else
+                    {
+                        advcPayments += "," + dr["AdvPaymentId"].ToString();
+                    }
+                }
+                Common.Execute_Procedures_Select_ByQuery("EXEC Update_Pos_Invoice_RFP_AdvPayment_Mapping " + RFPAPId + ",'" + advcPayments + "'");
+                ShowInvoiceDetails(advcPayments);
+            }
+        }
+        else
+        {
+            string Invoices = Session["AdvPaymentIds"].ToString();
+            char[] sep = { ',' };
+            List<string> lstd = new List<string>(Invoices.Split(sep));
+            lstd.Add(Invid.ToString());
+            advcPayments = String.Join(",", lstd.ToArray());
+            Session["AdvPaymentIds"] = advcPayments;
+            ShowInvoiceDetails(advcPayments);
+
+        }
+        dv_OtherInvoices.Visible = false;
+    }
+
+
+}

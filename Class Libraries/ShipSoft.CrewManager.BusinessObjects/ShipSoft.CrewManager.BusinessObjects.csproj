@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8EED1B2D-A411-400F-860D-A5251C08F512}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ShipSoft.CrewManager.BusinessObjects</RootNamespace>
+    <AssemblyName>ShipSoft.CrewManager.BusinessObjects</AssemblyName>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Authority.cs" />
+    <Compile Include="AcademicDetails.cs" />
+    <Compile Include="CrewApprasialDetails.cs" />
+    <Compile Include="CrewCargoDetails.cs" />
+    <Compile Include="CrewCourseCertificateDetails.cs" />
+    <Compile Include="CrewLicenseDetails.cs" />
+    <Compile Include="CrewMemberMedicalHistory.cs" />
+    <Compile Include="CrewOtherDocumentsDetails.cs" />
+    <Compile Include="CrewSearch.cs" />
+    <Compile Include="CrewTrainingRequirement.cs" />
+    <Compile Include="CRMDetails.cs" />
+    <Compile Include="MedicalDetails.cs" />
+    <Compile Include="PersonalDetails.cs" />
+    <Compile Include="ProfessionalDetails.cs" />
+    <Compile Include="CrewContact.cs" />
+    <Compile Include="CrewFamilyDocumentDetails.cs" />
+    <Compile Include="CrewMember.cs" />
+    <Compile Include="DocumentDetails.cs" />
+    <Compile Include="EndUser.cs" />
+    <Compile Include="Enums\AppraisalRating.cs" />
+    <Compile Include="Enums\MaritalStatus.cs" />
+    <Compile Include="Enums\Relationship.cs" />
+    <Compile Include="Enums\ShirtSize.cs" />
+    <Compile Include="Enums\ShoeSize.cs" />
+    <Compile Include="Enums\TypeOfRemittance.cs" />
+    <Compile Include="ExperienceDetails.cs" />
+    <Compile Include="FamilyDetails.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Enums\SexType.cs" />
+    <Compile Include="QualificationDetails.cs" />
+    <Compile Include="TravelDocumentDetails.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

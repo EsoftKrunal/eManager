@@ -1,0 +1,56 @@
+﻿using System;
+using System.Collections;
+using System.Linq;
+using System.Web;
+using System.Web.Services;
+using System.Web.Services.Protocols;
+using System.Xml.Linq;
+
+/// <summary>
+/// Summary description for WebService
+/// </summary>
+[WebService(Namespace = "http://tempuri.org/")]
+[WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
+// To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
+[System.Web.Script.Services.ScriptService()]
+public class WebService : System.Web.Services.WebService {
+
+    public WebService () {
+
+        //Uncomment the following line if using designed components 
+        //InitializeComponent(); 
+    }
+    [WebMethod]
+    public string[] GetCompletionList(string prefixText, int count, string contextKey)
+    {
+        string[] Result = null;
+        string TableName, FieldName;
+        char[] ss = new char[1];
+        ss[0] = ',';
+        TableName = contextKey.Split(ss)[0];
+        FieldName = contextKey.Split(ss)[1];
+        Common.Set_Procedures("getMaster");
+        Common.Set_ParameterLength(2);
+        Common.Set_Parameters(new MyParameter("TableName", TableName), new MyParameter("FieldName", FieldName));
+        System.Data.DataTable dt = Common.Execute_Procedures_Select().Tables[0];
+        if (dt != null)
+        {
+            Result = new string[dt.Rows.Count];
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i <= dt.Rows.Count - 1; i++)
+                {
+                    Result[i] = dt.Rows[i]["FieldName"].ToString();
+                }
+            }
+        }
+
+        //char[] ss = new char[1];
+        //ss[0] = ' ';
+        //Result = ("a b d d a fsdaf sdfd saf sdafsd f sadf sf sdafa fsdafasd fasd f as fas fsda fs f").Split(ss);
+
+
+        return Result;
+    }
+}
+

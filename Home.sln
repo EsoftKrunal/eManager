@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32825.248
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Home", ".", "{66EE6808-70C9-4B37-8B76-ECFB0CF4D4C7}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.7.2"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_56963"
+		Debug.AspNetCompiler.PhysicalPath = "..\Home\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_56963\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_56963"
+		Release.AspNetCompiler.PhysicalPath = "..\Home\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_56963\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "56963"
+		SlnRelativePath = "..\Home\"
+	EndProjectSection
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Class Libraries", "..\Class Libraries\", "{277AFF56-5979-4634-96E4-7BB8FC480741}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_55656"
+		Debug.AspNetCompiler.PhysicalPath = "..\Class Libraries\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_55656\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_55656"
+		Release.AspNetCompiler.PhysicalPath = "..\Class Libraries\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_55656\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "55656"
+		SlnRelativePath = "..\Class Libraries\"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{66EE6808-70C9-4B37-8B76-ECFB0CF4D4C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66EE6808-70C9-4B37-8B76-ECFB0CF4D4C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{277AFF56-5979-4634-96E4-7BB8FC480741}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{277AFF56-5979-4634-96E4-7BB8FC480741}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E8CBD21E-E54F-4503-819A-2ED96B541DDD}
+	EndGlobalSection
+EndGlobal

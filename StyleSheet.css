@@ -1,0 +1,108 @@
+﻿*
+{
+	margin: 0px 0px 0px 0px;
+	font-family : Verdana; 
+	font-size : 12px;
+}
+body 
+{
+	background-color :White;
+	color : #4172ac;
+}
+input
+{
+	font-family:Arial @Arial Unicode MS;
+	font-size :12px;
+	border:solid 1px #244898; 
+}
+.imgbtn
+{
+	font-family:Arial @Arial Unicode MS;
+	font-size :12px;
+	border:solid 1px #f3f6fd; 
+}
+#container {
+	min-height: 100%
+}
+
+#main {
+	overflow: auto;
+	padding-bottom: 15px;
+	min-height: 15vh;
+	height: 100%;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+}
+
+#footer {
+	float: left;
+	color: #4172ac;
+	height: 20px;
+	width: 100%;
+	position: relative;
+	margin-top: -20px;
+	clear: both;
+	background-image: url(images/footer_bg.jpg);
+	text-align: center;
+	padding-top: 3px;
+	font-size: 11px;
+}
+#hor_bar
+{
+	
+}
+#hor_band
+{
+	
+}
+a img
+{
+	border :none;
+}
+.pagename
+{
+	background-color:White;
+	color :#22396f ;
+	height :20px;
+	
+}
+.header
+{
+	background-image:url(images/bar_bg.png);
+	color :White ;
+	height :25px;
+	font-size:11px;
+	
+}
+.rowcontent td
+{
+	font-size:11px; 
+}
+.selrowcontent td
+{
+	font-size:11px; 
+	background-color: Orange; 
+}
+.required 
+{
+	font-size:12px; 
+	color :Red; 
+}
+.helptext
+{
+	color:Maroon;
+ 	font-size:9px; 
+}
+.btn
+{
+	color:White ;
+	background-image:url(images/bar_bg.png);
+	height :25px;
+}
+.readonly
+{
+	background-color:lightgray;
+}

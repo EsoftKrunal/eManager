@@ -1,0 +1,241 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ViewUpdateBudgetComments.aspx.cs" Inherits="ViewUpdateBudgetComments" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>View/Update Budget Comments</title>
+    <link href="CSS/style.css" rel="Stylesheet" type="text/css" />
+    <script type="text/javascript" >
+        function CloseThisWindow() 
+        {
+            window.opener.document.getElementById('btnReload').click();
+            window.opener.opener.ReloadPage();
+            //document.getElementById('btnReload').click();
+            
+            window.close();
+        }
+        function Expand(obj) 
+        {
+            //alert(obj.parentNode.parentNode.nextSibling.innerHTML); //.parantNode.nextSibling);
+            
+            obj.parentNode.parentNode.nextSibling.style.display=(obj.parentNode.parentNode.nextSibling.style.display == "block") ? "none" : "block";
+            obj.title = (obj.parentNode.parentNode.nextSibling.style.display == "block") ? "Click to hide comment" : "Click to show comment";
+        }
+    </script>
+    <script type="text/javascript" >
+        function ExpandCommPerAcc(obj) 
+        {
+            obj.parentNode.style.display = 'none';
+            obj.parentNode.nextSibling.style.display='Block';
+        }
+        function CollapsCommPerAcc(obj) 
+        {
+            obj.parentNode.style.display = 'none';
+            obj.parentNode.previousSibling.style.display = 'Block';
+        }
+        function ReloadPage() 
+        {
+            document.getElementById('btnReload').click();
+        }
+    </script>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>   
+        <table cellpadding="0" cellspacing="0" width="100%" style="margin:auto;" >
+                                <tr class="header" style="font-size :15px; padding :5px;" >
+                                    <td>
+                                        Budget Item Comments</td>
+                                </tr>
+                                <tr class="header" style="font-size :15px; padding :5px;" >
+                                    <td>
+                                        <asp:Label ID="lblCommDetails" runat="server" > &nbsp;-&nbsp; </asp:Label> 
+                                        [ <asp:Label id="lblMonthName" runat="server"></asp:Label> -
+                                        <asp:Label id="lblYear" runat="server" ></asp:Label> ]
+                                    </td>
+                                     </tr>
+                                 <tr>
+                                 <td style="text-align:center; padding:5px">
+                                    <asp:Button runat="server" ID="btnShowpolist" Text="Open PO List for this Month" OnClick="OpenPOList" style="background-color:green; border:solid 1px gray; color:White;" />
+                                 </td>    
+                                 </tr>
+                                <tr runat="server" id="trMonth">
+                                    <td >
+                                    <table style="width:100%; text-align:center; font-size:12px; background-color:Yellow; color:Blue;" cellpadding="3" >
+                                    <tr>
+                                    <td><a href='#' runat="server" id="ac_1" target="_blank">Jan</a></a></td>
+                                    <td><a href='#' runat="server" id="ac_2" target="_blank">Feb</a></td>
+                                    <td><a href='#' runat="server" id="ac_3" target="_blank">Mar</a></td>
+                                    <td><a href='#' runat="server" id="ac_4" target="_blank">Apr</a></td>
+                                    <td><a href='#' runat="server" id="ac_5" target="_blank">may</a></td>
+                                    <td><a href='#' runat="server" id="ac_6" target="_blank">Jun</a></td>
+                                    <td><a href='#' runat="server" id="ac_7" target="_blank">Jul</a></td>
+                                    <td><a href='#' runat="server" id="ac_8" target="_blank">Aug</a></td>
+                                    <td><a href='#' runat="server" id="ac_9" target="_blank">Sep</a></td>
+                                    <td><a href='#' runat="server" id="ac_10" target="_blank">Oct</a></td>
+                                    <td><a href='#' runat="server" id="ac_11" target="_blank">Nov</a></td>
+                                    <td><a href='#' runat="server" id="ac_12" target="_blank">Dec</a></td>
+                                    </tr>
+                                    </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td >
+                                        <table cellpadding="4" cellspacing="0" width="100%" border="1" style="border-collapse:collapse;" >
+                                            <col />
+                                            <col />
+                                            <col />
+                                            <col />
+                                            <tr class="header" >
+                                              
+                                                <td>
+                                                    Budget
+                                                </td>
+                                                <td>
+                                                    Consumed
+                                                </td>
+                                                   <td>
+                                                    Variance    
+                                                </td>
+                                                <td>
+                                                    Variance (%)    
+                                                </td>
+                                            </tr>
+                                            <tr class="header" >
+                                              
+                                                <td>
+                                                    $&nbsp;<asp:Label ID="lblBudget" runat="server" ></asp:Label>
+                                                </td>
+                                                
+                                                <td>
+                                                    $&nbsp;<asp:Label ID="lblConsumed" runat="server" ></asp:Label>
+                                                </td>
+                                                <td>
+                                                    <asp:Label ID="lblActual" runat="server" Visible="false"></asp:Label>
+                                                    $&nbsp;<asp:Label ID="lblVariance" runat="server" ></asp:Label>
+                                                </td>
+                                                <td>
+                                                    $&nbsp;<asp:Label ID="lblVariancePer" runat="server" ></asp:Label>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                             
+                                <tr>
+                                    <td>
+                                        <table width="100%" cellpadding="2" cellspacing="2" border="2" rules="all"  bordercolor="#9abcd7">  <%--border:solid 1px #9abcd7;--%>
+                                            <tr style="height:610px;">
+                                                <td style="">
+                                                    <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
+                                                         <tr style="text-align:left; padding :5px; background-color :#F2F2F2 "> 
+                                                            <td >
+                                                                <img src="Images/DownArrow.jpeg" onclick="Expand(this)" title="Click to hide comment" /><b> General Comments :- </b>
+                                                            </td>
+                                                          </tr>
+                                                        <tr style="display:block;">
+                                                            <td>
+                                                                <asp:TextBox ID="txtYTDcomm" runat="server" TextMode="MultiLine" style="overflow:auto" Height="250px" Width="98%"></asp:TextBox>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                            &nbsp;
+                                                            </td>
+                                                        </tr>
+                                                    </table> 
+                                                    <div style="height:300px; OVERFLOW-Y: scroll; OVERFLOW-X: hidden; width:100%;" >
+                                                    <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
+                                                        <asp:Repeater ID="rptComments" runat="server" >
+                                                        <ItemTemplate>
+                                                            
+                                                                <tr style="text-align:left;padding :5px; background-color :#F2F2F2">
+                                                                    <td>
+                                                                        <img src="Images/DownArrow.jpeg" onclick="Expand(this)" title="Click to show comment"  />
+                                                                        <asp:Label ID="lblChildAccount" runat="server" Text='<%#Eval("ChildAccounts")%>' style="font-weight:bold;"></asp:Label>
+                                                                         :-
+                                                                    </td>
+                                                                </tr>
+                                                                <tr style="display:none;">
+                                                                    <td>
+                                                                        <asp:TextBox ID="txtYTDcomm" runat="server" TextMode="MultiLine" style="overflow:auto" Height="150px" Width="100%"></asp:TextBox>
+                                                                    </td>
+                                                                </tr>
+                                                            
+                                                        </ItemTemplate>
+                                                    </asp:Repeater>
+                                                    </table>                                                    
+                                                    </div>
+                                                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                                        <tr>
+                                                            <td style="width:100px">
+                                                                <b>Comment By :</b>
+                                                            </td>
+                                                            <td style="width:300px; text-align:left">
+                                                                <asp:Label ID="lblCommBy" runat="server" ></asp:Label>
+                                                            </td>
+                                                            <td style="width:120px">
+                                                                <b>Comment Date :</b>
+                                                            </td>
+                                                            <td>
+                                                                <asp:Label ID="lblCommOn" runat="server" ></asp:Label>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align:right;padding-top:3px;">
+                                        <asp:Label ID="lblmsg" runat="server" CssClass="error" ></asp:Label>
+                                        <asp:ImageButton ID="imgSave" runat="server" ImageUrl="~/Images/save.jpg" OnClick="imgSave_OnClick"  Visible="false"  />
+                                        <asp:ImageButton ID="imgSaveAndLock" runat="server" ImageUrl="~/Images/savenclose.jpg" OnClick="imgSaveAndLock_OnClick"  Visible="false" />
+                                        <asp:ImageButton ID="imgPrint" Visible="false" runat="server" ImageUrl="~/Images/print.jpg" OnClick="imgPrint_OnClick"    />
+                                    </td> 
+                                </tr>
+                                
+       </table>        
+        
+        <div style="position: absolute; top: 0px; left: 0px; height: 800px; width: 100%;" id="dv_Packaging" runat="server" visible="false" >
+                <center>
+                <div style="position: absolute; top: 0px; left: 0px; height: 800px; width: 100%;background-color: Gray; z-index: 100; opacity: 0.4; filter: alpha(opacity=40)"></div>
+                <div style="position: relative; width: 650px; height: 600px; padding: 3px; text-align: center;background: white; z-index: 150; top: 50px; border: solid 10px #e2e2e2">
+                <div style='border:solid 1px gray; height:600px; overflow-x:hidden;overflow-y:scroll;'>
+                <table cellpadding="2" cellspacing="0" width="100%" border="0" style="border-collapse:collapse">
+                <tr style="cursor:text; background-color:Wheat; font-weight:bold;">
+                    <td>PO#</td>
+                    <td style="width:80px; text-align:center;">Account #</td>
+                    <td style="width:100px;text-align:center;">Comment Date</td>   
+                    <td style="width:100px;text-align:center;">Amount</td>   
+                    <td>&nbsp;</td>
+                </tr>
+                    <asp:Repeater ID="rptCommPerAcc" runat="server">
+                        <ItemTemplate>
+                            <tr style="cursor:text;">
+                                <td style="text-align:left"><a onclick="window.open('Print.aspx?POID=<%#Eval("BidID") %>')" style="cursor:pointer; text-decoration:underline; color:Red;">
+                                 <span style="color:Red;font-weight:bold;" title="Click to view PO report." > <%#Eval("BidPoNum") %>  </span></a></td>
+                                 <td style="text-align:center;" ><span style="color:Blue;font-weight:bold;" title='<%#Eval("AccountName") %>' > <%#Eval("AccountNumber") %>  </span></td>
+                                 <td style="text-align:center;" ><span style="color:Green; font-weight:bold;" > <%#Eval("CusCommentDate")%> : </span>    </td>   
+                                 <td style="text-align:right;" ><span style="color:Blue; font-weight:bold;" >$ <%#ProjectCommon.FormatCurrencyWithoutSign(Eval("UsDTotal"))%></span></td>   
+                              </tr>
+                              <tr>   
+                                  <td colspan="5" style="text-align:left">
+                                       <b>Comment : </b> <%#Eval("comment") %>
+                                       <hr />
+                              </td>
+                              <td>&nbsp;</td>  
+                            </tr>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </table>
+                </div>
+                <br />
+                <asp:Button runat="server" ID="btnClose" OnClick="btnClose_Click" Text="Close Window" style="border:solid 1px gray; background-color:Red; color:White; padding:5px;" />
+                </div>
+                </center>
+        </div> 
+    </div>
+    </form>
+</body>
+</html>

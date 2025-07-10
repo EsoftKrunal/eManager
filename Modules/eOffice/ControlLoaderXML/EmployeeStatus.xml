@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<EmployeeStatusData>
+ <EmployeeStatus>
+	<EmployeeStatusId>A</EmployeeStatusId>
+	<EmployeeStatusName>ACTIVE</EmployeeStatusName>
+ </EmployeeStatus>	
+  <EmployeeStatus>
+    <EmployeeStatusId>I</EmployeeStatusId>
+    <EmployeeStatusName>INACTIVE</EmployeeStatusName>
+  </EmployeeStatus>
+  <EmployeeStatus>
+    <EmployeeStatusId>P</EmployeeStatusId>
+    <EmployeeStatusName>PERMANENT</EmployeeStatusName>
+  </EmployeeStatus>
+  <EmployeeStatus>
+    <EmployeeStatusId>R</EmployeeStatusId>
+    <EmployeeStatusName>PROBATION</EmployeeStatusName>
+  </EmployeeStatus>
+  
+</EmployeeStatusData>

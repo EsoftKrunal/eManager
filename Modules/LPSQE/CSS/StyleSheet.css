@@ -1,0 +1,138 @@
+ul
+{
+    margin:0px;
+    padding:0px;
+    font-family:Verdana;
+    font-size:12px;
+}
+*
+{
+  box-sizing:border-box;   
+}
+
+
+#mainmenu ul li
+{
+    float:left;
+    padding:0px 3px 0px;
+    list-style-type:none;
+    margin:0px;
+}
+#mainmenu ul li a
+{
+    background-color:#C2D6FF;
+    padding:5px 15px 5px 15px;
+    display:block;
+    text-decoration:none;.
+    
+}
+#mainmenu ul li a.active,#mainmenu ul  li a:hover
+{
+    background-color:#6699FF;
+    color:White;
+    cursor:pointer;
+    text-decoration:none;
+    
+}
+
+
+#submenu ul li
+{
+    float:left;
+    padding:0px 3px 0px;
+    list-style-type:none;
+    margin:0px;
+}
+#submenu ul li a
+{
+    background-color:#B2E0F0;
+    padding:5px 15px 5px 15px;
+    display:block;
+    text-decoration:none;
+    margin-left:3px;
+}
+#submenu ul li a.active,#submenu ul  li a:hover
+{
+    background-color:#0099CC;
+    color:White;
+    cursor:pointer;
+    text-decoration:none;
+}
+
+.clear
+{
+    clear:both;
+    display:none;
+}
+.box_withpad
+{
+    border:solid 2px #6699FF;
+    border-top:none;
+}
+.box1
+{
+    background-color:#C2D6FF;
+    padding:5px;
+    text-align:center;
+}  
+.box2
+{
+    background-color:#6699FF;
+    padding:5px;
+}    
+.box3
+{
+    background-color:#00ABE1;
+    padding:5px;
+    font-weight:bold;
+    color:White;
+}  
+.dvScrollheader
+{
+    overflow-x:hidden;
+    overflow-y:scroll;
+    border:solid 1px #007AA3;
+    background-color:#6B6B47;
+    color:White;
+    font-size:11px;
+}
+.dvScrollheader tr td
+{
+    box-sizing:border-box;
+    padding: 5px;
+    border:solid 1px white;
+}
+.activetr1,.dvScrolldata tr:hover
+{
+  background-color:#FFF0B2; 
+}
+.tr1
+{
+    background-color:White;
+}
+
+.dvScrollheader table 
+{
+    height:30px;
+    
+}
+.dvScrolldata
+{
+     overflow-y:scroll; 
+     overflow-x:hidden; 
+     border:solid 1px #c2c2c2;
+     border-top:none;
+     background-color:White;
+}
+.dvScrollheader table 
+{
+   border:solid 1px #e2e2e2;
+    
+}
+ 
+.dvScrolldata tr td
+{
+    padding: 5px;
+    box-sizing:border-box;
+    border:solid 1px #e2e2e2;
+}

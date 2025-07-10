@@ -1,0 +1,818 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DeptMaster">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="DeptId" type="xs:int" minOccurs="0" />
+              <xs:element name="DeptName" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Rank">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="RankId" type="xs:int" minOccurs="0" />
+              <xs:element name="RankGroupId" type="xs:int" minOccurs="0" />
+              <xs:element name="RankLevel" type="xs:short" minOccurs="0" />
+              <xs:element name="RankCode" type="xs:string" minOccurs="0" />
+              <xs:element name="RankName" type="xs:string" minOccurs="0" />
+              <xs:element name="OffCrew" type="xs:string" minOccurs="0" />
+              <xs:element name="OffGroup" type="xs:string" minOccurs="0" />
+              <xs:element name="LeavesAllowed" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CreatedBy" type="xs:int" minOccurs="0" />
+              <xs:element name="CreatedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ModifiedBy" type="xs:int" minOccurs="0" />
+              <xs:element name="ModifiedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="StatusId" type="xs:string" minOccurs="0" />
+              <xs:element name="RANK_MUM" type="xs:string" minOccurs="0" />
+              <xs:element name="SMOU_CODE" type="xs:string" minOccurs="0" />
+              <xs:element name="SireRankType" type="xs:string" minOccurs="0" />
+              <xs:element name="SireRank" type="xs:string" minOccurs="0" />
+              <xs:element name="NoOfApproval" type="xs:int" minOccurs="0" />
+              <xs:element name="ApprovalLevels" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Settings">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ShipCode" type="xs:string" minOccurs="0" />
+              <xs:element name="ShipName" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ShipUserMaster">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="UserId" type="xs:int" minOccurs="0" />
+              <xs:element name="UserName" type="xs:string" minOccurs="0" />
+              <xs:element name="Password" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="JobMaster">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="JobId" type="xs:long" minOccurs="0" />
+              <xs:element name="JobCode" type="xs:string" minOccurs="0" />
+              <xs:element name="JobName" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="JobIntervalMaster">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IntervalId" type="xs:int" minOccurs="0" />
+              <xs:element name="IntervalName" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ComponentMaster">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ComponentId" type="xs:long" minOccurs="0" />
+              <xs:element name="ComponentCode" type="xs:string" minOccurs="0" />
+              <xs:element name="ComponentName" type="xs:string" minOccurs="0" />
+              <xs:element name="Descr" type="xs:string" minOccurs="0" />
+              <xs:element name="ClassEquip" type="xs:boolean" minOccurs="0" />
+              <xs:element name="CriticalEquip" type="xs:boolean" minOccurs="0" />
+              <xs:element name="Inactive" type="xs:boolean" minOccurs="0" />
+              <xs:element name="CriticalType" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ComponentsJobMapping">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ComponentId" type="xs:long" minOccurs="0" />
+              <xs:element name="JobId" type="xs:long" minOccurs="0" />
+              <xs:element name="CompJobId" type="xs:long" minOccurs="0" />
+              <xs:element name="AssignTo" type="xs:int" minOccurs="0" />
+              <xs:element name="DeptId" type="xs:int" minOccurs="0" />
+              <xs:element name="IntervalId" type="xs:int" minOccurs="0" />
+              <xs:element name="IsFixed" type="xs:short" minOccurs="0" />
+              <xs:element name="DescrSh" type="xs:string" minOccurs="0" />
+              <xs:element name="DescrM" type="xs:string" minOccurs="0" />
+              <xs:element name="AttachmentForm" type="xs:string" minOccurs="0" />
+              <xs:element name="RiskAssessment" type="xs:string" minOccurs="0" />
+              <xs:element name="RatingRequired" type="xs:boolean" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ComponentsJobMapping_Attachments">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="TableId" type="xs:long" minOccurs="0" />
+              <xs:element name="CompJobId" type="xs:long" minOccurs="0" />
+              <xs:element name="Descr" type="xs:string" minOccurs="0" />
+              <xs:element name="DocumentType" type="xs:string" minOccurs="0" />
+              <xs:element name="Status" type="xs:string" minOccurs="0" />
+              <xs:element name="FormNo" type="xs:string" minOccurs="0" />
+              <xs:element name="VersionNo" type="xs:string" minOccurs="0" />
+              <xs:element name="FormId" type="xs:long" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VSL_ComponentMasterForVessel">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="ComponentId" type="xs:long" minOccurs="0" />
+              <xs:element name="Maker" type="xs:string" minOccurs="0" />
+              <xs:element name="MakerType" type="xs:string" minOccurs="0" />
+              <xs:element name="ClassEquipCode" type="xs:string" minOccurs="0" />
+              <xs:element name="Status" type="xs:string" minOccurs="0" />
+              <xs:element name="Updated" type="xs:boolean" minOccurs="0" />
+              <xs:element name="UpdatedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Descr" type="xs:string" minOccurs="0" />
+              <xs:element name="CLASSEQUIP" type="xs:boolean" minOccurs="0" />
+              <xs:element name="ACCOUNTCODES" type="xs:string" minOccurs="0" />
+              <xs:element name="isOR" type="xs:boolean" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VSL_VesselComponentJobMaster">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="CompJobId" type="xs:long" minOccurs="0" />
+              <xs:element name="ComponentId" type="xs:long" minOccurs="0" />
+              <xs:element name="JobId" type="xs:long" minOccurs="0" />
+              <xs:element name="AssignTo" type="xs:int" minOccurs="0" />
+              <xs:element name="IntervalId" type="xs:int" minOccurs="0" />
+              <xs:element name="Interval" type="xs:double" minOccurs="0" />
+              <xs:element name="IsFixed" type="xs:short" minOccurs="0" />
+              <xs:element name="StartDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DescrM" type="xs:string" minOccurs="0" />
+              <xs:element name="Interval_H" type="xs:double" minOccurs="0" />
+              <xs:element name="IntervalId_H" type="xs:int" minOccurs="0" />
+              <xs:element name="Guidelines" type="xs:string" minOccurs="0" />
+              <xs:element name="Status" type="xs:string" minOccurs="0" />
+              <xs:element name="Updated" type="xs:boolean" minOccurs="0" />
+              <xs:element name="UpdatedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="JobCost" type="xs:double" minOccurs="0" />
+              <xs:element name="ClassJob" type="xs:boolean" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VSL_VesselComponentJobMaster_Updates">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="CompJobId" type="xs:long" minOccurs="0" />
+              <xs:element name="ComponentId" type="xs:long" minOccurs="0" />
+              <xs:element name="LastDone" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="LastHour" type="xs:int" minOccurs="0" />
+              <xs:element name="NextDueDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="NextHour" type="xs:int" minOccurs="0" />
+              <xs:element name="Updated" type="xs:boolean" minOccurs="0" />
+              <xs:element name="UpdatedOn" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VSL_VesselComponentJobMaster_Attachments">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="TableId" type="xs:long" minOccurs="0" />
+              <xs:element name="CompJobId" type="xs:long" minOccurs="0" />
+              <xs:element name="Descr" type="xs:string" minOccurs="0" />
+              <xs:element name="DocumentType" type="xs:string" minOccurs="0" />
+              <xs:element name="Status" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VSL_VesselRunningHourMaster">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="ComponentId" type="xs:long" minOccurs="0" />
+              <xs:element name="StartupHour" type="xs:int" minOccurs="0" />
+              <xs:element name="AvgRunningHrPerDay" type="xs:int" minOccurs="0" />
+              <xs:element name="StartDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="UpdatedBy" type="xs:int" minOccurs="0" />
+              <xs:element name="UpdatedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Updated" type="xs:boolean" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VSL_VesselSpareMaster">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="ComponentId" type="xs:long" minOccurs="0" />
+              <xs:element name="Office_Ship" type="xs:string" minOccurs="0" />
+              <xs:element name="SpareId" type="xs:long" minOccurs="0" />
+              <xs:element name="SpareName" type="xs:string" minOccurs="0" />
+              <xs:element name="Maker" type="xs:string" minOccurs="0" />
+              <xs:element name="MakerType" type="xs:string" minOccurs="0" />
+              <xs:element name="PartNo" type="xs:string" minOccurs="0" />
+              <xs:element name="AltPartNo" type="xs:string" minOccurs="0" />
+              <xs:element name="Location" type="xs:string" minOccurs="0" />
+              <xs:element name="MinQty" type="xs:int" minOccurs="0" />
+              <xs:element name="MaxQty" type="xs:int" minOccurs="0" />
+              <xs:element name="StatutoryQty" type="xs:int" minOccurs="0" />
+              <xs:element name="Weight" type="xs:double" minOccurs="0" />
+              <xs:element name="Stock" type="xs:int" minOccurs="0" />
+              <xs:element name="Specification" type="xs:string" minOccurs="0" />
+              <xs:element name="DrawingNo" type="xs:string" minOccurs="0" />
+              <xs:element name="Attachment" type="xs:string" minOccurs="0" />
+              <xs:element name="Status" type="xs:string" minOccurs="0" />
+              <xs:element name="Updated" type="xs:boolean" minOccurs="0" />
+              <xs:element name="UpdatedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Critical" type="xs:string" minOccurs="0" />
+              <xs:element name="CriticalUpdatedBy" type="xs:string" minOccurs="0" />
+              <xs:element name="CriticalUpdatedByOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="isOR" type="xs:boolean" minOccurs="0" />
+              <xs:element name="PartName" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VSL_PlanMaster">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="CompJobId" type="xs:long" minOccurs="0" />
+              <xs:element name="ComponentId" type="xs:long" minOccurs="0" />
+              <xs:element name="_ComponentCode" type="xs:string" minOccurs="0" />
+              <xs:element name="jobId" type="xs:long" minOccurs="0" />
+              <xs:element name="Status" type="xs:int" minOccurs="0" />
+              <xs:element name="AssignedTo" type="xs:int" minOccurs="0" />
+              <xs:element name="PlanDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="LastDueDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="LastDueHours" type="xs:int" minOccurs="0" />
+              <xs:element name="NextDueDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="NextDueHours" type="xs:int" minOccurs="0" />
+              <xs:element name="LastRunningHourDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="LastRunningHour" type="xs:int" minOccurs="0" />
+              <xs:element name="DoneBy" type="xs:int" minOccurs="0" />
+              <xs:element name="DoneBy_Code" type="xs:string" minOccurs="0" />
+              <xs:element name="DoneBy_Name" type="xs:string" minOccurs="0" />
+              <xs:element name="DoneDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DoneHour" type="xs:int" minOccurs="0" />
+              <xs:element name="ServiceReport" type="xs:string" minOccurs="0" />
+              <xs:element name="ConditionBefore" type="xs:string" minOccurs="0" />
+              <xs:element name="ConditionAfter" type="xs:string" minOccurs="0" />
+              <xs:element name="UpdateRemarks" type="xs:int" minOccurs="0" />
+              <xs:element name="Specify" type="xs:string" minOccurs="0" />
+              <xs:element name="FileName" type="xs:string" minOccurs="0" />
+              <xs:element name="FileImage" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="Coating" type="xs:short" minOccurs="0" />
+              <xs:element name="Corrosion" type="xs:short" minOccurs="0" />
+              <xs:element name="Deformation" type="xs:short" minOccurs="0" />
+              <xs:element name="Cracks" type="xs:short" minOccurs="0" />
+              <xs:element name="OverallRating" type="xs:short" minOccurs="0" />
+              <xs:element name="ModifiedBy" type="xs:int" minOccurs="0" />
+              <xs:element name="ModifiedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="PostPoneReason" type="xs:int" minOccurs="0" />
+              <xs:element name="PostPoneRemarks" type="xs:string" minOccurs="0" />
+              <xs:element name="P_DoneBy" type="xs:int" minOccurs="0" />
+              <xs:element name="P_DoneBy_Code" type="xs:string" minOccurs="0" />
+              <xs:element name="P_DoneBy_Name" type="xs:string" minOccurs="0" />
+              <xs:element name="PostPoneDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CancellationReason" type="xs:string" minOccurs="0" />
+              <xs:element name="CancellationDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="C_DoneBy" type="xs:int" minOccurs="0" />
+              <xs:element name="C_DoneBy_Code" type="xs:string" minOccurs="0" />
+              <xs:element name="C_DoneBy_Name" type="xs:string" minOccurs="0" />
+              <xs:element name="Verified" type="xs:boolean" minOccurs="0" />
+              <xs:element name="VerifiedBy" type="xs:string" minOccurs="0" />
+              <xs:element name="VerifiedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Updated" type="xs:boolean" minOccurs="0" />
+              <xs:element name="UpdatedOn" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VSL_VesselJobUpdateHistory">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="HistoryId" type="xs:long" minOccurs="0" />
+              <xs:element name="CompJobId" type="xs:long" minOccurs="0" />
+              <xs:element name="ComponentId" type="xs:long" minOccurs="0" />
+              <xs:element name="_ComponentCode" type="xs:string" minOccurs="0" />
+              <xs:element name="jobId" type="xs:long" minOccurs="0" />
+              <xs:element name="Status" type="xs:int" minOccurs="0" />
+              <xs:element name="AssignedTo" type="xs:int" minOccurs="0" />
+              <xs:element name="PlanDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="LastDueDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="LastDueHours" type="xs:int" minOccurs="0" />
+              <xs:element name="NextDueDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="NextDueHours" type="xs:int" minOccurs="0" />
+              <xs:element name="LastRunningHourDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="LastRunningHour" type="xs:int" minOccurs="0" />
+              <xs:element name="DoneBy" type="xs:int" minOccurs="0" />
+              <xs:element name="DoneBy_Code" type="xs:string" minOccurs="0" />
+              <xs:element name="DoneBy_Name" type="xs:string" minOccurs="0" />
+              <xs:element name="DoneDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DoneHour" type="xs:int" minOccurs="0" />
+              <xs:element name="ServiceReport" type="xs:string" minOccurs="0" />
+              <xs:element name="ConditionBefore" type="xs:string" minOccurs="0" />
+              <xs:element name="ConditionAfter" type="xs:string" minOccurs="0" />
+              <xs:element name="UpdateRemarks" type="xs:int" minOccurs="0" />
+              <xs:element name="Specify" type="xs:string" minOccurs="0" />
+              <xs:element name="FileName" type="xs:string" minOccurs="0" />
+              <xs:element name="FileImage" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="Coating" type="xs:short" minOccurs="0" />
+              <xs:element name="Corrosion" type="xs:short" minOccurs="0" />
+              <xs:element name="Deformation" type="xs:short" minOccurs="0" />
+              <xs:element name="Cracks" type="xs:short" minOccurs="0" />
+              <xs:element name="OverallRating" type="xs:short" minOccurs="0" />
+              <xs:element name="ModifiedBy" type="xs:int" minOccurs="0" />
+              <xs:element name="ModifiedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="PostPoneReason" type="xs:int" minOccurs="0" />
+              <xs:element name="PostPoneRemarks" type="xs:string" minOccurs="0" />
+              <xs:element name="P_DoneBy" type="xs:int" minOccurs="0" />
+              <xs:element name="P_DoneBy_Code" type="xs:string" minOccurs="0" />
+              <xs:element name="P_DoneBy_Name" type="xs:string" minOccurs="0" />
+              <xs:element name="PostPoneDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CancellationReason" type="xs:string" minOccurs="0" />
+              <xs:element name="CancellationDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="C_DoneBy" type="xs:int" minOccurs="0" />
+              <xs:element name="C_DoneBy_Code" type="xs:string" minOccurs="0" />
+              <xs:element name="C_DoneBy_Name" type="xs:string" minOccurs="0" />
+              <xs:element name="Action" type="xs:string" minOccurs="0" />
+              <xs:element name="CompStatus" type="xs:string" minOccurs="0" />
+              <xs:element name="Verified" type="xs:boolean" minOccurs="0" />
+              <xs:element name="VerifiedBy" type="xs:string" minOccurs="0" />
+              <xs:element name="VerifiedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Updated" type="xs:boolean" minOccurs="0" />
+              <xs:element name="UpdatedOn" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VSL_DefectDetailsMaster">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="ComponentId" type="xs:long" minOccurs="0" />
+              <xs:element name="DefectNo" type="xs:string" minOccurs="0" />
+              <xs:element name="HistoryId" type="xs:long" minOccurs="0" />
+              <xs:element name="ReportDt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="TargetDt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CompletionDt" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Vessel" type="xs:string" minOccurs="0" />
+              <xs:element name="Spares" type="xs:string" minOccurs="0" />
+              <xs:element name="ShoreAssist" type="xs:string" minOccurs="0" />
+              <xs:element name="Drydock" type="xs:string" minOccurs="0" />
+              <xs:element name="Guarentee" type="xs:string" minOccurs="0" />
+              <xs:element name="DefectDetails" type="xs:string" minOccurs="0" />
+              <xs:element name="RepairsDetails" type="xs:string" minOccurs="0" />
+              <xs:element name="SparesOnBoard" type="xs:string" minOccurs="0" />
+              <xs:element name="RqnNo" type="xs:string" minOccurs="0" />
+              <xs:element name="SparesOrdered" type="xs:string" minOccurs="0" />
+              <xs:element name="RqnDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="SparesRequired" type="xs:string" minOccurs="0" />
+              <xs:element name="Supdt" type="xs:string" minOccurs="0" />
+              <xs:element name="ChiefOfficer" type="xs:string" minOccurs="0" />
+              <xs:element name="ChiefEngg" type="xs:string" minOccurs="0" />
+              <xs:element name="Status" type="xs:string" minOccurs="0" />
+              <xs:element name="Updated" type="xs:string" minOccurs="0" />
+              <xs:element name="UpdatedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CompStatus" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VSL_DefectSpareDetails">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="ComponentId" type="xs:long" minOccurs="0" />
+              <xs:element name="Office_Ship" type="xs:string" minOccurs="0" />
+              <xs:element name="SpareId" type="xs:long" minOccurs="0" />
+              <xs:element name="DefectNo" type="xs:string" minOccurs="0" />
+              <xs:element name="QtyCons" type="xs:double" minOccurs="0" />
+              <xs:element name="QtyRob" type="xs:double" minOccurs="0" />
+              <xs:element name="Status" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VSL_VesselJobUpdateHistoryAttachments">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="TableId" type="xs:long" minOccurs="0" />
+              <xs:element name="HistoryId" type="xs:long" minOccurs="0" />
+              <xs:element name="AttachmentText" type="xs:string" minOccurs="0" />
+              <xs:element name="FileName" type="xs:string" minOccurs="0" />
+              <xs:element name="Status" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VSL_VesselJobUpdateHistorySpareDetails">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="ComponentId" type="xs:long" minOccurs="0" />
+              <xs:element name="Office_Ship" type="xs:string" minOccurs="0" />
+              <xs:element name="SpareId" type="xs:long" minOccurs="0" />
+              <xs:element name="HistoryId" type="xs:long" minOccurs="0" />
+              <xs:element name="QtyCons" type="xs:double" minOccurs="0" />
+              <xs:element name="QtyRob" type="xs:double" minOccurs="0" />
+              <xs:element name="Status" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VSL_StockInventory">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="ComponentId" type="xs:long" minOccurs="0" />
+              <xs:element name="Office_Ship" type="xs:string" minOccurs="0" />
+              <xs:element name="SpareId" type="xs:long" minOccurs="0" />
+              <xs:element name="PkId" type="xs:long" minOccurs="0" />
+              <xs:element name="RecdDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="QtyRecd" type="xs:double" minOccurs="0" />
+              <xs:element name="StockLocation" type="xs:string" minOccurs="0" />
+              <xs:element name="Updated" type="xs:boolean" minOccurs="0" />
+              <xs:element name="UpdatedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Status" type="xs:string" minOccurs="0" />
+              <xs:element name="StockLocationId" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VSL_UnPlannedJobs">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="UPId" type="xs:long" minOccurs="0" />
+              <xs:element name="ComponentId" type="xs:long" minOccurs="0" />
+              <xs:element name="ShortDescr" type="xs:string" minOccurs="0" />
+              <xs:element name="LongDescr" type="xs:string" minOccurs="0" />
+              <xs:element name="DeptId" type="xs:int" minOccurs="0" />
+              <xs:element name="AssignedTo" type="xs:int" minOccurs="0" />
+              <xs:element name="DueDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Status" type="xs:string" minOccurs="0" />
+              <xs:element name="DoneBy" type="xs:int" minOccurs="0" />
+              <xs:element name="DoneBy_Code" type="xs:string" minOccurs="0" />
+              <xs:element name="DoneBy_Name" type="xs:string" minOccurs="0" />
+              <xs:element name="DoneDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ServiceReport" type="xs:string" minOccurs="0" />
+              <xs:element name="ConditionBefore" type="xs:string" minOccurs="0" />
+              <xs:element name="ConditionAfter" type="xs:string" minOccurs="0" />
+              <xs:element name="RQNNo" type="xs:string" minOccurs="0" />
+              <xs:element name="RQNDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="UpdatedBy" type="xs:int" minOccurs="0" />
+              <xs:element name="Updated" type="xs:boolean" minOccurs="0" />
+              <xs:element name="UpdatedOn" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VSL_UnPlannedJobs_Attachments">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="TableId" type="xs:long" minOccurs="0" />
+              <xs:element name="UPId" type="xs:long" minOccurs="0" />
+              <xs:element name="AttachmentText" type="xs:string" minOccurs="0" />
+              <xs:element name="FileName" type="xs:string" minOccurs="0" />
+              <xs:element name="Status" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VSL_UnPlannedJobs_SpareDetails">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="ComponentId" type="xs:long" minOccurs="0" />
+              <xs:element name="Office_Ship" type="xs:string" minOccurs="0" />
+              <xs:element name="SpareId" type="xs:long" minOccurs="0" />
+              <xs:element name="UPId" type="xs:long" minOccurs="0" />
+              <xs:element name="QtyCons" type="xs:double" minOccurs="0" />
+              <xs:element name="QtyRob" type="xs:double" minOccurs="0" />
+              <xs:element name="Status" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VSL_CriticalEquipShutdownRequest">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ShutdownId" type="xs:long" minOccurs="0" />
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="ComponentId" type="xs:long" minOccurs="0" />
+              <xs:element name="Occasion" type="xs:short" minOccurs="0" />
+              <xs:element name="DefectNo" type="xs:string" minOccurs="0" />
+              <xs:element name="FormNo" type="xs:string" minOccurs="0" />
+              <xs:element name="Version" type="xs:string" minOccurs="0" />
+              <xs:element name="RequestDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="MasterCEName" type="xs:string" minOccurs="0" />
+              <xs:element name="Job_Defect" type="xs:string" minOccurs="0" />
+              <xs:element name="Pl_ShutDownTotalHrs" type="xs:int" minOccurs="0" />
+              <xs:element name="Pl_FromDateTime" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Pl_ToDateTime" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Ma_CommencedDateTime" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Ma_CompletedDateTime" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Maintenence_Remarks" type="xs:string" minOccurs="0" />
+              <xs:element name="IssuedBy" type="xs:int" minOccurs="0" />
+              <xs:element name="IssueDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Updated" type="xs:boolean" minOccurs="0" />
+              <xs:element name="UpdatedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Closed" type="xs:boolean" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VSL_CriticalShutdownExtensions">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ExtensionId" type="xs:long" minOccurs="0" />
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="ShutdownId" type="xs:long" minOccurs="0" />
+              <xs:element name="Ext_ShutDownTotalHrs" type="xs:int" minOccurs="0" />
+              <xs:element name="Ext_FromDateTime" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Ext_ToDateTime" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Updated" type="xs:boolean" minOccurs="0" />
+              <xs:element name="UpdatedOn" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VSL_CriticalShutdownApproval">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ShutdownApproveId" type="xs:long" minOccurs="0" />
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="ShutdownId" type="xs:long" minOccurs="0" />
+              <xs:element name="Approver_Name" type="xs:string" minOccurs="0" />
+              <xs:element name="Approver_Position" type="xs:string" minOccurs="0" />
+              <xs:element name="Approver_Remarks" type="xs:string" minOccurs="0" />
+              <xs:element name="ApprovedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Updated" type="xs:boolean" minOccurs="0" />
+              <xs:element name="UpdatedOn" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VSL_CriticalShutdownExtensionApproval">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ExtensionApproveId" type="xs:long" minOccurs="0" />
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="ExtensionId" type="xs:long" minOccurs="0" />
+              <xs:element name="Approver_Name" type="xs:string" minOccurs="0" />
+              <xs:element name="Approver_Position" type="xs:string" minOccurs="0" />
+              <xs:element name="Approver_Remarks" type="xs:string" minOccurs="0" />
+              <xs:element name="ApprovedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Updated" type="xs:boolean" minOccurs="0" />
+              <xs:element name="UpdatedOn" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VSL_DefectRemarks">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="DefectRemarkId" type="xs:long" minOccurs="0" />
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="DefectNo" type="xs:string" minOccurs="0" />
+              <xs:element name="Remarks" type="xs:string" minOccurs="0" />
+              <xs:element name="FileName" type="xs:string" minOccurs="0" />
+              <xs:element name="File" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="Updated" type="xs:boolean" minOccurs="0" />
+              <xs:element name="UpdatedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="EnteredBy" type="xs:string" minOccurs="0" />
+              <xs:element name="EnteredOn" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VSL_Defects_Attachments">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="AttachmentId" type="xs:long" minOccurs="0" />
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="DefectNo" type="xs:string" minOccurs="0" />
+              <xs:element name="AttachmentText" type="xs:string" minOccurs="0" />
+              <xs:element name="FileName" type="xs:string" minOccurs="0" />
+              <xs:element name="Status" type="xs:string" minOccurs="0" />
+              <xs:element name="Updated" type="xs:boolean" minOccurs="0" />
+              <xs:element name="UpdatedOn" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="IE_PacketCreated">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="RowId" type="xs:int" minOccurs="0" />
+              <xs:element name="PacketNAme" type="xs:string" minOccurs="0" />
+              <xs:element name="PacketDate" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VSL_SMS_PacketSent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="TableId" type="xs:int" minOccurs="0" />
+              <xs:element name="PacketName" type="xs:string" minOccurs="0" />
+              <xs:element name="CreatedOn" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Vessel">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VesselId" type="xs:int" minOccurs="0" />
+              <xs:element name="VesselName" type="xs:string" minOccurs="0" />
+              <xs:element name="FlagStateId" type="xs:int" minOccurs="0" />
+              <xs:element name="VesselCode" type="xs:string" minOccurs="0" />
+              <xs:element name="ManagementTypeId" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="OwnerId" type="xs:int" minOccurs="0" />
+              <xs:element name="ChartererId" type="xs:int" minOccurs="0" />
+              <xs:element name="ShipManagerId" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="PNIClubId" type="xs:int" minOccurs="0" />
+              <xs:element name="NationalityGroupId" type="xs:string" minOccurs="0" />
+              <xs:element name="NationalityGroupIdRat" type="xs:string" minOccurs="0" />
+              <xs:element name="InmarsatTerminalType" type="xs:string" minOccurs="0" />
+              <xs:element name="CallSign" type="xs:string" minOccurs="0" />
+              <xs:element name="Telephone1" type="xs:string" minOccurs="0" />
+              <xs:element name="Telephone2" type="xs:string" minOccurs="0" />
+              <xs:element name="Mobile" type="xs:string" minOccurs="0" />
+              <xs:element name="Fax" type="xs:string" minOccurs="0" />
+              <xs:element name="Data" type="xs:string" minOccurs="0" />
+              <xs:element name="HSD" type="xs:string" minOccurs="0" />
+              <xs:element name="InmarsatC" type="xs:string" minOccurs="0" />
+              <xs:element name="Email" type="xs:string" minOccurs="0" />
+              <xs:element name="LRIMONumber" type="xs:string" minOccurs="0" />
+              <xs:element name="PortOfRegistryId" type="xs:int" minOccurs="0" />
+              <xs:element name="OfficialNumber" type="xs:string" minOccurs="0" />
+              <xs:element name="MMSINumber" type="xs:string" minOccurs="0" />
+              <xs:element name="CurrentClassId" type="xs:int" minOccurs="0" />
+              <xs:element name="VesselTypeId" type="xs:int" minOccurs="0" />
+              <xs:element name="YearBuilt" type="xs:string" minOccurs="0" />
+              <xs:element name="Age" type="xs:string" minOccurs="0" />
+              <xs:element name="Yard" type="xs:string" minOccurs="0" />
+              <xs:element name="LDT" type="xs:string" minOccurs="0" />
+              <xs:element name="TEU" type="xs:string" minOccurs="0" />
+              <xs:element name="Length" type="xs:string" minOccurs="0" />
+              <xs:element name="Breath" type="xs:string" minOccurs="0" />
+              <xs:element name="Depth" type="xs:string" minOccurs="0" />
+              <xs:element name="Draught" type="xs:string" minOccurs="0" />
+              <xs:element name="MainEngineMakerId" type="xs:short" minOccurs="0" />
+              <xs:element name="MainEngineModel" type="xs:string" minOccurs="0" />
+              <xs:element name="MainEngineStrokeTypeId" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="MainEngineKW" type="xs:string" minOccurs="0" />
+              <xs:element name="MainEngineBHP" type="xs:string" minOccurs="0" />
+              <xs:element name="MainEngineRPM" type="xs:string" minOccurs="0" />
+              <xs:element name="Aux1EngineMakerId" type="xs:short" minOccurs="0" />
+              <xs:element name="Aux1EngineModel" type="xs:string" minOccurs="0" />
+              <xs:element name="Aux1EngineStrokeTypeId" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="Aux1EngineKW" type="xs:string" minOccurs="0" />
+              <xs:element name="Aux1EngineBHP" type="xs:string" minOccurs="0" />
+              <xs:element name="Aux1EngineRPM" type="xs:string" minOccurs="0" />
+              <xs:element name="Aux2EngineMakerId" type="xs:short" minOccurs="0" />
+              <xs:element name="Aux2EngineModel" type="xs:string" minOccurs="0" />
+              <xs:element name="Aux2EngineStrokeTypeId" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="Aux2EngineKW" type="xs:string" minOccurs="0" />
+              <xs:element name="Aux2EngineBHP" type="xs:string" minOccurs="0" />
+              <xs:element name="Aux2EngineRPM" type="xs:string" minOccurs="0" />
+              <xs:element name="Aux3EngineMakerId" type="xs:short" minOccurs="0" />
+              <xs:element name="Aux3EngineModel" type="xs:string" minOccurs="0" />
+              <xs:element name="Aux3EngineStrokeTypeId" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="Aux3EngineKW" type="xs:string" minOccurs="0" />
+              <xs:element name="Aux3EngineBHP" type="xs:string" minOccurs="0" />
+              <xs:element name="Aux3EngineRPM" type="xs:string" minOccurs="0" />
+              <xs:element name="EffectiveDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="VesselStatusId" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="CreatedBy" type="xs:long" minOccurs="0" />
+              <xs:element name="CreatedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ModifiedBy" type="xs:long" minOccurs="0" />
+              <xs:element name="ModifiedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="StatusId" type="xs:string" minOccurs="0" />
+              <xs:element name="GroupEmail" type="xs:string" minOccurs="0" />
+              <xs:element name="AccCode" type="xs:string" minOccurs="0" />
+              <xs:element name="TrainingFee" type="xs:double" minOccurs="0" />
+              <xs:element name="FleetId" type="xs:short" minOccurs="0" />
+              <xs:element name="GroupEmail1" type="xs:string" minOccurs="0" />
+              <xs:element name="ReleaseDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="InspectionValidityPeriod" type="xs:int" minOccurs="0" />
+              <xs:element name="TechSupdt" type="xs:int" minOccurs="0" />
+              <xs:element name="MarineSupdt" type="xs:int" minOccurs="0" />
+              <xs:element name="FleetManager" type="xs:int" minOccurs="0" />
+              <xs:element name="OwnerRepEmail" type="xs:string" minOccurs="0" />
+              <xs:element name="ChartererEmail" type="xs:string" minOccurs="0" />
+              <xs:element name="TechAssistant" type="xs:int" minOccurs="0" />
+              <xs:element name="MarineAssistant" type="xs:int" minOccurs="0" />
+              <xs:element name="SPA" type="xs:int" minOccurs="0" />
+              <xs:element name="AcctOfficer" type="xs:int" minOccurs="0" />
+              <xs:element name="IsBonusApplicable" type="xs:string" minOccurs="0" />
+              <xs:element name="CrewingOffice" type="xs:int" minOccurs="0" />
+              <xs:element name="ManningOfficeID" type="xs:int" minOccurs="0" />
+              <xs:element name="VettingRequired" type="xs:boolean" minOccurs="0" />
+              <xs:element name="VesselEmailNew" type="xs:string" minOccurs="0" />
+              <xs:element name="IsExported" type="xs:boolean" minOccurs="0" />
+              <xs:element name="ExportedBy" type="xs:int" minOccurs="0" />
+              <xs:element name="ExportDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="AccontCompany" type="xs:string" minOccurs="0" />
+              <xs:element name="ShipOperator" type="xs:string" minOccurs="0" />
+              <xs:element name="ManningAgentId" type="xs:int" minOccurs="0" />
+              <xs:element name="OwnerAgentId" type="xs:int" minOccurs="0" />
+              <xs:element name="MLCOwnerId" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SpareStockLocation">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="StockLocationId" type="xs:int" minOccurs="0" />
+              <xs:element name="StockLocation" type="xs:string" minOccurs="0" />
+              <xs:element name="Status" type="xs:string" minOccurs="0" />
+              <xs:element name="Create_By" type="xs:int" minOccurs="0" />
+              <xs:element name="Create_On" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Modified_By" type="xs:int" minOccurs="0" />
+              <xs:element name="Modified_on" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="MP_Products">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CategoryId" type="xs:long" minOccurs="0" />
+              <xs:element name="ProductId" type="xs:long" minOccurs="0" />
+              <xs:element name="ProductCode" type="xs:string" minOccurs="0" />
+              <xs:element name="ProductName" type="xs:string" minOccurs="0" />
+              <xs:element name="SupplyUnitId" type="xs:int" minOccurs="0" />
+              <xs:element name="IMPACode" type="xs:string" minOccurs="0" />
+              <xs:element name="Inactive" type="xs:boolean" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="MP_Products_Packaging">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ProductId" type="xs:long" minOccurs="0" />
+              <xs:element name="Qty" type="xs:int" minOccurs="0" />
+              <xs:element name="UnitId" type="xs:int" minOccurs="0" />
+              <xs:element name="OrderQty" type="xs:double" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ER_Registers">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="RegisterId" type="xs:long" minOccurs="0" />
+              <xs:element name="FormNo" type="xs:string" minOccurs="0" />
+              <xs:element name="RegisterName" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ER_RegisterOptions">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="RegisterId" type="xs:long" minOccurs="0" />
+              <xs:element name="OptionId" type="xs:long" minOccurs="0" />
+              <xs:element name="OptionText" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sql_tblSMDPRAccounts">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="AccountID" type="xs:int" minOccurs="0" />
+              <xs:element name="AccountNumber" type="xs:int" minOccurs="0" />
+              <xs:element name="AccountName" type="xs:string" minOccurs="0" />
+              <xs:element name="Active" type="xs:string" minOccurs="0" />
+              <xs:element name="MajCatID" type="xs:int" minOccurs="0" />
+              <xs:element name="MidCatID" type="xs:int" minOccurs="0" />
+              <xs:element name="MinCatID" type="xs:int" minOccurs="0" />
+              <xs:element name="Cls_Cat" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Cir_Category">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CirCatId" type="xs:int" minOccurs="0" />
+              <xs:element name="CirCatName" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SMS_FormDepartment">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="DepartmentId" type="xs:int" minOccurs="0" />
+              <xs:element name="DepartmentName" type="xs:string" minOccurs="0" />
+              <xs:element name="DepartmentShortName" type="xs:string" minOccurs="0" />
+              <xs:element name="DepartmentAddedBy" type="xs:int" minOccurs="0" />
+              <xs:element name="DepartmentAddedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DepartmentStatusId" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="DepartmentModifiedBy" type="xs:int" minOccurs="0" />
+              <xs:element name="DepartmentModifiedOn" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SMS_FormsCategoryMaster">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="FormsCatId" type="xs:int" minOccurs="0" />
+              <xs:element name="FormsCatName" type="xs:string" minOccurs="0" />
+              <xs:element name="CreatedBy" type="xs:int" minOccurs="0" />
+              <xs:element name="CreatedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ModifiedBy" type="xs:int" minOccurs="0" />
+              <xs:element name="ModifiedOn" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

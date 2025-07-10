@@ -1,0 +1,147 @@
+using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Default : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+
+    {
+        if(Common.CastAsInt32(Request.QueryString["SessionExpired"])>0)
+        {
+         Message.Text ="Session expired. Please login again." ;
+        }
+        if (!IsPostBack)
+        {
+            chk_ShipLogin.Checked = (ConfigurationManager.AppSettings["RunningLocation"].Trim() == "S");
+            chk_ShipLogin.Visible = chk_ShipLogin.Checked == false; 
+        }
+        if (! chk_ShipLogin.Checked) // OFFICE LOGIN CASE 
+        {
+            int LoginId;
+            LoginId = 0;
+            try
+            {
+                LoginId = Convert.ToInt32(Request.Form["hfd_loginid"]);
+            }
+            catch { }
+
+            if (Request.Form["hfd_loginid"] != null)
+            {
+                if (LoginId > 0)
+                {
+                    DataTable dt3 = Administration.getUserDetails(LoginId);
+                    if (dt3.Rows.Count > 0)
+                    {
+                        DoSubmit(dt3.Rows[0]["UserId"].ToString(), dt3.Rows[0]["Password"].ToString());
+                    }
+                }
+            }
+            Message.Text = "";
+            this.LoginId.Focus();
+            string username = "" + Request.QueryString["u"];
+            string pwd = "" + Request.QueryString["p"];
+            if (username.Trim() != "" && pwd.Trim() != "")
+            {
+                DoSubmit(username, pwd);
+            }
+        }
+    }
+    protected void DoSubmit( string Uname,String Pword)
+    {
+        DataTable dtLogin = Administration.CheckLogin(Uname,Pword);
+        if (dtLogin != null)
+        {
+            CreateSession(dtLogin);
+            RedirectToHome();
+        }
+        else
+        {
+            Message.Text = "User Id/Password is Invalid";
+        }
+    }
+    protected void btnSubmit_Click(object sender, EventArgs e)
+    {
+        if (chk_ShipLogin.Checked) // ship login
+        {
+            DataTable dtLogin = Common.Execute_Procedures_Select_ByQuery("SELECT * FROM SHIPUSERMASTER WHERE USERNAME='" + LoginId.Text.Trim().Replace("'","''")+ "'"); 
+            if (dtLogin != null)
+            {
+                if (dtLogin.Rows.Count > 0)
+                {
+                    string Pass = dtLogin.Rows[0]["password"].ToString();
+                    if (Pass == Password.Text.Trim())
+                    {
+                        CreateSession_Ship(dtLogin);
+                        RedirectToHome_Ship();
+                    }
+                    else
+                    {
+                        Message.Text = "User Id/Password is Invalid";
+                    }
+                }
+                else
+                {
+                    Message.Text = "User Id/Password is Invalid";
+                }
+            }
+            else
+            {
+                Message.Text = "User Id/Password is Invalid";
+            }
+        }
+        else // office login
+        {
+            DataTable dtLogin = Administration.CheckLogin(LoginId.Text.Trim(), Password.Text.Trim());
+            if (dtLogin != null)
+            {
+                CreateSession(dtLogin);
+                RedirectToHome();
+            }
+            else
+            {
+                Message.Text = "User Id/Password is Invalid";
+            }
+        }
+    }
+    protected void CreateSession(DataTable dtLogin)
+    {
+        DataRow drLogin = dtLogin.Rows[0];
+        Session["loginid"] = drLogin["LoginId"].ToString();
+        Session["UserName"] = drLogin["UserId"].ToString();
+        Session["FullUserName"] = drLogin["FirstName"].ToString() +" "+ drLogin["LastName"].ToString();
+        Session["UserType"] = "O";
+        Session["CurrentShip"] = "";
+    }
+    protected void CreateSession_Ship(DataTable dtLogin)
+    {
+        DataRow drLogin = dtLogin.Rows[0];
+        Session["loginid"] = drLogin["UserId"].ToString();
+        Session["UserName"] = drLogin["UserName"].ToString();
+        Session["FullUserName"] = drLogin["UserName"].ToString();
+        Session["UserType"] = "S";
+        string strShip = "SELECT TOP 1 * FROM Settings";
+        DataTable dt = Common.Execute_Procedures_Select_ByQuery(strShip);
+        Session["CurrentShip"] = dt.Rows[0]["ShipCode"].ToString();
+    }
+    private void RedirectToHome()
+    {
+        Response.Redirect("Office_Home.aspx");
+    }
+    private void RedirectToHome_Ship()
+    {
+        Response.Redirect("ApplicationHome.aspx");
+    }
+    protected void btnReset_Click(object sender, EventArgs e)
+    {
+        this.LoginId.Text = "";
+        this.Password.Text = "";
+    }
+}

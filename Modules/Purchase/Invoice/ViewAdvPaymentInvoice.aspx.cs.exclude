@@ -1,0 +1,1344 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using System.IO;
+using System.Configuration;
+using DocumentFormat.OpenXml.ExtendedProperties;
+using System.Net.Mime;
+using DocumentFormat.OpenXml.VariantTypes;
+using System.Diagnostics.Contracts;
+
+public partial class Invoice_ViewInvoice : System.Web.UI.Page
+{
+    public AuthenticationManager authRecInv = new AuthenticationManager(0, 0, ObjectType.Page);
+    public DataTable PoNos
+    {
+        set
+        { ViewState["PoNos"] = value; }
+        get
+        {
+            if (ViewState["PoNos"] == null)
+            {
+                DataTable dt = new DataTable();
+                dt.Columns.Add(new DataColumn("PONO", typeof(string)));
+                dt.Columns.Add(new DataColumn("BIDID", typeof(string)));
+                //dt.Columns.Add(new DataColumn("OTHEROTHERINVID", typeof(string)));
+                //dt.Columns.Add(new DataColumn("OTHERREFNO", typeof(string)));
+                ViewState["PoNos"] = dt;
+            }
+
+            return (DataTable)ViewState["PoNos"];
+        }
+    }
+    Random r = new Random();
+    public int UserId
+    {
+        get { return Convert.ToInt32(ViewState["UserId"]); }
+        set { ViewState["UserId"] = value; }
+    }
+    public int AdvPaymentId
+    {
+        get { return Convert.ToInt32(ViewState["AdvPaymentId"]); }
+        set { ViewState["AdvPaymentId"] = value; }
+    }
+    public int EnteredBy
+    {
+        get { return Convert.ToInt32(ViewState["EnteredBy"]); }
+        set { ViewState["EnteredBy"] = value; }
+    }
+    public int ProcessedBy
+    {
+        get { return Convert.ToInt32(ViewState["ProcessedBy"]); }
+        set { ViewState["ProcessedBy"] = value; }
+    }
+    public int PaymentBy
+    {
+        get { return Convert.ToInt32(ViewState["PaymentBy"]); }
+        set { ViewState["PaymentBy"] = value; }
+    }
+    public int Stage
+    {
+        get { return Convert.ToInt32(ViewState["Stage"]); }
+        set { ViewState["Stage"] = value; }
+    }
+    public int PoCount
+    {
+        get { return Convert.ToInt32(ViewState["PoCount"]); }
+        set { ViewState["PoCount"] = value; }
+    }
+
+    public string Status
+    {
+        get { return Convert.ToString(ViewState["Status"]); }
+        set { ViewState["Status"] = value; }
+    }
+
+    public int SupplierId
+    {
+        get { return Convert.ToInt32(ViewState["SupplierId"]); }
+        set { ViewState["SupplierId"] = value; }
+    }
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        //---------------------------------------
+        this.Page.Form.Enctype = "multipart/form-data";
+        ProjectCommon.SessionCheck();
+
+        authRecInv = new AuthenticationManager(1061, int.Parse(Session["loginid"].ToString()), ObjectType.Page);
+        
+       
+        lbl_inv_Message.Text = "";
+        lbl_popinv_Message.Text = "";
+       
+        if (!Page.IsPostBack)
+        {
+            //---------------------------------------
+            string appname = ConfigurationManager.AppSettings["AppName"].ToString();
+            string[] Files = Directory.GetFiles(Server.MapPath("/" + appname + "/EMANAGERBLOB/Purchase/Invoice/"));
+           // string[] Files = Directory.GetFiles(Server.MapPath("/EMANAGERBLOB/Purchase/Invoice/"));
+            foreach (string f in Files)
+            {
+                try { File.Delete(f); }
+                catch { }
+            }
+            UserId = Common.CastAsInt32(Session["loginid"]);
+            AdvPaymentId = Common.CastAsInt32(Request.QueryString["AdvPaymentId"]);
+            bindPayment_ForwardToddl();
+            BindInvoiceDetails();
+        }
+    }
+    protected void BindInvoiceDetails()
+    {
+        //btnClip.Visible = false;
+        btnClipText.Visible = false;
+       // lbkExport.Visible = false;
+        lnkPrint.Visible = false;
+
+        //btnSubmitInvoice.Visible = false;
+        //-------------------------
+        DataTable dt101 = Common.Execute_Procedures_Select_ByQuery("SELECT Entry,Payment FROM POS_Invoice_mgmt where USERID=" + UserId);
+        if (dt101.Rows.Count > 0 && dt101.Rows[0]["Payment"].ToString() == "True")
+        {
+            lnkPrint.Visible = true;
+            //lbkExport.Visible = true;
+        }
+        
+        //-------------------------
+        DataTable dt = Common.Execute_Procedures_Select_ByQuery("select * from dbo.vw_POS_Invoices_AdvancePayment where AdvPaymentId=" + AdvPaymentId);
+        if (dt.Rows.Count > 0)
+        {
+            lblRefNo.Text = dt.Rows[0]["RefNo"].ToString();
+            lblSupplier.Text = dt.Rows[0]["Vendor"].ToString();
+            SupplierId = Convert.ToInt32(dt.Rows[0]["SupplierId"]);
+            lblVendorCode.Text = dt.Rows[0]["VendorCode"].ToString();
+            lbl_InvNo.Text = dt.Rows[0]["InvNo"].ToString();
+            lbl_InvDate.Text = Common.ToDateString(dt.Rows[0]["InvDate"]);
+            lbl_DueDate.Text = Common.ToDateString(dt.Rows[0]["DueDate"]);
+            lbl_InvAmount.Text = dt.Rows[0]["InvoiceAmount"].ToString();
+            lbl_ApprovedAmount.Text = dt.Rows[0]["ApprovalAmount"].ToString();        
+            lblCurrency.Text = dt.Rows[0]["Currency"].ToString();
+            lbl_Vessel.Text = dt.Rows[0]["invVesselCode"].ToString();
+            //lblPoNo.Text = dt.Rows[0]["PONo"].ToString();
+            //txtPoNo.Text = lblPoNo.Text;
+            Status = dt.Rows[0]["Status"].ToString();
+            lblStatus.Text = dt.Rows[0]["Status"].ToString();
+            //lblStageRemarks.Text = dt.Rows[0]["StageComments"].ToString();
+           // chkBooked.Checked = (Convert.ToString(dt.Rows[0]["Booked"])=="True");
+            //chkCLSInvoice.Checked = (Convert.ToString(dt.Rows[0]["CLSInvoice"]) == "True");
+            //chkCLSInvoice.Enabled = false;
+
+            btn_UpdateFile.Visible = (dt.Rows[0]["Status"].ToString() == "UnPaid");
+            trBooked.Disabled = ! btn_UpdateFile.Visible;
+
+            btn_UpdatePONOView.Visible  = btn_UpdateFile.Visible;
+
+            tr_Frm.Visible = false;
+            if (dt.Rows[0]["AttachmentName"].ToString().Trim() != "")
+            {
+                tr_Frm.Visible = true;
+                //btnClip.Visible = true;
+                btnClipText.Visible = true;
+                btnClipText.Text = dt.Rows[0]["AttachmentName"].ToString();
+
+
+                DataTable dtFile = Common.Execute_Procedures_Select_ByQuery("select Attachment from dbo.POS_Invoice_AdvancePayment where AdvPaymentId=" + AdvPaymentId);
+                {
+                    string TempFileName = "file-" + AdvPaymentId + ".pdf";
+                    string appname = ConfigurationManager.AppSettings["AppName"].ToString();
+                    string TempFilePath = "/" + appname + "/EMANAGERBLOB/Purchase/Invoice/";
+                  //  string TempFilePath = "/EMANAGERBLOB/Purchase/Invoice/";
+                    
+                    File.WriteAllBytes(Server.MapPath(TempFilePath + TempFileName), (byte[])dtFile.Rows[0]["Attachment"]);
+                    frmInvoice.Attributes.Add("src", TempFilePath + TempFileName + "?" + r.NextDouble().ToString() );
+                }
+            }
+
+            string sql="SELECT * FROM DBO.VW_iNVOICE_POLINK WHERE INVOICEID=" + AdvPaymentId;
+
+
+            PoCount = 0;
+            DataTable dtPoNos = Common.Execute_Procedures_Select_ByQuery(sql);
+            rprPOS.DataSource = dtPoNos;
+            PoCount = dtPoNos.Rows.Count;          
+            rprPOS.DataBind();
+            Stage = Common.CastAsInt32(dt.Rows[0]["Stage"]);
+            dt = Common.Execute_Procedures_Select_ByQuery("select EntertedBy,ApprovalFwdTo,VerificationFwdTo,PaidFwdTo,CancelledBy,ISNULL(CLSINVOICE,0) As CLSINVOICE from dbo.POS_Invoice_AdvancePayment where AdvPaymentId=" + AdvPaymentId);
+            int EnteredBy = Common.CastAsInt32(dt.Rows[0]["EntertedBy"]);
+            int ApprovalFwdTo = Common.CastAsInt32(dt.Rows[0]["ApprovalFwdTo"]);
+            int VerificationFwdTo = Common.CastAsInt32(dt.Rows[0]["VerificationFwdTo"]);
+
+            int PaidFwdTo = Common.CastAsInt32(dt.Rows[0]["PaidFwdTo"]);
+            bool IsCloseInvoice = false;
+            IsCloseInvoice = Convert.ToBoolean(dt.Rows[0]["CLSINVOICE"]);
+
+            if (pnl_Approval.Visible)
+            {
+                try
+                {
+                    if (IsCloseInvoice)
+                        ddlAccountUser.SelectedValue = "52";
+                    else
+                        ddlAccountUser.SelectedIndex = 0;
+
+                }
+                catch { }
+            }
+
+            if (Status.Trim() != "Cancelled")
+            {
+                switch (Stage)
+                {
+
+                    case 1:
+                        if (ApprovalFwdTo == UserId)
+                        {
+                            pnl_Approval.Visible = true;
+                            txt_InvAmount.Text = lbl_InvAmount.Text;
+                            lblApprovedUSDAmount.Text = getUSD(lblCurrency.Text, Common.CastAsDecimal(txt_InvAmount.Text), DateTime.Parse(lbl_InvDate.Text)).ToString();
+                        }
+
+                        break;
+
+
+                    default:
+                        break;
+                }
+            }
+
+            if (pnl_Approval.Visible && VerificationFwdTo == 0)
+            {
+                DataTable dt1 = Common.Execute_Procedures_Select_ByQuery("select AcctOfficer from dbo.vessel where vesselid in ( SELECT vesselid FROM dbo.POS_Invoice_AdvancePayment WHERE [AdvPaymentId] = " + AdvPaymentId + " )");
+                try
+                { ddlVerifyForwardTo.SelectedValue = dt1.Rows[0][0].ToString(); }
+                catch { }
+            }
+
+            //if (Status.Trim() != "Cancelled" && Stage > 1)
+            //{
+            //    btnSubmitInvoice.Visible = true;
+            //}
+            //else
+            //{
+            //    btnSubmitInvoice.Visible = false;
+            //}
+
+            //if (pnl_Approval.Visible)
+            //{
+            //    if (dtPoNos.Rows.Count > 0)
+            //    {
+            //        if (Convert.ToInt32(dtPoNos.Rows[0]["BidStatusID"]) >= 5)
+            //        {
+            //            pnl_Approval.Visible = true;
+                        
+            //        }
+            //        else
+            //        {
+            //            pnl_Approval.Visible = false;                        
+            //        }
+            //    }
+            //    else
+            //    {
+            //        pnl_Approval.Visible = true;                   
+            //    }
+            //}
+            
+            lblTotalPoAmount.Text = dtPoNos.Compute("SUM(AMT)", "").ToString();
+
+            decimal TotalInvAmount=Common.CastAsDecimal(lbl_InvAmount.Text);
+            decimal TotalPoAmount=Common.CastAsDecimal(lblTotalPoAmount.Text);
+
+            decimal diff = TotalInvAmount - TotalPoAmount;
+            
+            if (TotalInvAmount != 0)
+                diff = diff * 100 / TotalInvAmount;
+            else
+                diff = 0;
+
+            tdPoTotal.Visible = false;
+            if (dtPoNos.Rows.Count > 0 && TotalInvAmount > 0)
+            {
+                if (Math.Abs(diff) > 5)
+                {
+                    tdPoTotal.Visible = true;
+                }
+            }  
+            
+            if (pnl_Approval.Visible &&  (tdPoTotal.Visible || (! tdPoTotal.Visible && dtPoNos.Rows.Count == 0)))
+            {
+                trAppl1.Visible = true;
+                trAppl2.Visible = true;
+                //trAppl3.Visible = true;
+                //trAppl4.Visible = true;
+            }
+        //---------
+        string sql1 = "SELECT PONO,BidId " +
+                  
+                   "FROM " +
+                   "DBO.POS_Invoice_Payment_PO I " +
+                   "WHERE INVOICEID=" + InvoiceId;
+        PoNos = Common.Execute_Procedures_Select_ByQuery(sql1);
+            BindPoList();
+            //ShowDouments();
+            ShowStageDetails();
+            //BindCreditNotedetails(InvoiceId);
+
+        }
+
+       
+    }
+   
+  
+
+    //protected void chkCLSInvoice_OnCheckedChanged(object sender, EventArgs e)
+    //{
+    //    Common.Execute_Procedures_Select_ByQuery("UPDATE DBO.POS_INVOICE SET CLSINVOICE=" + ((chkCLSInvoice.Checked) ? "1" : "0") + " WHERE INVOICEID=" + InvoiceId);
+        
+    //}
+
+    
+   
+    public decimal getUSD(string Curr, decimal Amount, DateTime dtFor)
+    {
+        decimal xchangerate=0;
+        DataTable dt = Common.Execute_Procedures_Select_ByQuery("SELECT TOP 1  EXC_RATE FROM DBO.XCHANGEDAILY WHERE FOR_CURR='" + Curr + "' AND RATEDATE <='" + dtFor.ToString("dd-MMM-yyyy") + "' ORDER BY RATEDATE DESC");
+        if (dt.Rows.Count > 0)
+            xchangerate = Common.CastAsDecimal(dt.Rows[0][0]);
+
+        lblExchRate.Text = xchangerate.ToString();
+
+        if(xchangerate!=0)
+            return Math.Round(Amount / xchangerate,2);
+        else
+            return 0;
+    }
+    
+    
+    protected void lnkPrint_Click(object sender, EventArgs e)
+    {
+        ScriptManager.RegisterStartupScript(this, this.GetType(), "safsdaf", "window.open('PrintInvoice.aspx?InvoiceId=" + InvoiceId + "','')", true);
+    }
+   
+
+    
+    protected void btnClip_Click(object sender, ImageClickEventArgs e)
+    {
+       // DownloadFile();
+    }
+    protected void btnClipText_Click(object sender, EventArgs e)
+    {
+        //DownloadFile();
+    }
+    //protected void DownloadFile()
+    //{
+    //    DataTable dt = Common.Execute_Procedures_Select_ByQuery("SELECT AttachmentName,Attachment FROM POS_Invoice WHERE InvoiceId=" + InvoiceId);
+    //    if (dt.Rows.Count > 0)
+    //    {
+    //        string FileName = dt.Rows[0]["AttachmentName"].ToString();
+    //        if (FileName.Trim() != "")
+    //        {
+    //            byte[] buff = (byte[])dt.Rows[0]["Attachment"];
+    //            Response.AppendHeader("Content-Disposition", "attachment; filename=" + FileName);
+    //            Response.BinaryWrite(buff);
+    //            Response.Flush();
+    //            Response.End();
+    //        }
+    //    }
+    //}
+    public void setImageUrl(Image I,int Mode)
+    {
+        I.Visible = true;
+        switch(Mode)
+        {
+            case 0: // DO NOT WORRY
+                I.Visible = false;
+                break;
+            case 1: // STAGE - NOR REQUIRED 
+                I.ImageUrl = "~/Modules/HRD/Images/gray_circle.png";
+                break; 
+            case 2: // DONE
+                I.ImageUrl = "~/Modules/HRD/Images/green_circle.gif";
+                break;
+            case 3: // PENDING
+                I.ImageUrl = "~/Modules/HRD/Images/red_circle.png";
+                break;
+            default:
+                break;
+        }
+    }
+    public void setStageByOn(DataTable dt,int Mode, Label by, Label on, Label Rem)
+    {
+        int StageMode=getStageMode(dt, Mode);
+        if (StageMode >= 2)
+        {
+            DataView dv = dt.DefaultView;
+            dv.RowFilter = "ApprovalLevel=" + Mode;
+            DataTable dt1 = dv.ToTable();
+
+            if (StageMode == 2)
+            {
+                on.Text = Common.ToDateString(dt1.Rows[0]["ApprovedOn"]);
+                Rem.Text = dt1.Rows[0]["Comments"].ToString();
+            }
+            else
+            {
+                ((ImageButton)this.FindControl("btnApp" + Mode)).Visible = true && (ProcessedBy == UserId || 1 == UserId);
+            }
+            by.Text = ProjectCommon.getUserNameByID(dt1.Rows[0]["AppUserId"].ToString());
+             
+        }
+    }
+    public int getStageMode(DataTable dt,int Mode)
+    {
+        DataView dv=dt.DefaultView;
+        dv.RowFilter="ApprovalLevel=" + Mode;
+        DataTable dt1=dv.ToTable();
+
+        if (dt1.Rows.Count <= 0)
+            return 1;
+        else
+        {
+         if( Common.CastAsInt32(dt1.Rows[0]["AppUserId"]) >0)
+            return Convert.IsDBNull(dt1.Rows[0]["ApprovedOn"]) ? 3 : 2;
+         else
+             return 1;
+        }
+
+    }
+    public void ShowStageDetails()
+    {
+        string Sql = "SELECT (SELECT FirstName + ' ' AS LASTNAME FROM  dbo.UserMaster WHERE LoginId =  I.EntertedBy) AS EnteredBy,I.EntertedBy as EntertedById, EnteredOn,EntryComments, " +
+                     "ApprovalFwdTo,(SELECT FirstName + ' ' AS LASTNAME FROM  dbo.UserMaster WHERE LoginId =  I.ApprovalFwdTo) AS ApprovalBy,I.ApprovalFwdTo, ApprovalOn, ApprovalComments,  " +
+                     "VerificationFwdTo,(SELECT FirstName + ' ' AS LASTNAME FROM  dbo.UserMaster WHERE LoginId =  I.VerificationFwdTo) AS VerifiedBy,VerficationOn, VerificationComments,  " +
+                     "PaidFwdTo,(SELECT FirstName + ' ' AS LASTNAME FROM  dbo.UserMaster WHERE LoginId =  I.PaidFwdTo) AS PaidBY, PaidOn,PaidComments, Stage, Status, (Select Count(*) from POS_Invoice_RFP_AdvPayment pi with(nolock) Inner Join POS_Invoice_RFP_AdvPayment_Mapping pir with(nolock) on pi.RFPAPId = pir.RFPAPId where pir.AdvPaymentId = I.AdvPaymentId and Isnull(RFPSubmittedBy,0) > 0 )  As RFPCount  " +
+                     "FROM POS_Invoice_AdvancePayment I WHERE AdvPaymentId =" + AdvPaymentId;
+        DataTable dtStages = Common.Execute_Procedures_Select_ByQuery(Sql);
+
+        int Stage = Common.CastAsInt32(dtStages.Rows[0]["Stage"]);
+        int RFPCount = Common.CastAsInt32(dtStages.Rows[0]["RFPCount"]);
+        string Status = dtStages.Rows[0]["Status"].ToString();
+
+        if (Status.ToString().ToUpper() == "U" && RFPCount == 0)
+        {
+            lbkSendBacktoEntryStage.Visible = true;
+        }
+        else
+        {
+            lbkSendBacktoEntryStage.Visible = false;
+
+        }
+
+        EnteredBy = Common.CastAsInt32(dtStages.Rows[0]["EntertedById"]);
+        ProcessedBy = Common.CastAsInt32(dtStages.Rows[0]["ApprovalFwdTo"]);
+        PaymentBy = Common.CastAsInt32(dtStages.Rows[0]["PaidFwdTo"]);
+
+
+        int EntryMode = 0;
+        int ProcessingMode = 0;
+        int Approval1Mode = 0;
+        int Approval2Mode = 0;
+        //int Approval3Mode = 0;
+        //int Approval4Mode = 0;
+        int ApprovalFinalMode = 0;
+        int PaymentMode = 0;
+
+        // 0: DO NOT WORRY
+        // 1: STAGE - NOR REQUIRED 
+        // 2: DONE
+        // 3: PENDING
+
+        DataTable dt = Common.Execute_Procedures_Select_ByQuery("SELECT * FROM DBO.POS_Invoice_AdvancePayment_Approvals WHERE AdvPaymentId=" + AdvPaymentId);
+
+        EntryMode = 2;
+
+        ProcessingMode = (Convert.IsDBNull(dtStages.Rows[0]["ApprovalFwdTo"])) ? 0 : ((Convert.IsDBNull(dtStages.Rows[0]["ApprovalOn"])) ? 3 : 2);
+
+        if (ProcessingMode == 2)
+        {
+            Approval1Mode = getStageMode(dt, 1);
+            Approval2Mode = getStageMode(dt, 2);
+            //Approval3Mode = getStageMode(dt, 3);
+            //Approval4Mode = getStageMode(dt, 4);
+
+            ApprovalFinalMode = (Convert.IsDBNull(dtStages.Rows[0]["VerficationOn"])) ? 3 : 2;
+
+            if (ApprovalFinalMode == 2)
+            {
+                PaymentMode = (Status == "P") ? 2 : 3;
+            }
+        }
+
+
+        //switch (Stage)
+        //{
+        //    case 0: // 
+        //        EntryMode = 2;
+        //        ProcessingMode = (Convert.IsDBNull(dtStages.Rows[0]["ApprovalOn"])) ? 3 : 2;
+        //        break;
+        //    case 1:
+        //        EntryMode = 2;
+        //        ProcessingMode = (Convert.IsDBNull(dtStages.Rows[0]["ApprovalOn"])) ? 3 : 2;
+        //        if (ProcessingMode == 2)
+        //        {
+        //            Approval1Mode = getStageMode(dt, 1);
+        //            Approval2Mode = getStageMode(dt, 2);
+        //            Approval3Mode = getStageMode(dt, 3);
+        //            Approval4Mode = getStageMode(dt, 4);
+        //        }
+        //        break;
+        //    case 2:
+        //        EntryMode = 2;
+        //        ProcessingMode = (Convert.IsDBNull(dtStages.Rows[0]["ApprovalOn"])) ? 3 : 2;
+        //        if (ProcessingMode == 2)
+        //        {
+        //            Approval1Mode = getStageMode(dt, 1);
+        //            Approval2Mode = getStageMode(dt, 2);
+        //            Approval3Mode = getStageMode(dt, 3);
+        //            Approval4Mode = getStageMode(dt, 4);
+        //            PaymentMode = (Status == "P") ? 3 : 2;
+        //        }
+        //        break;
+        //    case 3:
+        //        EntryMode = 2;
+        //        ProcessingMode =2;
+        //        Approval1Mode = getStageMode(dt, 1);
+        //        Approval2Mode = getStageMode(dt, 2);
+        //        Approval3Mode = getStageMode(dt, 3);
+        //        Approval4Mode = getStageMode(dt, 4);
+        //        PaymentMode = (Status == "P") ? 3 : 2;
+        //        break;
+        //    default:
+        //        break;
+        //}
+
+        //lblApproval1By.Text = dtStages.Rows[0]["VerifiedBy"].ToString();
+        //lblApproval1On.Text = Common.ToDateString(dtStages.Rows[0]["VerficationOn"]);
+        //lblApproval1Comments.Text = dtStages.Rows[0]["VerificationComments"].ToString();
+
+        if (Stage == 2)
+        {
+
+            int App1User = GetAprpovalUserId(dt, 1);
+            int App2User = GetAprpovalUserId(dt, 2);
+            //int App3User = GetAprpovalUserId(dt, 3);
+            //int App4User = GetAprpovalUserId(dt, 4);
+
+            DateTime? App1Date = GetApprovalDate(dt, 1);
+            DateTime? App2Date = GetApprovalDate(dt, 2);
+            //DateTime? App3Date = GetApprovalDate(dt, 3);
+            //DateTime? App4Date = GetApprovalDate(dt, 4);
+
+          //  DataTable dtAccountUser = Common.Execute_Procedures_Select_ByQuery("exec DBO.POS_AdvPayment_getPaymentUser " + AdvPaymentId);
+
+            if (!pnlApproval.Visible)
+            {
+                pnlApproval.Visible = (App1User > 0 && App1User == UserId && App1Date == null);
+                if (pnlApproval.Visible)
+                {
+                    lblApprovalLevel.Text = "Approval 1";
+                    hfdAppLevel.Value = "1";
+                    hfdAppUserId.Value = App1User.ToString();
+                    btnBackToInvProcess.Visible = true;
+                    //hfdPaymentUserId.Value = dtAccountUser.Rows[0][0].ToString();
+                    //lblForwardedToPaymentNew.Text = dtAccountUser.Rows[0][1].ToString();
+                }
+            }
+            if (!pnlApproval.Visible)
+            {
+                pnlApproval.Visible = (App2User > 0 && App2User == UserId && App2Date == null);
+                if (pnlApproval.Visible)
+                {
+                    lblApprovalLevel.Text = "Approval 2";
+                    hfdAppLevel.Value = "2";
+                    hfdAppUserId.Value = App2User.ToString();
+
+                    //hfdPaymentUserId.Value = dtAccountUser.Rows[0][0].ToString();
+                    //lblForwardedToPaymentNew.Text = dtAccountUser.Rows[0][1].ToString();
+                }
+            }
+        }
+        if (Stage >= 2)
+        {
+            btn_UpdateFile.Visible = false;
+            btn_UpdatePONOView.Visible = false;
+            //lbAddCreditNotes.Visible = false;
+
+        }
+
+        //string sql = "select  CASE I.[StageId] WHEN 0 THEN 'Entry' WHEN 1 THEN 'Approval' WHEN 2 THEN 'Acct. Verify' WHEN 3 THEN 'Payment' ELSE 'NA' END AS Stage,UserName,Comments,CommentsOn from POS_Invoice_StageComments I where invoiceid=" + InvoiceId;
+        //rptComments.DataSource = Common.Execute_Procedures_Select_ByQuery(sql);
+        //rptComments.DataBind();
+        //---------------------------------------------
+    }
+    public int GetAprpovalUserId(DataTable dt, int AppLevel)
+    {
+        int ret=0;
+        DataView dv = dt.DefaultView;
+        dv.RowFilter = "ApprovalLevel=" + AppLevel;
+        DataTable dt1 = dv.ToTable();
+
+        if (dt1.Rows.Count <= 0)
+            return 0;
+        else
+        {
+            return Common.CastAsInt32(dt1.Rows[0]["APPUSERID"]);
+        }
+    }
+    public DateTime? GetApprovalDate(DataTable dt, int AppLevel)
+    {
+        int ret = 0;
+        DataView dv = dt.DefaultView;
+        dv.RowFilter = "ApprovalLevel=" + AppLevel;
+        DataTable dt1 = dv.ToTable();
+
+        if (dt1.Rows.Count <= 0)
+            return null;
+        else
+        {
+            if (Convert.IsDBNull(dt1.Rows[0]["ApprovedOn"]))
+                return null;
+            else
+                return DateTime.Parse(dt1.Rows[0]["ApprovedOn"].ToString());
+        }
+    }
+    
+    //protected void btn_UpdateFile_Click(object sender, EventArgs e)
+    //{
+    //    dv_UpdateAttachment.Visible = true;
+    //    frmUpload.Attributes.Add("src", "UploadInvoice.aspx?InvoiceId=" + InvoiceId);
+    //}
+    //protected void btn_DocumentClose_Click(object sender, EventArgs e)
+    //{
+    //    dvDocument.Visible = false;
+    //    BindInvoiceDetails();
+    //    ShowDouments();
+    //}
+    protected void btn_UpdatePONOView_Click(object sender, EventArgs e)
+    {
+        dvPO.Visible = true;
+    }
+    protected void btn_UpdatePONO_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            Common.Execute_Procedures_Select_ByQuery("UPDATE DBO.POS_Invoice_AdvancePayment SET PONO='" + txtPoNo.Text + "' WHERE AdvPaymentId=" + AdvPaymentId);
+            //lblPoNo.Text = txtPoNo.Text;
+            lbl_inv_Message.Text = "PO# Updated Successfully.";
+            //btnClip.Visible = true;
+            dvPO.Visible = false;
+        }
+        catch (Exception ex)
+        {
+            lbl_inv_Message.Text = "Unable to update PO#. Error :" + Common.ErrMsg;
+        }
+    }
+    protected void btn_PONOClose_Click(object sender, EventArgs e)
+    {
+        string sql = "SELECT BidiD FROM DBO.POS_Invoice_AdvancePayment WHERE AdvPaymentId=" + AdvPaymentId;
+        PoCount = 0;
+        DataTable dtPoNos = Common.Execute_Procedures_Select_ByQuery(sql);
+        rprPOS.DataSource = dtPoNos;
+        PoCount = dtPoNos.Rows.Count;
+        rprPOS.DataBind();
+        dvPO.Visible = false;
+    }
+    protected void btnPO_delete_Click(object sender, EventArgs e)
+    {
+        int BIDID = Common.CastAsInt32(((ImageButton)sender).CommandArgument);
+        //------------- validate before deletion po must not be exported to traverse
+        DataTable dt005 = Common.Execute_Procedures_Select_ByQuery("select 1 from dbo.[tblApEntries] b where b.intrav = 1 and b.bidid=" + BIDID);
+        if (dt005.Rows.Count > 0)
+        {
+            ProjectCommon.ShowMessage("Sorry ! PO can not unlink for Invoice. It already exported to traverse.");
+            return;
+        }
+        else
+        {
+            //-----------------------------
+            DataTable dt=Common.Execute_Procedures_Select_ByQuery("exec dbo.UnlinkPO " + BIDID + "," + InvoiceId);
+            if (dt.Rows.Count > 0)
+            {
+                int result = Common.CastAsInt32(dt.Rows[0]["result"]);
+                string msg = dt.Rows[0]["message"].ToString();
+                if (result == 0)
+                {
+                    DataRow[] drs = PoNos.Select("BIDID='" + BIDID + "'");
+                    foreach (DataRow dr in drs)
+                    {
+                        PoNos.Rows.Remove(dr);
+                    }
+                    BindPoList();
+                }
+                else
+                {
+                    ProjectCommon.ShowMessage(msg);
+                    return;
+                }
+            }
+        }
+    }
+    protected void btn_PONOSave_Click(object sender, EventArgs e)
+    {
+        string bids = "";
+        int LinkedPoCount =Common.CastAsInt32(Common.Execute_Procedures_Select_ByQuery("SELECT COUNT(BIDID) FROM POS_Invoice_Payment_PO WHERE InvoiceId=" + InvoiceId).Rows[0][0]);
+        if (LinkedPoCount > 0)
+        {
+            lbl_popinv_Message.Text = "Sorry ! There is already a PO linked with this Invoice. Please remove that to link with other PO.";
+            return;
+        }
+        else
+        {
+            if (PoNos.Rows.Count == 1)
+            {
+                int valbidid = 0;
+                foreach (DataRow dr in PoNos.Rows)
+                {
+                    bids += "," + dr["BIDID"].ToString();
+                    valbidid = Common.CastAsInt32(dr["BIDID"].ToString());
+                }
+                if (bids.StartsWith(","))
+                    bids = bids.Substring(1);
+                
+                DataTable dtval = Common.Execute_Procedures_Select_ByQuery("select 1 from dbo.[tblApEntries] where intrav = 1 and bidid = " + valbidid);
+                if (dtval.Rows.Count > 0)
+                {
+                    lbl_popinv_Message.Text = "Sorry ! Linked PO is already exported to traverse.";
+                    return;
+                }
+                else
+                {
+                    //Common.Execute_Procedures_Select_ByQuery("DELETE FROM POS_Invoice_Payment_PO WHERE InvoiceId=" + InvoiceId);
+                    if (bids.Trim() != "")
+                    {
+                        Common.Execute_Procedures_Select_ByQuery("UPDATE [DBO].TBLSMDPOMASTERBID SET InvoiceNo='" + lbl_InvNo.Text  + "',BidInvoiceDate='" + lbl_InvDate.Text + "' WHERE BidID=" + valbidid);
+                        Common.Execute_Procedures_Select_ByQuery("INSERT INTO POS_Invoice_Payment_PO SELECT " + InvoiceId + ",BidPoNum,BIDID FROM DBO.TBLSMDPOMASTERBID WHERE BIDID IN (SELECT RESULT FROM DBO.CSVtoTable('" + bids + "',','))");
+                        BindInvoiceDetails();
+                    }
+                }
+            }
+            else
+            {
+                lbl_popinv_Message.Text = "Sorry ! Only Single PO is allowed to link with one invoice.";
+                return;
+            }
+        }
+    }
+    protected void btn_POClose_Click(object sender, EventArgs e)
+    {
+        dvPO.Visible = false;
+    }
+    protected void btnAddPO_Click(object sender, EventArgs e)
+    {
+
+        if (txtPoNo.Text.Trim() != "")
+        {
+            string povsl = txtPoNo.Text.Substring(0, 3);
+            if (Common.CastAsInt32(povsl) == 0)
+            {
+                if (lbl_Vessel.Text.Substring(0, 3) != povsl)
+                {
+                    lbl_popinv_Message.Text = "PO vessel not matching with invoice vessel.";
+                    txtPoNo.Focus();
+                    return;
+                }
+            }
+
+            if (PoNos.Select("PONO='" + txtPoNo.Text.Trim() + "'").Length <= 0)
+            {
+                int BidId = Common.CastAsInt32(hfdbidid.Value);
+
+                if (BidId <= 0)
+                {
+                    lbl_popinv_Message.Text = "Invalid PO#.";
+                    txtPoNo.Focus();
+                    return;
+                }
+
+                PoNos.Rows.Add(PoNos.NewRow());
+                PoNos.Rows[PoNos.Rows.Count - 1]["PONO"] = txtPoNo.Text;
+                PoNos.Rows[PoNos.Rows.Count - 1]["BIDID"] = BidId.ToString();
+                string InvoiceRefNo = "";
+                string OTHEROTHERINVID = "";
+                if (BidId > 0)
+                {
+                    DataTable dt = Common.Execute_Procedures_Select_ByQuery("SELECT InvoiceId,RefNo FROM [dbo].[POS_Invoice] I WHERE I.InvoiceId IN ( SELECT INVOICEID FROM POS_Invoice_Payment_PO WHERE BIDID=" + BidId + " AND INVOICEID<>" + InvoiceId + ")");
+                    if (dt.Rows.Count > 0)
+                    {
+                        OTHEROTHERINVID = dt.Rows[0][0].ToString();
+                        InvoiceRefNo = dt.Rows[0][1].ToString();
+                        //-------------------
+                        lbl_popinv_Message.Text = "Sorry this PO is already linked with some other invoice ( Ref No : " + InvoiceRefNo + ").";
+                        return;
+                    }
+                }
+
+                PoNos.Rows[PoNos.Rows.Count - 1]["OTHEROTHERINVID"] = OTHEROTHERINVID;
+                PoNos.Rows[PoNos.Rows.Count - 1]["OTHERREFNO"] = InvoiceRefNo;
+
+                txtPoNo.Text = "";
+                hfdbidid.Value = "0";
+                BindPoList();
+            }
+        }
+    }
+    public void BindPoList()
+    {
+        rptPo.DataSource = PoNos;
+        rptPo.DataBind();
+    }
+
+    //protected void btn_uploadClose_Click(object sender, EventArgs e)
+    //{
+    //    BindInvoiceDetails();
+    //     dv_UpdateAttachment.Visible = false;
+    //   // Response.Redirect("ViewInvoice.aspx?InvoiceId=" + InvoiceId);
+    //}
+
+
+    public int GetBidStatus(int _BidID)
+    {
+        string sql = "select  BidStatusID  from vw_tblsmdpomasterbid where BidID=" + _BidID + "";
+        DataTable Dt = Common.Execute_Procedures_Select_ByQuery(sql);
+        if (Dt != null)
+        {
+            if (Dt.Rows.Count > 0)
+            {
+                return Common.CastAsInt32(Dt.Rows[0][0]);
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        else
+            return 0;
+    }
+
+
+
+    //protected void btnSubmitInvoice_Click(object sender, EventArgs e)
+    //{
+    //    ScriptManager.RegisterStartupScript(this, this.GetType(), "safsdaf", "window.open('InvoiceSubmitforApproval.aspx?InvoiceId=" + InvoiceId + "','')", true);
+    //}
+
+    protected void ApprovalAmount_OnTextChanged(object sender, EventArgs e)
+    {
+        lblApprovedUSDAmount.Text = getUSD(lblCurrency.Text, Common.CastAsDecimal(txt_InvAmount.Text), DateTime.Parse(lbl_InvDate.Text)).ToString();
+    }
+    protected void btn_AppSave_Click(object sender, EventArgs e)
+    {
+        //----------------------------
+        DataTable dt = Common.Execute_Procedures_Select_ByQuery("SELECT AttachmentName,Attachment FROM POS_Invoice_AdvancePayment WHERE AdvPaymentId=" + AdvPaymentId);
+        if (dt.Rows.Count <= 0)
+        {
+            lbl_inv_Message.Text = "Please upload invoice to continue.";
+            return;
+        }
+        if (ddlAccountUser.SelectedIndex <= 0)
+        {
+            lbl_inv_Message.Text = "Please select account user to continue.";
+            return;
+        }
+        //----------------------------
+        try
+        {
+            bool success = false;
+            DropDownList[] ctlApprovals = { ddlVerifyForwardTo, ddlApproval2
+                    //, ddlApproval3, ddlApproval4 
+            };
+            decimal ApprovalAmount = Common.CastAsDecimal(lblApprovedUSDAmount.Text);
+
+            if (PoCount <= 0) // NON PO LINKED TRANSACTIONS
+            {
+                if (trAppl1.Visible && trAppl2.Visible)
+                {
+                    int StartApproval = 1;
+                    //if (ApprovalAmount < 500)
+                    //{ StartApproval = 1; }
+                    //else if (ApprovalAmount < 25000)
+                    //{ StartApproval = 2; }
+                    //else if (ApprovalAmount < 100000)
+                    //{ StartApproval = 3; }
+                    //else
+                    //{ StartApproval = 4; }
+
+
+                    for (int i = StartApproval; i <= 2; i++)
+                    {
+                        success = success || ((DropDownList)ctlApprovals[i - 1]).SelectedIndex > 0;
+                    }
+                }
+            }
+            else // PO LINKED TRANSACTIONS
+            {
+                success = true;
+                if (trAppl1.Visible && trAppl2.Visible)
+                {
+                    int MaxApproval = 2;
+                    //if (ApprovalAmount < 500)
+                    //{ MaxApproval = 1; }
+                    //else if (ApprovalAmount < 25000)
+                    //{ MaxApproval = 2; }
+                    //else if (ApprovalAmount < 100000)
+                    //{ MaxApproval = 3; }
+                    //else
+                    //{ MaxApproval = 4; }
+
+                    for (int i = 1; i <= MaxApproval; i++)
+                    {
+                        success = success && ((DropDownList)ctlApprovals[i - 1]).SelectedIndex > 0;
+                    }
+                }
+               
+
+            }
+
+            if (success)
+            {
+                if (trAppl1.Visible && trAppl2.Visible)
+                {
+                    int App1 = Common.CastAsInt32(ddlVerifyForwardTo.SelectedValue);
+                    int App2 = Common.CastAsInt32(ddlApproval2.SelectedValue);
+                    //int App3 = Common.CastAsInt32(ddlApproval3.SelectedValue);
+                    //int App4 = Common.CastAsInt32(ddlApproval4.SelectedValue);
+                    //int MaxAppUser = (App4 > 0) ? App4 : ((App3 > 0) ? App3 : ((App2 > 0) ? App2 : App1));
+                    int MaxAppUser = ((App2 > 0) ? App2 : App1);
+
+                    //Common.Execute_Procedures_Select_ByQuery("EXEC POS_INVOICE_PROCESS_SENDFORAPPROVAL " + InvoiceId + "," + App1 + "," + App2 + "," + App3 + "," + App4);
+                    Common.Execute_Procedures_Select_ByQuery("EXEC POS_AdvPayment_PROCESS_SENDFORAPPROVAL " + AdvPaymentId + "," + App1 + "," + App2);
+                    Common.Execute_Procedures_Select_ByQuery("UPDATE dbo.POS_Invoice_AdvancePayment SET ApprovalOn=getdate(),VerificationFwdTo=" + MaxAppUser + ",PaidFwdTo=" + ddlAccountUser.SelectedValue + ",Stage=2,StageComments='" + txt_AppRemarks.Text.Trim().Replace("'", "`") + "',ApprovalComments='" + txt_AppRemarks.Text.Trim().Replace("'", "`") + "', ApprovalAmount=" + txt_InvAmount.Text.Trim() + " where AdvPaymentId=" + AdvPaymentId);
+                }
+                else
+                {
+                    Common.Execute_Procedures_Select_ByQuery("UPDATE dbo.POS_Invoice_AdvancePayment SET ApprovalOn=getdate(),PaidFwdTo=" + ddlAccountUser.SelectedValue + ",Stage=3,StageComments='" + txt_AppRemarks.Text.Trim().Replace("'", "`") + "',ApprovalComments='" + txt_AppRemarks.Text.Trim().Replace("'", "`") + "', ApprovalAmount=" + txt_InvAmount.Text.Trim() + " where InvoiceId=" + AdvPaymentId);
+                }
+                
+                btn_AppSave.Visible = false;
+                pnl_Approval.Visible = false;
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "alet", "alert('Invoice send for approval successfully.');", true);
+                BindInvoiceDetails();
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "alet", "alert('Please select approval person to continue.');", true);
+            }
+
+        }
+        catch (Exception ex)
+        { lbl_inv_Message.Text = "Unable to Approve. Error :" + ex.Message; }
+    }
+
+    protected void bindPayment_ForwardToddl()
+    {
+        string SQL = "select (FirstName + ' ' + LastName ) AS UserName, LoginId  from dbo.usermaster where loginid in (select userid from pos_invoice_mgmt where payment=1) AND statusId='A' Order By UserName";
+
+        DataTable dt1;//= Common.Execute_Procedures_Select_ByQuery("");
+        //this.ddlPaymentForwardTo.DataValueField = "LoginId";
+        //this.ddlPaymentForwardTo.DataTextField = "UserName";
+        //this.ddlPaymentForwardTo.DataSource = dt1;
+        //this.ddlPaymentForwardTo.DataBind();
+        //ddlPaymentForwardTo.Items.Insert(0, new ListItem("< Select User >", "0"));
+
+        SQL = "select (FirstName + ' ' + LastName ) AS UserName, LoginId from dbo.usermaster where loginid in (select userid from pos_invoice_mgmt where Approval=1) AND statusId='A' Order By UserName";
+        dt1 = Common.Execute_Procedures_Select_ByQuery(SQL);
+        this.ddlVerifyForwardTo.DataValueField = "LoginId";
+        this.ddlVerifyForwardTo.DataTextField = "UserName";
+        this.ddlVerifyForwardTo.DataSource = dt1;
+        this.ddlVerifyForwardTo.DataBind();
+        ddlVerifyForwardTo.Items.Insert(0, new ListItem("< Select User >", "0"));
+
+        SQL = "select (FirstName + ' ' + LastName ) AS UserName, LoginId from dbo.usermaster where loginid in (select userid from pos_invoice_mgmt where Verification=1) AND statusId='A' Order By UserName";
+        dt1 = Common.Execute_Procedures_Select_ByQuery(SQL);
+        this.ddlApproval2.DataValueField = "LoginId";
+        this.ddlApproval2.DataTextField = "UserName";
+        this.ddlApproval2.DataSource = dt1;
+        this.ddlApproval2.DataBind();
+        ddlApproval2.Items.Insert(0, new ListItem("< Select User >", "0"));
+
+        //SQL = "SELECT (FirstName + ' ' + LastName ) AS UserName,LoginId from dbo.usermaster where loginid in (select userid from pos_invoice_mgmt where Approval3=1) AND statusId='A' Order By UserName";
+        //dt1 = Common.Execute_Procedures_Select_ByQuery(SQL);
+        //this.ddlApproval3.DataValueField = "LoginId";
+        //this.ddlApproval3.DataTextField = "UserName";
+        //this.ddlApproval3.DataSource = dt1;
+        //this.ddlApproval3.DataBind();
+        //ddlApproval3.Items.Insert(0, new ListItem("< Select User >", "0"));
+
+        //SQL = "SELECT (FirstName + ' ' + LastName ) AS UserName,LoginId from dbo.usermaster where loginid in (select userid from pos_invoice_mgmt where Approval4=1) AND statusId='A' Order By UserName";
+        //dt1 = Common.Execute_Procedures_Select_ByQuery(SQL);
+        //this.ddlApproval4.DataValueField = "LoginId";
+        //this.ddlApproval4.DataTextField = "UserName";
+        //this.ddlApproval4.DataSource = dt1;
+        //this.ddlApproval4.DataBind();
+        //ddlApproval4.Items.Insert(0, new ListItem("< Select User >", "0"));
+
+        SQL = "select (FirstName + ' ' + LastName ) AS UserName, LoginId from dbo.usermaster where loginid in (select userid from pos_invoice_mgmt where Payment=1) AND statusId='A' Order By UserName";
+        dt1 = Common.Execute_Procedures_Select_ByQuery(SQL);
+        this.ddlAccountUser.DataValueField = "LoginId";
+        this.ddlAccountUser.DataTextField = "UserName";
+        this.ddlAccountUser.DataSource = dt1;
+        this.ddlAccountUser.DataBind();
+        ddlAccountUser.Items.Insert(0, new ListItem("< Select User >", "0"));
+        DataTable dtAccountUser = Common.Execute_Procedures_Select_ByQuery("exec DBO.POS_AdvPayment_getPaymentUser " + AdvPaymentId);
+        if (dtAccountUser.Rows.Count > 0)
+        {
+            ddlAccountUser.SelectedValue = dtAccountUser.Rows[0][0].ToString();
+        }
+
+    }
+
+    protected void btnApprovalSave_Click(object sender, EventArgs e)
+    {
+        if (txtApprovalRemarks.Text.Trim() == "")
+        {
+            lbl_inv_Message.Text = "Please enter comments to continue.";
+            return;
+        }
+
+        int AppUserId = Common.CastAsInt32(hfdAppUserId.Value);
+        //int PaymentUserId = Common.CastAsInt32(hfdPaymentUserId.Value);
+        int Mode = Common.CastAsInt32(hfdAppLevel.Value);
+        try
+        {
+            Common.Execute_Procedures_Select_ByQuery("exec dbo.POS_AdvPayment_STAGE_APPROVAL " + AdvPaymentId + "," + AppUserId + "," + Mode + ",'" + txtApprovalRemarks.Text.Trim().Replace("'", "`") + "'");
+            btnApprovalSave.Visible = false;
+            //pnlApproval.Visible = false;
+            ShowStageDetails();
+        }
+        catch
+        {
+
+
+        }
+    }
+    //protected void btnSaveStageComments_Click(object sender, EventArgs e)
+    //{
+    //    if (txtStageComments.Text.Trim() == "")
+    //    {
+    //        lbl_inv_Message.Text = "Please enter comments to continue.";
+    //        return;
+    //    }
+    //    try
+    //    {
+    //        Common.Execute_Procedures_Select_ByQuery("exec dbo.POS_InvoiceStageComments " + InvoiceId + ",'" + Session["UserFullName"].ToString() + "','" + txtStageComments.Text.Trim().Replace("'", "`") + "'");
+    //        lbl_inv_Message.Text = "Comments saved successfully.";
+
+    //    }
+    //    catch { }
+
+
+    //}
+    //protected void btn_AddNotes_Click(object sender, EventArgs e)
+    //{
+    //    dvNotes.Visible = true;
+    //}
+    //protected void btnCloseStageComments_Click(object sender, EventArgs e)
+    //{
+    //    ShowStageDetails();
+    //    dvNotes.Visible = false;
+    //}
+    //protected void btn_AddDocuments_Click(object sender, EventArgs e)
+    //{
+    //    dvDocument.Visible = true;
+    //    frmUpload1.Attributes.Add("src", "UploadNewDocument.aspx?InvoiceId=" + InvoiceId);
+    //}
+    //protected void btnDocClose_Click(object sender, EventArgs e)
+    //{
+    //    dvDocument.Visible = false;
+    //    BindInvoiceDetails();
+    //    ShowDouments();
+    //}
+    //protected void ShowDouments()
+    //{
+    //    string DeleteAllowed = "N";
+    //    DeleteAllowed = (Stage <= 1) ? "Y" : "N";
+    //    string sql2 = "SELECT *,'" + DeleteAllowed + "' as DeleteAllowed FROM DBO.POS_Invoice_Documents WHERE INVOICEID=" + InvoiceId;
+    //    Repeater1.DataSource = Common.Execute_Procedures_Select_ByQuery(sql2);
+    //    Repeater1.DataBind();
+    //}
+    //protected void btnDelete_Click(object sender, EventArgs e)
+    //{
+    //    int Pk = Common.CastAsInt32(((ImageButton)sender).CommandArgument);
+    //    Common.Execute_Procedures_Select_ByQuery("DELETE FROM POS_Invoice_Documents WHERE PK=" + Pk);
+    //    ShowDouments();
+    //}
+
+   
+    protected void btn_VerifySave_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            Common.Execute_Procedures_Select_ByQuery("UPDATE dbo.POS_Invoice_AdvancePayment SET VerficationOn=getdate(),Stage=3,StageComments='" + txtVerifyComments.Text.Trim().Replace("'", "`") + "',VerificationComments='" + txtVerifyComments.Text.Trim().Replace("'", "`") + "' where AdvPaymentId=" + AdvPaymentId);
+            //Common.Execute_Procedures_Select_ByQuery("UPDATE dbo.Pos_Invoice SET VerficationOn=getdate(),PaidFwdTo=" + ddlPaymentForwardTo.SelectedValue + ",Stage=3,StageComments='" + txtVerifyComments.Text.Trim().Replace("'", "`") + "',VerificationComments='" + txtVerifyComments.Text.Trim().Replace("'", "`") + "' where InvoiceId=" + InvoiceId);
+            lbl_inv_Message.Text = "Verified Successfully.";
+            btn_VerifySave.Visible = false;
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "", "Refresh();", true);
+        }
+        catch (Exception ex)
+        { lbl_inv_Message.Text = "Unable to Verify. Error :" + ex.Message; }
+
+    }
+    //protected void btnDownload_Click(object sender, EventArgs e)
+    //{
+    //    int Pk = Common.CastAsInt32(((ImageButton)sender).CommandArgument);
+    //    DataTable dt = Common.Execute_Procedures_Select_ByQuery("SELECT AttachmentName,Attachment FROM POS_Invoice_Documents WHERE PK=" + Pk);
+    //    if (dt.Rows.Count > 0)
+    //    {
+    //        string FileName = dt.Rows[0]["AttachmentName"].ToString();
+            
+    //        if (FileName.Trim() != "")
+    //        {
+    //            string ExtFileName = Path.GetExtension(FileName).Substring(1);
+    //            //Response.ContentType = "application/" + ExtFileName;
+    //            //Response.AppendHeader("Content-Disposition", "attachment; filename=" + FileName);
+    //            //byte[] buffer = (byte[])dt.Rows[0]["Attachment"];
+    //            //Response.BinaryWrite(buffer);
+    //            //Response.Flush();
+
+    //            byte[] bytes = (byte[])dt.Rows[0]["Attachment"];
+    //            Response.Clear();
+    //            Response.ClearHeaders();
+    //            Response.Buffer = true;
+    //            Response.Charset = "";
+    //            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+    //            Response.ContentType = "application/" + ExtFileName; ;
+    //            Response.AppendHeader("Content-Disposition", "attachment; filename=" + FileName);
+    //            Response.BinaryWrite(bytes); //
+    //            Response.BufferOutput = true;
+    //            Response.OutputStream.Write(bytes, 0, bytes.Length);
+    //           // Response.Flush();
+    //            Response.End();
+    //            //byte[] buff = (byte[])dt.Rows[0]["Attachment"];
+    //            //Response.ContentType = "application/" + ExtFileName;
+    //            //Response.AppendHeader("Content-Disposition", "attachment; filename=" + FileName);
+    //            //Response.BinaryWrite(buff);
+    //            //Response.Flush();
+    //            //Response.End();
+    //        }
+    //    }
+    //}
+
+    protected void btnViewAppHistory_Click(object sender, EventArgs e)
+    {
+        divAppHistory.Visible = true;
+        GetApprovalHistory();
+    }
+
+    protected void GetApprovalHistory()
+    {
+        string Sql = "SELECT (SELECT FirstName + ' ' AS LASTNAME FROM  dbo.UserMaster WHERE LoginId =  I.EntertedBy) AS EnteredBy,I.EntertedBy as EntertedById, EnteredOn,EntryComments, " +
+                    "ApprovalFwdTo,(SELECT FirstName + ' ' AS LASTNAME FROM  dbo.UserMaster WHERE LoginId =  I.ApprovalFwdTo) AS ApprovalBy,I.ApprovalFwdTo, ApprovalOn, ApprovalComments,  " +
+                    "VerificationFwdTo,(SELECT FirstName + ' ' AS LASTNAME FROM  dbo.UserMaster WHERE LoginId =  I.VerificationFwdTo) AS VerifiedBy,VerficationOn, VerificationComments,  " +
+                    "PaidFwdTo,(SELECT FirstName + ' ' AS LASTNAME FROM  dbo.UserMaster WHERE LoginId =  I.PaidFwdTo) AS PaidBY, PaidOn,PaidComments, Stage, Status  " +
+                    "FROM POS_Invoice_AdvancePayment I WHERE AdvPaymentId =" + AdvPaymentId;
+        DataTable dtStages = Common.Execute_Procedures_Select_ByQuery(Sql);
+
+        lblEnteredBy.Text = dtStages.Rows[0]["EnteredBy"].ToString();
+        lblEnteredOn.Text = Common.ToDateString(dtStages.Rows[0]["EnteredOn"]);
+        lblEntryComments.Text = dtStages.Rows[0]["EntryComments"].ToString();
+
+        lblProcessingTo.Text = dtStages.Rows[0]["ApprovalBy"].ToString();
+        lblProcessingOn.Text = Common.ToDateString(dtStages.Rows[0]["ApprovalOn"]);
+        lblProcessingComments.Text = dtStages.Rows[0]["ApprovalComments"].ToString();
+
+        lblPaymentBy.Text = dtStages.Rows[0]["PaidBY"].ToString();
+        lblPaymentOn.Text = Common.ToDateString(dtStages.Rows[0]["PaidOn"]);
+        lblPaymentComments.Text = dtStages.Rows[0]["PaidComments"].ToString();
+
+        int EntryMode = 0;
+        int ProcessingMode = 0;
+        int Approval1Mode = 0;
+        int Approval2Mode = 0;
+        //int Approval3Mode = 0;
+        //int Approval4Mode = 0;
+        int ApprovalFinalMode = 0;
+        int PaymentMode = 0;
+
+        // 0: DO NOT WORRY
+        // 1: STAGE - NOR REQUIRED 
+        // 2: DONE
+        // 3: PENDING
+
+        DataTable dt = Common.Execute_Procedures_Select_ByQuery("SELECT * FROM DBO.POS_INVOICE_APPROVALS WHERE INVOICEID=" + InvoiceId);
+
+        EntryMode = 2;
+
+        ProcessingMode = (Convert.IsDBNull(dtStages.Rows[0]["ApprovalFwdTo"])) ? 0 : ((Convert.IsDBNull(dtStages.Rows[0]["ApprovalOn"])) ? 3 : 2);
+
+        if (ProcessingMode == 2)
+        {
+            Approval1Mode = getStageMode(dt, 1);
+            Approval2Mode = getStageMode(dt, 2);
+            //Approval3Mode = getStageMode(dt, 3);
+            //Approval4Mode = getStageMode(dt, 4);
+
+            ApprovalFinalMode = (Convert.IsDBNull(dtStages.Rows[0]["VerficationOn"])) ? 3 : 2;
+
+            if (ApprovalFinalMode == 2)
+            {
+                PaymentMode = (Status == "P") ? 2 : 3;
+            }
+        }
+
+        setImageUrl(imgEntry, EntryMode);
+        setImageUrl(imgProcessing, ProcessingMode);
+
+        setImageUrl(imgApproval1, Approval1Mode);
+        setStageByOn(dt, 1, lblApproval1By, lblApproval1On, lblApproval1Comments);
+        setImageUrl(imgApproval2, Approval2Mode);
+        setStageByOn(dt, 2, lblApproval2By, lblApproval2On, lblApproval2Comments);
+        //setImageUrl(imgApproval3, Approval3Mode);
+        //setStageByOn(dt, 3, lblApproval3By, lblApproval3On, lblApproval3Comments);
+        //setImageUrl(imgApproval4, Approval4Mode);
+        //setStageByOn(dt, 4, lblApproval4By, lblApproval4On, lblApproval4Comments);
+
+        setImageUrl(imgPayment, PaymentMode);
+    }
+    protected void btnUpdateUserClick(object sender, EventArgs e)
+    {
+        dvUpdateUser.Visible = true;
+        int Mode = Common.CastAsInt32(((ImageButton)sender).CommandArgument);
+        ViewState["UpdateUserMode"] = Mode;
+        switch (Mode)
+        {
+            case 1: // Entry
+                break;
+            case 2: // Processing
+                string SQL = "select (FirstName + ' ' + LastName ) AS UserName, LoginId from dbo.usermaster where statusId='A' Order By UserName";
+                ddlNewUser.DataSource = Common.Execute_Procedures_Select_ByQuery(SQL);
+                break;
+            case 3: // Approval1
+                string SQL1 = "select (FirstName + ' ' + LastName ) AS UserName, LoginId from dbo.usermaster where loginid in (select userid from pos_invoice_mgmt where Approval=1) AND statusId='A' Order By UserName";
+                ddlNewUser.DataSource = Common.Execute_Procedures_Select_ByQuery(SQL1);
+                break;
+            case 4: // Approval2
+                string SQL2 = "select (FirstName + ' ' + LastName ) AS UserName, LoginId from dbo.usermaster where loginid in (select userid from pos_invoice_mgmt where Verification=1) AND statusId='A' Order By UserName";
+                ddlNewUser.DataSource = Common.Execute_Procedures_Select_ByQuery(SQL2);
+                break;
+            //case 5: // Approval3
+            //    string SQL3 = "SELECT FirstName + ' ' + MiddleName + ' ' + FamilyName AS UserName,USERID as LoginId FROM DBO.Hr_PersonalDetails WHERE DRC IS NULL AND POSITION IN(4,89)";
+            //    ddlNewUser.DataSource = Common.Execute_Procedures_Select_ByQuery(SQL3);
+             //   break;
+            //case 6: // Approval4
+            //    string SQL4 = "SELECT FirstName + ' ' + MiddleName + ' ' + FamilyName AS UserName,USERID as LoginId FROM DBO.Hr_PersonalDetails WHERE DRC IS NULL AND POSITION=1";
+            //    ddlNewUser.DataSource = Common.Execute_Procedures_Select_ByQuery(SQL4);
+            //    break;
+            case 7: // Payment
+                string SQL5 = "select (FirstName + ' ' + LastName ) AS UserName, LoginId from dbo.usermaster where loginid in (select userid from pos_invoice_mgmt where Payment=1) AND statusId='A' Order By UserName";
+                ddlNewUser.DataSource = Common.Execute_Procedures_Select_ByQuery(SQL5);
+                break;
+        }
+
+        ddlNewUser.DataValueField = "LoginId";
+        ddlNewUser.DataTextField = "UserName";
+        ddlNewUser.DataBind();
+        ddlNewUser.Items.Insert(0, new ListItem("< Select User >", ""));
+    }
+    protected void btnUpdateUserSave_Click(object sender, EventArgs e)
+    {
+        if (ddlNewUser.SelectedIndex <= 0)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "fafasf", "alert('Please select New User.');", true);
+            return;
+        }
+
+        switch (Common.CastAsInt32(ViewState["UpdateUserMode"]))
+        {
+            case 1: // Entry
+                break;
+            case 2: // Processing
+                string SQL = "UPDATE DBO.POS_Invoice_AdvancePayment SET ApprovalFwdTo=" + ddlNewUser.SelectedValue + " WHERE AdvPaymentId=" + AdvPaymentId;
+                Common.Execute_Procedures_Select_ByQuery(SQL);
+                break;
+            case 3: // Approval1
+                string SQL1 = "UPDATE DBO.POS_Invoice_Approvals SET AppUserId=" + ddlNewUser.SelectedValue + " WHERE AdvPaymentId=" + AdvPaymentId + " AND ApprovalLevel=1";
+                Common.Execute_Procedures_Select_ByQuery(SQL1);
+                break;
+            case 4: // Approval2
+                string SQL2 = "UPDATE DBO.POS_Invoice_Approvals SET AppUserId=" + ddlNewUser.SelectedValue + " WHERE AdvPaymentId=" + AdvPaymentId + " AND ApprovalLevel=2";
+                Common.Execute_Procedures_Select_ByQuery(SQL2);
+                break;
+            case 5: // Approval3
+                string SQL3 = "UPDATE DBO.POS_Invoice_Approvals SET AppUserId=" + ddlNewUser.SelectedValue + " WHERE AdvPaymentId=" + AdvPaymentId + " AND ApprovalLevel=3";
+                Common.Execute_Procedures_Select_ByQuery(SQL3);
+                break;
+            case 6: // Approval4
+                string SQL4 = "UPDATE DBO.POS_Invoice_Approvals SET AppUserId=" + ddlNewUser.SelectedValue + " WHERE AdvPaymentId=" + AdvPaymentId + " AND ApprovalLevel=4";
+                Common.Execute_Procedures_Select_ByQuery(SQL4);
+                break;
+            case 7: // Payment
+                string SQL5 = "UPDATE DBO.POS_Invoice_AdvancePayment SET PaidFwdTo=" + ddlNewUser.SelectedValue + " WHERE AdvPaymentId=" + AdvPaymentId;
+                Common.Execute_Procedures_Select_ByQuery(SQL5);
+                break;
+        }
+        ShowStageDetails();
+        dvUpdateUser.Visible = false;
+    }
+    protected void btnUpdateUserCancel_Click(object sender, EventArgs e)
+    {
+        dvUpdateUser.Visible = false;
+    }
+
+    protected void Button4_Click(object sender, EventArgs e)
+    {
+        divAppHistory.Visible = false;
+    }
+
+    protected void btnBackToInvProcess_Click(object sender, EventArgs e)
+    {
+        Common.Execute_Procedures_Select_ByQuery("UPDATE dbo.Pos_Invoice SET ApprovalOn=getdate(),Stage=1,StageComments='" + txt_AppRemarks.Text.Trim().Replace("'", "`") + "',ApprovalComments='" + txt_AppRemarks.Text.Trim().Replace("'", "`") + "' where InvoiceId=" + InvoiceId);
+        btnApprovalSave.Visible = false;
+        btnBackToInvProcess.Visible = false;
+        ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Invoice rejected successfully and pending with Invoice Processer.');", true);
+        
+    }
+
+    protected void lbkSendBacktoEntryStage_Click(object sender, EventArgs e)
+    {
+        Common.Execute_Procedures_Select_ByQuery("UPDATE dbo.Pos_Invoice SET ApprovalOn=getdate(),Stage=1,StageComments='Invoice send back to Entry Level by user.',ApprovalComments='" + txt_AppRemarks.Text.Trim().Replace("'", "`") + "' where InvoiceId=" + InvoiceId);
+        lbkSendBacktoEntryStage.Visible = false;
+        ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Invoice Send Back to Entry level successfully and pending with Invoice Processer.');Refresh();window.close();", true);
+    }
+
+    //protected void bindCurrencyddl()
+    //{
+    //    DataTable dt = Common.Execute_Procedures_Select_ByQuery("SELECT Curr FROM [dbo].[VW_tblWebCurr]");
+    //    this.ddCurrency.DataValueField = "Curr";
+    //    this.ddCurrency.DataTextField = "Curr";
+    //    this.ddCurrency.DataSource = dt;
+    //    this.ddCurrency.DataBind();
+    //    ddCurrency.Items.Insert(0, new ListItem("< Select Currency >", "0"));
+    //}
+
+   
+
+    
+   
+
+  
+
+    
+
+}

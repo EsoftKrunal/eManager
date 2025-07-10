@@ -1,0 +1,107 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <SCM_Master>
+    <VesselCode>LIG</VesselCode>
+    <SDate>2015-04-15T00:00:00+05:30</SDate>
+    <ShipPosFrom>Mumbai</ShipPosFrom>
+    <ShipPosTo>singa</ShipPosTo>
+    <CommTime>01:03</CommTime>
+    <CompTime>07:06</CompTime>
+    <Ocassion>N</Ocassion>
+    <ShipPosition>S</ShipPosition>
+    <Str_MinOfPrevSaFeCom>true</Str_MinOfPrevSaFeCom>
+    <Str_AbsPrevSageCom>true</Str_AbsPrevSageCom>
+    <Str_OffCommPrevSafeCom>true</Str_OffCommPrevSafeCom>
+    <Sef_AvailableOnBoard />
+    <Sef_AccidentNarMiss />
+    <Sef_ReviewOfMooring />
+    <Sef_CrewNotFamilierWithAll />
+    <Sef_BestPractice />
+    <Hel_ReviewHelth />
+    <Hel_BestPractice />
+    <Sec_ReviewAnyImmediateSecurity />
+    <Sec_BestPractices />
+    <Qul_ReviewOfRegulatory />
+    <Qul_ReviewOfQuality />
+    <Qul_KPI />
+    <Qul_CrewWelfare />
+    <Qul_BestPractices />
+    <Env_EnvironmentalKPIs />
+    <Env_BestPractices />
+    <AnyOtherIssues />
+    <OUTSTANDINGITEMS />
+    <ReceviedOn>2015-04-15T16:48:00+05:30</ReceviedOn>
+    <ReportsPK>2</ReportsPK>
+    <BestPractice />
+  </SCM_Master>
+  <SCM_RANKDETAILS>
+    <RankName>MASTER</RankName>
+    <Name>Alison John SIERRA</Name>
+    <Remarks>Chairman</Remarks>
+    <Absent>0</Absent>
+    <ReportsPK>2</ReportsPK>
+    <VesselCode>LIG</VesselCode>
+  </SCM_RANKDETAILS>
+  <SCM_RANKDETAILS>
+    <RankName>Chief Officer</RankName>
+    <Name>ALBINO BANDIOLA</Name>
+    <Remarks>Safety Officer</Remarks>
+    <Absent>0</Absent>
+    <ReportsPK>2</ReportsPK>
+    <VesselCode>LIG</VesselCode>
+  </SCM_RANKDETAILS>
+  <SCM_RANKDETAILS>
+    <RankName>Second Officer</RankName>
+    <Name>JIMMY QUERIMIT</Name>
+    <Remarks>Committee Member</Remarks>
+    <Absent>0</Absent>
+    <ReportsPK>2</ReportsPK>
+    <VesselCode>LIG</VesselCode>
+  </SCM_RANKDETAILS>
+  <SCM_RANKDETAILS>
+    <RankName>Third Officer</RankName>
+    <Name>EDUARDO JAYAG</Name>
+    <Remarks>Elected Rep.(Officer)</Remarks>
+    <Absent>0</Absent>
+    <ReportsPK>2</ReportsPK>
+    <VesselCode>LIG</VesselCode>
+  </SCM_RANKDETAILS>
+  <SCM_RANKDETAILS>
+    <RankName>JUNIOR OFFICER</RankName>
+    <Name>MICHAEL ABE</Name>
+    <Remarks>Elected Rep.(Rating)</Remarks>
+    <Absent>0</Absent>
+    <ReportsPK>2</ReportsPK>
+    <VesselCode>LIG</VesselCode>
+  </SCM_RANKDETAILS>
+  <SCM_RANKDETAILS>
+    <RankName>Deck Cadet</RankName>
+    <Name>PANKAJ KUMAR</Name>
+    <Remarks />
+    <Absent>1</Absent>
+    <ReportsPK>2</ReportsPK>
+    <VesselCode>LIG</VesselCode>
+  </SCM_RANKDETAILS>
+  <SCM_RANKDETAILS>
+    <RankName>ADDITIONAL C/ENG</RankName>
+    <Name>NOEL CAMAONGAY</Name>
+    <Remarks />
+    <Absent>1</Absent>
+    <ReportsPK>2</ReportsPK>
+    <VesselCode>LIG</VesselCode>
+  </SCM_RANKDETAILS>
+  <SCM_NCRDETAILS>
+    <NUMBER>LIG/2014/G118-004</NUMBER>
+    <CDATE>2015-01-02T00:00:00+05:30</CDATE>
+    <REMARKS>xxxxxxxxxxxxxxxxxxxxxxxxxxxx    Edited</REMARKS>
+    <ReportsPK>2</ReportsPK>
+    <VesselCode>LIG</VesselCode>
+  </SCM_NCRDETAILS>
+  <SCM_NCRDETAILS>
+    <NUMBER>LIG/2015/G118-001</NUMBER>
+    <CDATE>2014-12-30T00:00:00+05:30</CDATE>
+    <REMARKS>yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy Edited</REMARKS>
+    <ReportsPK>2</ReportsPK>
+    <VesselCode>LIG</VesselCode>
+  </SCM_NCRDETAILS>
+</NewDataSet>

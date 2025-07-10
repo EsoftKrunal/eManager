@@ -1,0 +1,192 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="CrewAccounts.master.cs" Inherits="Crew_Accounts" %>
+<%@ Register TagName="menu" Src="~/Modules/HRD/UserControls/ModuleMenu.ascx" TagPrefix="mtm"  %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>Untitled Page</title>
+    <link href="Styles/style.css" rel="stylesheet" type="text/css" />
+    <link href="Styles/sddm.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="Styles/StyleSheet.css" />
+<script type="text/javascript">
+// Free for any type of use so long as original notice remains unchanged.
+// Report errors to feedback@ashishware.com
+//Copyrights 2006, Ashish Patil , ashishware.com
+//////////////////////////////////////////////////////////////////////////
+
+function ToolTip(id,isAnimated,aniSpeed)
+{ var isInit = -1;
+  var div,divWidth,divHeight;
+  var xincr=10,yincr=10;
+  var animateToolTip =false;
+  var html;
+  
+  function Init(id)
+  {
+   div = document.getElementById(id);
+   if(div==null) return;
+   
+   if((div.style.width=="" || div.style.height==""))
+   {alert("Both width and height must be set");
+   return;}
+   
+   divWidth = parseInt(div.style.width);
+   divHeight= parseInt(div.style.height);
+   if(div.style.overflow!="hidden")div.style.overflow="hidden";
+   if(div.style.display!="none")div.style.display="none";
+   if(div.style.position!="absolute")div.style.position="absolute";
+   
+   if(isAnimated && aniSpeed>0)
+   {xincr = parseInt(divWidth/aniSpeed);
+    yincr = parseInt(divHeight/aniSpeed);
+    animateToolTip = true;
+    }
+        
+   isInit++; 
+   
+  }
+  
+    
+  this.Show =  function(e,strHTML)
+  {
+    if(isInit<0) return;
+    
+    var newPosx,newPosy,height,width;
+    if(typeof( document.documentElement.clientWidth ) == 'number' ){
+    width = document.body.clientWidth;
+    height = document.body.clientHeight;}
+    else
+    {
+    width = parseInt(window.innerWidth);
+    height = parseInt(window.innerHeight);
+    
+    }
+    var curPosx = (e.x)?parseInt(e.x):parseInt(e.clientX);
+    var curPosy = (e.y)?parseInt(e.y):parseInt(e.clientY);
+    
+    if(strHTML!=null)
+    {html = strHTML;
+     div.innerHTML=html;}
+    
+    if((curPosx+divWidth+10)< width)
+    newPosx= curPosx+10;
+    else
+    newPosx = curPosx-divWidth;
+
+    if((curPosy+divHeight)< height)
+    newPosy= curPosy;
+    else
+    newPosy = curPosy-divHeight-10;
+
+   if(window.pageYOffset)
+   { newPosy= newPosy+ window.pageYOffset;
+     newPosx = newPosx + window.pageXOffset;}
+   else
+   { newPosy= newPosy+ document.body.scrollTop;
+     newPosx = newPosx + document.body.scrollLeft;}
+
+    div.style.display='block';
+    //debugger;
+    //alert(document.body.scrollTop);
+    div.style.top= newPosy + "px";
+    div.style.left= newPosx+ "px";
+
+    div.focus();
+    if(animateToolTip){
+    div.style.height= "0px";
+    div.style.width= "0px";
+    ToolTip.animate(div.id,divHeight,divWidth);}
+      
+    
+    }
+
+    
+
+   this.Hide= function(e)
+    {div.style.display='none';
+    if(!animateToolTip)return;
+    div.style.height= "0px";
+    div.style.width= "0px";}
+    
+   this.SetHTML = function(strHTML)
+   {html = strHTML;
+    div.innerHTML=html;} 
+    
+    ToolTip.animate = function(a,iHeight,iWidth)
+  { a = document.getElementById(a);
+         
+   var i = parseInt(a.style.width)+xincr ;
+   var j = parseInt(a.style.height)+yincr;  
+   
+   if(i <= iWidth)
+   {a.style.width = i+"px";}
+   else
+   {a.style.width = iWidth+"px";}
+   
+   if(j <= iHeight)
+   {a.style.height = j+"px";}
+   else
+   {a.style.height = iHeight+"px";}
+   
+   if(!((i > iWidth) && (j > iHeight)))      
+   setTimeout( "ToolTip.animate('"+a.id+"',"+iHeight+","+iWidth+")",1);
+    }
+    
+   Init(id);
+}
+//--------------------------
+var t1=null;
+var l1="Tooltip for line one";
+var l2="Tooltip for line two";
+function init()
+{
+ t1 = new ToolTip("a",false);
+}
+</script>
+</head>
+<body onload="init()">
+<div id="a" style="background-color:ivory; border:solid 1px black;width:184px;height:84px;text-align: left; padding-left:3px; display:none ">
+</div>
+    <form id="form1" runat="server">
+    <div style="text-align: center">
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <table style="width :100%" cellpadding="0" cellspacing="0">
+        <tr>
+        <td style="width:150px; text-align :left; vertical-align : top;">
+            <mtm:menu runat="server" ID="menu2" />  
+        </td>
+        <td style=" text-align :left; vertical-align : top;" >
+        <table style="width:100%; background-color: #f9f9f9; border-collapse:collapse " border="1" bordercolor="#4371a5" >
+            <tr>
+                <td style="background-color:#4371a5; height: 22px; text-align:center" class="text" >
+                <img runat="server" id="imgHelp" moduleid="3" style ="cursor:pointer;float :right; padding-right :5px;" src="images/help.png" alt="Help ?"/> 
+                Crew Accounts <%=Session["PageName"] %></td>
+            </tr>
+            <tr>
+                <td style=" background-color: #f9f9f9; height:178px; vertical-align:top; text-align:center;" >
+                    <div style=" text-align:left">
+                        <asp:Menu ID="Menu1" runat="server" Visible="false"  meta:resourcekey="Menu1Resource1" Orientation="Horizontal" StaticEnableDefaultPopOutImage="False" Width="313px">
+                                <Items>
+                            <%--    <asp:MenuItem ImageUrl="~/Modules/HRD/Images/gifs/wagemaster.jpg" meta:resourcekey="MenuItemResource3" NavigateUrl="~/Registers/WageScaleMasterNew.aspx"
+                                Text=" " Value="4"></asp:MenuItem>--%>
+                                 <asp:MenuItem ImageUrl="~/Modules/HRD/Images/gifs/portragebill.jpg" NavigateUrl="~/CrewAccounting/payroll.aspx" meta:resourcekey="MenuItemResource1"
+                                Text=" " Value="0"></asp:MenuItem>
+                                    <asp:MenuItem ImageUrl="~/Modules/HRD/Images/gifs/wagepayment.jpg" NavigateUrl="~/CrewAccounting/wagepayment.aspx" meta:resourcekey="MenuItemResource2"
+                                Text=" " Value="1"></asp:MenuItem>
+                                    <asp:MenuItem ImageUrl="~/Modules/HRD/Images/gifs/calcarrear.jpg" NavigateUrl="~/CrewAccounting/Arrier.aspx" meta:resourcekey="MenuItemResource3" 
+                                Text=" " Value="2"></asp:MenuItem>
+                                    <asp:MenuItem ImageUrl="~/Modules/HRD/Images/gifs/impded.jpg" meta:resourcekey="MenuItemResource3" NavigateUrl="~/CrewAccounting/UploadXLSFiles.aspx"
+                                Text=" " Value="3"></asp:MenuItem>
+                                    </Items>
+                            </asp:Menu>
+                   <asp:ContentPlaceHolder ID="contentPlaceHolder1" runat="Server" ></asp:ContentPlaceHolder>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        </td>
+        </tr>
+      </table>
+    </div>
+    </form>
+</body>
+</html>

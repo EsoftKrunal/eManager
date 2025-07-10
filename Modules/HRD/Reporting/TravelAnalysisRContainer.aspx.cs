@@ -1,0 +1,54 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using CrystalDecisions.CrystalReports.Engine;
+using System.IO;
+using System.Drawing.Imaging;
+using System.Drawing;
+using ShipSoft.CrewManager.Operational;
+
+public partial class Reporting_TravelAnalysisRContainer : System.Web.UI.Page
+{
+    int crewid = 0;
+    int selindex = 0;
+    CrystalDecisions.CrystalReports.Engine.ReportDocument rpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        //-----------------------------
+        SessionManager.SessionCheck_New();
+        //-----------------------------
+        CrystalReportViewer1.HasPrintButton = Alerts.Check_ReportPrintingAuthority(Convert.ToInt32(Session["loginid"].ToString()), 178);
+        string header;
+        DataSet ds = new DataSet();
+        this.CrystalReportViewer1.Visible = true;
+        CrystalReportViewer1.ReportSource = rpt;
+        rpt.Load(Server.MapPath("TravelAnalysisReport.rpt"));
+        ds = Budget.getTable("exec dbo.TravelAnalysisReport " + Request.QueryString["vid"] + "," + Request.QueryString["month"] + "," + Request.QueryString["year"] + "," + Request.QueryString["vendor"]);
+        rpt.SetDataSource(ds.Tables[0]);
+        DataTable dt1 = PrintCrewList.selectCompanyDetails();
+        foreach (DataRow dr in dt1.Rows)
+        {
+            rpt.SetParameterValue("@Company", dr["CompanyName"].ToString());
+        }
+        string sheader = "Travel Analysis Report for " + " Vessel : " + Request.QueryString["vname"].Substring(0, 3) + ", Month & Year :" + Request.QueryString["monthname"] + "-" + Request.QueryString["yearname"];
+        if (Request.QueryString["vendor"] !="0")
+        {
+            sheader = sheader + " Vendor :" + Request.QueryString["vendorname"];
+        }
+
+        rpt.SetParameterValue("@HeaderText", sheader);
+    }
+
+    protected void Page_Unload(object sender, EventArgs e)
+    {
+        rpt.Close();
+        rpt.Dispose();
+    }
+}

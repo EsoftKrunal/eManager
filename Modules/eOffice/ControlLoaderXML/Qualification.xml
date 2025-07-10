@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<QualificationData>
+  <Qualification>
+    <QualificationID>High</QualificationID>
+    <QualificationName>HighSchool</QualificationName>
+  </Qualification>
+  <Qualification>
+    <QualificationID>Inter</QualificationID>
+    <QualificationName>Intermediate</QualificationName>
+  </Qualification>
+  <Qualification>
+    <QualificationID>Matric</QualificationID>
+    <QualificationName>Matriculation</QualificationName>
+  </Qualification>
+  <Qualification>
+    <QualificationID>Post</QualificationID>
+    <QualificationName>PostGraduate</QualificationName>
+  </Qualification>
+</QualificationData>

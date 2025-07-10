@@ -1,0 +1,64 @@
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using System.Collections;
+using System.ComponentModel;
+using System.Configuration;
+using System.Web;
+using System.Web.SessionState;
+using System.Web.UI;
+using System.Web.Security;
+using System.Data.Common;
+using System.Transactions;
+using System.Web.UI.WebControls;
+using ShipSoft.CrewManager.BusinessObjects;
+using ShipSoft.CrewManager.BusinessLogicLayer;
+using ShipSoft.CrewManager.Operational;
+using Microsoft.Practices.EnterpriseLibrary.Data;
+using System.IO;
+public partial class PositionReport_PR1 : System.Web.UI.Page
+{
+    public string CurrentVessel
+    {
+        get { return ViewState["CurrentVessel"].ToString(); }
+        set { ViewState["CurrentVessel"] = value; }
+    }
+    public string VslName
+    {
+        get { return ViewState["_VslName"].ToString(); }
+        set { ViewState["_VslName"] = value; }
+    }
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        CurrentVessel = Page.Request.QueryString["CurrentShip"].ToString();
+        VslName = Page.Request.QueryString["VslName"].ToString();
+
+        VesselPositionReporting mp = (VesselPositionReporting)this.Master;
+        mp.ShowMenu = false;
+        mp.ShowHeaderbar = false;
+
+        if (!Page.IsPostBack)
+            iframePR.Attributes.Add("src", "PositionReport_Popup.aspx?CurrentShip=" + CurrentVessel + "&VslName=" + VslName);
+    }
+    protected void menu_click(object sender, EventArgs e)
+    {
+        btnPR_New.CssClass = "btn1";
+        btnPR_Old.CssClass = "btn1";
+        Button btn = (Button)sender;
+        if (btn.CommandArgument == "1")
+        {
+            btnPR_New.CssClass = "btn1-sel";
+            //PositionReport_Popup.aspx? CurrentShip =<%# Eval("VESSELCODE") %>&VslName=<%# Eval("VesselName")%>"
+            iframePR.Attributes.Add("src", "PositionReport_Popup.aspx?CurrentShip="+ CurrentVessel+ "&VslName="+ VslName);
+            
+        }
+        else if (btn.CommandArgument == "2")
+        {
+            btnPR_Old.CssClass = "btn1-sel";
+            iframePR.Attributes.Add("src", "VPR_EEOI.aspx?CurrentShip="+ CurrentVessel + "&VessleName="+ VslName);
+        }
+
+    }
+
+
+}

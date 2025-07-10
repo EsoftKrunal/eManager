@@ -1,0 +1,177 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using System.IO;
+using System.Configuration;
+
+public partial class Modules_Purchase_Invoice_InventoryEntry : System.Web.UI.Page
+{
+    public DataTable PoNos
+    {
+        set
+        { ViewState["PoNos"] = value; }
+        get
+        {
+            if (ViewState["PoNos"] == null)
+            {
+                DataTable dt = new DataTable();
+                dt.Columns.Add(new DataColumn("PONO", typeof(string)));
+                dt.Columns.Add(new DataColumn("BIDID", typeof(string)));
+                ViewState["PoNos"] = dt;
+            }
+
+            return (DataTable)ViewState["PoNos"];
+        }
+    }
+
+    public int InventoryId
+    {
+        get { return Convert.ToInt32(ViewState["InventoryId"]); }
+        set { ViewState["InventoryId"] = value; }
+    }
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        //---------------------------------------
+        ProjectCommon.SessionCheck();
+        //---------------------------------------
+        if (!Page.IsPostBack)
+        {
+            bindVesselNameddl();
+            BindDepartment();
+
+        }
+        
+    }
+
+    protected void bindVesselNameddl()
+    {
+        string sql = "SELECT shipid,shipid + ' - ' + SHIPNAME AS SHIPNAME from VW_ACTIVEVESSELS  where VesselNo in (Select VesselId from UserVesselRelation with(nolock) where Loginid = " + Convert.ToInt32(Session["loginid"].ToString()) + ")  ORDER BY SHIPNAME";
+        DataTable dt = Common.Execute_Procedures_Select_ByQuery(sql);
+        ddl_Vessel.DataSource = dt;
+        ddl_Vessel.DataValueField = "shipid";
+        ddl_Vessel.DataTextField = "SHIPNAME";
+        ddl_Vessel.DataBind();
+        ddl_Vessel.Items.Insert(0, new ListItem("< Select Vessel >", "0"));
+    }
+
+    protected void BindDepartment()
+    {
+        //string sql = "select dept,deptname from  VW_sql_tblSMDPRDept";
+        string sql = "Select mid.MidCatID,mid.MidCat from tblAccountsMid mid with(nolock) Inner join sql_tblSMDPRAccounts acc with(nolock) on mid.MidCatID = acc.MidCatID \r\nwhere  acc.Active = 'Y'  Group by mid.MidCatID,mid.MidCat  order by Midcat asc";
+        Common.Set_Procedures("ExecQuery");
+        Common.Set_ParameterLength(1);
+        Common.Set_Parameters(new MyParameter("@Query", sql));
+        DataSet dsPrType = new DataSet();
+        dsPrType.Clear();
+        dsPrType = Common.Execute_Procedures_Select();
+
+        ddldepartment.DataSource = dsPrType;
+        //ddldepartment.DataTextField = "deptname";
+        //ddldepartment.DataValueField = "dept";
+        ddldepartment.DataTextField = "MidCat";
+        ddldepartment.DataValueField = "MidCatID";
+        ddldepartment.DataBind();
+        ddldepartment.Items.Insert(0, new ListItem("<Select>", "0"));
+        ddldepartment.SelectedIndex = 0;
+    }
+
+    protected void BindAccount()
+    {
+
+        string sql = "select * from (select (select convert(varchar, AccountNumber)+'-'+AccountName from VW_sql_tblSMDPRAccounts PA where DA.AccountID=PA.AccountID ) AccountNumber  ,(select AccountName from  VW_sql_tblSMDPRAccounts PA where DA.AccountID=PA.AccountID ) AccountName  ,AccountID from VW_sql_tblSMDPRAccounts DA where DA.MidCatID='" + ddldepartment.SelectedValue + "') dd where AccountNumber is not null";
+        Common.Set_Procedures("ExecQuery");
+        Common.Set_ParameterLength(1);
+        Common.Set_Parameters(new MyParameter("@Query", sql));
+        DataSet dsPrType = new DataSet();
+        dsPrType.Clear();
+        dsPrType = Common.Execute_Procedures_Select();
+
+        ddlAccount.DataSource = dsPrType;
+        ddlAccount.DataTextField = "AccountNumber";
+        ddlAccount.DataValueField = "AccountID";
+        ddlAccount.DataBind();
+        ddlAccount.Items.Insert(0, new ListItem("<Select>", "0"));
+        ddlAccount.SelectedIndex = 0;
+
+
+    }
+
+    protected void BindPOAccount()
+    { string sql = "select * from (select (select convert(varchar, AccountNumber)+'-'+AccountName from VW_sql_tblSMDPRAccounts PA where DA.AccountID=PA.AccountID ) AccountNumber  , AccountID from VW_sql_tblSMDPRAccounts DA) dd where AccountNumber is not null";
+        Common.Set_Procedures("ExecQuery");
+        Common.Set_ParameterLength(1);
+        Common.Set_Parameters(new MyParameter("@Query", sql));
+        DataSet dsPrType = new DataSet();
+        dsPrType.Clear();
+        dsPrType = Common.Execute_Procedures_Select();
+
+        ddlAccount.DataSource = dsPrType;
+        ddlAccount.DataTextField = "AccountNumber";
+        ddlAccount.DataValueField = "AccountID";
+        ddlAccount.DataBind();
+        ddlAccount.Items.Insert(0, new ListItem("<Select>", "0"));
+        ddlAccount.SelectedIndex = 0;
+    }
+
+    protected void btnAddPO_Click(object sender, EventArgs e)
+    {
+
+        if (txtPoNo.Text.Trim() != "")
+        {
+            string povsl = txtPoNo.Text.Substring(0, 3);
+            if (Common.CastAsInt32(povsl) == 0)
+            {
+                if (ddl_Vessel.SelectedItem.Text.Substring(0, 3) != povsl)
+                {
+                    lbl_inv_Message.Text = "PO vessel not matching with Inventory vessel.";
+                    txtPoNo.Focus();
+                    return;
+                }
+            }
+
+            if (PoNos.Select("PONO='" + txtPoNo.Text.Trim() + "'").Length <= 0)
+            {
+                int BidId = Common.CastAsInt32(hfdbidid.Value);
+
+                if (BidId <= 0)
+                {
+                    lbl_inv_Message.Text = "Invalid PO#.";
+                    txtPoNo.Focus();
+                    return;
+                }
+                PoNos.Rows.Add(PoNos.NewRow());
+                PoNos.Rows[PoNos.Rows.Count - 1]["PONO"] = txtPoNo.Text;
+                PoNos.Rows[PoNos.Rows.Count - 1]["BIDID"] = BidId.ToString();
+
+                txtPoNo.Text = "";
+                hfdbidid.Value = "0";
+                BindPoList();
+                ddl_Vessel.Enabled = false;
+            }
+        }
+    }
+    public void BindPoList()
+    {
+        rptPo.DataSource = PoNos;
+        rptPo.DataBind();
+    }
+    protected void btnPO_delete_Click(object sender, EventArgs e)
+    {
+        int BIDID = Common.CastAsInt32(((ImageButton)sender).CommandArgument);
+        DataRow[] drs = PoNos.Select("BIDID='" + BIDID + "'");
+        foreach (DataRow dr in drs)
+        {
+            PoNos.Rows.Remove(dr);
+        }
+
+        if (PoNos.Rows.Count == 0)
+            ddl_Vessel.Enabled = true;
+
+        BindPoList();
+
+    }
+}

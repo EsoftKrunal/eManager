@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Vesseldetails>
+  <Vessel>
+    <srno>1</srno>
+    <vesselname>vessel1</vesselname>
+    <designation>vessel Engineer</designation>
+    <fromdate>01-jan-1980</fromdate>
+    <todate>30-Dec-1980</todate>
+  </Vessel>
+  <Vessel>
+    <srno>2</srno>
+    <vesselname>vessel2</vesselname>
+    <designation>vessel staff</designation>
+    <fromdate>01-mar-1981</fromdate>
+    <todate>01-Dec-1981</todate>
+  </Vessel>
+  <Vessel>
+    <srno>3</srno>
+    <vesselname>vessel3</vesselname>
+    <designation>vessel support</designation>
+    <fromdate>01-mar-1982</fromdate>
+    <todate>01-Dec-1982</todate>
+  </Vessel>
+</Vesseldetails>
+

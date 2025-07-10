@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\ShipSoft.CrewManager.BusinessObjects",
+    "\\ShipSoft.CrewManager.DataAccessLayer",
+    "\\ShipSoft.CrewManager.DataAccessLayer\\Select",
+    "\\ShipSoft.CrewManager.Operational",
+    "\\ShipSoft.CrewManager.Operational\\bin"
+  ],
+  "SelectedNode": "\\ShipSoft.CrewManager.BusinessObjects\\CrewSearch.cs",
+  "PreviewInSolutionExplorer": false
+}
